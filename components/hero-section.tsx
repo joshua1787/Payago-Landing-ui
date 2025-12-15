@@ -173,25 +173,46 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto px-6 lg:px-8 py-20 lg:py-32">
         <div className="text-center">
-          {/* Logo */}
-          <div className="inline-flex items-center gap-3 mb-12 animate-fade-up" style={{ animationDelay: "0.1s" }}>
-            <img src="/payago-symbol.png" alt="Payago" className="w-16 h-16 object-contain rounded-2xl" />
-            <span className="text-2xl font-semibold tracking-tight text-foreground">Payago</span>
-          </div>
+          {/* Futuristic Floating HUD Capsule */}
+          <div className="group relative inline-flex items-center gap-4 p-2 pr-6 rounded-full bg-black/40 backdrop-blur-2xl border border-white/5 ring-1 ring-white/10 shadow-[0_0_30px_-5px_rgba(0,0,0,0.5)] mb-16 animate-fade-up hover:border-white/20 transition-all duration-500 hover:shadow-[0_0_30px_-5px_rgba(0,212,255,0.15)]" style={{ animationDelay: "0.1s" }}>
 
-          {/* Launching Soon Badge with typing effect */}
-          <div
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full glass border-[#00D4FF]/20 mb-10 animate-fade-up"
-            style={{ animationDelay: "0.2s" }}
-          >
-            <Sparkles className="w-4 h-4 text-[#00D4FF]" />
-            <span className="text-sm font-medium text-[#00D4FF]">
-              Launching Soon
-              <span
-                className="inline-block w-[2px] h-4 bg-[#00D4FF] ml-1 align-middle"
-                style={{ animation: "typing 1s infinite" }}
+            {/* Ambient Glow behind capsule */}
+            <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-[#00D4FF]/50 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-x-4 bottom-0 h-px bg-gradient-to-r from-transparent via-[#7C5CFF]/30 to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-500" />
+
+            {/* Logo with holographic effect */}
+            <div className="relative w-12 h-12 rounded-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-white/5 to-white/0 border border-white/10 group-hover:border-[#00D4FF]/30 transition-colors duration-500">
+              <div className="absolute inset-0 bg-[#00D4FF]/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <img
+                src="/payago-symbol.png"
+                alt="Payago"
+                className="w-10 h-10 object-contain p-1 relative z-10 drop-shadow-[0_0_8px_rgba(0,212,255,0.3)]"
               />
-            </span>
+            </div>
+
+            <div className="flex flex-col items-start gap-0.5">
+              {/* Brand Text - Futuristic Typography */}
+              <span className="text-xl font-bold tracking-wide text-white drop-shadow-md font-sans">
+                PAYAGO
+              </span>
+              <span className="text-[10px] uppercase tracking-[0.2em] text-[#00D4FF] font-mono opacity-80 group-hover:opacity-100 transition-opacity">
+                Intelligence Node
+              </span>
+            </div>
+
+            {/* Vertical Separator */}
+            <div className="w-px h-8 bg-gradient-to-b from-transparent via-white/10 to-transparent mx-2" />
+
+            {/* Status Indicator */}
+            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/5 group-hover:bg-white/10 transition-colors duration-300">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4AD7A2] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#4AD7A2]"></span>
+              </span>
+              <span className="text-xs font-medium text-muted-foreground group-hover:text-white transition-colors duration-300">
+                System Launching
+              </span>
+            </div>
           </div>
 
           {/* Headline with cycling gradient keyword */}
