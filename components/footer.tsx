@@ -12,9 +12,7 @@ export function Footer() {
         <div className="flex flex-col items-center text-center gap-8">
           {/* Brand */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#00D4FF] via-[#7C5CFF] to-[#4AD7A2] flex items-center justify-center shadow-lg shadow-[#00D4FF]/20">
-              <span className="text-[#04060A] font-bold text-lg">P</span>
-            </div>
+            <img src="/payago-symbol.png" alt="Payago" className="w-10 h-10 object-contain rounded-xl" />
             <span className="text-xl font-semibold text-foreground">Payago</span>
           </div>
 

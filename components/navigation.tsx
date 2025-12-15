@@ -28,9 +28,7 @@ export function Navigation() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center transition-transform group-hover:scale-105">
-              <span className="text-primary-foreground font-semibold text-sm">P</span>
-            </div>
+            <img src="/payago-symbol.png" alt="Payago" className="w-8 h-8 object-contain transition-transform group-hover:scale-105 rounded-lg" />
             <span className="text-xl font-semibold tracking-tight text-foreground">Payago</span>
           </a>
 

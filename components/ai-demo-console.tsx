@@ -61,7 +61,11 @@ export function AIDemoConsole() {
                                 <div className={`absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-0'}`} />
 
                                 {/* Brain Icon / Central Symbol */}
-                                <Brain className={`w-24 h-24 text-accent transition-all duration-700 ${isActive ? 'drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] scale-110' : 'text-white/20'}`} strokeWidth={1} />
+                <img 
+                  src="/placeholder-logo.svg" 
+                  alt="Payago Core" 
+                  className={`w-24 h-24 object-contain transition-all duration-700 ${isActive ? 'drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] scale-110' : 'opacity-20 grayscale'}`} 
+                />
                             </div>
 
                             {/* Orbiting Particles (CSS Animation usually needed, simulating with divs) */}

@@ -175,9 +175,7 @@ export function HeroSection() {
         <div className="text-center">
           {/* Logo */}
           <div className="inline-flex items-center gap-3 mb-12 animate-fade-up" style={{ animationDelay: "0.1s" }}>
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00D4FF] via-[#7C5CFF] to-[#4AD7A2] flex items-center justify-center shadow-lg shadow-[#00D4FF]/30 animate-border-glow">
-              <span className="text-[#04060A] font-bold text-xl">P</span>
-            </div>
+            <img src="/payago-symbol.png" alt="Payago" className="w-16 h-16 object-contain rounded-2xl" />
             <span className="text-2xl font-semibold tracking-tight text-foreground">Payago</span>
           </div>
 
