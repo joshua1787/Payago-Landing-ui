@@ -173,45 +173,49 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto px-6 lg:px-8 py-20 lg:py-32">
         <div className="text-center">
-          {/* Futuristic Floating HUD Capsule */}
-          <div className="group relative inline-flex items-center gap-4 p-2 pr-6 rounded-full bg-black/40 backdrop-blur-2xl border border-white/5 ring-1 ring-white/10 shadow-[0_0_30px_-5px_rgba(0,0,0,0.5)] mb-16 animate-fade-up hover:border-white/20 transition-all duration-500 hover:shadow-[0_0_30px_-5px_rgba(0,212,255,0.15)]" style={{ animationDelay: "0.1s" }}>
+          {/* Crystalline Tech Plate */}
+          <div className="group relative inline-flex items-center gap-5 p-3 pr-8 bg-[#04060A]/60 backdrop-blur-xl border border-white/10 mb-16 animate-fade-up hover:border-white/20 transition-all duration-500 rounded-2xl hover:shadow-[0_0_50px_-10px_rgba(0,212,255,0.1)] overflow-hidden" style={{ animationDelay: "0.1s" }}>
 
-            {/* Ambient Glow behind capsule */}
-            <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-[#00D4FF]/50 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute inset-x-4 bottom-0 h-px bg-gradient-to-r from-transparent via-[#7C5CFF]/30 to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-500" />
+            {/* Scaning light effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-[shimmer_2s_infinite] pointer-events-none" />
 
-            {/* Logo with holographic effect */}
-            <div className="relative w-12 h-12 rounded-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-white/5 to-white/0 border border-white/10 group-hover:border-[#00D4FF]/30 transition-colors duration-500">
-              <div className="absolute inset-0 bg-[#00D4FF]/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            {/* Logo box - Sharp squircle */}
+            <div className="relative w-12 h-12 flex items-center justify-center bg-gradient-to-b from-white/10 to-transparent rounded-xl border border-white/10 group-hover:border-[#00D4FF]/50 transition-colors duration-500">
               <img
                 src="/payago-symbol.png"
                 alt="Payago"
-                className="w-10 h-10 object-contain p-1 relative z-10 drop-shadow-[0_0_8px_rgba(0,212,255,0.3)]"
+                className="w-8 h-8 object-contain drop-shadow-[0_0_10px_rgba(0,212,255,0.5)]"
               />
             </div>
 
-            <div className="flex flex-col items-start gap-0.5">
-              {/* Brand Text - Futuristic Typography */}
-              <span className="text-xl font-bold tracking-wide text-white drop-shadow-md font-sans">
-                PAYAGO
-              </span>
-              <span className="text-[10px] uppercase tracking-[0.2em] text-[#00D4FF] font-mono opacity-80 group-hover:opacity-100 transition-opacity">
-                Intelligence Node
+            {/* Text Content */}
+            <div className="flex flex-col items-start gap-0.5 text-left">
+              <div className="flex items-center gap-3">
+                <span className="text-xl font-bold tracking-wide text-white font-sans leading-none">
+                  PAYAGO
+                </span>
+                {/* Status Dot */}
+                <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-[#4AD7A2]/10 border border-[#4AD7A2]/20">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4AD7A2] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#4AD7A2]"></span>
+                  </span>
+                  <span className="text-[10px] font-bold text-[#4AD7A2] uppercase tracking-wider leading-none">
+                    Beta
+                  </span>
+                </div>
+              </div>
+              <span className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground group-hover:text-[#00D4FF] transition-colors duration-300">
+                Intelligence Node v1.0
               </span>
             </div>
 
-            {/* Vertical Separator */}
-            <div className="w-px h-8 bg-gradient-to-b from-transparent via-white/10 to-transparent mx-2" />
-
-            {/* Status Indicator */}
-            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/5 group-hover:bg-white/10 transition-colors duration-300">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4AD7A2] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#4AD7A2]"></span>
-              </span>
-              <span className="text-xs font-medium text-muted-foreground group-hover:text-white transition-colors duration-300">
-                System Launching
-              </span>
+            {/* Tech Accents */}
+            <div className="absolute top-0 right-0 p-1">
+              <div className="w-1.5 h-1.5 bg-white/10 rounded-full" />
+            </div>
+            <div className="absolute bottom-0 left-0 p-1">
+              <div className="w-1.5 h-1.5 bg-white/10 rounded-full" />
             </div>
           </div>
 
