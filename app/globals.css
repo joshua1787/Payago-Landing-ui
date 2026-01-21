@@ -103,6 +103,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -112,27 +113,33 @@
 
 /* Enhanced animations and effects */
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0px) translateX(0px);
   }
+
   25% {
     transform: translateY(-20px) translateX(10px);
   }
+
   50% {
     transform: translateY(-10px) translateX(-10px);
   }
+
   75% {
     transform: translateY(-30px) translateX(5px);
   }
 }
 
 @keyframes pulse-glow {
+
   0%,
   100% {
     opacity: 0.3;
     filter: blur(80px);
   }
+
   50% {
     opacity: 0.6;
     filter: blur(100px);
@@ -143,22 +150,27 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
 }
 
 @keyframes gradient-text-cycle {
+
   0%,
   100% {
     background-image: linear-gradient(90deg, #00d4ff, #7c5cff, #00d4ff);
   }
+
   33% {
     background-image: linear-gradient(90deg, #7c5cff, #4ad7a2, #7c5cff);
   }
+
   66% {
     background-image: linear-gradient(90deg, #4ad7a2, #00d4ff, #4ad7a2);
   }
@@ -168,17 +180,20 @@
   0% {
     background-position: -200% 0;
   }
+
   100% {
     background-position: 200% 0;
   }
 }
 
 @keyframes typing {
+
   0%,
   50%,
   100% {
     opacity: 1;
   }
+
   25%,
   75% {
     opacity: 0;
@@ -190,6 +205,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -197,22 +213,25 @@
 }
 
 @keyframes border-glow {
+
   0%,
   100% {
     box-shadow: 0 0 20px rgba(0, 212, 255, 0.3), 0 0 40px rgba(0, 212, 255, 0.1), inset 0 0 20px rgba(0, 212, 255, 0.05);
   }
+
   50% {
-    box-shadow: 0 0 30px rgba(124, 92, 255, 0.4), 0 0 60px rgba(124, 92, 255, 0.15), inset 0 0 30px
-      rgba(124, 92, 255, 0.08);
+    box-shadow: 0 0 30px rgba(124, 92, 255, 0.4), 0 0 60px rgba(124, 92, 255, 0.15), inset 0 0 30px rgba(124, 92, 255, 0.08);
   }
 }
 
 @keyframes particle-drift {
+
   0%,
   100% {
     transform: translateY(0) translateX(0) scale(1);
     opacity: 0.6;
   }
+
   50% {
     transform: translateY(-100px) translateX(30px) scale(1.2);
     opacity: 0.3;
@@ -224,10 +243,12 @@
     transform: scale(0) rotate(0deg);
     opacity: 1;
   }
+
   50% {
     transform: scale(1.2) rotate(180deg);
     opacity: 1;
   }
+
   100% {
     transform: scale(0) rotate(360deg);
     opacity: 0;
@@ -313,11 +334,40 @@
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Custom slow bounce animation */
+@keyframes bounce-slow {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 3s ease-in-out infinite;
+}
+
+/* Shimmer animation for cards */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(200%);
   }
 }

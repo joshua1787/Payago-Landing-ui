@@ -1,23 +1,24 @@
+import { Navbar } from "@/components/navbar"
 import { HeroSection } from "@/components/hero-section"
-import { ConceptStrip } from "@/components/concept-strip"
-import { FeaturesStrip } from "@/components/features-strip"
-import { HowItWorks } from "@/components/how-it-works"
-import { AIDemoConsole } from "@/components/ai-demo-console"
-
-import { EmailCapture } from "@/components/email-capture"
+import { HowItWorksSection } from "@/components/how-it-works-section"
+import { FeaturesSection } from "@/components/features-section"
+import { WalletDemoSection } from "@/components/wallet-demo-section"
+import { SocialProofSection } from "@/components/social-proof-section"
+import { FAQSection } from "@/components/faq-section"
+import { CTASection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
 
 export default function Home() {
   return (
-    <main className="min-h-screen overflow-x-hidden bg-background relative selection:bg-accent/20 selection:text-accent">
+    <main className="min-h-screen overflow-x-hidden bg-[#04060A] relative selection:bg-[#C9A962]/20 selection:text-[#C9A962]">
+      <Navbar />
       <HeroSection />
-      <ConceptStrip />
-      <AIDemoConsole />
-      <FeaturesStrip />
-
-      <HowItWorks />
-
-      <EmailCapture />
+      <HowItWorksSection />
+      <WalletDemoSection />
+      <FeaturesSection />
+      <SocialProofSection />
+      <FAQSection />
+      <CTASection />
       <Footer />
     </main>
   )

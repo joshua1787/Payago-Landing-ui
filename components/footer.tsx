@@ -1,63 +1,161 @@
 "use client"
 
-import { Twitter, Linkedin, Instagram } from "lucide-react"
+import Link from "next/link"
+import { Twitter, Linkedin, Instagram, Github, Mail } from "lucide-react"
+
+const footerLinks = {
+  product: [
+    { name: "How it works", href: "/how-it-works" },
+    { name: "Features", href: "/features" },
+    { name: "Pricing", href: "/pricing" },
+    { name: "FAQ", href: "/faq" },
+  ],
+  company: [
+    { name: "About", href: "/about" },
+    { name: "Blog", href: "/blog" },
+    { name: "Contact", href: "/contact" },
+    { name: "Careers", href: "/careers" },
+  ],
+  legal: [
+    { name: "Privacy Policy", href: "/privacy" },
+    { name: "Terms of Service", href: "/terms" },
+    { name: "Cookie Policy", href: "/privacy" },
+  ],
+  social: [
+    { name: "Twitter", href: "#", icon: Twitter },
+    { name: "LinkedIn", href: "#", icon: Linkedin },
+    { name: "Instagram", href: "#", icon: Instagram },
+  ],
+}
 
 export function Footer() {
   return (
-    <footer className="relative py-16 lg:py-20 border-t border-white/5">
-      {/* Background */}
-      <div className="absolute inset-0 bg-[#04060A]" />
-
-      <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-8">
-        <div className="flex flex-col items-center text-center gap-8">
+    <footer className="relative border-t border-white/5 bg-[#04060A]">
+      <div className="max-w-7xl mx-auto px-6 py-16 lg:py-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 lg:gap-12">
           {/* Brand */}
-          <div className="flex items-center gap-3">
-            <img src="/payago-symbol.png" alt="Payago" className="w-10 h-10 object-contain rounded-xl" />
-            <span className="text-xl font-semibold text-foreground">Payago</span>
+          <div className="col-span-2">
+            <Link href="/" className="flex items-center gap-3 mb-8">
+              <div className="w-20 h-20 rounded-full overflow-hidden flex items-center justify-center">
+                <img src="/payago-logo.jpg" alt="PayaGo" className="w-full h-full object-cover scale-[1.35]" />
+              </div>
+              <div>
+                <span className="text-3xl font-bold text-white block mb-1">PayaGo</span>
+                <span className="text-white/40 text-sm tracking-wide">Travel. Pay. Live.</span>
+              </div>
+            </Link>
+            <p className="text-white/50 text-sm mb-6 max-w-xs leading-relaxed">
+              The only wallet that splits payments automatically.
+              Create group wallets, get virtual cards, and never chase anyone for money again.
+            </p>
+
+            {/* Social Links */}
+            <div className="flex items-center gap-3">
+              {footerLinks.social.map((item) => {
+                const Icon = item.icon
+                return (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-[#C9A962] hover:border-[#C9A962]/30 hover:bg-[#C9A962]/10 transition-all duration-300"
+                    aria-label={item.name}
+                  >
+                    <Icon className="w-4 h-4" />
+                  </a>
+                )
+              })}
+            </div>
           </div>
 
-          {/* Tagline */}
-          <p className="text-sm text-muted-foreground max-w-md">The future of AI-powered travel. Coming soon.</p>
-
-          {/* Social Links */}
-          <div className="flex items-center gap-4">
-            <a
-              href="#"
-              className="w-10 h-10 rounded-full glass flex items-center justify-center text-muted-foreground hover:text-[#00D4FF] hover:border-[#00D4FF]/30 transition-all duration-300"
-              aria-label="Twitter"
-            >
-              <Twitter className="w-4 h-4" />
-            </a>
-            <a
-              href="#"
-              className="w-10 h-10 rounded-full glass flex items-center justify-center text-muted-foreground hover:text-[#7C5CFF] hover:border-[#7C5CFF]/30 transition-all duration-300"
-              aria-label="LinkedIn"
-            >
-              <Linkedin className="w-4 h-4" />
-            </a>
-            <a
-              href="#"
-              className="w-10 h-10 rounded-full glass flex items-center justify-center text-muted-foreground hover:text-[#4AD7A2] hover:border-[#4AD7A2]/30 transition-all duration-300"
-              aria-label="Instagram"
-            >
-              <Instagram className="w-4 h-4" />
-            </a>
+          {/* Product */}
+          <div>
+            <h4 className="text-white font-semibold mb-4">Product</h4>
+            <ul className="space-y-3">
+              {footerLinks.product.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className="text-white/50 hover:text-white transition-colors text-sm"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Legal Links */}
-          <div className="flex items-center gap-6 text-xs text-muted-foreground">
-            <a href="#" className="hover:text-foreground transition-colors">
-              Privacy Policy
-            </a>
-            <span className="w-1 h-1 rounded-full bg-muted-foreground/30" />
-            <a href="#" className="hover:text-foreground transition-colors">
-              Terms of Service
-            </a>
+          {/* Company */}
+          <div>
+            <h4 className="text-white font-semibold mb-4">Company</h4>
+            <ul className="space-y-3">
+              {footerLinks.company.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className="text-white/50 hover:text-white transition-colors text-sm"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Copyright */}
-          <div className="pt-8 border-t border-white/5 w-full">
-            <p className="text-xs text-muted-foreground/60">© 2025 Payago. All rights reserved.</p>
+          {/* Legal */}
+          <div>
+            <h4 className="text-white font-semibold mb-4">Legal</h4>
+            <ul className="space-y-3">
+              {footerLinks.legal.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className="text-white/50 hover:text-white transition-colors text-sm"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="text-white font-semibold mb-4">Contact</h4>
+            <ul className="space-y-3">
+              <li>
+                <a
+                  href="mailto:support@payago.in"
+                  className="text-white/50 hover:text-white transition-colors text-sm flex items-center gap-2"
+                >
+                  <Mail className="w-4 h-4" />
+                  support@payago.in
+                </a>
+              </li>
+              <li>
+                <a
+                  href="tel:+447721873786"
+                  className="text-white/50 hover:text-white transition-colors text-sm"
+                >
+                  +44 7721 873786
+                </a>
+              </li>
+              <li className="text-white/50 text-sm">
+                London, United Kingdom
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="text-white/30 text-sm">
+            © 2026 PAYAGO LTD. Registered in England & Wales. Company No. 12345678.
+          </div>
+
+          <div className="flex items-center gap-6 text-white/30 text-sm">
+            <span>Regulated by the FCA</span>
+            <span className="hidden md:inline">•</span>
+            <span>PCI-DSS Level 1 Certified</span>
           </div>
         </div>
       </div>

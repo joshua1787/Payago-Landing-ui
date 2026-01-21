@@ -9,9 +9,9 @@ const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" })
 const michroma = Michroma({ weight: "400", subsets: ["latin"], variable: "--font-michroma" })
 
 export const metadata: Metadata = {
-  title: "Payago — The Future of AI-Powered Travel",
+  title: "PayaGo — Digital Wallet Platform | Travel. Pay. Live.",
   description:
-    "Something intelligent, global, and extraordinary is arriving soon. Get early access to the future of travel.",
+    "A unified digital wallet platform with shared balances, internal ledgering, and virtual cards. Bank-grade security. Global scale. Launching January 31, 2026.",
 }
 
 export const viewport = {
