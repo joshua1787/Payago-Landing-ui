@@ -71,7 +71,7 @@ export function CTASection() {
                     {/* Subheadline */}
                     <p className="text-xl text-white/60 max-w-2xl mx-auto mb-10">
                         Join thousands already splitting bills smarter.
-                        Get early access and be first in line when we launch January 31, 2026.
+                        Get early access and be first in line when we launch soon.
                     </p>
 
                     {/* Form */}

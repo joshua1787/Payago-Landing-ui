@@ -11,7 +11,7 @@ const michroma = Michroma({ weight: "400", subsets: ["latin"], variable: "--font
 export const metadata: Metadata = {
   title: "PayaGo — Digital Wallet Platform | Travel. Pay. Live.",
   description:
-    "A unified digital wallet platform with shared balances, internal ledgering, and virtual cards. Bank-grade security. Global scale. Launching January 31, 2026.",
+    "A unified digital wallet platform with shared balances, internal ledgering, and virtual cards. Bank-grade security. Global scale. Launching Soon.",
 }
 
 export const viewport = {

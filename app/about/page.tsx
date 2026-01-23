@@ -53,7 +53,7 @@ const timeline = [
     {
         year: "2026",
         title: "Launch",
-        description: "After rigorous testing with thousands of beta users, PayaGo is ready for the world. January 31, 2026 marks a new era for shared expenses.",
+        description: "After rigorous testing with thousands of beta users, PayaGo is ready for the world. Our upcoming launch marks a new era for shared expenses.",
     },
 ]
 
