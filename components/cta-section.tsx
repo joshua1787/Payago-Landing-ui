@@ -1,98 +1,97 @@
 "use client"
 
-import type React from "react"
 import { useState, useRef, useEffect } from "react"
-import { ArrowRight, Sparkles } from "lucide-react"
+import { Check, Shield, Sparkles, ArrowRight, Zap, Lock, Users } from "lucide-react"
 
 export function CTASection() {
+    const [email, setEmail] = useState("")
+    const [status, setStatus] = useState<"idle" | "loading" | "success">("idle")
     const sectionRef = useRef<HTMLDivElement>(null)
     const [isVisible, setIsVisible] = useState(false)
-    const [email, setEmail] = useState("")
-    const [isSubmitting, setIsSubmitting] = useState(false)
-    const [isSubmitted, setIsSubmitted] = useState(false)
 
     useEffect(() => {
         const observer = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting) {
-                    setIsVisible(true)
-                }
-            },
-            { threshold: 0.3 }
+            (entries) => { if (entries[0].isIntersecting) setIsVisible(true) },
+            { threshold: 0.15 }
         )
-
-        if (sectionRef.current) {
-            observer.observe(sectionRef.current)
-        }
-
+        if (sectionRef.current) observer.observe(sectionRef.current)
         return () => observer.disconnect()
     }, [])
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         if (!email) return
-        setIsSubmitting(true)
-        await new Promise((resolve) => setTimeout(resolve, 1200))
-        setIsSubmitting(false)
-        setIsSubmitted(true)
+        setStatus("loading")
+        setTimeout(() => setStatus("success"), 1500)
     }
 
     return (
-        <section ref={sectionRef} className="relative py-32 overflow-hidden">
-            {/* Background */}
-            <div className="absolute inset-0 bg-[#04060A]" />
+        <section ref={sectionRef} id="early-access" className="relative py-32 sm:py-44 overflow-hidden">
+            {/* Vibrant dynamic gradient background — inspired by bold color palettes */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-violet-600 to-purple-700" />
 
-            {/* Gradient orbs */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px]">
-                <div className="absolute top-0 left-0 w-96 h-96 bg-[#C9A962]/20 rounded-full blur-[150px] animate-pulse" />
-                <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#00D4FF]/15 rounded-full blur-[150px] animate-pulse" style={{ animationDelay: '1s' }} />
+            {/* Travel photo overlay with blend */}
+            <div className="absolute inset-0 opacity-[0.12]">
+                <img src="/images/travel-santorini.png" alt="" className="w-full h-full object-cover" />
             </div>
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/80 via-violet-600/70 to-purple-700/80" />
 
-            <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-8">
-                <div className={`text-center transition-all duration-700 ${isVisible ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-10 opacity-0 scale-95'}`}>
-                    {/* Badge */}
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C9A962]/10 border border-[#C9A962]/20 mb-8">
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C9A962] opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C9A962]"></span>
-                        </span>
-                        <span className="text-sm font-medium text-[#C9A962]">Limited Early Access</span>
+            {/* Decorative shapes */}
+            <div className="absolute top-20 -left-32 w-64 h-64 bg-white/[0.06] rounded-full blur-3xl" />
+            <div className="absolute bottom-20 -right-32 w-80 h-80 bg-white/[0.04] rounded-full blur-3xl" />
+            <div className="absolute top-1/3 right-[15%] w-3 h-3 rounded-full bg-yellow-300/60 animate-bounce-slow" />
+            <div className="absolute bottom-1/3 left-[10%] w-2 h-2 rounded-full bg-cyan-300/50 animate-bounce-slow" style={{ animationDelay: '1s' }} />
+            <div className="absolute top-[20%] left-[25%] w-2 h-2 rounded-full bg-pink-300/40 animate-bounce-slow" style={{ animationDelay: '2s' }} />
+
+            <div className={`relative z-10 max-w-3xl mx-auto px-6 text-center transition-all duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+
+                {/* Badge */}
+                <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-xl mb-10">
+                    <Zap className="w-3.5 h-3.5 text-yellow-300" />
+                    <span className="text-[13px] text-white/90 font-medium">Limited early access — Join 500+ on the waitlist</span>
+                </div>
+
+                <h2 className="text-4xl sm:text-5xl lg:text-[3.75rem] font-bold text-white tracking-[-0.03em] leading-tight mb-6">
+                    Stop planning trips.
+                    <br />
+                    <span className="text-yellow-200">
+                        Start living them.
+                    </span>
+                </h2>
+
+                <p className="text-[17px] text-white/70 max-w-lg mx-auto mb-14 leading-relaxed">
+                    Be the first to experience AI-powered travel planning. Free early access — no credit card required.
+                </p>
+
+                {/* Email form */}
+                {status === "success" ? (
+                    <div className="animate-fade-up">
+                        <div className="inline-flex items-center gap-3 bg-white text-emerald-600 rounded-2xl px-8 py-5 text-base font-semibold shadow-2xl">
+                            <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center">
+                                <Check className="w-3.5 h-3.5" />
+                            </div>
+                            You&apos;re on the list! We&apos;ll be in touch.
+                        </div>
                     </div>
-
-                    {/* Headline */}
-                    <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                        Ready to stop chasing
-                        <br />
-                        <span className="bg-gradient-to-r from-[#C9A962] via-[#E5C77D] to-[#C9A962] bg-clip-text text-transparent">
-                            money?
-                        </span>
-                    </h2>
-
-                    {/* Subheadline */}
-                    <p className="text-xl text-white/60 max-w-2xl mx-auto mb-10">
-                        Join thousands already splitting bills smarter.
-                        Get early access and be first in line when we launch soon.
-                    </p>
-
-                    {/* Form */}
-                    <div className={`max-w-lg mx-auto transition-all duration-700 delay-200 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-                        {!isSubmitted ? (
-                            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+                ) : (
+                    <form onSubmit={handleSubmit} className="animate-fade-up" style={{ animationDelay: "0.15s" }}>
+                        <div className="relative group max-w-xl mx-auto">
+                            <div className="relative flex flex-col sm:flex-row gap-3 bg-white rounded-2xl p-2.5 shadow-2xl shadow-black/20">
                                 <input
                                     type="email"
+                                    placeholder="Enter your email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="Enter your email"
+                                    className="flex-1 bg-transparent px-5 py-3.5 text-slate-900 text-[15px] placeholder:text-slate-400 focus:outline-none"
                                     required
-                                    className="flex-1 bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#C9A962]/50 focus:border-[#C9A962]/50 transition-all"
                                 />
                                 <button
                                     type="submit"
-                                    disabled={isSubmitting}
-                                    className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1E3A5F] hover:opacity-90 px-8 py-4 font-semibold rounded-xl transition-all hover:scale-105 hover:shadow-lg hover:shadow-[#C9A962]/25 disabled:opacity-50 flex items-center justify-center gap-2"
+                                    disabled={status === "loading"}
+                                    className="relative group/btn overflow-hidden bg-slate-900 hover:bg-slate-800 text-white px-8 py-3.5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 active:scale-[0.97] transition-all duration-300 disabled:opacity-60"
                                 >
-                                    {isSubmitting ? (
-                                        <span className="w-5 h-5 border-2 border-[#1E3A5F]/30 border-t-[#1E3A5F] rounded-full animate-spin" />
+                                    {status === "loading" ? (
+                                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                                     ) : (
                                         <>
                                             Get Early Access
@@ -100,24 +99,24 @@ export function CTASection() {
                                         </>
                                     )}
                                 </button>
-                            </form>
-                        ) : (
-                            <div className="flex items-center justify-center gap-3 bg-[#4AD7A2]/10 border border-[#4AD7A2]/30 rounded-xl px-6 py-5">
-                                <div className="w-10 h-10 rounded-full bg-[#4AD7A2] flex items-center justify-center">
-                                    <Sparkles className="w-5 h-5 text-white" />
-                                </div>
-                                <div className="text-left">
-                                    <div className="text-[#4AD7A2] font-semibold">You're on the list!</div>
-                                    <div className="text-[#4AD7A2]/60 text-sm">We'll email you when we launch.</div>
-                                </div>
                             </div>
-                        )}
-                    </div>
+                        </div>
+                    </form>
+                )}
 
-                    {/* Trust line */}
-                    <p className={`mt-6 text-white/30 text-sm transition-all duration-700 delay-400 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-                        No spam, ever. Unsubscribe anytime.
-                    </p>
+                {/* Trust indicators */}
+                <div className="flex flex-wrap items-center justify-center gap-8 mt-10 animate-fade-up" style={{ animationDelay: "0.3s" }}>
+                    {[
+                        { icon: Shield, text: "GDPR-first" },
+                        { icon: Lock, text: "Bank-grade security" },
+                        { icon: Sparkles, text: "AI-powered" },
+                        { icon: Users, text: "Free for users" },
+                    ].map((t) => (
+                        <div key={t.text} className="flex items-center gap-2 text-white/60 text-[13px]">
+                            <t.icon className="w-3.5 h-3.5" />
+                            <span>{t.text}</span>
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>

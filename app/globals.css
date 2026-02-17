@@ -304,6 +304,173 @@
   animation: spark 0.6s ease-out forwards;
 }
 
+@keyframes shooting-star {
+  0% {
+    transform: translateX(0) translateY(0) rotate(-45deg) scale(0.8);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  20% {
+    transform: translateX(-100px) translateY(100px) rotate(-45deg) scale(1);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(-100px) translateY(100px) rotate(-45deg) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes shimmer-text {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Aurora animations */
+@keyframes aurora-1 {
+
+  0%,
+  100% {
+    transform: translateX(0%) translateY(0%) rotate(0deg);
+  }
+
+  33% {
+    transform: translateX(5%) translateY(-5%) rotate(2deg);
+  }
+
+  66% {
+    transform: translateX(-3%) translateY(3%) rotate(-1deg);
+  }
+}
+
+@keyframes aurora-2 {
+
+  0%,
+  100% {
+    transform: translateX(0%) translateY(0%) rotate(0deg);
+  }
+
+  33% {
+    transform: translateX(-7%) translateY(3%) rotate(-2deg);
+  }
+
+  66% {
+    transform: translateX(4%) translateY(-4%) rotate(1.5deg);
+  }
+}
+
+@keyframes aurora-3 {
+
+  0%,
+  100% {
+    transform: translateX(0%) translateY(0%) rotate(0deg);
+  }
+
+  33% {
+    transform: translateX(8%) translateY(5%) rotate(3deg);
+  }
+
+  66% {
+    transform: translateX(-5%) translateY(-3%) rotate(-2deg);
+  }
+}
+
+.animate-aurora-1 {
+  animation: aurora-1 15s ease-in-out infinite;
+}
+
+.animate-aurora-2 {
+  animation: aurora-2 18s ease-in-out infinite;
+}
+
+.animate-aurora-3 {
+  animation: aurora-3 20s ease-in-out infinite;
+}
+
+/* Twinkle stars */
+@keyframes twinkle {
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+/* Gradient text animation */
+@keyframes gradient-text-sweep {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.animate-gradient-text {
+  background-size: 200% auto;
+  animation: gradient-text-sweep 4s linear infinite;
+}
+
+/* Step progress bar */
+@keyframes step-progress {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+.animate-step-progress {
+  animation: step-progress 4s linear;
+}
+
+/* Orbital particle rotation */
+@keyframes orbit {
+  from {
+    transform: rotate(0deg) translateX(40px) rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg) translateX(40px) rotate(-360deg);
+  }
+}
+
+/* Holographic shimmer for cards */
+@keyframes holo-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-holo-shimmer {
+  background-size: 200% 100%;
+  animation: holo-shimmer 6s linear infinite;
+}
+
 /* Film grain overlay */
 .film-grain {
   position: fixed;
