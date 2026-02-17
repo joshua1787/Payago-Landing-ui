@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Sparkles, Users, CreditCard, Train, CloudSun, Vote, Brain, Backpack, PieChart, ArrowUpRight } from "lucide-react"
+import { Sparkles, Users, CreditCard, Train, CloudSun, Vote, Brain, Backpack, PieChart, ArrowUpRight, Mic } from "lucide-react"
 
 const heroFeatures = [
     {
@@ -33,6 +33,16 @@ const heroFeatures = [
         stat: "3-in-1",
         statLabel: "booking partners",
         image: "/images/travel-tokyo.png",
+    },
+    {
+        icon: Mic,
+        title: "Voice AI Guide",
+        description: "Talk to PayaGo like a human. It plans, books, and guides you 24/7—completely hands-free.",
+        color: "#f43f5e",
+        accent: "from-rose-400 to-red-500",
+        stat: "24/7",
+        statLabel: "voice assistance",
+        image: "/images/voice-ai-assistant.png",
     },
 ]
 
@@ -77,12 +87,12 @@ export function FeaturesSection() {
                         <span className="bg-gradient-to-r from-blue-600 via-violet-600 to-purple-600 bg-clip-text text-transparent">Nothing you don&apos;t.</span>
                     </h2>
                     <p className="text-[17px] text-slate-500 max-w-lg mx-auto leading-relaxed">
-                        Nine features. Zero tab-switching. One app that does it all.
+                        Ten features. Zero tab-switching. One app that does it all.
                     </p>
                 </div>
 
-                {/* Hero feature cards with photos */}
-                <div className={`grid md:grid-cols-3 gap-4 mb-4 transition-all duration-700 delay-150 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'}`}>
+                {/* Hero feature cards with photos - NOW 2x2 GRID */}
+                <div className={`grid md:grid-cols-2 gap-4 mb-4 transition-all duration-700 delay-150 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'}`}>
                     {heroFeatures.map((feature, i) => {
                         const Icon = feature.icon
                         return (
