@@ -270,7 +270,7 @@ export function HeroSection() {
               </span>
               <span className="text-[13px] text-white/50 font-medium">AI Travel Planning</span>
               <span className="w-[3px] h-[3px] rounded-full bg-white/15" />
-              <span className="text-[13px] bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent font-semibold">Launching 2026</span>
+              <span className="text-[13px] bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent font-semibold">Launching April 2026 · iOS & Android</span>
             </div>
 
             {/* Headline */}

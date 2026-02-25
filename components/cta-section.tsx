@@ -48,7 +48,7 @@ export function CTASection() {
                 {/* Badge */}
                 <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-xl mb-10">
                     <Zap className="w-3.5 h-3.5 text-yellow-300" />
-                    <span className="text-[13px] text-white/90 font-medium">Limited early access — Join 500+ on the waitlist</span>
+                    <span className="text-[13px] text-white/90 font-medium">Limited early access — Join the early access waitlist</span>
                 </div>
 
                 <h2 className="text-4xl sm:text-5xl lg:text-[3.75rem] font-bold text-white tracking-[-0.03em] leading-tight mb-6">

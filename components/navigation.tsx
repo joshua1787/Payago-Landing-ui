@@ -37,6 +37,9 @@ export function Navigation() {
             <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Features
             </a>
+            <a href="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Blog
+            </a>
             <a href="#planner" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Trip Planner
             </a>
@@ -73,6 +76,9 @@ export function Navigation() {
             <div className="flex flex-col gap-4">
               <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Features
+              </a>
+              <a href="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                Blog
               </a>
               <a href="#planner" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Trip Planner

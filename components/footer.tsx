@@ -19,6 +19,7 @@ const footerLinks = {
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms of Service", href: "/terms" },
     { name: "Cookie Policy", href: "/privacy" },
+    { name: "Affiliate Disclosure", href: "/affiliate-disclosure" },
   ],
   social: [
     { name: "Twitter", href: "#", icon: Twitter },

@@ -27,7 +27,7 @@ const heroFeatures = [
     {
         icon: CreditCard,
         title: "In-App Booking",
-        description: "Hotels via Booking.com. Flights via Kiwi. Activities via Viator. One checkout, commission-based — free for users.",
+        description: "Hotel search powered by Booking.com. Flights via Kiwi. Activities via Viator. One checkout, commission-based — free for users.",
         color: "#10b981",
         accent: "from-emerald-400 to-teal-500",
         stat: "3-in-1",
@@ -42,6 +42,7 @@ const heroFeatures = [
         accent: "from-rose-400 to-red-500",
         stat: "24/7",
         statLabel: "voice assistance",
+        tag: "Coming Soon Q3 2026",
         image: "/images/voice-ai-assistant.png",
     },
 ]
@@ -126,7 +127,14 @@ export function FeaturesSection() {
                                             <Icon className="w-5 h-5 text-white" />
                                         </div>
                                         <div>
-                                            <h3 className="text-[16px] font-bold text-white mb-1">{feature.title}</h3>
+                                            <div className="flex items-center gap-2 mb-1">
+                                                <h3 className="text-[16px] font-bold text-white">{feature.title}</h3>
+                                                {feature.tag && (
+                                                    <span className="px-2 py-0.5 rounded-full bg-white/10 text-[10px] text-white/70 uppercase tracking-wider whitespace-nowrap">
+                                                        {feature.tag}
+                                                    </span>
+                                                )}
+                                            </div>
                                             <p className="text-[13px] text-white/40 leading-[1.7]">{feature.description}</p>
                                         </div>
                                     </div>
