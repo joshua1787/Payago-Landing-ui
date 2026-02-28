@@ -28,13 +28,18 @@ export function Navbar() {
 
                     {/* Desktop Navigation */}
                     <div className="hidden lg:flex items-center gap-1">
-                        {["How It Works", "Features", "Contact"].map((item) => (
+                        {[
+                            { name: "How It Works", href: "#how-it-works" },
+                            { name: "Features", href: "#features" },
+                            { name: "Blog", href: "/blog" },
+                            { name: "Contact", href: "#contact" }
+                        ].map((item) => (
                             <a
-                                key={item}
-                                href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
+                                key={item.name}
+                                href={item.href}
                                 className="text-white/35 hover:text-white/80 px-4 py-2 rounded-lg text-[13px] font-medium transition-all duration-300 hover:bg-white/[0.03]"
                             >
-                                {item}
+                                {item.name}
                             </a>
                         ))}
                     </div>
@@ -65,14 +70,19 @@ export function Navbar() {
             {isOpen && (
                 <div className="lg:hidden border-t border-white/[0.04] bg-[#010306]/95 backdrop-blur-2xl">
                     <div className="px-6 py-6 space-y-1.5">
-                        {["How It Works", "Features", "Contact"].map((item) => (
+                        {[
+                            { name: "How It Works", href: "#how-it-works" },
+                            { name: "Features", href: "#features" },
+                            { name: "Blog", href: "/blog" },
+                            { name: "Contact", href: "#contact" }
+                        ].map((item) => (
                             <a
-                                key={item}
-                                href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
+                                key={item.name}
+                                href={item.href}
                                 className="block py-3 text-white/50 hover:text-white/80 transition-colors font-medium text-[15px]"
                                 onClick={() => setIsOpen(false)}
                             >
-                                {item}
+                                {item.name}
                             </a>
                         ))}
                         <a
