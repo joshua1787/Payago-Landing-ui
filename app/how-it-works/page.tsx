@@ -102,9 +102,9 @@ const phases = [
                 { name: "Lisa", paid: true },
                 { name: "Mark", paid: true },
             ],
-            footer: "Secured by Stripe · PCI-DSS Level 1"
+            footer: "Bank-grade secure checkout"
         },
-        features: ["Everyone pays own share", "Stripe-secured payments", "Automated reminders if unpaid", "Instant booking once all paid"],
+        features: ["Everyone pays own share", "Secure payments", "Automated reminders if unpaid", "Instant booking once all paid"],
     },
     {
         number: "05",
