@@ -59,7 +59,7 @@ const timeline = [
     {
         year: "2025",
         title: "Building the AI",
-        description: "We assembled a team of AI engineers, travel tech veterans, and UX obsessives. Voice recognition. Parallel API calls to Kiwi, Booking.com, and Viator. Gemini AI generating complete itineraries. Real-time group collaboration via WebSocket.",
+        description: "We assembled a team of AI engineers, travel tech veterans, and UX obsessives. Voice recognition. Gemini AI generating complete itineraries. Real-time group collaboration. Travel booking integrations coming at launch.",
         accent: "#7C5CFF",
     },
     {
@@ -195,7 +195,7 @@ export default function AboutPage() {
                                     "Speak one sentence — AI builds the full itinerary in 30s",
                                     "Get 3 complete options: Budget, Balanced, and Premium",
                                     "Send a link — friends vote directly in the app",
-                                    "Everyone pays their own share via Stripe, instantly",
+                                    "Everyone pays their own share securely, instantly",
                                     "Flights, hotel, and activities booked automatically",
                                     "Pre-trip reminders, packing lists, and weather alerts",
                                     "Real-time help if flights delay or weather changes",

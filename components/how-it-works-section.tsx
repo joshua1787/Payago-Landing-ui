@@ -104,7 +104,7 @@ const steps = [
         icon: CreditCard,
         title: "Book Everything",
         subtitle: "One checkout, zero extra apps",
-        description: "Hotels via Booking.com. Flights via Kiwi. Activities via Viator. Stripe payments. Confirmations drop into your itinerary.",
+        description: "Hotels, flights, and activities all booked in one place. Secure payments. Confirmations drop straight into your itinerary.",
         color: "#34d399",
         gradient: "from-emerald-500 to-emerald-400",
         mockContent: (
@@ -126,7 +126,7 @@ const steps = [
                 ))}
                 <div className="flex items-center justify-center gap-1.5 mt-2 text-emerald-400/30 text-[10px] font-mono">
                     <CreditCard className="w-3 h-3" />
-                    Powered by Stripe
+                    Secure checkout
                 </div>
             </div>
         ),

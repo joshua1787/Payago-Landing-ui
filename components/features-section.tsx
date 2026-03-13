@@ -27,7 +27,7 @@ const heroFeatures = [
     {
         icon: CreditCard,
         title: "In-App Booking",
-        description: "Hotel search powered by Booking.com. Flights via Kiwi. Activities via Viator. One checkout, commission-based — free for users.",
+        description: "Hotels, flights, and activities — all in one checkout. Commission-based model means it's completely free for travellers.",
         color: "#10b981",
         accent: "from-emerald-400 to-teal-500",
         stat: "3-in-1",
