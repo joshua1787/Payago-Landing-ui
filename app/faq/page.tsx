@@ -1,6 +1,5 @@
 "use client"
 
-import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowLeft, ChevronDown } from "lucide-react"
 import { useState } from "react"
@@ -8,129 +7,172 @@ import { useState } from "react"
 const faqs = [
     {
         category: "Getting Started",
+        color: "#C9A962",
         questions: [
             {
                 q: "What is PayaGo?",
-                a: "PayaGo is a digital wallet platform that allows you to create shared wallets with friends, family, or colleagues. Each member gets a virtual card, and when anyone pays, the bill is automatically split according to your chosen ratio. No more chasing people for money or awkward money conversations."
+                a: "PayaGo is an AI-powered group travel planning app. You describe your trip in one sentence — destination, group size, budget, vibe — and Gemini AI builds a complete itinerary in 30 seconds: flights, hotel, day-by-day schedule, and activities. Your group then votes, everyone pays their share via Stripe, and everything books automatically. No spreadsheets, no chasing people for money, no 15 hours of research."
             },
             {
-                q: "How do I sign up?",
-                a: "Simply download the PayaGo app from the App Store or Google Play, enter your email and phone number, and verify your identity. The whole process takes less than 2 minutes."
+                q: "When does PayaGo launch?",
+                a: "PayaGo launches in April 2026 on iOS and Android. Join the waitlist for free early access — you'll be among the first to use it when it goes live."
             },
             {
-                q: "Is PayaGo available in my country?",
-                a: "PayaGo is currently available in the United Kingdom, Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden, Norway, and Iceland."
-            },
-        ]
-    },
-    {
-        category: "Payments & Cards",
-        questions: [
-            {
-                q: "How does the auto-split work?",
-                a: "When any group member uses their PayaGo virtual card to make a payment, our system automatically splits the bill according to the ratio you've set. For example, if you have a 50/50 split with a friend and you pay £100 for dinner, you'll be charged £50 and they'll be charged £50 — instantly and automatically."
+                q: "Is it really free?",
+                a: "Yes — completely free for travellers. PayaGo earns a commission from booking partners (Booking.com, Kiwi.com, Viator) when you complete a booking. You pay the same prices you'd find booking directly — we never mark up fares or add service fees. The AI planning, group coordination, and payment tools are all included at no cost to you."
             },
             {
-                q: "Do I need to pre-load money onto the card?",
-                a: "No! PayaGo connects directly to your existing bank account. When you make a payment, only your share is withdrawn from your account. You don't need to top up or pre-load anything."
-            },
-            {
-                q: "Where can I use my PayaGo card?",
-                a: "Anywhere that accepts Visa or Mastercard — which is essentially everywhere. Use it for restaurants, online shopping, travel bookings, utility bills, and more. The virtual card works with Apple Pay and Google Pay for contactless payments."
-            },
-            {
-                q: "Can I use PayaGo for online purchases?",
-                a: "Yes! Your virtual card works for both in-store and online purchases. Simply enter the card details at checkout just like any other card."
+                q: "Do I need to download the app to view or vote on a trip?",
+                a: "No. When someone shares a trip link via WhatsApp or email, your friends can view the full itinerary and vote (I'm In / Maybe / Can't Make It) directly in their browser — no app download needed. They'll need the app to participate in group payments and access trip documents."
             },
         ]
     },
     {
-        category: "Groups & Splitting",
+        category: "AI & Trip Planning",
+        color: "#7C5CFF",
         questions: [
             {
-                q: "How do I create a group?",
-                a: "Open the app, tap 'Create Group', give it a name (like 'Europe Trip' or 'Flat Expenses'), and invite members via link, email, or phone number. Each member will get their own virtual card for the group."
+                q: "How does the AI build a trip in 30 seconds?",
+                a: "When you speak or type your trip description, Whisper AI converts your voice to text in ~2 seconds, and Gemini AI extracts your intent (destination, budget, group size, preferences) in ~3 seconds. Then PayaGo makes parallel API calls to Kiwi.com for flights, Booking.com for hotels, and Viator for activities — all simultaneously. Gemini assembles the results into three complete, bookable options (Budget, Balanced, Premium) with full day-by-day schedules. The whole process takes under 30 seconds."
             },
             {
-                q: "Can I change the split ratio after payment?",
-                a: "Yes! You can adjust split ratios at any time, even after a payment has been made. This is perfect for situations where you need to reimburse someone or adjust for a one-off expense."
+                q: "Can I edit the itinerary the AI creates?",
+                a: "Absolutely. Tap any activity to swap it, ask the AI for alternatives in natural language ('swap the museum for something outdoors'), or drag and reorder your schedule. The AI also lets your whole group edit in real-time via WebSocket — any change is visible to everyone instantly."
             },
             {
-                q: "What if someone doesn't have the app?",
-                a: "All group members need to have PayaGo installed and linked to a bank account. When you invite someone, they'll receive a link to download the app and join your group."
+                q: "How accurate is the AI? Can I trust the prices?",
+                a: "Prices come directly from the booking partner APIs (Kiwi, Booking.com, Viator) in real time — they're live prices, not estimates. Flight and hotel availability is checked before the trip options are shown to you. The AI applies quality filters (minimum 4-star hotels, flights without excessive connections, activities rated 4.5+ stars) before presenting options."
             },
             {
-                q: "Can I be in multiple groups?",
-                a: "Absolutely! You can create and join as many groups as you need. Each group has its own wallet, virtual card, and transaction history."
+                q: "What if I want a destination the AI hasn't suggested?",
+                a: "Just say it. The AI takes your exact destination from your spoken or typed request. If you said 'somewhere in Europe' and want to change to Dubrovnik, you can specify it when generating or editing. You can also ask the AI for destination suggestions based on your preferences."
+            },
+            {
+                q: "What is Travel DNA?",
+                a: "Travel DNA is PayaGo's personalisation system. After each trip you take and rate, AI learns your preferences — hotel style, flight timing, budget range, activity types, pace of travel. By your third trip, suggestions are 85%+ matched to your tastes. By trip ten, PayaGo can suggest trips you'll love with over 99% confidence. Travel DNA is an Explorer plan feature, coming after launch."
             },
         ]
     },
     {
-        category: "Security & Privacy",
+        category: "Group Features",
+        color: "#00D4FF",
         questions: [
             {
-                q: "Is my money safe?",
-                a: "Absolutely. We partner with FCA-regulated institutions and use PCI-DSS Level 1 security — the same standard used by major banks. Your bank details are encrypted and tokenized."
+                q: "How do I invite friends to vote on a trip?",
+                a: "After reviewing your AI-generated trip options, tap 'Share with Friends'. You can send a link directly via WhatsApp, email, or text message — or copy the link manually. Friends receive a message with a summary of the trip and a link to view the full itinerary and cast their vote."
             },
             {
-                q: "Do my friends have access to my bank account?",
-                a: "No — that's super private stuff that we keep under locks. No one can see the balance on your account - not even us. Purchases from your bank account can only be made within the ratio splits and limits you set."
+                q: "What if some friends can't make the dates?",
+                a: "If friends vote 'Maybe' or 'Can't Make It' due to date conflicts, PayaGo automatically detects this and suggests alternative dates that work for everyone. It then regenerates trip options for the new dates and re-invites the group — you don't have to do anything manually."
             },
             {
-                q: "What happens if I lose my phone?",
-                a: "You can instantly freeze your virtual cards from any device by logging into your account. Contact our support team and we'll help you secure your account."
+                q: "What if someone doesn't respond?",
+                a: "After 12 hours with no response, PayaGo automatically sends a gentle, personalised reminder to whoever hasn't voted. After 24 hours, you're notified and can choose to proceed with confirmed members, wait longer, or send another nudge. You're never stuck waiting indefinitely."
+            },
+            {
+                q: "Can multiple people edit the itinerary at the same time?",
+                a: "Yes. Once a trip is shared, all group members can edit the itinerary simultaneously via real-time WebSocket sync. Every change — a swapped activity, a schedule reorder, a comment — is visible to everyone instantly. Up to 4+ people can edit live at the same time."
             },
         ]
     },
     {
-        category: "Account & Billing",
+        category: "Booking & Payments",
+        color: "#4AD7A2",
         questions: [
             {
-                q: "Is PayaGo really free?",
-                a: "Yes! The Personal plan is completely free and includes everything most users need. We offer Premium and Business plans with additional features for power users and organizations."
+                q: "How do payments work?",
+                a: "When the group confirms a trip, PayaGo sends a payment request to every member for their exact share of the total (e.g. £390 each, not £2,340 from one person). Each person pays directly via card, Apple Pay, or PayPal through Stripe. Once all payments clear, PayaGo simultaneously books the flights, hotel, and activities. Confirmations are sent to everyone's email."
             },
             {
-                q: "Are there any transaction fees?",
-                a: "No transaction fees on any plan for standard domestic payments. International payments may incur a small FX fee at interbank rates — no markup."
+                q: "Is payment secure?",
+                a: "Yes. Payments are processed by Stripe — PCI-DSS Level 1 certified (the highest level), 3D Secure authenticated, and protected by Stripe Radar fraud detection. Your card details are never stored by PayaGo. Stripe handles all payment data."
             },
             {
-                q: "How do I close my account?",
-                a: "You can close your account at any time from the app settings. Make sure all pending transactions are settled and your balance is zero before closing."
+                q: "What payment methods are accepted?",
+                a: "Credit and debit cards (Visa, Mastercard, Amex), Apple Pay, and Google Pay. More options may be available depending on your country at launch."
+            },
+            {
+                q: "What happens if someone doesn't pay?",
+                a: "PayaGo sends automated payment reminders after 6 hours and again at the 24-hour mark. If someone doesn't pay within 24 hours, their spot may be released and the organiser is notified. You can choose to proceed with the confirmed and paid group, or hold the booking until everyone pays."
+            },
+            {
+                q: "What if I need to cancel?",
+                a: "Cancellation policies follow each booking partner's terms. Typically: 100% refund if cancelled more than 14 days before departure, 50% refund for 7–14 days before, non-refundable within 7 days (unless the partner allows more flexibility). PayaGo handles the refund request on your behalf and processes refunds to the original payment method within 5–10 business days."
+            },
+        ]
+    },
+    {
+        category: "During Your Trip",
+        color: "#FF6B6B",
+        questions: [
+            {
+                q: "What happens if my flight is delayed?",
+                a: "PayaGo monitors your flight status every 10 minutes. If a delay is detected, it automatically notifies your hotel of the late arrival, informs your group, and adjusts your day-one schedule if needed — removing activities that are now too late. You get a notification with the updated schedule and options."
+            },
+            {
+                q: "What if the weather changes?",
+                a: "PayaGo checks weather forecasts hourly against your itinerary. If rain is forecast during an outdoor activity, you're proactively notified with indoor alternatives at a similar price and rating. You can accept the swap or choose your own alternative — with one tap."
+            },
+            {
+                q: "Does PayaGo work offline during the trip?",
+                a: "All tickets, hotel confirmations, activity vouchers, and your full day-by-day schedule are saved offline in the app. You can access them without signal. Real-time features (weather alerts, live recommendations, group chat) require an internet connection."
+            },
+            {
+                q: "Can I share my location with my group during the trip?",
+                a: "Location sharing is optional. You can enable it for the duration of the trip so your group can see each other on a map, or keep it off completely. This setting is per-trip and can be changed any time."
             },
         ]
     },
 ]
 
-function FAQItem({ question, answer }: { question: string; answer: string }) {
+function FAQItem({ question, answer, color }: { question: string; answer: string; color: string }) {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
         <div className="border-b border-white/5">
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full flex items-center justify-between py-6 text-left"
+                className="w-full flex items-center justify-between py-6 text-left group"
             >
-                <span className="text-white font-medium pr-8">{question}</span>
-                <ChevronDown className={`w-5 h-5 text-[#C9A962] flex-shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                <span className="text-white font-medium pr-8 group-hover:text-white/90 transition-colors">{question}</span>
+                <ChevronDown className={`w-5 h-5 flex-shrink-0 transition-all duration-300 ${isOpen ? 'rotate-180' : ''}`} style={{ color }} />
             </button>
-            <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96 pb-6' : 'max-h-0'}`}>
+            <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[500px] pb-6' : 'max-h-0'}`}>
                 <p className="text-white/50 leading-relaxed">{answer}</p>
             </div>
         </div>
     )
 }
 
+const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.flatMap((section) =>
+        section.questions.map((item) => ({
+            "@type": "Question",
+            name: item.q,
+            acceptedAnswer: {
+                "@type": "Answer",
+                text: item.a,
+            },
+        }))
+    ),
+}
+
 export default function FAQPage() {
     return (
         <main className="min-h-screen bg-[#04060A]">
-            {/* Header */}
-            <header className="border-b border-white/5">
-                <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+            />
+            <header className="border-b border-white/5 sticky top-0 z-50 backdrop-blur-xl bg-[#04060A]/80">
+                <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <img src="/payago-logo.jpg" alt="PayaGo" className="w-10 h-10 object-cover rounded-xl" />
-                        <span className="text-white font-semibold">PayaGo</span>
+                        <img src="/payago-logo.jpg" alt="PayaGo" className="w-9 h-9 object-cover rounded-xl" />
+                        <span className="text-white font-semibold text-lg">PayaGo</span>
                     </Link>
-                    <Link href="/" className="text-white/50 hover:text-white transition-colors flex items-center gap-2">
+                    <Link href="/" className="text-white/40 hover:text-white transition-colors flex items-center gap-2 text-sm">
                         <ArrowLeft className="w-4 h-4" />
                         Back to Home
                     </Link>
@@ -140,19 +182,29 @@ export default function FAQPage() {
             {/* Hero */}
             <section className="relative py-24 overflow-hidden">
                 <div className="absolute inset-0">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[#C9A962]/10 rounded-full blur-[200px]" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[#C9A962]/8 rounded-full blur-[200px]" />
                 </div>
-
                 <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-                    <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6">
+                    <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight">
                         Frequently Asked
-                        <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent block">
-                            Questions
-                        </span>
+                        <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent block">Questions</span>
                     </h1>
-                    <p className="text-xl text-white/60 max-w-2xl mx-auto">
-                        Everything you need to know about PayaGo.
+                    <p className="text-xl text-white/50 max-w-2xl mx-auto">
+                        Everything you need to know about how PayaGo plans, coordinates, and books your group trips.
                     </p>
+                </div>
+            </section>
+
+            {/* Category nav */}
+            <section className="border-b border-white/5 py-4 sticky top-[65px] z-40 backdrop-blur-xl bg-[#04060A]/90">
+                <div className="max-w-4xl mx-auto px-6">
+                    <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide pb-1">
+                        {faqs.map((cat) => (
+                            <a key={cat.category} href={`#${cat.category.toLowerCase().replace(/\s+&?\s*/g, '-')}`} className="flex-shrink-0 px-4 py-1.5 rounded-full border border-white/10 text-white/40 hover:text-white hover:border-white/20 transition-all text-sm font-medium">
+                                {cat.category}
+                            </a>
+                        ))}
+                    </div>
                 </div>
             </section>
 
@@ -160,11 +212,14 @@ export default function FAQPage() {
             <section className="py-16">
                 <div className="max-w-4xl mx-auto px-6">
                     {faqs.map((category, catIndex) => (
-                        <div key={catIndex} className="mb-16">
-                            <h2 className="text-2xl font-bold text-white mb-8">{category.category}</h2>
+                        <div key={catIndex} id={category.category.toLowerCase().replace(/\s+&?\s*/g, '-')} className="mb-20 scroll-mt-32">
+                            <div className="flex items-center gap-3 mb-8">
+                                <div className="w-2 h-6 rounded-full" style={{ background: category.color }} />
+                                <h2 className="text-2xl font-bold text-white">{category.category}</h2>
+                            </div>
                             <div>
                                 {category.questions.map((faq, index) => (
-                                    <FAQItem key={index} question={faq.q} answer={faq.a} />
+                                    <FAQItem key={index} question={faq.q} answer={faq.a} color={category.color} />
                                 ))}
                             </div>
                         </div>
@@ -176,20 +231,21 @@ export default function FAQPage() {
             <section className="py-24 border-t border-white/5">
                 <div className="max-w-4xl mx-auto px-6 text-center">
                     <h2 className="text-3xl font-bold text-white mb-4">Still have questions?</h2>
-                    <p className="text-white/60 mb-8">Our support team is here to help.</p>
-                    <Link
-                        href="/contact"
-                        className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-xl font-semibold transition-colors"
-                    >
-                        Contact Support
-                    </Link>
+                    <p className="text-white/50 mb-8">{"Our team is happy to help — usually within a few hours."}</p>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <Link href="/contact" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 border border-white/10 text-white px-8 py-4 rounded-xl font-semibold transition-colors">
+                            Contact Us
+                        </Link>
+                        <Link href="/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
+                            Get Early Access
+                        </Link>
+                    </div>
                 </div>
             </section>
 
-            {/* Footer */}
             <footer className="py-8 border-t border-white/5">
-                <div className="max-w-7xl mx-auto px-6 text-center text-white/30 text-sm">
-                    © 2026 PAYAGO LTD. All rights reserved.
+                <div className="max-w-7xl mx-auto px-6 text-center text-white/20 text-sm">
+                    © 2026 PayaGo Ltd. Registered in England & Wales.
                 </div>
             </footer>
         </main>

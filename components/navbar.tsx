@@ -31,8 +31,9 @@ export function Navbar() {
                         {[
                             { name: "How It Works", href: "#how-it-works" },
                             { name: "Features", href: "#features" },
+                            { name: "Destinations", href: "/destinations" },
+                            { name: "Pricing", href: "/pricing" },
                             { name: "Blog", href: "/blog" },
-                            { name: "Contact", href: "#contact" }
                         ].map((item) => (
                             <a
                                 key={item.name}
@@ -73,8 +74,9 @@ export function Navbar() {
                         {[
                             { name: "How It Works", href: "#how-it-works" },
                             { name: "Features", href: "#features" },
+                            { name: "Destinations", href: "/destinations" },
+                            { name: "Pricing", href: "/pricing" },
                             { name: "Blog", href: "/blog" },
-                            { name: "Contact", href: "#contact" }
                         ].map((item) => (
                             <a
                                 key={item.name}

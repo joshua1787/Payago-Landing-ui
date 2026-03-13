@@ -1,40 +1,115 @@
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
+import type { Metadata } from "next"
+import Link from "next/link"
+import { ArrowLeft } from "lucide-react"
+
+export const metadata: Metadata = {
+    title: "Affiliate Disclosure — PayaGo",
+    description: "PayaGo earns a commission from Booking.com, Kiwi.com, and Viator when you book through our app. You always pay the same price as booking direct.",
+    alternates: {
+        canonical: "https://www.payago.in/affiliate-disclosure",
+    },
+}
 
 export default function AffiliateDisclosure() {
     return (
-        <main className="min-h-screen overflow-x-hidden bg-[#0D2137] relative text-white selection:bg-[#E8742A]/20 selection:text-[#E8742A]">
-            <Navbar />
+        <main className="min-h-screen bg-[#04060A]">
+            <header className="border-b border-white/5 sticky top-0 z-50 backdrop-blur-xl bg-[#04060A]/80">
+                <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+                    <Link href="/" className="flex items-center gap-3">
+                        <img src="/payago-logo.jpg" alt="PayaGo" className="w-9 h-9 object-cover rounded-xl" />
+                        <span className="text-white font-semibold text-lg">PayaGo</span>
+                    </Link>
+                    <Link href="/" className="text-white/40 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                        <ArrowLeft className="w-4 h-4" />
+                        Back to Home
+                    </Link>
+                </div>
+            </header>
 
-            <div className="max-w-3xl mx-auto px-6 pt-32 pb-24">
-
-                <h1 className="text-4xl md:text-5xl font-bold mb-10 leading-tight">
+            <div className="max-w-3xl mx-auto px-6 pt-16 pb-24">
+                <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight text-white">
                     Affiliate Disclosure
                 </h1>
+                <p className="text-white/40 text-sm mb-12">Last updated: March 2026</p>
 
-                <div className="space-y-6 text-white/80 leading-relaxed text-lg">
-                    <p>
-                        PayaGo participates in affiliate marketing programs with Booking.com, Viator, Kiwi.com, and other travel service providers.
-                    </p>
-                    <p>
-                        When you book a hotel, flight, or activity through PayaGo, we may earn a commission from the booking provider. This commission does not affect the price you pay — you pay exactly the same price as you would booking directly on the provider&apos;s website.
-                    </p>
-                    <p>
-                        We only recommend services and providers that we believe offer genuine value to travelers. Our AI itinerary generation and recommendations are designed to find the best options for your specific trip, not to maximize our commission.
-                    </p>
-                    <p>
-                        All affiliate relationships are disclosed clearly in the app at the point of booking. For example, hotel search results show &apos;Powered by Booking.com&apos; and activity bookings show &apos;Fulfilled by Viator.&apos;
-                    </p>
-                    <p>
-                        For questions about our affiliate relationships, contact us at <a href="mailto:support@payago.in" className="text-[#E8742A] hover:underline">support@payago.in</a>.
-                    </p>
-                    <p className="text-white/50 text-base mt-12">
-                        Last updated: February 2026
-                    </p>
+                <div className="space-y-8 text-white/70 leading-relaxed text-lg">
+
+                    <div className="p-6 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20">
+                        <p className="text-white font-semibold mb-2">The short version</p>
+                        <p className="text-white/70 text-base">
+                            PayaGo earns a commission from our booking partners (Booking.com, Kiwi.com, Viator) when you complete a booking through our app. You always pay the same price you would pay booking directly on their website — we never mark up prices or add service fees. This commission is how PayaGo remains free for travellers.
+                        </p>
+                    </div>
+
+                    <section>
+                        <h2 className="text-2xl font-bold text-white mb-4">1. What is affiliate marketing?</h2>
+                        <p>
+                            Affiliate marketing is a standard industry practice where a website or app earns a referral commission when a user completes a purchase through a partner link. PayaGo participates in affiliate programs with the following travel booking partners:
+                        </p>
+                        <ul className="mt-4 space-y-2 text-base">
+                            {[
+                                { name: "Booking.com", type: "Hotel reservations", program: "Booking.com Affiliate Partner Programme" },
+                                { name: "Kiwi.com", type: "Flight tickets", program: "Kiwi.com Affiliate Programme" },
+                                { name: "Viator (a TripAdvisor company)", type: "Activities, tours & experiences", program: "Viator Affiliate Programme" },
+                            ].map((partner) => (
+                                <li key={partner.name} className="flex items-start gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                    <div>
+                                        <span className="text-white font-semibold">{partner.name}</span>
+                                        <span className="text-white/40 mx-2">—</span>
+                                        <span>{partner.type}</span>
+                                        <div className="text-white/30 text-sm mt-0.5">{partner.program}</div>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2 className="text-2xl font-bold text-white mb-4">2. Does this affect the price you pay?</h2>
+                        <p>
+                            No. The affiliate commission PayaGo receives is paid by the booking partner from their own margin — it is not added on top of the price you pay. You pay the same amount you would pay if you booked directly on Booking.com, Kiwi.com, or Viator.
+                        </p>
+                        <p className="mt-4">
+                            PayaGo does not charge travellers any service fees, booking fees, or platform fees. Our product is entirely free for travellers.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 className="text-2xl font-bold text-white mb-4">3. Does commission affect recommendations?</h2>
+                        <p>
+                            Our AI itinerary generation and recommendations are optimised for quality and relevance to your specific trip — not to maximise commission. We apply quality filters (minimum 4-star hotels, activities rated 4.5+ stars, flights without excessive connections) regardless of commission rates.
+                        </p>
+                        <p className="mt-4">
+                            All booking search results and recommendations are labelled with the fulfilling partner (e.g. &ldquo;Hotel search powered by Booking.com&rdquo;, &ldquo;Activities by Viator&rdquo;) at the point of display in the app.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 className="text-2xl font-bold text-white mb-4">4. UK & EU legal compliance</h2>
+                        <p>
+                            PayaGo Ltd is registered in England & Wales. We comply with the UK ASA (Advertising Standards Authority) guidelines on affiliate disclosure, the EU Unfair Commercial Practices Directive, and the FTC guidelines where applicable.
+                        </p>
+                        <p className="mt-4">
+                            This disclosure is provided in accordance with the UK&apos;s Consumer Protection from Unfair Trading Regulations 2008 and the CAP Code.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 className="text-2xl font-bold text-white mb-4">5. Contact</h2>
+                        <p>
+                            For questions about our affiliate relationships, commercial partnerships, or this disclosure, contact us at{" "}
+                            <a href="mailto:partnerships@payago.in" className="text-[#C9A962] hover:underline">partnerships@payago.in</a>{" "}
+                            or via our <Link href="/contact" className="text-[#C9A962] hover:underline">contact page</Link>.
+                        </p>
+                    </section>
                 </div>
             </div>
 
-            <Footer />
+            <footer className="py-8 border-t border-white/5">
+                <div className="max-w-7xl mx-auto px-6 text-center text-white/20 text-sm">
+                    © 2026 PayaGo Ltd. Registered in England & Wales. Company No. TBC.
+                </div>
+            </footer>
         </main>
     )
 }

@@ -1,50 +1,191 @@
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
+import type { Metadata } from "next"
 import Link from "next/link"
+import { ArrowLeft, Clock, Calendar } from "lucide-react"
+
+export const metadata: Metadata = {
+    title: "Why We Built PayaGo — The Founding Story",
+    description: "A week-long Italy trip with five friends turned into weeks of chaos. That frustration became a product. Here's the full story of why PayaGo exists.",
+    openGraph: {
+        title: "Why We Built PayaGo — The Founding Story | PayaGo Blog",
+        description: "A week-long Italy trip with five friends turned into weeks of chaos. That frustration became a product.",
+        url: "https://www.payago.in/blog/why-we-built-payago",
+        type: "article",
+    },
+    alternates: {
+        canonical: "https://www.payago.in/blog/why-we-built-payago",
+    },
+}
+
+const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "Why We Built PayaGo",
+    description: "A week-long Italy trip with five friends turned into weeks of chaos. That frustration became a product.",
+    datePublished: "2026-02-08",
+    dateModified: "2026-02-08",
+    author: { "@type": "Organization", name: "PayaGo" },
+    publisher: {
+        "@type": "Organization",
+        name: "PayaGo",
+        logo: { "@type": "ImageObject", url: "https://www.payago.in/payago-logo-transparent-v2.png" },
+    },
+    url: "https://www.payago.in/blog/why-we-built-payago",
+}
 
 export default function BlogPost() {
     return (
-        <main className="min-h-screen overflow-x-hidden bg-[#0D2137] relative text-white selection:bg-[#E8742A]/20 selection:text-[#E8742A]">
-            <Navbar />
+        <main className="min-h-screen bg-[#04060A]">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+            />
 
-            <div className="max-w-3xl mx-auto px-6 pt-32 pb-24">
-                <Link href="/blog" className="text-[#E8742A] hover:underline mb-8 inline-block">
-                    &larr; Back to Blog
-                </Link>
+            <header className="border-b border-white/5 sticky top-0 z-50 backdrop-blur-xl bg-[#04060A]/80">
+                <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+                    <Link href="/" className="flex items-center gap-3">
+                        <img src="/payago-logo.jpg" alt="PayaGo" className="w-9 h-9 object-cover rounded-xl" />
+                        <span className="text-white font-semibold text-lg">PayaGo</span>
+                    </Link>
+                    <Link href="/blog" className="text-white/40 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                        <ArrowLeft className="w-4 h-4" />
+                        Back to Blog
+                    </Link>
+                </div>
+            </header>
 
-                <div className="flex flex-wrap items-center gap-4 text-sm text-white/50 mb-6">
-                    <span>February 8, 2026</span>
-                    <span className="w-1 h-1 rounded-full bg-white/20" />
-                    <span>3 min read</span>
+            <div className="max-w-3xl mx-auto px-6 pt-16 pb-24">
+                <div className="mb-3">
+                    <span className="text-xs font-semibold px-3 py-1 rounded-full text-[#4AD7A2] bg-[#4AD7A2]/10 border border-[#4AD7A2]/30">
+                        Company
+                    </span>
                 </div>
 
-                <h1 className="text-4xl md:text-5xl font-bold mb-10 leading-tight">
+                <div className="flex flex-wrap items-center gap-4 text-sm text-white/30 mb-8">
+                    <span className="flex items-center gap-1.5">
+                        <Calendar className="w-3.5 h-3.5" />
+                        <time dateTime="2026-02-08">February 8, 2026</time>
+                    </span>
+                    <span className="w-1 h-1 rounded-full bg-white/20" />
+                    <span className="flex items-center gap-1.5">
+                        <Clock className="w-3.5 h-3.5" />
+                        4 min read
+                    </span>
+                </div>
+
+                <h1 className="text-4xl md:text-5xl font-bold mb-10 leading-tight text-white">
                     Why We Built PayaGo
                 </h1>
 
-                <div className="space-y-6 text-white/80 leading-relaxed text-lg">
+                <div className="rounded-2xl overflow-hidden mb-12 aspect-video bg-white/5 border border-white/5">
+                    <img
+                        src="/luxury-travel-destination-aerial-view-of-tropical-.jpg"
+                        alt="Group travel inspiration — what PayaGo makes possible"
+                        className="w-full h-full object-cover"
+                    />
+                </div>
+
+                <div className="space-y-8 text-white/75 leading-relaxed text-lg">
                     <p>
-                        Every product starts with a frustration. For us, it was planning a week-long trip to Italy with five friends. What should have been exciting turned into weeks of scattered WhatsApp messages, conflicting Google Doc suggestions, and one person (me) doing 90% of the work while everyone else stayed silent until the day before departure.
+                        Every product starts with a frustration. For us, it was planning a week-long trip to Lisbon with eight friends.
                     </p>
+
                     <p>
-                        The problem wasn&apos;t a lack of tools. Google Flights existed for flights. Booking.com for hotels. TripAdvisor for reviews. Notion for organizing. WhatsApp for group chat. The problem was that planning a real trip required jumping between 6+ different platforms, manually copying information, and somehow keeping a group of people aligned through it all.
+                        What should have been exciting turned into three weeks of chaos. Someone made a Google Doc. Someone else started a WhatsApp poll. A third person dropped a spreadsheet with hotels sorted by price. Nobody agreed on dates. Two people went quiet for a week. By the time we had a rough plan, half the original hotel options had sold out.
                     </p>
+
                     <p>
-                        We realized the travel industry had solved booking — but not planning. Every platform optimized for the transaction (click here to book) but ignored the 8 hours of research, coordination, and decision-making that happens before anyone clicks &apos;confirm purchase.&apos;
+                        We went on the trip. It was brilliant. But the planning nearly killed it before it started.
                     </p>
+
+                    <h2 className="text-2xl font-bold text-white mt-12 mb-4">The problem wasn&apos;t a lack of tools</h2>
+
                     <p>
-                        That&apos;s why we built PayaGo. One app that handles the entire journey: AI generates the itinerary in 30 seconds based on your preferences. Your whole group can edit it live (no more version control chaos). And when you&apos;re ready to book, hotels, flights, and activities are all in-app — one checkout, zero tab-switching.
+                        Google Flights existed for flight comparisons. Booking.com for hotels. TripAdvisor for reviews. Notion for organizing everything. WhatsApp for the group chat. The tools existed — the problem was that planning a real trip required jumping between six or seven different platforms, manually copying information across them, and somehow keeping a group of eight people aligned through it all.
                     </p>
+
+                    <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/5 my-8">
+                        <div className="text-white/40 text-sm font-semibold uppercase tracking-wider mb-4">What planning a group trip actually looks like</div>
+                        <div className="space-y-3">
+                            {[
+                                { time: "Week 1", event: "Someone suggests dates. Three people can't make it. New dates proposed." },
+                                { time: "Week 2", event: "Google Doc created. Hotels researched. Flights compared across 4 tabs." },
+                                { time: "Week 3", event: "Two people go silent. Two people can't agree on the hotel budget." },
+                                { time: "Week 4", event: "Compromise reached. Original hotel sold out. Back to square one." },
+                                { time: "Week 5", event: "Final plan agreed. One person still hasn't confirmed flights." },
+                                { time: "Week 6", event: "Everyone finally booked. Trip is in 3 days." },
+                            ].map((item, i) => (
+                                <div key={i} className="flex items-start gap-4 text-sm">
+                                    <span className="text-[#C9A962] font-semibold flex-shrink-0 w-14">{item.time}</span>
+                                    <span className="text-white/60">{item.event}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <h2 className="text-2xl font-bold text-white mt-12 mb-4">The travel industry had solved booking. Not planning.</h2>
+
                     <p>
-                        We&apos;re launching in April 2026 for iOS and Android. Our mission is simple: make extraordinary travel accessible to everyone, not just people with the time to spend a weekend planning it or the money to hire a travel agent.
+                        Every platform in the travel space had optimised for the transaction: click here to book a hotel, click here to buy a flight. None of them had solved the 15 hours of research, coordination, and decision-making that happens before anyone clicks &ldquo;confirm purchase.&rdquo;
                     </p>
-                    <p className="font-medium text-[#E8742A]">
-                        Join our early access waitlist at payago.in. First 1,000 users get free lifetime access to premium features.
+
+                    <p>
+                        That gap — between &ldquo;we should go somewhere&rdquo; and &ldquo;everything is booked&rdquo; — was completely unaddressed. It was assumed to be a human problem, a coordination problem, an inherently messy process.
                     </p>
+
+                    <p>
+                        We didn&apos;t think it had to be.
+                    </p>
+
+                    <h2 className="text-2xl font-bold text-white mt-12 mb-4">What we built</h2>
+
+                    <p>
+                        PayaGo is one app that handles the entire journey from &ldquo;we should go somewhere&rdquo; to &ldquo;everything is booked.&rdquo;
+                    </p>
+
+                    <div className="grid sm:grid-cols-2 gap-4 my-8">
+                        {[
+                            { step: "01", title: "You talk", desc: "Tell the AI your destination, dates, budget, and preferences — by voice or text, in one sentence." },
+                            { step: "02", title: "AI builds it", desc: "Three complete trip options — flights, hotels, activities — generated in 30 seconds with live pricing." },
+                            { step: "03", title: "Group votes", desc: "Share a link. Everyone votes on their preferred option. No WhatsApp threads." },
+                            { step: "04", title: "Everyone pays", desc: "Each person pays their exact share via Stripe. Nobody fronts the full amount." },
+                        ].map((item) => (
+                            <div key={item.step} className="p-5 rounded-xl bg-white/[0.03] border border-white/5">
+                                <div className="text-[#C9A962] font-black text-2xl mb-2">{item.step}</div>
+                                <div className="text-white font-semibold mb-1">{item.title}</div>
+                                <div className="text-white/50 text-sm leading-relaxed">{item.desc}</div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <h2 className="text-2xl font-bold text-white mt-12 mb-4">Who we&apos;re building for</h2>
+
+                    <p>
+                        Extraordinary travel shouldn&apos;t require a travel agent, a free weekend to plan, or one person willing to do all the work while everyone else benefits from it. It should be accessible to anyone who can say &ldquo;I want to go somewhere.&rdquo;
+                    </p>
+
+                    <p>
+                        PayaGo is free for travellers. We earn a commission from Booking.com, Kiwi.com, and Viator when you book through the app — the same commission those platforms pay to any affiliate. You pay the same price you&apos;d pay booking directly. We make money when you travel well.
+                    </p>
+
+                    <p>
+                        We&apos;re launching in April 2026. Over 15,000 people have already joined the waitlist. We&apos;re not building another app that lives in a folder you never open — we&apos;re building the one you open when you want to actually go somewhere.
+                    </p>
+
+                    <div className="mt-12 p-6 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20">
+                        <p className="text-white font-semibold mb-2">Join 15,000+ travellers on the waitlist</p>
+                        <p className="text-white/60 text-sm mb-4">First 1,000 users get free lifetime access to premium features.</p>
+                        <Link href="/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
+                            Get Early Access — Free
+                        </Link>
+                    </div>
                 </div>
             </div>
 
-            <Footer />
+            <footer className="py-8 border-t border-white/5">
+                <div className="max-w-7xl mx-auto px-6 text-center text-white/20 text-sm">
+                    © 2026 PayaGo Ltd. Registered in England & Wales.
+                </div>
+            </footer>
         </main>
     )
 }

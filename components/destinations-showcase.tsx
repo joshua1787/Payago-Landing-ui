@@ -42,26 +42,24 @@ export function DestinationsShowcase() {
 
     return (
         <section ref={ref} className="relative py-24 sm:py-32 overflow-hidden">
-            {/* Vibrant Premium Background - 'Funky' Contrast */}
-            <div className="absolute inset-0 bg-[#4f46e5]" />
-            <div className="absolute inset-0 bg-gradient-to-br from-violet-600 via-indigo-600 to-blue-700" />
-
-            {/* Abstract shapes for depth */}
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-white opacity-[0.03] blur-3xl rounded-full translate-x-1/3 -translate-y-1/2" />
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan-400 opacity-[0.1] blur-3xl rounded-full -translate-x-1/3 translate-y-1/3" />
+            {/* Dark cinematic background */}
+            <div className="absolute inset-0 bg-[#04060A]" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(201,169,98,0.07),transparent)]" />
+            <div className="absolute bottom-0 left-0 w-[700px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(0,212,255,0.05),transparent_70%)] blur-[120px] pointer-events-none" />
+            <div className="absolute top-0 right-0 w-[500px] h-[300px] bg-[radial-gradient(ellipse_at_center,rgba(124,92,255,0.05),transparent_70%)] blur-[100px] pointer-events-none" />
 
             <div className="relative z-10 max-w-6xl mx-auto px-6">
                 <div className={`flex flex-col lg:flex-row items-center lg:items-end justify-between mb-14 gap-6 transition-all duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
                     <div>
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 mb-4 backdrop-blur-md shadow-lg">
-                            <MapPin className="w-3.5 h-3.5 text-cyan-300" />
-                            <span className="text-[12px] text-white/90 font-bold uppercase tracking-wider">Popular destinations</span>
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C9A962]/10 border border-[#C9A962]/20 mb-4 backdrop-blur-md">
+                            <MapPin className="w-3.5 h-3.5 text-[#C9A962]" />
+                            <span className="text-[12px] text-[#C9A962] font-bold uppercase tracking-wider">Popular destinations</span>
                         </div>
-                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-[-0.03em] drop-shadow-sm">
-                            Where will <span className="text-cyan-300">AI</span> take you?
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-[-0.03em]">
+                            Where will <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent">AI</span> take you?
                         </h2>
                     </div>
-                    <a href="#early-access" className="group flex items-center gap-2 text-white/90 font-semibold text-sm hover:text-white transition-colors bg-white/10 hover:bg-white/20 px-5 py-2.5 rounded-full backdrop-blur-md border border-white/10">
+                    <a href="#early-access" className="group flex items-center gap-2 text-white/70 font-semibold text-sm hover:text-white transition-colors bg-white/[0.04] hover:bg-white/[0.08] px-5 py-2.5 rounded-full border border-white/10">
                         Start planning
                         <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </a>
@@ -74,12 +72,15 @@ export function DestinationsShowcase() {
                             className="group relative rounded-3xl overflow-hidden aspect-[4/5] cursor-pointer"
                             style={{ transitionDelay: `${i * 120}ms` }}
                         >
-                            {/* Card content */}
-                            <img
-                                src={dest.image}
-                                alt={dest.name}
-                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                            />
+                            {/* Card content — continuous Ken Burns cinematic motion */}
+                            <div className="absolute inset-0 overflow-hidden rounded-3xl">
+                                <img
+                                    src={dest.image}
+                                    alt={dest.name}
+                                    className={`w-full h-full object-cover ${i === 0 ? "animate-ken-burns" : i === 1 ? "animate-ken-burns-alt" : "animate-ken-burns-pan"}`}
+                                    style={{ transformOrigin: "center center" }}
+                                />
+                            </div>
                             {/* Gradient overlay for text readability */}
                             <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 

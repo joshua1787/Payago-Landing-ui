@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState, useRef, useCallback } from "react"
-import { Sparkles, ArrowRight, MapPin, Users, Zap, ChevronDown, Plane, Hotel, Star, Landmark, UtensilsCrossed, Palette, TrendingDown, Clock, Globe } from "lucide-react"
+import { Sparkles, ArrowRight, Users, Zap, ChevronDown, Globe, Check } from "lucide-react"
 
 const TYPING_TEXTS = [
   "7 days in Japan for 2 people, £3,500 budget, love street food and temples",
@@ -43,187 +43,247 @@ function TypingAnimation() {
   )
 }
 
-/* Cinematic background with orbital particles and layered auroras */
+/* Cinematic background — pure CSS animated aurora system, no photo dependency */
 function CinematicBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <div className="absolute inset-0 bg-[#020408]" />
+      {/* ── Base: deep space black ── */}
+      <div className="absolute inset-0 bg-[#010308]" />
 
-      {/* Deep space gradient layers - BRIGHTER & MORE VIBRANT */}
-      <div className="absolute inset-0">
-        <div className="absolute top-[-50%] left-[-20%] w-[140%] h-[140%] opacity-[0.25]">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,rgba(56,189,248,0.5),transparent_70%)] animate-aurora-1 mix-blend-screen" />
-        </div>
-        <div className="absolute bottom-[-30%] right-[-10%] w-[120%] h-[120%] opacity-[0.2]">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,rgba(139,92,246,0.5),transparent_70%)] animate-aurora-2 mix-blend-screen" />
-        </div>
-      </div>
+      {/* ── Layer 1: Primary aurora masses ── */}
+      {/* Massive cyan aurora — upper left, slow drift */}
+      <div
+        className="absolute top-[-20%] left-[-10%] w-[90%] h-[90%] animate-aurora-1"
+        style={{ filter: "blur(130px)", background: "radial-gradient(ellipse at center, rgba(0,212,255,0.28) 0%, transparent 65%)" }}
+      />
+      {/* Deep violet aurora — right side */}
+      <div
+        className="absolute top-[0%] right-[-20%] w-[80%] h-[100%] animate-aurora-2"
+        style={{ filter: "blur(150px)", background: "radial-gradient(ellipse at center, rgba(124,92,255,0.24) 0%, transparent 65%)" }}
+      />
+      {/* Gold whisper — bottom left */}
+      <div
+        className="absolute bottom-[-15%] left-[5%] w-[65%] h-[65%] animate-aurora-3"
+        style={{ filter: "blur(120px)", background: "radial-gradient(ellipse at center, rgba(201,169,98,0.14) 0%, transparent 65%)" }}
+      />
+      {/* Emerald accent — bottom right */}
+      <div
+        className="absolute bottom-[-5%] right-[5%] w-[45%] h-[45%] animate-aurora-1"
+        style={{ filter: "blur(100px)", animationDelay: "-9s", background: "radial-gradient(ellipse at center, rgba(74,215,162,0.10) 0%, transparent 65%)" }}
+      />
 
-      {/* Active Particle System - "Fireflies" */}
-      {[...Array(40)].map((_, i) => (
+      {/* ── Layer 2: Horizon glow — the "planet surface" illusion ── */}
+      <div className="absolute bottom-[15%] left-1/2 -translate-x-1/2 w-[120%] h-[2px] opacity-[0.12]"
+        style={{ background: "linear-gradient(90deg, transparent, #00d4ff 20%, #7c5cff 50%, #00d4ff 80%, transparent)", filter: "blur(8px)" }} />
+      <div className="absolute bottom-[14%] left-1/2 -translate-x-1/2 w-[80%] h-[300px]"
+        style={{ background: "radial-gradient(ellipse at top, rgba(0,212,255,0.06), transparent 70%)", filter: "blur(40px)" }} />
+
+      {/* ── Layer 3: Fine coordinate grid ── */}
+      <div className="absolute inset-0" style={{
+        opacity: 0.022,
+        backgroundImage: "linear-gradient(rgba(0,212,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.6) 1px, transparent 1px)",
+        backgroundSize: "80px 80px",
+      }} />
+
+      {/* ── Layer 4: Floating nebula orbs ── */}
+      <div className="absolute top-[18%] left-[58%] w-[550px] h-[550px] animate-float"
+        style={{ background: "radial-gradient(circle, rgba(34,211,238,0.06), transparent 70%)", filter: "blur(80px)" }} />
+      <div className="absolute top-[52%] left-[12%] w-[480px] h-[480px] animate-float-delayed"
+        style={{ background: "radial-gradient(circle, rgba(168,85,247,0.07), transparent 70%)", filter: "blur(100px)" }} />
+      <div className="absolute top-[28%] left-[30%] w-[700px] h-[350px] animate-pulse-glow"
+        style={{ background: "radial-gradient(ellipse, rgba(0,212,255,0.035), transparent 70%)", filter: "blur(60px)" }} />
+
+      {/* ── Layer 5: Firefly particles — deterministic positions ── */}
+      {[...Array(55)].map((_, i) => (
         <div
-          key={`firefly-${i}`}
+          key={`ff-${i}`}
           className="absolute rounded-full mix-blend-screen animate-float"
           style={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-            width: `${Math.random() * 3 + 1}px`,
-            height: `${Math.random() * 3 + 1}px`,
-            background: i % 3 === 0 ? '#22d3ee' : i % 5 === 0 ? '#a78bfa' : '#ffffff',
-            opacity: Math.random() * 0.7 + 0.3,
-            animationDuration: `${10 + Math.random() * 20}s`,
-            animationDelay: `${Math.random() * -10}s`,
-            boxShadow: `0 0 ${Math.random() * 10 + 5}px ${i % 3 === 0 ? '#22d3ee' : '#a78bfa'}`,
+            top: `${(i * 17 + 13) % 100}%`,
+            left: `${(i * 23 + 7) % 100}%`,
+            width: `${(i % 3) + 1}px`,
+            height: `${(i % 3) + 1}px`,
+            background: i % 4 === 0 ? '#22d3ee' : i % 4 === 1 ? '#a78bfa' : i % 4 === 2 ? '#c9a962' : '#ffffff',
+            opacity: 0.25 + (i % 6) * 0.1,
+            animationDuration: `${12 + (i % 15)}s`,
+            animationDelay: `${-(i % 13)}s`,
+            boxShadow: `0 0 ${(i % 8) + 4}px ${i % 4 === 0 ? '#22d3ee' : i % 4 === 1 ? '#a78bfa' : '#c9a962'}`,
           }}
         />
       ))}
 
-      {/* Shooting Stars */}
+      {/* ── Layer 6: Shooting stars ── */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(3)].map((_, i) => (
+        {[0, 1, 2, 3].map((i) => (
           <div
-            key={`star-${i}`}
-            className="absolute h-[1px] w-[100px] bg-gradient-to-r from-transparent via-white to-transparent opacity-0 animate-[shooting-star_5s_ease-in-out_infinite]"
+            key={`ss-${i}`}
+            className="absolute h-[1px] w-[130px] opacity-0 animate-[shooting-star_6s_ease-in-out_infinite]"
             style={{
-              top: `${Math.random() * 50}%`,
-              left: `${Math.random() * 80}%`,
-              animationDelay: `${Math.random() * 10}s`,
-              transform: 'rotate(-45deg)'
+              top: `${i * 18 + 8}%`,
+              left: `${i * 22 + 5}%`,
+              animationDelay: `${i * 2.2}s`,
+              transform: "rotate(-38deg)",
+              background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent)",
             }}
           />
         ))}
       </div>
 
-      {/* Nebula mesh — brighter centers */}
-      <div className="absolute top-[20%] left-[60%] w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(34,211,238,0.08),transparent_70%)] blur-[100px] animate-float" />
-      <div className="absolute top-[60%] left-[20%] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(168,85,247,0.08),transparent_70%)] blur-[120px] animate-float-delayed" />
-
-      {/* Subtle grid */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: 'linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)',
-        backgroundSize: '100px 100px',
-      }} />
-
-      {/* Radial vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,#020408_90%)]" />
-
-      {/* Bottom fade */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#020408] via-transparent to-transparent" />
+      {/* ── Vignette + fade ── */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,#010308_80%)]" />
+      <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#010308] to-transparent" />
     </div>
   )
 }
 
-/* Hyper-Realistic Titanium Phone */
+/* PayaGo AI Trip Builder — unique screen nobody else has */
 function PhoneMockup() {
-  const items = [
-    { time: "9:00 AM", title: "Senso-ji Temple", Icon: Landmark, gradient: "from-amber-500/10 to-orange-600/10", border: "border-amber-500/20", iconColor: "#fbbf24", glow: "shadow-amber-500/10" },
-    { time: "12:30 PM", title: "Tsukiji Outer Market", Icon: UtensilsCrossed, gradient: "from-rose-500/10 to-pink-600/10", border: "border-rose-500/20", iconColor: "#fb7185", glow: "shadow-rose-500/10" },
-    { time: "3:00 PM", title: "teamLab Borderless", Icon: Palette, gradient: "from-violet-500/10 to-indigo-600/10", border: "border-violet-500/20", iconColor: "#a78bfa", glow: "shadow-violet-500/10" },
+  const options = [
+    { label: "Budget", price: "£620", per: "/pp", color: "#4AD7A2", flight: "BA · 14h via Seoul", hotel: "Shinjuku Granbell ★★★★" },
+    { label: "Balanced", price: "£780", per: "/pp", color: "#C9A962", flight: "ANA · 11h 45m direct", hotel: "Cerulean Tower ★★★★★", best: true },
+    { label: "Premium", price: "£980", per: "/pp", color: "#7C5CFF", flight: "JAL Business · direct", hotel: "Park Hyatt Tokyo ★★★★★" },
+  ]
+
+  const members = [
+    { initial: "Y", gradient: "from-cyan-400 to-blue-500", voted: true },
+    { initial: "S", gradient: "from-purple-400 to-pink-500", voted: true },
+    { initial: "M", gradient: "from-amber-400 to-orange-500", voted: true },
+    { initial: "P", gradient: "from-emerald-400 to-teal-500", voted: false },
   ]
 
   return (
     <div className="relative w-full max-w-[420px] mx-auto perspective-1000 group/phone">
-      {/* Holographic glow rings - Enhanced */}
-      <div className="absolute -inset-10 rounded-[4.5rem] bg-gradient-to-br from-cyan-500/20 via-blue-500/5 to-purple-600/20 blur-[60px] animate-pulse-glow opacity-50" />
+      {/* Ambient glow — colour shifts with AI pick accent */}
+      <div className="absolute -inset-10 rounded-[4.5rem] bg-gradient-to-br from-[#C9A962]/20 via-[#7C5CFF]/10 to-[#00D4FF]/20 blur-[70px] animate-pulse-glow opacity-60" />
 
-      {/* Physical Buttons (Side) */}
-      <div className="absolute top-24 -left-[2px] w-1 h-8 bg-[#334155] rounded-l-md shadow-lg" />
-      <div className="absolute top-36 -left-[2px] w-1 h-12 bg-[#334155] rounded-l-md shadow-lg" />
-      <div className="absolute top-28 -right-[2px] w-1 h-16 bg-[#334155] rounded-r-md shadow-lg" />
+      {/* Side buttons */}
+      <div className="absolute top-24 -left-[2px] w-1 h-8 bg-[#334155] rounded-l-md" />
+      <div className="absolute top-36 -left-[2px] w-1 h-12 bg-[#334155] rounded-l-md" />
+      <div className="absolute top-28 -right-[2px] w-1 h-16 bg-[#334155] rounded-r-md" />
 
-      {/* Phone chassis - Titanium Frame */}
-      <div className="relative bg-[#1e293b] rounded-[3.5rem] p-[4px] shadow-[0_30px_70px_-20px_rgba(0,0,0,0.8),0_0_0_1px_rgba(255,255,255,0.1),inset_0_0_20px_rgba(0,0,0,0.5)] ring-1 ring-white/10 transform transition-transform duration-500 group-hover/phone:rotate-y-[-5deg] group-hover/phone:rotate-x-[5deg]">
-        {/* Inner Frame with Antenna Bands */}
-        <div className="relative bg-[#0f172a] rounded-[3.3rem] p-[6px] border-[2px] border-[#334155]">
+      {/* Chassis */}
+      <div className="relative bg-[#1e293b] rounded-[3.5rem] p-[4px] shadow-[0_30px_70px_-20px_rgba(0,0,0,0.9),0_0_0_1px_rgba(255,255,255,0.08),inset_0_0_20px_rgba(0,0,0,0.6)] ring-1 ring-white/[0.06]">
+        <div className="relative bg-[#0f172a] rounded-[3.3rem] p-[6px] border-[2px] border-[#2d3f55]">
+          {/* Glass reflection */}
+          <div className="absolute inset-[6px] rounded-[3rem] bg-gradient-to-tr from-white/[0.04] via-transparent to-transparent pointer-events-none z-30 mix-blend-overlay" />
 
-          {/* Screen Glass Reflection */}
-          <div className="absolute inset-[6px] rounded-[3rem] bg-gradient-to-tr from-white/[0.05] via-transparent to-transparent pointer-events-none z-30 mix-blend-overlay" />
+          <div className="relative bg-[#04060A] rounded-[3rem] overflow-hidden h-[800px] flex flex-col">
 
-          {/* Screen Content - "Boxes inside boxes" Depth */}
-          <div className="relative bg-[#020408] rounded-[3rem] overflow-hidden shadow-inner h-[800px] flex flex-col">
-
-            {/* Sub-pixel grain texture */}
-            <div className="absolute inset-0 opacity-[0.03] bg-[url('/noise.svg')] pointer-events-none z-0" />
-
-            {/* Dynamic Island / Notch Area */}
-            <div className="relative z-20 pt-5 px-8 pb-2 flex justify-between items-center bg-gradient-to-b from-[#020408] to-transparent">
-              <span className="text-white/80 text-[13px] font-semibold tracking-wide">9:41</span>
-              <div className="h-[28px] w-[110px] bg-black rounded-full flex items-center justify-center gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#1e293b] shadow-inner" />
-              </div>
-              <div className="flex gap-1.5 items-center">
-                <div className="w-4 h-4 rounded-full border-[1.5px] border-white/40" />
-                <div className="w-[22px] h-[12px] rounded-[3px] border-[1.5px] border-white/40 relative">
+            {/* Status bar */}
+            <div className="relative z-20 pt-5 px-8 pb-2 flex justify-between items-center">
+              <span className="text-white/70 text-[13px] font-semibold">9:41</span>
+              <div className="h-[28px] w-[110px] bg-black rounded-full" />
+              <div className="flex gap-1.5 items-center opacity-60">
+                <div className="w-4 h-4 rounded-full border-[1.5px] border-white/50" />
+                <div className="w-[22px] h-[12px] rounded-[3px] border-[1.5px] border-white/50 relative">
                   <div className="absolute inset-[1.5px] bg-white/60 rounded-[1px]" />
                 </div>
               </div>
             </div>
 
-            {/* Dynamic Header - Floating Box 1 */}
-            <div className="relative z-10 px-6 pt-4 pb-6">
-              <div className="relative bg-[#0f172a]/80 backdrop-blur-xl rounded-[2rem] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.4)] border border-white/[0.05]">
-                {/* Inner inset depth */}
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <div className="text-white font-bold text-xl tracking-tight leading-tight">Tokyo Adventure</div>
-                    <div className="text-cyan-200/60 text-xs font-medium flex items-center gap-1.5 mt-1">
-                      <Clock className="w-3.5 h-3.5" />
-                      7 days · Apr 1–7
+            {/* ── AI header: destination photo + badge ── */}
+            <div className="relative mx-5 rounded-[1.8rem] overflow-hidden h-[140px] flex-shrink-0">
+              <img src="/images/travel-tokyo.png" alt="Tokyo" className="w-full h-full object-cover animate-ken-burns-slow opacity-90" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#04060A]/90 via-[#04060A]/30 to-transparent" />
+              {/* AI badge */}
+              <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-black/40 backdrop-blur-md border border-white/10 px-2.5 py-1 rounded-full">
+                <Sparkles className="w-3 h-3 text-[#C9A962]" />
+                <span className="text-[10px] font-bold text-white/80">AI Generated · 28s</span>
+              </div>
+              {/* Destination name */}
+              <div className="absolute bottom-3 left-4">
+                <div className="text-white font-bold text-lg leading-tight">Tokyo, Japan</div>
+                <div className="text-white/50 text-[11px] flex items-center gap-1">
+                  <Globe className="w-3 h-3" />
+                  7 days · Apr 12–19 · 4 people
+                </div>
+              </div>
+            </div>
+
+            {/* ── 3 AI options ── */}
+            <div className="px-5 pt-4 pb-2 flex-shrink-0">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#4AD7A2] animate-pulse" />
+                <span className="text-[10px] font-mono text-[#4AD7A2]/80 tracking-wide">3 options ready</span>
+              </div>
+              <div className="space-y-2">
+                {options.map((opt) => (
+                  <div
+                    key={opt.label}
+                    className="relative rounded-2xl px-4 py-3 border flex items-center gap-3 overflow-hidden"
+                    style={{
+                      background: opt.best ? `${opt.color}0A` : "rgba(255,255,255,0.02)",
+                      borderColor: opt.best ? `${opt.color}40` : "rgba(255,255,255,0.06)",
+                      boxShadow: opt.best ? `0 0 20px ${opt.color}10` : "none",
+                    }}
+                  >
+                    {/* Accent bar */}
+                    <div className="w-[3px] h-8 rounded-full flex-shrink-0" style={{ background: opt.color }} />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <span className="text-[11px] font-bold" style={{ color: opt.color }}>{opt.label}</span>
+                        {opt.best && (
+                          <span className="text-[8px] font-black px-1.5 py-0.5 rounded-full" style={{ color: opt.color, background: opt.color + "20" }}>AI PICK</span>
+                        )}
+                      </div>
+                      <div className="text-white/35 text-[9px] truncate">{opt.flight}</div>
+                    </div>
+                    <div className="text-right flex-shrink-0">
+                      <span className="text-white font-bold text-sm">{opt.price}</span>
+                      <span className="text-white/30 text-[9px]">{opt.per}</span>
                     </div>
                   </div>
-                  <div className="flex -space-x-3">
-                    {[1, 2, 3].map((_, i) => (
-                      <div key={i} className={`w-10 h-10 rounded-full border-2 border-[#0f172a] bg-gradient-to-br ${i === 0 ? 'from-cyan-400 to-blue-500' : i === 1 ? 'from-purple-400 to-pink-500' : 'from-amber-400 to-orange-500'} shadow-lg`} />
-                    ))}
-                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ── Group voting strip ── */}
+            <div className="px-5 pt-3 flex-shrink-0">
+              <div className="bg-white/[0.025] border border-white/[0.06] rounded-2xl px-4 py-3">
+                <div className="flex items-center justify-between mb-2.5">
+                  <span className="text-white/40 text-[10px] font-semibold uppercase tracking-wider">Group voting</span>
+                  <span className="text-[#00D4FF] text-[10px] font-bold">3/4 voted</span>
                 </div>
-                {/* Progress with inner shadow */}
-                <div className="h-2 w-full bg-[#020408] rounded-full shadow-[inset_0_1px_3px_rgba(0,0,0,0.5)] overflow-hidden">
-                  <div className="h-full w-[60%] bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
+                <div className="flex items-center gap-2">
+                  {members.map((m, i) => (
+                    <div key={i} className="relative">
+                      <div className={`w-9 h-9 rounded-full bg-gradient-to-br ${m.gradient} flex items-center justify-center text-white text-xs font-bold border-2`}
+                        style={{ borderColor: m.voted ? "#4AD7A2" : "rgba(255,255,255,0.1)" }}>
+                        {m.initial}
+                      </div>
+                      {m.voted && (
+                        <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#4AD7A2] flex items-center justify-center">
+                          <Check className="w-2 h-2 text-[#04060A]" />
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                  <div className="flex-1 text-right">
+                    <div className="text-white/20 text-[9px]">Priya reminded</div>
+                    <div className="text-white/15 text-[8px]">2 min ago</div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Itinerary - Stacked Boxes ("Boxes in boxes") */}
-            <div className="relative z-10 flex-1 px-5 space-y-4">
-              <div className="text-white/30 text-xs font-bold uppercase tracking-widest px-2">Today's Plan</div>
-
-              {items.map((item, i) => (
-                <div
-                  key={i}
-                  className={`group relative flex items-center gap-4 bg-[#0f172a]/60 backdrop-blur-md rounded-[1.5rem] p-4 border border-white/[0.03] shadow-[0_4px_20px_rgba(0,0,0,0.2)] transition-all duration-300 hover:scale-[1.02] hover:bg-[#1e293b]/80 hover:shadow-[0_8px_30px_rgba(0,0,0,0.4)] hover:border-white/[0.08]`}
-                >
-                  {/* Icon Box - Deep Inset */}
-                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center bg-[#020408] shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)] border border-white/[0.05]`}>
-                    <item.Icon className="w-5 h-5" style={{ color: item.iconColor }} />
+            {/* ── Floating live badge — unique PayaGo feel ── */}
+            <div className="absolute -left-8 bottom-36 animate-float z-30">
+              <div className="bg-[#0D1B2A]/95 backdrop-blur-2xl border border-[#00D4FF]/25 px-4 py-3 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.6),0_0_20px_rgba(0,212,255,0.08)] flex items-center gap-3">
+                <div className="relative">
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#00D4FF]/20 to-[#7C5CFF]/20 border border-[#00D4FF]/30 flex items-center justify-center">
+                    <Users className="w-4 h-4 text-[#00D4FF]" />
                   </div>
-
-                  <div className="flex-1 min-w-0">
-                    <div className="text-white font-bold text-[14px] tracking-tight">{item.title}</div>
-                    <div className="text-white/40 text-[11px] font-medium mt-0.5">{item.time}</div>
-                  </div>
-
-                  {/* Status Light */}
-                  <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)] animate-pulse" />
-                </div>
-              ))}
-            </div>
-
-            {/* Floating 3D Alert - Breaks the "Box" */}
-            <div className="absolute -right-6 bottom-32 animate-float-delayed z-30 perspective-500">
-              <div className="bg-white/10 backdrop-blur-2xl border border-white/20 p-4 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center gap-4 max-w-[200px] transform rotate-y-[-10deg] hover:rotate-y-[0deg] transition-transform duration-500">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg">
-                  <TrendingDown className="w-5 h-5 text-white" />
+                  <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[#4AD7A2] border border-[#0D1B2A] animate-ping" />
                 </div>
                 <div>
-                  <div className="text-white font-bold text-sm">Price Drop!</div>
-                  <div className="text-white/60 text-xs">Save £45/night</div>
+                  <div className="text-white text-[11px] font-bold leading-tight">Group is live</div>
+                  <div className="text-white/40 text-[9px]">3 friends voted In</div>
                 </div>
               </div>
             </div>
 
-            {/* Bottom Home Indicator */}
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[130px] h-[5px] bg-white/20 rounded-full" />
+            {/* Home indicator */}
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[130px] h-[5px] bg-white/15 rounded-full" />
           </div>
         </div>
       </div>
@@ -263,27 +323,33 @@ export function HeroSection() {
           {/* Left — Copy */}
           <div className="space-y-8 text-center lg:text-left">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/[0.03] border border-white/[0.06] backdrop-blur-xl animate-fade-up">
+            <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/[0.04] border border-white/[0.08] backdrop-blur-2xl animate-fade-up shadow-[0_0_30px_rgba(0,212,255,0.06)]">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
               </span>
-              <span className="text-[13px] text-white/50 font-medium">AI Travel Planning</span>
-              <span className="w-[3px] h-[3px] rounded-full bg-white/15" />
-              <span className="text-[13px] bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent font-semibold">Launching April 2026 · iOS & Android</span>
+              <span className="text-[12px] text-white/40 font-medium tracking-wide uppercase">AI Travel Planning</span>
+              <span className="w-[1px] h-3 bg-white/10" />
+              <span className="text-[12px] bg-gradient-to-r from-emerald-300 to-cyan-300 bg-clip-text text-transparent font-semibold tracking-wide">Launching April 2026</span>
             </div>
 
             {/* Headline */}
-            <h1 className="text-5xl sm:text-6xl lg:text-[4.5rem] font-bold tracking-[-0.03em] leading-[1.05] animate-fade-up" style={{ animationDelay: "0.12s" }}>
-              <span className="text-white drop-shadow-sm">One sentence.</span>
+            <h1
+              className="text-5xl sm:text-6xl lg:text-[5rem] font-bold tracking-[-0.04em] leading-[0.98] animate-fade-up"
+              style={{ animationDelay: "0.12s", fontFamily: "var(--font-outfit)" }}
+            >
+              <span className="text-white">One sentence.</span>
               <br />
-              <span className="bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient-text drop-shadow-[0_0_15px_rgba(34,211,238,0.3)]">
+              <span
+                className="bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient-text"
+                style={{ backgroundImage: "linear-gradient(90deg, #00d4ff, #7c5cff, #4ad7a2, #00d4ff)" }}
+              >
                 One booked trip.
               </span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-[17px] text-white/40 max-w-lg leading-[1.7] animate-fade-up" style={{ animationDelay: "0.22s" }}>
+            <p className="text-[17px] text-white/45 max-w-[480px] leading-[1.75] animate-fade-up" style={{ animationDelay: "0.22s" }}>
               Describe your dream trip in plain English. PayaGo AI builds the full itinerary, your group edits live, and everything books in-app.
             </p>
 

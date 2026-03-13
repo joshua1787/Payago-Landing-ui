@@ -71,23 +71,25 @@ export function FeaturesSection() {
 
     return (
         <section ref={sectionRef} id="features" className="relative py-28 sm:py-36 overflow-hidden">
-            {/* Light-to-dark gradient background for visual variety */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#f8fafc] via-[#f1f5f9] to-[#0f172a]" />
+            {/* Dark cinematic background — consistent with site theme */}
+            <div className="absolute inset-0 bg-[#030609]" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(124,92,255,0.06),transparent_70%)] blur-[100px] pointer-events-none" />
+            <div className="absolute bottom-0 right-0 w-[600px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(0,212,255,0.04),transparent_70%)] blur-[100px] pointer-events-none" />
 
-            {/* Subtle geometric pattern on white area */}
-            <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, #64748b 1px, transparent 0)', backgroundSize: '32px 32px' }} />
+            {/* Subtle grid */}
+            <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
 
             <div className="relative z-10 max-w-6xl mx-auto px-6">
                 {/* Header — dark text on light bg */}
                 <div className={`text-center mb-20 transition-all duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-                    <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-blue-50 border border-blue-100 mb-6">
-                        <span className="text-[13px] text-blue-600 font-semibold">Platform capabilities</span>
+                    <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#7C5CFF]/10 border border-[#7C5CFF]/20 mb-6 backdrop-blur-xl">
+                        <span className="text-[13px] text-[#7C5CFF] font-semibold">Platform capabilities</span>
                     </div>
-                    <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 tracking-[-0.03em] mb-5">
+                    <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-[-0.03em] mb-5">
                         Everything you need.{" "}
-                        <span className="bg-gradient-to-r from-blue-600 via-violet-600 to-purple-600 bg-clip-text text-transparent">Nothing you don&apos;t.</span>
+                        <span className="bg-gradient-to-r from-[#7C5CFF] via-[#00D4FF] to-[#4AD7A2] bg-clip-text text-transparent">Nothing you don&apos;t.</span>
                     </h2>
-                    <p className="text-[17px] text-slate-500 max-w-lg mx-auto leading-relaxed">
+                    <p className="text-[17px] text-white/35 max-w-lg mx-auto leading-relaxed">
                         Ten features. Zero tab-switching. One app that does it all.
                     </p>
                 </div>
@@ -107,7 +109,8 @@ export function FeaturesSection() {
                                     <img
                                         src={feature.image}
                                         alt={feature.title}
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                        className={`w-full h-full object-cover ${i % 2 === 0 ? "animate-ken-burns" : "animate-ken-burns-alt"}`}
+                                        style={{ transformOrigin: "center center" }}
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
 

@@ -30,9 +30,9 @@ export function CTASection() {
             {/* Vibrant dynamic gradient background — inspired by bold color palettes */}
             <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-violet-600 to-purple-700" />
 
-            {/* Travel photo overlay with blend */}
-            <div className="absolute inset-0 opacity-[0.12]">
-                <img src="/images/travel-santorini.png" alt="" className="w-full h-full object-cover" />
+            {/* Travel photo with Ken Burns — slow cinematic drift */}
+            <div className="absolute inset-0 overflow-hidden opacity-[0.18]">
+                <img src="/images/travel-santorini.png" alt="" className="w-full h-full object-cover animate-ken-burns-slow" style={{ transformOrigin: "60% 40%" }} />
             </div>
             <div className="absolute inset-0 bg-gradient-to-br from-blue-600/80 via-violet-600/70 to-purple-700/80" />
 
