@@ -11,7 +11,7 @@ const faqs = [
         questions: [
             {
                 q: "What is PayaGo?",
-                a: "PayaGo is an AI-powered group travel planning app. You describe your trip in one sentence — destination, group size, budget, vibe — and Gemini AI builds a complete itinerary in 30 seconds: flights, hotel, day-by-day schedule, and activities. Your group then votes, everyone pays their share via Stripe, and everything books automatically. No spreadsheets, no chasing people for money, no 15 hours of research."
+                a: "PayaGo is an AI-powered group travel planning app. You describe your trip in one sentence — destination, group size, budget, vibe — and Gemini AI builds a complete itinerary in 30 seconds: flights, hotel, day-by-day schedule, and activities. Your group then votes, everyone pays their share, and everything books automatically. No spreadsheets, no chasing people for money, no 15 hours of research."
             },
             {
                 q: "When does PayaGo launch?",
@@ -19,7 +19,7 @@ const faqs = [
             },
             {
                 q: "Is it really free?",
-                a: "Yes — completely free for travellers. PayaGo earns a commission from booking partners (Booking.com, Kiwi.com, Viator) when you complete a booking. You pay the same prices you'd find booking directly — we never mark up fares or add service fees. The AI planning, group coordination, and payment tools are all included at no cost to you."
+                a: "Yes — completely free for travellers. PayaGo earns a commission from travel booking partners when you complete a booking. You pay the same prices you'd find booking directly — we never mark up fares or add service fees. The AI planning, group coordination, and payment tools are all included at no cost to you."
             },
             {
                 q: "Do I need to download the app to view or vote on a trip?",
@@ -33,7 +33,7 @@ const faqs = [
         questions: [
             {
                 q: "How does the AI build a trip in 30 seconds?",
-                a: "When you speak or type your trip description, Whisper AI converts your voice to text in ~2 seconds, and Gemini AI extracts your intent (destination, budget, group size, preferences) in ~3 seconds. Then PayaGo makes parallel API calls to Kiwi.com for flights, Booking.com for hotels, and Viator for activities — all simultaneously. Gemini assembles the results into three complete, bookable options (Budget, Balanced, Premium) with full day-by-day schedules. The whole process takes under 30 seconds."
+                a: "When you speak or type your trip description, Gemini AI extracts your intent (destination, budget, group size, preferences) in seconds. Then PayaGo makes parallel API calls to flight, hotel, and activity providers — all simultaneously. Gemini assembles the results into three complete, bookable options (Budget, Balanced, Premium) with full day-by-day schedules. The whole process takes under 30 seconds."
             },
             {
                 q: "Can I edit the itinerary the AI creates?",
@@ -41,7 +41,7 @@ const faqs = [
             },
             {
                 q: "How accurate is the AI? Can I trust the prices?",
-                a: "Prices come directly from the booking partner APIs (Kiwi, Booking.com, Viator) in real time — they're live prices, not estimates. Flight and hotel availability is checked before the trip options are shown to you. The AI applies quality filters (minimum 4-star hotels, flights without excessive connections, activities rated 4.5+ stars) before presenting options."
+                a: "Prices come directly from booking partner APIs in real time — they're live prices, not estimates. Flight and hotel availability is checked before the trip options are shown to you. The AI applies quality filters (minimum 4-star hotels, flights without excessive connections, activities rated 4.5+ stars) before presenting options."
             },
             {
                 q: "What if I want a destination the AI hasn't suggested?",
@@ -81,11 +81,11 @@ const faqs = [
         questions: [
             {
                 q: "How do payments work?",
-                a: "When the group confirms a trip, PayaGo sends a payment request to every member for their exact share of the total (e.g. £390 each, not £2,340 from one person). Each person pays directly via card, Apple Pay, or PayPal through Stripe. Once all payments clear, PayaGo simultaneously books the flights, hotel, and activities. Confirmations are sent to everyone's email."
+                a: "When the group confirms a trip, PayaGo sends a payment request to every member for their exact share of the total (e.g. £390 each, not £2,340 from one person). Each person pays directly via card, Apple Pay, or Google Pay. Once all payments clear, PayaGo simultaneously books the flights, hotel, and activities. Confirmations are sent to everyone's email."
             },
             {
                 q: "Is payment secure?",
-                a: "Yes. Payments are processed by Stripe — PCI-DSS Level 1 certified (the highest level), 3D Secure authenticated, and protected by Stripe Radar fraud detection. Your card details are never stored by PayaGo. Stripe handles all payment data."
+                a: "Yes. Payments use PCI-DSS Level 1 certified infrastructure (the highest level), 3D Secure authentication, and advanced fraud detection. Your card details are never stored by PayaGo — all payment data is handled by our secure payment processor."
             },
             {
                 q: "What payment methods are accepted?",
@@ -97,7 +97,7 @@ const faqs = [
             },
             {
                 q: "What if I need to cancel?",
-                a: "Cancellation policies follow each booking partner's terms. Typically: 100% refund if cancelled more than 14 days before departure, 50% refund for 7–14 days before, non-refundable within 7 days (unless the partner allows more flexibility). PayaGo handles the refund request on your behalf and processes refunds to the original payment method within 5–10 business days."
+                a: "Cancellation policies follow each booking provider's terms. Typically: 100% refund if cancelled more than 14 days before departure, 50% refund for 7–14 days before, non-refundable within 7 days (unless the provider allows more flexibility). PayaGo handles the refund request on your behalf and processes refunds to the original payment method within 5–10 business days."
             },
         ]
     },

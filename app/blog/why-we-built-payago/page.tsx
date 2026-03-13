@@ -100,7 +100,7 @@ export default function BlogPost() {
                     <h2 className="text-2xl font-bold text-white mt-12 mb-4">The problem wasn&apos;t a lack of tools</h2>
 
                     <p>
-                        Google Flights existed for flight comparisons. Booking.com for hotels. TripAdvisor for reviews. Notion for organizing everything. WhatsApp for the group chat. The tools existed — the problem was that planning a real trip required jumping between six or seven different platforms, manually copying information across them, and somehow keeping a group of eight people aligned through it all.
+                        Google Flights existed for flight comparisons. Hotel sites for accommodation. TripAdvisor for reviews. Notion for organizing everything. WhatsApp for the group chat. The tools existed — the problem was that planning a real trip required jumping between six or seven different platforms, manually copying information across them, and somehow keeping a group of eight people aligned through it all.
                     </p>
 
                     <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/5 my-8">
@@ -147,7 +147,7 @@ export default function BlogPost() {
                             { step: "01", title: "You talk", desc: "Tell the AI your destination, dates, budget, and preferences — by voice or text, in one sentence." },
                             { step: "02", title: "AI builds it", desc: "Three complete trip options — flights, hotels, activities — generated in 30 seconds with live pricing." },
                             { step: "03", title: "Group votes", desc: "Share a link. Everyone votes on their preferred option. No WhatsApp threads." },
-                            { step: "04", title: "Everyone pays", desc: "Each person pays their exact share via Stripe. Nobody fronts the full amount." },
+                            { step: "04", title: "Everyone pays", desc: "Each person pays their exact share directly in the app. Nobody fronts the full amount." },
                         ].map((item) => (
                             <div key={item.step} className="p-5 rounded-xl bg-white/[0.03] border border-white/5">
                                 <div className="text-[#C9A962] font-black text-2xl mb-2">{item.step}</div>
@@ -164,7 +164,7 @@ export default function BlogPost() {
                     </p>
 
                     <p>
-                        PayaGo is free for travellers. We earn a commission from Booking.com, Kiwi.com, and Viator when you book through the app — the same commission those platforms pay to any affiliate. You pay the same price you&apos;d pay booking directly. We make money when you travel well.
+                        PayaGo is free for travellers. We earn a commission from travel booking partners when you book through the app — the same commission those platforms pay to any affiliate. You pay the same price you&apos;d pay booking directly. We make money when you travel well.
                     </p>
 
                     <p>

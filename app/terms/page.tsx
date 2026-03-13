@@ -17,7 +17,7 @@ export default function TermsOfService() {
                         Last updated: February 2026. Full terms coming soon. For questions: <a href="mailto:support@payago.in" className="text-[#E8742A] hover:underline">support@payago.in</a>
                     </p>
                     <p className="text-white/40 italic mt-8 text-sm">
-                        Note: Generate full terms at termly.io before Booking.com application
+                        Note: Generate full terms at termly.io before launch
                     </p>
                 </div>
             </div>

@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, Mic, Sparkles, Users, CreditCard, Brain, MapPin,
 
 export const metadata: Metadata = {
     title: "PayaGo Features — AI Itinerary, Group Voting, Split Payments & More",
-    description: "Every feature in PayaGo: voice AI trip creation, 30-second itineraries, group voting, split payments via Stripe, Travel DNA personalisation, and real-time trip assistance.",
+    description: "Every feature in PayaGo: voice AI trip creation, 30-second itineraries, group voting, split payments, Travel DNA personalisation, and real-time trip assistance.",
     openGraph: {
         title: "PayaGo Features — AI Itinerary, Group Voting, Split Payments",
         description: "Voice AI trip creation, 30-second itineraries, group voting, split payments, and real-time trip assistance.",
@@ -32,7 +32,7 @@ const categories = [
                 description: "Talk like you're texting a friend. No forms, no dropdowns, no decision fatigue. The AI extracts destination, dates, budget, group size, and vibe from a single natural sentence.",
                 color: "#C9A962",
                 stat: "5 seconds",
-                statLabel: "vs 5 minutes on Booking.com",
+                statLabel: "vs 5+ hours of manual research",
             },
             {
                 icon: Sparkles,
@@ -45,7 +45,7 @@ const categories = [
             {
                 icon: Clock,
                 title: "30-Second Itinerary",
-                description: "Parallel API calls to Kiwi.com, Booking.com, and Viator run simultaneously. Gemini AI assembles the results into complete, hour-by-hour plans with timings, costs, and local tips.",
+                description: "Parallel API calls to flight, hotel, and activity providers run simultaneously. Gemini AI assembles the results into complete, hour-by-hour plans with timings, costs, and local tips.",
                 color: "#FF9F43",
                 stat: "< 30s",
                 statLabel: "end-to-end generation time",
@@ -109,21 +109,21 @@ const categories = [
         badgeColor: "#4AD7A2",
         title: "Group Payments",
         subtitle: "Everyone pays their share. Nobody fronts £2,000.",
-        description: "The moment the group confirms, payment requests go out to every member for their exact share. Secured by Stripe. No one person carries the financial risk of a group trip.",
+        description: "The moment the group confirms, payment requests go out to every member for their exact share. Secured and PCI-compliant. No one person carries the financial risk of a group trip.",
         color: "#4AD7A2",
         features: [
             {
                 icon: CreditCard,
                 title: "Split-to-Each Payment",
-                description: "Everyone pays their own share directly in the app — not Sarah's bank account. £390 each, not £2,340 from one person. Payments go straight to booking partners.",
+                description: "Everyone pays their own share directly in the app — not Sarah's bank account. £390 each, not £2,340 from one person. Payments go straight to the booking.",
                 color: "#4AD7A2",
                 stat: "£0",
                 statLabel: "one person needs to front",
             },
             {
                 icon: Shield,
-                title: "Stripe-Secured",
-                description: "Every payment is processed through Stripe — PCI-DSS Level 1 certified, 3D Secure authenticated, and fraud-protected. The same infrastructure used by Shopify and Amazon.",
+                title: "Secure Payments",
+                description: "Every payment is processed through PCI-DSS Level 1 certified infrastructure, 3D Secure authenticated, and fraud-protected. The same standards used by the world's largest platforms.",
                 color: "#34C38F",
                 stat: "PCI-DSS",
                 statLabel: "Level 1 — highest tier",
@@ -321,8 +321,8 @@ export default function FeaturesPage() {
                         All of this.
                         <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent"> Free for travellers.</span>
                     </h2>
-                    <p className="text-white/50 text-lg mb-4">We earn from partner commissions — not from you. Every feature is free, always.</p>
-                    <p className="text-white/30 text-sm mb-10">Booking.com · Kiwi.com · Viator · Stripe</p>
+                    <p className="text-white/50 text-lg mb-4">We earn from booking partner commissions — not from you. Every feature is free, always.</p>
+                    <p className="text-white/30 text-sm mb-10">Powered by Gemini AI · Claude AI</p>
                     <Link href="/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
                         Get Early Access
                         <ArrowRight className="w-4 h-4" />

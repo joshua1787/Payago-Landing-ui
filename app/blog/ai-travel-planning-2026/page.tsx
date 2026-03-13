@@ -103,9 +103,9 @@ export default function BlogPost() {
                     <ul className="space-y-3 list-none pl-0">
                         {[
                             "Gemini AI extracts your intent — destination, dates, budget, preferences, group size",
-                            "Kiwi.com returns live flight options from your nearest airports",
-                            "Booking.com filters hotels rated 4+ stars within your budget range",
-                            "Viator surfaces activities matching your stated interests",
+                            "Flight APIs return live options from your nearest airports",
+                            "Hotel providers filter accommodation rated 4+ stars within your budget range",
+                            "Activity providers surface experiences matching your stated interests",
                             "Gemini assembles everything into three coherent itinerary options (Budget, Balanced, Premium)",
                         ].map((item, i) => (
                             <li key={i} className="flex items-start gap-3">
@@ -129,7 +129,7 @@ export default function BlogPost() {
                         {[
                             { problem: "\"Can everyone do this weekend?\"", solution: "AI detects voting conflicts and auto-suggests alternative dates that work for everyone" },
                             { problem: "\"Someone hasn't voted yet\"", solution: "Automated 12h and 24h reminders — no awkward follow-up texts needed" },
-                            { problem: "\"Who's paying for what?\"", solution: "Each person pays their exact share via Stripe — nobody fronts the full cost" },
+                            { problem: "\"Who's paying for what?\"", solution: "Each person pays their exact share directly — nobody fronts the full cost" },
                             { problem: "\"The itinerary changed again\"", solution: "Real-time WebSocket sync — every edit visible to the whole group instantly" },
                         ].map((item, i) => (
                             <div key={i} className="p-5 rounded-xl bg-white/[0.03] border border-white/5">

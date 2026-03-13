@@ -13,7 +13,7 @@ const stats = [
 const competitors = [
     { name: "Google Maps", does: "Saves places", misses: "No AI planning, no group, no booking", edge: "Full plan + group + booking" },
     { name: "TripAdvisor", does: "Reviews", misses: "Lists not plans, no group", edge: "Structured itinerary + collab" },
-    { name: "Booking.com", does: "Hotel booking", misses: "No itinerary, no AI", edge: "Planning-first flow" },
+    { name: "Hotel sites", does: "Hotel booking", misses: "No itinerary, no AI", edge: "Planning-first flow" },
     { name: "Wanderlog", does: "Manual planning", misses: "No AI, no real-time collab", edge: "AI-first, 30s plans" },
 ]
 

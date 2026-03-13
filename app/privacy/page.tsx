@@ -17,7 +17,7 @@ export default function PrivacyPolicy() {
                         Last updated: February 2026. Full privacy policy coming soon. For questions: <a href="mailto:support@payago.in" className="text-[#E8742A] hover:underline">support@payago.in</a>
                     </p>
                     <p className="text-white/40 italic mt-8 text-sm">
-                        Note to self: Generate full policy at termly.io before Booking.com application
+                        Note to self: Generate full policy at termly.io before launch
                     </p>
                 </div>
             </div>

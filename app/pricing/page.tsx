@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, Check, Sparkles, Building2, Star } from "lucide-
 
 export const metadata: Metadata = {
     title: "PayaGo Pricing — Free for Travellers, Always",
-    description: "PayaGo is 100% free for travellers. We earn a commission from Booking.com, Kiwi.com, and Viator when you book — you pay the same prices as booking direct.",
+    description: "PayaGo is 100% free for travellers. We earn a commission from travel booking partners when you book — you pay the same prices as booking direct.",
     openGraph: {
         title: "PayaGo Pricing — Free for Travellers, Always",
         description: "PayaGo is free for travellers. We earn from partner commissions — you pay the same price as booking direct.",
@@ -22,13 +22,13 @@ const plans = [
         price: "Free",
         period: "forever",
         tagline: "Everything you need to plan and book group trips",
-        description: "Core AI planning, group coordination, and in-app booking — all free. We earn a commission from Booking.com, Kiwi, and Viator when you book, not from you.",
+        description: "Core AI planning, group coordination, and in-app booking — all free. We earn a commission from travel booking partners when you book, not from you.",
         features: [
             "AI itinerary generation (30 seconds)",
             "3 complete trip options per search",
             "Voice-first trip creation",
             "Group invite & voting system",
-            "Group payments via Stripe",
+            "Group payments (each person pays their share)",
             "In-app booking (hotels, flights, activities)",
             "Pre-trip reminders & packing list",
             "Weather alerts & real-time adaptation",
@@ -95,21 +95,21 @@ const plans = [
 
 const howWeEarn = [
     {
-        partner: "Booking.com",
-        type: "Hotel bookings",
-        how: "We receive a commission from Booking.com when you book a hotel through PayaGo. The hotel price you see is the same you'd find directly — we never mark it up.",
+        partner: "Hotels",
+        type: "Accommodation bookings",
+        how: "We receive a commission from hotel booking providers when you book accommodation through PayaGo. The price you see is the same you'd find booking directly — we never mark it up.",
         color: "#C9A962",
     },
     {
-        partner: "Kiwi.com",
+        partner: "Flights",
         type: "Flight bookings",
-        how: "Kiwi pays us a referral fee for flights booked through their API. You get Kiwi's best fares — no surcharge, no service fee added by us.",
+        how: "Flight booking partners pay us a referral fee for flights booked through PayaGo. You get the best live fares — no surcharge, no service fee added by us.",
         color: "#00D4FF",
     },
     {
-        partner: "Viator",
-        type: "Activities & tours",
-        how: "Viator pays a commission on activity bookings. Same price as booking direct on Viator — we just make the booking happen inside your itinerary automatically.",
+        partner: "Activities",
+        type: "Tours & experiences",
+        how: "Activity providers pay a commission on bookings. Same price as booking direct — we just make it happen automatically inside your itinerary.",
         color: "#7C5CFF",
     },
 ]
@@ -117,15 +117,15 @@ const howWeEarn = [
 const faqs = [
     {
         q: "Is PayaGo really free? What's the catch?",
-        a: "No catch. PayaGo earns a commission from Booking.com, Kiwi.com, and Viator when you complete a booking through the app. The prices you pay are identical to booking directly — we never mark up fares or add service fees. It's the same model as comparison sites, except we also build the itinerary and coordinate your whole group.",
+        a: "No catch. PayaGo earns a commission from travel booking partners when you complete a booking through the app. The prices you pay are identical to booking directly — we never mark up fares or add service fees. It's the same model as comparison sites, except we also build the itinerary and coordinate your whole group.",
     },
     {
         q: "Does PayaGo add any fees on top of bookings?",
-        a: "No. Zero booking fees, zero service charges, zero markup. The flight price shown is Kiwi's price. The hotel price shown is Booking.com's price. We earn from the partner, not from you.",
+        a: "No. Zero booking fees, zero service charges, zero markup. The prices shown are live prices direct from booking providers. We earn from the partner, not from you.",
     },
     {
-        q: "What about payment processing — are there Stripe fees?",
-        a: "Stripe processes your payment at their standard rate, which is included in the total shown. You'll never see a surprise fee at checkout.",
+        q: "Are there any payment processing fees?",
+        a: "Payment processing costs are included in the total shown. You'll never see a surprise fee at checkout.",
     },
     {
         q: "When will the Explorer plan launch and what will it cost?",
@@ -133,7 +133,7 @@ const faqs = [
     },
     {
         q: "Can I get a refund if I need to cancel a trip?",
-        a: "Refunds follow each partner's cancellation policy. Typically: 100% refund more than 14 days before departure, 50% for 7–14 days, and non-refundable within 7 days (unless the partner offers more flexibility). We handle the refund request on your behalf.",
+        a: "Refunds follow each booking provider's cancellation policy. Typically: 100% refund more than 14 days before departure, 50% for 7–14 days, and non-refundable within 7 days (unless the provider offers more flexibility). We handle the refund request on your behalf.",
     },
 ]
 
@@ -169,7 +169,7 @@ export default function PricingPage() {
                         <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent block">Partners pay us.</span>
                     </h1>
                     <p className="text-xl text-white/50 max-w-2xl mx-auto leading-relaxed">
-                        {"PayaGo earns a commission from Booking.com, Kiwi, and Viator when you book. You get the same prices you'd find anywhere else — plus an AI that builds the entire trip for you."}
+                        {"PayaGo earns a commission from travel booking partners when you book. You get the same prices you'd find anywhere else — plus an AI that builds the entire trip for you."}
                     </p>
                 </div>
             </section>

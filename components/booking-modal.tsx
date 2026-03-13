@@ -77,7 +77,7 @@ export function BookingModal({ isOpen, onClose, type = "hotel" }: { isOpen: bool
                             </Button>
 
                             <div className="flex justify-center items-center gap-2 text-xs text-white/30">
-                                <span className="w-2 h-2 rounded-full bg-green-500" /> Powered by Booking.com
+                                <span className="w-2 h-2 rounded-full bg-green-500" /> Secure booking
                             </div>
                         </div>
                     )}

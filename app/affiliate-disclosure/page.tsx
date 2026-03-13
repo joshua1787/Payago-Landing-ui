@@ -4,7 +4,7 @@ import { ArrowLeft } from "lucide-react"
 
 export const metadata: Metadata = {
     title: "Affiliate Disclosure — PayaGo",
-    description: "PayaGo earns a commission from Booking.com, Kiwi.com, and Viator when you book through our app. You always pay the same price as booking direct.",
+    description: "PayaGo earns a commission from travel booking partners when you book through our app. You always pay the same price as booking direct.",
     alternates: {
         canonical: "https://www.payago.in/affiliate-disclosure",
     },
@@ -37,37 +37,21 @@ export default function AffiliateDisclosure() {
                     <div className="p-6 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20">
                         <p className="text-white font-semibold mb-2">The short version</p>
                         <p className="text-white/70 text-base">
-                            PayaGo earns a commission from our booking partners (Booking.com, Kiwi.com, Viator) when you complete a booking through our app. You always pay the same price you would pay booking directly on their website — we never mark up prices or add service fees. This commission is how PayaGo remains free for travellers.
+                            PayaGo earns a commission from travel booking partners when you complete a booking through our app. You always pay the same price you would pay booking directly — we never mark up prices or add service fees. This commission is how PayaGo remains free for travellers.
                         </p>
                     </div>
 
                     <section>
                         <h2 className="text-2xl font-bold text-white mb-4">1. What is affiliate marketing?</h2>
                         <p>
-                            Affiliate marketing is a standard industry practice where a website or app earns a referral commission when a user completes a purchase through a partner link. PayaGo participates in affiliate programs with the following travel booking partners:
+                            Affiliate marketing is a standard industry practice where a website or app earns a referral commission when a user completes a purchase through a partner link. PayaGo participates in affiliate programs with travel booking partners covering hotels, flights, and activities. A full list of active partners will be published here at launch.
                         </p>
-                        <ul className="mt-4 space-y-2 text-base">
-                            {[
-                                { name: "Booking.com", type: "Hotel reservations", program: "Booking.com Affiliate Partner Programme" },
-                                { name: "Kiwi.com", type: "Flight tickets", program: "Kiwi.com Affiliate Programme" },
-                                { name: "Viator (a TripAdvisor company)", type: "Activities, tours & experiences", program: "Viator Affiliate Programme" },
-                            ].map((partner) => (
-                                <li key={partner.name} className="flex items-start gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/5">
-                                    <div>
-                                        <span className="text-white font-semibold">{partner.name}</span>
-                                        <span className="text-white/40 mx-2">—</span>
-                                        <span>{partner.type}</span>
-                                        <div className="text-white/30 text-sm mt-0.5">{partner.program}</div>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
                     </section>
 
                     <section>
                         <h2 className="text-2xl font-bold text-white mb-4">2. Does this affect the price you pay?</h2>
                         <p>
-                            No. The affiliate commission PayaGo receives is paid by the booking partner from their own margin — it is not added on top of the price you pay. You pay the same amount you would pay if you booked directly on Booking.com, Kiwi.com, or Viator.
+                            No. The affiliate commission PayaGo receives is paid by the booking partner from their own margin — it is not added on top of the price you pay. You pay the same amount you would pay booking directly.
                         </p>
                         <p className="mt-4">
                             PayaGo does not charge travellers any service fees, booking fees, or platform fees. Our product is entirely free for travellers.
@@ -80,7 +64,7 @@ export default function AffiliateDisclosure() {
                             Our AI itinerary generation and recommendations are optimised for quality and relevance to your specific trip — not to maximise commission. We apply quality filters (minimum 4-star hotels, activities rated 4.5+ stars, flights without excessive connections) regardless of commission rates.
                         </p>
                         <p className="mt-4">
-                            All booking search results and recommendations are labelled with the fulfilling partner (e.g. &ldquo;Hotel search powered by Booking.com&rdquo;, &ldquo;Activities by Viator&rdquo;) at the point of display in the app.
+                            All booking search results and recommendations will be labelled with the fulfilling partner at the point of display in the app.
                         </p>
                     </section>
 

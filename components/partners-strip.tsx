@@ -5,10 +5,10 @@ export function PartnersStrip() {
     ]
 
     const planned = [
-        { name: "Booking.com", label: "Hotels" },
-        { name: "Kiwi.com", label: "Flights" },
-        { name: "Viator", label: "Activities" },
-        { name: "Stripe", label: "Payments" },
+        { name: "Hotel APIs", label: "Hotels" },
+        { name: "Flight APIs", label: "Flights" },
+        { name: "Activity APIs", label: "Activities" },
+        { name: "Payments", label: "Checkout" },
     ]
 
     return (

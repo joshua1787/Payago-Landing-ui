@@ -114,7 +114,7 @@ export default function BlogPost() {
 
                     <h2 className="text-2xl font-bold text-white mt-12 mb-4">How PayaGo handles this automatically</h2>
                     <p>
-                        PayaGo is built around the direct payment model — the approach that generates the least conflict. When your group confirms a trip, each person receives a payment request for exactly their share (for example, £780 each, not £3,120 from one person). Everyone pays directly via Stripe. Once all payments clear, everything books simultaneously.
+                        PayaGo is built around the direct payment model — the approach that generates the least conflict. When your group confirms a trip, each person receives a payment request for exactly their share (for example, £780 each, not £3,120 from one person). Everyone pays directly in the app. Once all payments clear, everything books simultaneously.
                     </p>
                     <p>
                         Nobody fronts the money. Nobody chases anyone. Nobody loses £200 because someone claims they &ldquo;already transferred&rdquo; when they didn&apos;t.

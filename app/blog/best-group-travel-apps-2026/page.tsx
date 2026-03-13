@@ -30,7 +30,7 @@ const apps = [
         tagline: "AI-powered group trip planner",
         category: "AI planning + coordination + booking",
         color: "#C9A962",
-        pros: ["AI builds complete itinerary in 30 seconds", "Group voting built-in", "Split payments via Stripe", "Live flight/hotel/activity prices", "Real-time collaborative editing"],
+        pros: ["AI builds complete itinerary in 30 seconds", "Group voting built-in", "Split payments (each person pays their share)", "Live flight/hotel/activity prices", "Real-time collaborative editing"],
         cons: ["Launching April 2026 (not live yet)", "Requires app download for payments"],
         bestFor: "Groups who want one app for everything",
         price: "Free for travellers",
