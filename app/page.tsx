@@ -1,6 +1,5 @@
 import { Navbar } from "@/components/navbar"
 import { HeroSection } from "@/components/hero-section"
-import { PartnersStrip } from "@/components/partners-strip"
 import { StatsBar } from "@/components/stats-bar"
 import { HowItWorksSection } from "@/components/how-it-works-section"
 import { TripDemoWidget } from "@/components/trip-demo-widget"
@@ -17,7 +16,6 @@ export default function Home() {
     <main className="min-h-screen overflow-x-hidden bg-[#010306] relative selection:bg-cyan-500/20 selection:text-cyan-300">
       <Navbar />
       <HeroSection />
-      <PartnersStrip />
       <StatsBar />
       <HowItWorksSection />
       <TripDemoWidget />
