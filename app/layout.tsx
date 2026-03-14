@@ -4,7 +4,6 @@ import { Inter, Outfit, Michroma } from "next/font/google"
 import "./globals.css"
 import { SmoothScroll } from "@/components/smooth-scroll"
 import { CookieBanner } from "@/components/cookie-banner"
-import { SocialProofToast } from "@/components/social-proof-toast"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" })
@@ -158,7 +157,6 @@ export default function RootLayout({
         <div className="film-grain" aria-hidden="true" />
         {children}
         <CookieBanner />
-        <SocialProofToast />
       </body>
     </html>
   )
