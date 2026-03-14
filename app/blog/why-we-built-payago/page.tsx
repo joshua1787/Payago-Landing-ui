@@ -168,12 +168,12 @@ export default function BlogPost() {
                     </p>
 
                     <p>
-                        We&apos;re launching in April 2026. Over 15,000 people have already joined the waitlist. We&apos;re not building another app that lives in a folder you never open — we&apos;re building the one you open when you want to actually go somewhere.
+                        We&apos;re launching in April 2026. We&apos;re not building another app that lives in a folder you never open — we&apos;re building the one you open when you want to actually go somewhere.
                     </p>
 
                     <div className="mt-12 p-6 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20">
-                        <p className="text-white font-semibold mb-2">Join 15,000+ travellers on the waitlist</p>
-                        <p className="text-white/60 text-sm mb-4">First 1,000 users get free lifetime access to premium features.</p>
+                        <p className="text-white font-semibold mb-2">Join the waitlist for early access</p>
+                        <p className="text-white/60 text-sm mb-4">Be among the first to use PayaGo when it launches in April 2026.</p>
                         <Link href="/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
                             Get Early Access — Free
                         </Link>

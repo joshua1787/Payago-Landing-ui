@@ -1,13 +1,13 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Users, Globe, Star, Zap } from "lucide-react"
+import { Globe, Zap, Users, Mic } from "lucide-react"
 
 const stats = [
-    { icon: Users, value: 4200, suffix: "+", label: "Waitlist signups", color: "#00D4FF" },
-    { icon: Globe, value: 50, suffix: "+", label: "Destinations supported", color: "#C9A962" },
-    { icon: Star, value: 4.9, suffix: "/5", label: "Beta tester rating", color: "#4AD7A2", decimal: true },
-    { icon: Zap, value: 30, suffix: "s", label: "Average itinerary time", color: "#7C5CFF" },
+    { icon: Zap, value: 30, suffix: "s", label: "Itinerary generation time", color: "#00D4FF" },
+    { icon: Globe, value: 50, suffix: "+", label: "Destinations at launch", color: "#C9A962" },
+    { icon: Users, value: 20, suffix: "+", label: "Group size supported", color: "#4AD7A2" },
+    { icon: Mic, value: 3, suffix: " options", label: "Budget, Balanced, Premium", color: "#7C5CFF" },
 ]
 
 function Counter({ target, suffix, decimal }: { target: number; suffix: string; decimal?: boolean }) {
