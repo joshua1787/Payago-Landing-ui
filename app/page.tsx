@@ -6,6 +6,7 @@ import { TripDemoWidget } from "@/components/trip-demo-widget"
 import { DestinationsShowcase } from "@/components/destinations-showcase"
 import { FeaturesSection } from "@/components/features-section"
 import { AppGallerySection } from "@/components/app-gallery-section"
+import { TestimonialsSection } from "@/components/testimonials-section"
 import { CinematicReel } from "@/components/cinematic-reel"
 import { CTASection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
@@ -21,6 +22,7 @@ export default function Home() {
       <DestinationsShowcase />
       <FeaturesSection />
       <AppGallerySection />
+      <TestimonialsSection />
       <CinematicReel />
       <CTASection />
       <Footer />

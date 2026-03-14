@@ -23,7 +23,7 @@ export function Navbar() {
                         <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center ring-1 ring-white/[0.06] group-hover:ring-blue-500/20 transition-all duration-500">
                             <img src="/payago-logo.jpg" alt="PayaGo" className="w-full h-full object-cover scale-[1.35]" />
                         </div>
-                        <span className="text-white font-bold text-xl tracking-tight">PayaGo<span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent ml-0.5">AI</span></span>
+                        <span className="text-white font-bold text-xl tracking-tight">PayaGo</span>
                     </Link>
 
                     {/* Desktop Navigation */}
