@@ -1,9 +1,11 @@
 import { Navbar } from "@/components/navbar"
 import { HeroSection } from "@/components/hero-section"
 import { StatsBar } from "@/components/stats-bar"
+import { MarqueeStrip } from "@/components/marquee-strip"
 import { HowItWorksSection } from "@/components/how-it-works-section"
 import { TripDemoWidget } from "@/components/trip-demo-widget"
 import { DestinationsShowcase } from "@/components/destinations-showcase"
+import { BentoSection } from "@/components/bento-section"
 import { FeaturesSection } from "@/components/features-section"
 import { AppGallerySection } from "@/components/app-gallery-section"
 import { CinematicReel } from "@/components/cinematic-reel"
@@ -16,9 +18,11 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <StatsBar />
+      <MarqueeStrip />
       <HowItWorksSection />
       <TripDemoWidget />
       <DestinationsShowcase />
+      <BentoSection />
       <FeaturesSection />
       <AppGallerySection />
       <CinematicReel />
