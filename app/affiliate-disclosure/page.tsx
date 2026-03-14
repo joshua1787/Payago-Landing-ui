@@ -91,7 +91,7 @@ export default function AffiliateDisclosure() {
 
             <footer className="py-8 border-t border-white/5">
                 <div className="max-w-7xl mx-auto px-6 text-center text-white/20 text-sm">
-                    © 2026 PayaGo Ltd. Registered in England & Wales. Company No. TBC.
+                    © 2026 PayaGo Ltd. Company No. 16971574. Registered in England & Wales.
                 </div>
             </footer>
         </main>

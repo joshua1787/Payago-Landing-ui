@@ -5,9 +5,9 @@ import { Twitter, Linkedin, Instagram, Mail, MapPin, ArrowUpRight } from "lucide
 
 const footerLinks = {
   product: [
-    { name: "How it works", href: "#how-it-works" },
-    { name: "Features", href: "#features" },
-    { name: "Early Access", href: "#early-access" },
+    { name: "How it works", href: "/how-it-works" },
+    { name: "Features", href: "/features" },
+    { name: "Early Access", href: "/#early-access" },
   ],
   company: [
     { name: "About", href: "/about" },
@@ -18,7 +18,7 @@ const footerLinks = {
   legal: [
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms of Service", href: "/terms" },
-    { name: "Cookie Policy", href: "/privacy" },
+    { name: "Cookie Policy", href: "/cookie-policy" },
     { name: "Affiliate Disclosure", href: "/affiliate-disclosure" },
   ],
   social: [
@@ -43,7 +43,7 @@ export function Footer() {
               <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center ring-1 ring-white/[0.06] group-hover:ring-blue-500/20 transition-all duration-500">
                 <img src="/payago-logo.jpg" alt="PayaGo" className="w-full h-full object-cover scale-[1.35]" />
               </div>
-              <span className="text-xl font-bold text-white tracking-tight">PayaGo<span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent ml-0.5">AI</span></span>
+              <span className="text-xl font-bold text-white tracking-tight">PayaGo</span>
             </Link>
             <p className="text-white/30 text-[13px] mb-6 max-w-xs leading-[1.7]">
               The world&apos;s first AI travel planning platform. One sentence to a fully booked group trip.
@@ -138,7 +138,7 @@ export function Footer() {
             </span>
             <span className="flex items-center gap-1.5">
               <div className="w-1 h-1 rounded-full bg-emerald-400/40" />
-              EU Data Residency
+              UK Registered Company
             </span>
           </div>
         </div>

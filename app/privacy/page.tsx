@@ -15,7 +15,7 @@ const sections = [
         id: "who-we-are",
         title: "1. Who we are",
         content: [
-            "PayaGo Ltd is a company registered in England and Wales (Company No. TBC). Our registered address is available on request. We operate the PayaGo website at payago.in and the PayaGo mobile application (launching April 2026).",
+            "PayaGo Ltd is a company registered in England and Wales (Company No. 16971574). Our registered address is available on request. We operate the PayaGo website at payago.in and the PayaGo mobile application (launching April 2026).",
             "PayaGo Ltd is the data controller for personal data collected through our website and app. If you have questions about how we handle your data, contact us at privacy@payago.in.",
         ],
     },
@@ -286,7 +286,7 @@ export default function PrivacyPolicy() {
 
             <footer className="py-8 border-t border-white/5">
                 <div className="max-w-7xl mx-auto px-6 text-center text-white/20 text-sm">
-                    © 2026 PayaGo Ltd. Registered in England & Wales.
+                    © 2026 PayaGo Ltd. Company No. 16971574. Registered in England & Wales.
                 </div>
             </footer>
         </main>

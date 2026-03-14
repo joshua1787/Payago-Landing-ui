@@ -8,11 +8,19 @@ import { useState } from "react"
 const contactMethods = [
     {
         icon: Mail,
-        title: "Email",
+        title: "Support",
         description: "Send us an email anytime",
         value: "support@payago.in",
         link: "mailto:support@payago.in",
         color: "#C9A962",
+    },
+    {
+        icon: Mail,
+        title: "Partnerships",
+        description: "API integrations & business enquiries",
+        value: "partnerships@payago.in",
+        link: "mailto:partnerships@payago.in",
+        color: "#4AD7A2",
     },
     {
         icon: MessageCircle,
