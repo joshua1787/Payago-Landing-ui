@@ -125,7 +125,7 @@ export default function CareersPage() {
             <header className="border-b border-white/5">
                 <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <img src="/payago-logo.jpg" alt="PayaGo" className="w-10 h-10 object-cover rounded-xl" />
+                        <img src="/payago-logo-transparent-v2.png" alt="PayaGo" className="w-10 h-10 object-contain" />
                         <span className="text-white font-semibold">PayaGo</span>
                     </Link>
                     <Link href="/" className="text-white/50 hover:text-white transition-colors flex items-center gap-2">

@@ -79,10 +79,10 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/payago-logo.jpg", sizes: "32x32", type: "image/jpeg" },
+      { url: "/payago-logo-transparent-v2.png", sizes: "32x32", type: "image/png" },
     ],
-    apple: "/payago-logo.jpg",
-    shortcut: "/payago-logo.jpg",
+    apple: "/payago-logo-transparent-v2.png",
+    shortcut: "/payago-logo-transparent-v2.png",
   },
 }
 

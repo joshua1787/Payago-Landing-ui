@@ -39,10 +39,8 @@ export function Footer() {
 
           {/* Brand */}
           <div className="col-span-2">
-            <Link href="/" className="flex items-center gap-3 mb-6 group">
-              <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center ring-1 ring-white/[0.06] group-hover:ring-blue-500/20 transition-all duration-500">
-                <img src="/payago-logo.jpg" alt="PayaGo" className="w-full h-full object-cover scale-[1.35]" />
-              </div>
+            <Link href="/" className="flex items-center gap-2.5 mb-6 group">
+              <img src="/payago-logo-transparent-v2.png" alt="PayaGo" className="w-10 h-10 object-contain" />
               <span className="text-xl font-bold text-white tracking-tight">PayaGo</span>
             </Link>
             <p className="text-white/30 text-[13px] mb-6 max-w-xs leading-[1.7]">

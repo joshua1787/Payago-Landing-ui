@@ -19,10 +19,8 @@ export function Navbar() {
             <div className="max-w-7xl mx-auto px-6">
                 <div className="flex items-center justify-between h-20">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-3 group">
-                        <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center ring-1 ring-white/[0.06] group-hover:ring-blue-500/20 transition-all duration-500">
-                            <img src="/payago-logo.jpg" alt="PayaGo" className="w-full h-full object-cover scale-[1.35]" />
-                        </div>
+                    <Link href="/" className="flex items-center gap-2.5 group">
+                        <img src="/payago-logo-transparent-v2.png" alt="PayaGo" className="w-10 h-10 object-contain" />
                         <span className="text-white font-bold text-xl tracking-tight">PayaGo</span>
                     </Link>
 
