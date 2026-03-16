@@ -20,7 +20,7 @@ export function Navbar() {
                 <div className="flex items-center justify-between h-20">
                     {/* Logo */}
                     <Link href="/" className="flex items-center">
-                        <img src="/payago_logo_transparent.png" alt="PayaGo" className="h-10 w-auto object-contain" />
+                        <img src="/payago_logo_transparent.png" alt="PayaGo" className="h-9 w-auto object-contain" style={{ filter: 'brightness(0)' }} />
                     </Link>
 
                     {/* Desktop Navigation */}
