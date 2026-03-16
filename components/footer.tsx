@@ -39,9 +39,8 @@ export function Footer() {
 
           {/* Brand */}
           <div className="col-span-2">
-            <Link href="/" className="flex items-center gap-2.5 mb-6 group">
-              <img src="/payago-logo-transparent-v2.png" alt="PayaGo" className="w-10 h-10 object-contain" />
-              <span className="text-xl font-bold text-slate-900 tracking-tight">PayaGo</span>
+            <Link href="/" className="flex items-center mb-6">
+              <img src="/payago_logo_transparent.png" alt="PayaGo" className="h-10 w-auto object-contain" />
             </Link>
             <p className="text-slate-400 text-[13px] mb-6 max-w-xs leading-[1.7]">
               The world&apos;s first AI travel planning platform. One sentence to a fully booked group trip.

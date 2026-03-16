@@ -81,8 +81,8 @@ export default function ContactPage() {
             <header className="border-b border-slate-100">
                 <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <img src="/payago-logo-transparent-v2.png" alt="PayaGo" className="w-10 h-10 object-contain" />
-                        <span className="text-slate-900 font-semibold">PayaGo</span>
+                        <img src="/payago_logo_transparent.png" alt="PayaGo" className="h-9 w-auto object-contain" />
+                        
                     </Link>
                     <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2">
                         <ArrowLeft className="w-4 h-4" />

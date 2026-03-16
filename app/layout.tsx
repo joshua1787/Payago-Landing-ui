@@ -79,10 +79,10 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/payago-logo-transparent-v2.png", sizes: "32x32", type: "image/png" },
+      { url: "/payago_logo_transparent.png", sizes: "32x32", type: "image/png" },
     ],
-    apple: "/payago-logo-transparent-v2.png",
-    shortcut: "/payago-logo-transparent-v2.png",
+    apple: "/payago_logo_transparent.png",
+    shortcut: "/payago_logo_transparent.png",
   },
 }
 
@@ -113,7 +113,7 @@ const organizationSchema = {
   "@type": "TravelAgency",
   name: siteName,
   url: siteUrl,
-  logo: `${siteUrl}/payago-logo-transparent-v2.png`,
+  logo: `${siteUrl}/payago_logo_transparent.png`,
   description: defaultDescription,
   foundingDate: "2025",
   areaServed: "Worldwide",

@@ -19,9 +19,8 @@ export function Navbar() {
             <div className="max-w-7xl mx-auto px-6">
                 <div className="flex items-center justify-between h-20">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2.5 group">
-                        <img src="/payago-logo-transparent-v2.png" alt="PayaGo" className="w-10 h-10 object-contain" />
-                        <span className="text-slate-900 font-bold text-xl tracking-tight">PayaGo</span>
+                    <Link href="/" className="flex items-center">
+                        <img src="/payago_logo_transparent.png" alt="PayaGo" className="h-10 w-auto object-contain" />
                     </Link>
 
                     {/* Desktop Navigation */}
