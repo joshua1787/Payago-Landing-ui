@@ -202,14 +202,14 @@ const addons = [
 
 export default function FeaturesPage() {
     return (
-        <main className="min-h-screen bg-[#04060A]">
-            <header className="border-b border-white/5 sticky top-0 z-50 backdrop-blur-xl bg-[#04060A]/80">
+        <main className="min-h-screen bg-white">
+            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
                         <img src="/payago-logo-transparent-v2.png" alt="PayaGo" className="w-9 h-9 object-contain" />
-                        <span className="text-white font-semibold text-lg">PayaGo</span>
+                        <span className="text-slate-900 font-semibold text-lg">PayaGo</span>
                     </Link>
-                    <Link href="/" className="text-white/40 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                    <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
                         <ArrowLeft className="w-4 h-4" />
                         Back to Home
                     </Link>
@@ -224,15 +224,15 @@ export default function FeaturesPage() {
                     <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:60px_60px]" />
                 </div>
                 <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 border border-slate-200 mb-8">
                         <Sparkles className="w-4 h-4 text-[#C9A962]" />
-                        <span className="text-sm font-medium text-white/60">4 core systems · Everything included · Free for travellers</span>
+                        <span className="text-sm font-medium text-slate-600">4 core systems · Everything included · Free for travellers</span>
                     </div>
-                    <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                    <h1 className="text-5xl lg:text-7xl font-bold text-slate-900 mb-6 leading-tight">
                         Everything you need.
                         <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent block">Nothing you don't.</span>
                     </h1>
-                    <p className="text-xl text-white/50 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
                         Ten features. Zero tab-switching. One app that plans, coordinates, books, and guides your entire group trip.
                     </p>
                 </div>
@@ -240,7 +240,7 @@ export default function FeaturesPage() {
 
             {/* Feature Categories */}
             {categories.map((cat, catIdx) => (
-                <section key={cat.id} className="py-24 border-t border-white/5">
+                <section key={cat.id} className="py-24 border-t border-slate-100">
                     <div className="max-w-7xl mx-auto px-6">
                         {/* Category header */}
                         <div className="grid lg:grid-cols-3 gap-12 mb-20 items-end">
@@ -248,9 +248,9 @@ export default function FeaturesPage() {
                                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border mb-6 text-sm font-medium" style={{ borderColor: `${cat.badgeColor}30`, color: cat.badgeColor, background: `${cat.badgeColor}10` }}>
                                     {cat.badge}
                                 </div>
-                                <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">{cat.title}</h2>
+                                <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">{cat.title}</h2>
                                 <p className="text-xl font-medium mb-4" style={{ color: cat.color }}>{cat.subtitle}</p>
-                                <p className="text-white/50 text-lg leading-relaxed max-w-xl">{cat.description}</p>
+                                <p className="text-slate-500 text-lg leading-relaxed max-w-xl">{cat.description}</p>
                             </div>
                             <div className="hidden lg:flex items-center justify-end">
                                 <div className="w-24 h-24 rounded-3xl flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${cat.color}20, ${cat.color}05)`, border: `1px solid ${cat.color}20` }}>
@@ -264,17 +264,17 @@ export default function FeaturesPage() {
                             {cat.features.map((feature, i) => {
                                 const Icon = feature.icon
                                 return (
-                                    <div key={i} className="group relative p-8 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
+                                    <div key={i} className="group relative p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
                                         <div className="absolute top-0 right-0 w-[150px] h-[150px] rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: `${feature.color}15` }} />
                                         <div className="relative z-10">
                                             <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-6 transition-transform duration-300 group-hover:scale-110" style={{ background: `linear-gradient(135deg, ${feature.color}25, ${feature.color}08)` }}>
                                                 <Icon className="w-6 h-6" style={{ color: feature.color }} />
                                             </div>
-                                            <h3 className="text-lg font-bold text-white mb-3">{feature.title}</h3>
-                                            <p className="text-white/50 text-sm leading-relaxed mb-6">{feature.description}</p>
-                                            <div className="pt-4 border-t border-white/5">
+                                            <h3 className="text-lg font-bold text-slate-900 mb-3">{feature.title}</h3>
+                                            <p className="text-slate-500 text-sm leading-relaxed mb-6">{feature.description}</p>
+                                            <div className="pt-4 border-t border-slate-100">
                                                 <div className="text-2xl font-bold" style={{ color: feature.color }}>{feature.stat}</div>
-                                                <div className="text-white/30 text-xs mt-1">{feature.statLabel}</div>
+                                                <div className="text-slate-400 text-xs mt-1">{feature.statLabel}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -286,26 +286,26 @@ export default function FeaturesPage() {
             ))}
 
             {/* Add-ons */}
-            <section className="py-24 border-t border-white/5">
+            <section className="py-24 border-t border-slate-100">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center mb-16">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6">
-                            <span className="text-sm font-medium text-white/50">Plus six more</span>
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 border border-slate-200 mb-6">
+                            <span className="text-sm font-medium text-slate-500">Plus six more</span>
                         </div>
-                        <h2 className="text-4xl font-bold text-white mb-4">More built-in features</h2>
-                        <p className="text-white/40 text-lg">Everything your group needs — included, no extras to buy</p>
+                        <h2 className="text-4xl font-bold text-slate-900 mb-4">More built-in features</h2>
+                        <p className="text-slate-500 text-lg">Everything your group needs — included, no extras to buy</p>
                     </div>
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {addons.map((addon, i) => {
                             const Icon = addon.icon
                             return (
-                                <div key={i} className="group p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-300 flex items-start gap-4">
+                                <div key={i} className="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-all duration-300 flex items-start gap-4">
                                     <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl flex-shrink-0 transition-transform duration-300 group-hover:scale-110" style={{ background: `linear-gradient(135deg, ${addon.color}25, ${addon.color}08)` }}>
                                         <Icon className="w-5 h-5" style={{ color: addon.color }} />
                                     </div>
                                     <div>
-                                        <h3 className="text-white font-semibold mb-1">{addon.title}</h3>
-                                        <p className="text-white/40 text-sm leading-relaxed">{addon.description}</p>
+                                        <h3 className="text-slate-900 font-semibold mb-1">{addon.title}</h3>
+                                        <p className="text-slate-500 text-sm leading-relaxed">{addon.description}</p>
                                     </div>
                                 </div>
                             )
@@ -315,14 +315,14 @@ export default function FeaturesPage() {
             </section>
 
             {/* CTA */}
-            <section className="py-24 border-t border-white/5">
+            <section className="py-24 border-t border-slate-100">
                 <div className="max-w-4xl mx-auto px-6 text-center">
-                    <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
+                    <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
                         All of this.
                         <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent"> Free for travellers.</span>
                     </h2>
-                    <p className="text-white/50 text-lg mb-4">We earn from booking partner commissions — not from you. Every feature is free, always.</p>
-                    <p className="text-white/30 text-sm mb-10">Powered by Gemini AI · Claude AI</p>
+                    <p className="text-slate-500 text-lg mb-4">We earn from booking partner commissions — not from you. Every feature is free, always.</p>
+                    <p className="text-slate-400 text-sm mb-10">Powered by Gemini AI · Claude AI</p>
                     <Link href="/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
                         Get Early Access
                         <ArrowRight className="w-4 h-4" />
@@ -330,8 +330,8 @@ export default function FeaturesPage() {
                 </div>
             </section>
 
-            <footer className="py-8 border-t border-white/5">
-                <div className="max-w-7xl mx-auto px-6 text-center text-white/20 text-sm">
+            <footer className="py-8 border-t border-slate-100">
+                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
                     © 2026 PayaGo Ltd. Registered in England & Wales.
                 </div>
             </footer>

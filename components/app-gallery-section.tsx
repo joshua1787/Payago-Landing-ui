@@ -221,9 +221,9 @@ export function AppGallerySection() {
     const screen = SCREENS[active]
 
     return (
-        <section className="relative py-24 overflow-hidden border-t border-white/5">
+        <section className="relative py-24 overflow-hidden border-t border-slate-100 bg-[#F0EEFF]">
             <div className="absolute inset-0">
-                <div className="absolute top-1/2 right-1/4 w-[600px] h-[400px] bg-[#00D4FF]/4 rounded-full blur-[200px]" />
+                <div className="absolute top-1/2 right-1/4 w-[600px] h-[400px] bg-[#7C5CFF]/10 rounded-full blur-[200px]" />
             </div>
 
             <div className="relative z-10 max-w-6xl mx-auto px-6">
@@ -232,13 +232,13 @@ export function AppGallerySection() {
                         <Zap className="w-4 h-4 text-[#00D4FF]" />
                         <span className="text-sm font-medium text-[#00D4FF]">The app — launching April 2026</span>
                     </div>
-                    <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
+                    <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
                         Built for how groups{" "}
                         <span className="bg-gradient-to-r from-[#00D4FF] to-[#7C5CFF] bg-clip-text text-transparent">
                             actually travel
                         </span>
                     </h2>
-                    <p className="text-white/50 text-lg max-w-2xl mx-auto">
+                    <p className="text-slate-500 text-lg max-w-2xl mx-auto">
                         From voice input to fully booked — every step designed to eliminate the friction of group travel.
                     </p>
                 </div>
@@ -248,7 +248,7 @@ export function AppGallerySection() {
                     <div className="flex justify-center">
                         <div className="relative">
                             {/* Phone frame */}
-                            <div className="w-[240px] h-[480px] bg-[#0D1B2A] rounded-[32px] border-2 border-white/10 shadow-2xl shadow-black/50 overflow-hidden relative">
+                            <div className="w-[240px] h-[480px] bg-[#0D1B2A] rounded-[32px] border-2 border-slate-200 shadow-2xl shadow-slate-200/50 overflow-hidden relative">
                                 <div className="absolute inset-0 rounded-[30px] overflow-hidden">
                                     {screen.phone}
                                 </div>
@@ -267,7 +267,7 @@ export function AppGallerySection() {
                                     <button
                                         key={s.id}
                                         onClick={() => setActive(i)}
-                                        className={`w-full text-left p-4 rounded-xl border transition-all duration-200 ${active === i ? "bg-white/[0.05] border-opacity-40" : "bg-white/[0.01] border-white/5 hover:bg-white/[0.03]"}`}
+                                        className={`w-full text-left p-4 rounded-xl border transition-all duration-200 ${active === i ? "bg-white border-opacity-40 shadow-sm" : "bg-white border-violet-100 hover:bg-violet-50"}`}
                                         style={active === i ? { borderColor: s.color + "60" } : {}}
                                     >
                                         <div className="flex items-center gap-4">
@@ -275,10 +275,10 @@ export function AppGallerySection() {
                                                 <Icon className="w-5 h-5" style={{ color: s.color }} />
                                             </div>
                                             <div className="flex-1">
-                                                <div className={`font-semibold text-sm ${active === i ? "text-white" : "text-white/60"}`}>{s.label}</div>
-                                                <div className="text-white/30 text-xs mt-0.5">{s.description}</div>
+                                                <div className={`font-semibold text-sm ${active === i ? "text-slate-900" : "text-slate-600"}`}>{s.label}</div>
+                                                <div className="text-slate-400 text-xs mt-0.5">{s.description}</div>
                                             </div>
-                                            <ChevronRight className={`w-4 h-4 transition-transform ${active === i ? "rotate-90" : ""}`} style={{ color: active === i ? s.color : "rgba(255,255,255,0.2)" }} />
+                                            <ChevronRight className={`w-4 h-4 transition-transform ${active === i ? "rotate-90" : ""}`} style={{ color: active === i ? s.color : "rgba(100,116,139,0.4)" }} />
                                         </div>
                                     </button>
                                 )
@@ -291,9 +291,9 @@ export function AppGallerySection() {
                                 { value: "Free", label: "For travellers" },
                                 { value: "Apr 26", label: "Launch date" },
                             ].map((stat) => (
-                                <div key={stat.label} className="bg-white/[0.03] border border-white/5 rounded-xl p-3 text-center">
-                                    <div className="text-white font-bold text-lg">{stat.value}</div>
-                                    <div className="text-white/30 text-xs mt-0.5">{stat.label}</div>
+                                <div key={stat.label} className="bg-white border border-violet-100 rounded-xl p-3 text-center">
+                                    <div className="text-slate-900 font-bold text-lg">{stat.value}</div>
+                                    <div className="text-slate-400 text-xs mt-0.5">{stat.label}</div>
                                 </div>
                             ))}
                         </div>

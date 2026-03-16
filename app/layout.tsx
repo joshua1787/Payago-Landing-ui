@@ -87,7 +87,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport = {
-  themeColor: "#04060A",
+  themeColor: "#ffffff",
   width: "device-width",
   initialScale: 1,
 }
@@ -152,10 +152,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased bg-[#FAFAF8] text-slate-900">
         <SmoothScroll />
-        {/* Film grain overlay */}
-        <div className="film-grain" aria-hidden="true" />
         {children}
         <CookieBanner />
       </body>

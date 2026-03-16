@@ -150,14 +150,14 @@ const phases = [
 
 export default function HowItWorksPage() {
     return (
-        <main className="min-h-screen bg-[#04060A]">
-            <header className="border-b border-white/5 sticky top-0 z-50 backdrop-blur-xl bg-[#04060A]/80">
+        <main className="min-h-screen bg-white">
+            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
                         <img src="/payago-logo-transparent-v2.png" alt="PayaGo" className="w-9 h-9 object-contain" />
-                        <span className="text-white font-semibold text-lg">PayaGo</span>
+                        <span className="text-slate-900 font-semibold text-lg">PayaGo</span>
                     </Link>
-                    <Link href="/" className="text-white/40 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                    <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
                         <ArrowLeft className="w-4 h-4" />
                         Back to Home
                     </Link>
@@ -172,31 +172,31 @@ export default function HowItWorksPage() {
                     <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:60px_60px]" />
                 </div>
                 <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8">
-                        <span className="text-sm font-medium text-white/50">Six phases · One seamless journey</span>
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 border border-slate-200 mb-8">
+                        <span className="text-sm font-medium text-slate-500">Six phases · One seamless journey</span>
                     </div>
-                    <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                    <h1 className="text-5xl lg:text-7xl font-bold text-slate-900 mb-6 leading-tight">
                         From one sentence
                         <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent block">to boarding pass</span>
                     </h1>
-                    <p className="text-xl text-white/50 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
                         {"The old way takes 15 hours. PayaGo takes 5 minutes. Here's exactly what happens."}
                     </p>
 
                     {/* Speed comparison */}
-                    <div className="mt-12 inline-flex items-center gap-6 p-6 rounded-2xl bg-white/[0.03] border border-white/5">
+                    <div className="mt-12 inline-flex items-center gap-6 p-6 rounded-2xl bg-slate-50 border border-slate-100">
                         <div className="text-center">
                             <div className="text-3xl font-bold text-[#FF6B6B]">15 hrs</div>
-                            <div className="text-white/30 text-sm mt-1">Manual planning</div>
+                            <div className="text-slate-400 text-sm mt-1">Manual planning</div>
                         </div>
-                        <div className="text-white/20 text-2xl">→</div>
+                        <div className="text-slate-400 text-2xl">→</div>
                         <div className="text-center">
                             <div className="text-3xl font-bold text-[#4AD7A2]">5 min</div>
-                            <div className="text-white/30 text-sm mt-1">With PayaGo</div>
+                            <div className="text-slate-400 text-sm mt-1">With PayaGo</div>
                         </div>
-                        <div className="text-center pl-4 border-l border-white/5">
+                        <div className="text-center pl-4 border-l border-slate-100">
                             <div className="text-3xl font-bold text-[#C9A962]">180×</div>
-                            <div className="text-white/30 text-sm mt-1">Faster</div>
+                            <div className="text-slate-400 text-sm mt-1">Faster</div>
                         </div>
                     </div>
                 </div>
@@ -224,13 +224,13 @@ export default function HowItWorksPage() {
                                             </span>
                                         </div>
 
-                                        <h2 className="text-4xl font-bold text-white mb-4">{phase.title}</h2>
-                                        <p className="text-white/60 text-lg leading-relaxed mb-8">{phase.description}</p>
+                                        <h2 className="text-4xl font-bold text-slate-900 mb-4">{phase.title}</h2>
+                                        <p className="text-slate-600 text-lg leading-relaxed mb-8">{phase.description}</p>
 
                                         {phase.examples.length > 0 && (
                                             <div className="space-y-3 mb-8">
                                                 {phase.examples.map((ex, i) => (
-                                                    <div key={i} className="p-4 rounded-xl bg-white/[0.03] border border-white/5 text-white/60 text-sm italic leading-snug">{ex}</div>
+                                                    <div key={i} className="p-4 rounded-xl bg-slate-50 border border-slate-100 text-slate-600 text-sm italic leading-snug">{ex}</div>
                                                 ))}
                                             </div>
                                         )}
@@ -239,14 +239,14 @@ export default function HowItWorksPage() {
                                             {phase.features.map((feature, i) => (
                                                 <div key={i} className="flex items-center gap-3">
                                                     <CheckCircle className="w-4 h-4 flex-shrink-0" style={{ color: phase.color }} />
-                                                    <span className="text-white/60 text-sm">{feature}</span>
+                                                    <span className="text-slate-600 text-sm">{feature}</span>
                                                 </div>
                                             ))}
                                         </div>
                                     </div>
 
                                     {/* Visual */}
-                                    <div className="relative p-8 rounded-3xl border border-white/5 overflow-hidden" style={{ background: `linear-gradient(135deg, ${phase.color}08, transparent)` }}>
+                                    <div className="relative p-8 rounded-3xl border border-slate-100 overflow-hidden" style={{ background: `linear-gradient(135deg, ${phase.color}08, transparent)` }}>
                                         <div className="absolute top-0 right-0 w-[250px] h-[250px] rounded-full blur-[100px]" style={{ background: `${phase.color}15` }} />
                                         <div className="relative z-10">
                                             {/* Voice visual */}
@@ -256,18 +256,18 @@ export default function HowItWorksPage() {
                                                         <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${phase.color}20` }}>
                                                             <Icon className="w-5 h-5" style={{ color: phase.color }} />
                                                         </div>
-                                                        <div className="text-white/40 text-sm">AI understood…</div>
+                                                        <div className="text-slate-500 text-sm">AI understood…</div>
                                                     </div>
                                                     {phase.visual.items?.map((item, i) => (
-                                                        <div key={i} className="flex items-center justify-between p-4 rounded-xl bg-white/[0.03] border border-white/5">
+                                                        <div key={i} className="flex items-center justify-between p-4 rounded-xl bg-slate-50 border border-slate-100">
                                                             <div className="flex items-center gap-3">
                                                                 <span className="text-lg">{item.icon}</span>
-                                                                <span className="text-white/40 text-sm">{item.label}</span>
+                                                                <span className="text-slate-500 text-sm">{item.label}</span>
                                                             </div>
-                                                            <span className="text-white font-medium text-sm">{item.value}</span>
+                                                            <span className="text-slate-900 font-medium text-sm">{item.value}</span>
                                                         </div>
                                                     ))}
-                                                    <div className="flex items-center gap-2 mt-4 pt-4 border-t border-white/5">
+                                                    <div className="flex items-center gap-2 mt-4 pt-4 border-t border-slate-100">
                                                         <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: phase.color }} />
                                                         <span className="text-sm" style={{ color: phase.color }}>{phase.visual.footer}</span>
                                                     </div>
@@ -283,13 +283,13 @@ export default function HowItWorksPage() {
                                                                 <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: `${opt.color}20` }}>
                                                                     <Sparkles className="w-4 h-4" style={{ color: opt.color }} />
                                                                 </div>
-                                                                <span className="text-white font-medium">{opt.label}</span>
+                                                                <span className="text-slate-900 font-medium">{opt.label}</span>
                                                                 {opt.badge && <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: `${opt.color}20`, color: opt.color }}>{opt.badge}</span>}
                                                             </div>
                                                             <span className="font-bold" style={{ color: opt.color }}>{opt.price}</span>
                                                         </div>
                                                     ))}
-                                                    <div className="text-white/30 text-xs text-center pt-2">{phase.visual.footer}</div>
+                                                    <div className="text-slate-400 text-xs text-center pt-2">{phase.visual.footer}</div>
                                                 </div>
                                             )}
 
@@ -297,47 +297,47 @@ export default function HowItWorksPage() {
                                             {phase.visual.type === "voting" && (
                                                 <div className="space-y-3">
                                                     {phase.visual.votes?.map((vote, i) => (
-                                                        <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                                                        <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100">
                                                             <div className="flex items-center gap-3">
                                                                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${vote.status === 'confirmed' ? 'bg-[#4AD7A2]/20 text-[#4AD7A2]' : 'bg-[#C9A962]/20 text-[#C9A962]'}`}>
                                                                     {vote.name[0]}
                                                                 </div>
-                                                                <span className="text-white/70 text-sm">{vote.name}</span>
+                                                                <span className="text-slate-600 text-sm">{vote.name}</span>
                                                             </div>
                                                             <div className="flex items-center gap-2">
-                                                                <span className="text-white/30 text-xs">{vote.time}</span>
+                                                                <span className="text-slate-400 text-xs">{vote.time}</span>
                                                                 <span className={`text-xs px-2 py-0.5 rounded-full ${vote.status === 'confirmed' ? 'bg-[#4AD7A2]/15 text-[#4AD7A2]' : 'bg-[#C9A962]/15 text-[#C9A962]'}`}>
                                                                     {vote.status === 'confirmed' ? "✓ In" : "? Maybe"}
                                                                 </span>
                                                             </div>
                                                         </div>
                                                     ))}
-                                                    <div className="text-white/30 text-xs text-center pt-2">{phase.visual.footer}</div>
+                                                    <div className="text-slate-400 text-xs text-center pt-2">{phase.visual.footer}</div>
                                                 </div>
                                             )}
 
                                             {/* Payments visual */}
                                             {phase.visual.type === "payments" && (
                                                 <div>
-                                                    <div className="flex items-center justify-between mb-6 p-4 rounded-xl bg-white/[0.03] border border-white/5">
+                                                    <div className="flex items-center justify-between mb-6 p-4 rounded-xl bg-slate-50 border border-slate-100">
                                                         <div>
-                                                            <div className="text-white/40 text-xs mb-1">Total trip cost</div>
-                                                            <div className="text-3xl font-bold text-white">{phase.visual.total}</div>
+                                                            <div className="text-slate-500 text-xs mb-1">Total trip cost</div>
+                                                            <div className="text-3xl font-bold text-slate-900">{phase.visual.total}</div>
                                                         </div>
                                                         <div className="text-right">
-                                                            <div className="text-white/40 text-xs mb-1">Per person</div>
+                                                            <div className="text-slate-500 text-xs mb-1">Per person</div>
                                                             <div className="text-2xl font-bold" style={{ color: phase.color }}>{phase.visual.perPerson}</div>
                                                         </div>
                                                     </div>
                                                     <div className="space-y-2">
                                                         {phase.visual.paid?.map((p, i) => (
-                                                            <div key={i} className="flex items-center justify-between py-2 px-3 rounded-lg bg-white/[0.02]">
-                                                                <span className="text-white/60 text-sm">{p.name}</span>
+                                                            <div key={i} className="flex items-center justify-between py-2 px-3 rounded-lg bg-slate-50">
+                                                                <span className="text-slate-600 text-sm">{p.name}</span>
                                                                 <span className="text-[#4AD7A2] text-sm font-medium">✓ £390 paid</span>
                                                             </div>
                                                         ))}
                                                     </div>
-                                                    <div className="mt-4 text-center text-white/30 text-xs">{phase.visual.footer}</div>
+                                                    <div className="mt-4 text-center text-slate-400 text-xs">{phase.visual.footer}</div>
                                                 </div>
                                             )}
 
@@ -345,15 +345,15 @@ export default function HowItWorksPage() {
                                             {phase.visual.type === "prettrip" && (
                                                 <div className="space-y-3">
                                                     {phase.visual.reminders?.map((r, i) => (
-                                                        <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-white/[0.03] border border-white/5">
+                                                        <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100">
                                                             <span className="text-2xl">{r.icon}</span>
                                                             <div>
-                                                                <div className="text-white/30 text-xs mb-1">{r.time}</div>
-                                                                <div className="text-white/70 text-sm">{r.text}</div>
+                                                                <div className="text-slate-400 text-xs mb-1">{r.time}</div>
+                                                                <div className="text-slate-600 text-sm">{r.text}</div>
                                                             </div>
                                                         </div>
                                                     ))}
-                                                    <div className="text-white/30 text-xs text-center pt-2">{phase.visual.footer}</div>
+                                                    <div className="text-slate-400 text-xs text-center pt-2">{phase.visual.footer}</div>
                                                 </div>
                                             )}
 
@@ -363,12 +363,12 @@ export default function HowItWorksPage() {
                                                     {phase.visual.alerts?.map((a, i) => (
                                                         <div key={i} className="flex items-start gap-3 p-4 rounded-xl border" style={{ borderColor: `${a.color}20`, background: `${a.color}05` }}>
                                                             <span className="text-xl">{a.icon}</span>
-                                                            <span className="text-white/70 text-sm leading-snug">{a.text}</span>
+                                                            <span className="text-slate-600 text-sm leading-snug">{a.text}</span>
                                                         </div>
                                                     ))}
                                                     <div className="flex items-center gap-2 pt-2">
                                                         <span className="w-2 h-2 rounded-full bg-[#4AD7A2] animate-pulse" />
-                                                        <span className="text-white/30 text-xs">{phase.visual.footer}</span>
+                                                        <span className="text-slate-400 text-xs">{phase.visual.footer}</span>
                                                     </div>
                                                 </div>
                                             )}
@@ -382,13 +382,13 @@ export default function HowItWorksPage() {
             </section>
 
             {/* CTA */}
-            <section className="py-32 border-t border-white/5">
+            <section className="py-32 border-t border-slate-100">
                 <div className="max-w-4xl mx-auto px-6 text-center">
-                    <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
+                    <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
                         Ready to book your
                         <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent"> next group trip?</span>
                     </h2>
-                    <p className="text-white/50 text-lg mb-10">Free early access. Launching April 2026 on iOS and Android.</p>
+                    <p className="text-slate-500 text-lg mb-10">Free early access. Launching April 2026 on iOS and Android.</p>
                     <Link href="/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
                         Get Early Access
                         <ArrowRight className="w-4 h-4" />
@@ -396,8 +396,8 @@ export default function HowItWorksPage() {
                 </div>
             </section>
 
-            <footer className="py-8 border-t border-white/5">
-                <div className="max-w-7xl mx-auto px-6 text-center text-white/20 text-sm">
+            <footer className="py-8 border-t border-slate-100">
+                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
                     © 2026 PayaGo Ltd. Registered in England & Wales.
                 </div>
             </footer>

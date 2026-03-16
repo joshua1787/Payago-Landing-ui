@@ -76,15 +76,15 @@ export default function ContactPage() {
     }
 
     return (
-        <main className="min-h-screen bg-[#04060A]">
+        <main className="min-h-screen bg-white">
             {/* Header */}
-            <header className="border-b border-white/5">
+            <header className="border-b border-slate-100">
                 <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
                         <img src="/payago-logo-transparent-v2.png" alt="PayaGo" className="w-10 h-10 object-contain" />
-                        <span className="text-white font-semibold">PayaGo</span>
+                        <span className="text-slate-900 font-semibold">PayaGo</span>
                     </Link>
-                    <Link href="/" className="text-white/50 hover:text-white transition-colors flex items-center gap-2">
+                    <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2">
                         <ArrowLeft className="w-4 h-4" />
                         Back to Home
                     </Link>
@@ -98,13 +98,13 @@ export default function ContactPage() {
                 </div>
 
                 <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-                    <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6">
+                    <h1 className="text-5xl lg:text-7xl font-bold text-slate-900 mb-6">
                         Get in
                         <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent ml-3">
                             touch
                         </span>
                     </h1>
-                    <p className="text-xl text-white/60 max-w-2xl mx-auto">
+                    <p className="text-xl text-slate-600 max-w-2xl mx-auto">
                         Have a question? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
                     </p>
                 </div>
@@ -120,7 +120,7 @@ export default function ContactPage() {
                                 <a
                                     key={index}
                                     href={method.link}
-                                    className="group p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-300 hover:-translate-y-1"
+                                    className="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-all duration-300 hover:-translate-y-1"
                                 >
                                     <div
                                         className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4 transition-transform duration-300 group-hover:scale-110"
@@ -130,9 +130,9 @@ export default function ContactPage() {
                                     >
                                         <Icon className="w-6 h-6" style={{ color: method.color }} />
                                     </div>
-                                    <h3 className="text-lg font-bold text-white mb-1">{method.title}</h3>
-                                    <p className="text-white/40 text-sm mb-3">{method.description}</p>
-                                    <p className="text-white/70 font-medium group-hover:text-[#C9A962] transition-colors">
+                                    <h3 className="text-lg font-bold text-slate-900 mb-1">{method.title}</h3>
+                                    <p className="text-slate-500 text-sm mb-3">{method.description}</p>
+                                    <p className="text-slate-600 font-medium group-hover:text-[#C9A962] transition-colors">
                                         {method.value}
                                     </p>
                                 </a>
@@ -145,34 +145,34 @@ export default function ContactPage() {
             {/* Contact Form */}
             <section className="py-16">
                 <div className="max-w-3xl mx-auto px-6">
-                    <div className="p-8 lg:p-12 rounded-3xl bg-gradient-to-b from-white/[0.03] to-transparent border border-white/5">
+                    <div className="p-8 lg:p-12 rounded-3xl bg-gradient-to-b from-white/[0.03] to-transparent border border-slate-100">
                         <div className="text-center mb-10">
-                            <h2 className="text-3xl font-bold text-white mb-3">Send us a message</h2>
-                            <p className="text-white/50">We typically respond within 24 hours</p>
+                            <h2 className="text-3xl font-bold text-slate-900 mb-3">Send us a message</h2>
+                            <p className="text-slate-500">We typically respond within 24 hours</p>
                         </div>
 
                         {!isSubmitted ? (
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div className="grid sm:grid-cols-2 gap-6">
                                     <div>
-                                        <label className="block text-white/60 text-sm mb-2">Your Name</label>
+                                        <label className="block text-slate-600 text-sm mb-2">Your Name</label>
                                         <input
                                             type="text"
                                             value={formData.name}
                                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                             required
-                                            className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#C9A962]/50 transition-all"
+                                            className="w-full bg-slate-100 border border-slate-200 rounded-xl px-5 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#C9A962]/50 transition-all"
                                             placeholder="John Doe"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-white/60 text-sm mb-2">Email Address</label>
+                                        <label className="block text-slate-600 text-sm mb-2">Email Address</label>
                                         <input
                                             type="email"
                                             value={formData.email}
                                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                             required
-                                            className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#C9A962]/50 transition-all"
+                                            className="w-full bg-slate-100 border border-slate-200 rounded-xl px-5 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#C9A962]/50 transition-all"
                                             placeholder="john@example.com"
                                         />
                                     </div>
@@ -180,40 +180,40 @@ export default function ContactPage() {
 
                                 <div className="grid sm:grid-cols-2 gap-6">
                                     <div>
-                                        <label className="block text-white/60 text-sm mb-2">Department</label>
+                                        <label className="block text-slate-600 text-sm mb-2">Department</label>
                                         <select
                                             value={formData.department}
                                             onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                                            className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-[#C9A962]/50 transition-all appearance-none cursor-pointer"
+                                            className="w-full bg-slate-100 border border-slate-200 rounded-xl px-5 py-4 text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#C9A962]/50 transition-all appearance-none cursor-pointer"
                                         >
                                             {departments.map((dept) => (
-                                                <option key={dept.value} value={dept.value} className="bg-[#0B1220] text-white">
+                                                <option key={dept.value} value={dept.value} className="bg-white text-slate-900">
                                                     {dept.label}
                                                 </option>
                                             ))}
                                         </select>
                                     </div>
                                     <div>
-                                        <label className="block text-white/60 text-sm mb-2">Subject</label>
+                                        <label className="block text-slate-600 text-sm mb-2">Subject</label>
                                         <input
                                             type="text"
                                             value={formData.subject}
                                             onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                                             required
-                                            className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#C9A962]/50 transition-all"
+                                            className="w-full bg-slate-100 border border-slate-200 rounded-xl px-5 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#C9A962]/50 transition-all"
                                             placeholder="How can we help?"
                                         />
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label className="block text-white/60 text-sm mb-2">Message</label>
+                                    <label className="block text-slate-600 text-sm mb-2">Message</label>
                                     <textarea
                                         value={formData.message}
                                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                                         required
                                         rows={6}
-                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#C9A962]/50 transition-all resize-none"
+                                        className="w-full bg-slate-100 border border-slate-200 rounded-xl px-5 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#C9A962]/50 transition-all resize-none"
                                         placeholder="Tell us more about your inquiry..."
                                     />
                                 </div>
@@ -240,8 +240,8 @@ export default function ContactPage() {
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                     </svg>
                                 </div>
-                                <h3 className="text-2xl font-bold text-white mb-3">Message sent!</h3>
-                                <p className="text-white/60 mb-8">We'll get back to you within 24 hours.</p>
+                                <h3 className="text-2xl font-bold text-slate-900 mb-3">Message sent!</h3>
+                                <p className="text-slate-600 mb-8">We'll get back to you within 24 hours.</p>
                                 <button
                                     onClick={() => setIsSubmitted(false)}
                                     className="text-[#C9A962] font-medium hover:underline"
@@ -255,14 +255,14 @@ export default function ContactPage() {
             </section>
 
             {/* FAQ Teaser */}
-            <section className="py-24 border-t border-white/5">
+            <section className="py-24 border-t border-slate-100">
                 <div className="max-w-4xl mx-auto px-6 text-center">
                     <Clock className="w-12 h-12 text-[#C9A962] mx-auto mb-6" />
-                    <h2 className="text-3xl font-bold text-white mb-4">Need an answer now?</h2>
-                    <p className="text-white/60 mb-8">Check our FAQ for instant answers to common questions.</p>
+                    <h2 className="text-3xl font-bold text-slate-900 mb-4">Need an answer now?</h2>
+                    <p className="text-slate-600 mb-8">Check our FAQ for instant answers to common questions.</p>
                     <Link
                         href="/faq"
-                        className="inline-flex items-center gap-2 bg-white/10 text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transition-colors"
+                        className="inline-flex items-center gap-2 bg-white/10 text-slate-900 px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transition-colors"
                     >
                         View FAQ
                     </Link>
@@ -270,8 +270,8 @@ export default function ContactPage() {
             </section>
 
             {/* Footer */}
-            <footer className="py-8 border-t border-white/5">
-                <div className="max-w-7xl mx-auto px-6 text-center text-white/30 text-sm">
+            <footer className="py-8 border-t border-slate-100">
+                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
                     © 2026 PAYAGO LTD. All rights reserved.
                 </div>
             </footer>

@@ -12,14 +12,14 @@ export const metadata: Metadata = {
 
 export default function TermsOfService() {
     return (
-        <main className="min-h-screen bg-[#04060A]">
-            <header className="border-b border-white/5 sticky top-0 z-50 backdrop-blur-xl bg-[#04060A]/80">
+        <main className="min-h-screen bg-white">
+            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
                         <img src="/payago-logo-transparent-v2.png" alt="PayaGo" className="w-9 h-9 object-contain" />
-                        <span className="text-white font-semibold text-lg">PayaGo</span>
+                        <span className="text-slate-900 font-semibold text-lg">PayaGo</span>
                     </Link>
-                    <Link href="/" className="text-white/40 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                    <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
                         <ArrowLeft className="w-4 h-4" />
                         Back to Home
                     </Link>
@@ -27,23 +27,23 @@ export default function TermsOfService() {
             </header>
 
             <div className="max-w-3xl mx-auto px-6 pt-16 pb-24">
-                <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight text-white">
+                <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight text-slate-900">
                     Terms of Service
                 </h1>
-                <p className="text-white/40 text-sm mb-2">Last updated: March 2026</p>
-                <p className="text-white/40 text-sm mb-12">PayaGo Ltd · Registered in England & Wales</p>
+                <p className="text-slate-500 text-sm mb-2">Last updated: March 2026</p>
+                <p className="text-slate-500 text-sm mb-12">PayaGo Ltd · Registered in England & Wales</p>
 
                 <div className="p-6 rounded-2xl bg-[#7C5CFF]/8 border border-[#7C5CFF]/20 mb-12">
-                    <p className="text-white font-semibold mb-2">Please read these terms carefully</p>
-                    <p className="text-white/70 text-base leading-relaxed">
+                    <p className="text-slate-900 font-semibold mb-2">Please read these terms carefully</p>
+                    <p className="text-slate-600 text-base leading-relaxed">
                         By joining our waitlist, accessing our website, or using the PayaGo app, you agree to these Terms of Service. If you do not agree, please do not use our services. These terms are governed by English law.
                     </p>
                 </div>
 
                 {/* Table of contents */}
-                <nav className="mb-12 p-5 rounded-2xl bg-white/[0.02] border border-white/5">
-                    <p className="text-white/30 text-xs font-semibold uppercase tracking-wider mb-4">Contents</p>
-                    <ol className="space-y-2 text-sm text-white/50">
+                <nav className="mb-12 p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                    <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-4">Contents</p>
+                    <ol className="space-y-2 text-sm text-slate-500">
                         {[
                             ["#about", "1. About PayaGo"],
                             ["#eligibility", "2. Eligibility"],
@@ -67,15 +67,15 @@ export default function TermsOfService() {
                     </ol>
                 </nav>
 
-                <div className="space-y-14 text-white/70 leading-relaxed text-base">
+                <div className="space-y-14 text-slate-600 leading-relaxed text-base">
 
                     <section id="about" className="scroll-mt-24">
-                        <h2 className="text-2xl font-bold text-white mb-5">1. About PayaGo</h2>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-5">1. About PayaGo</h2>
                         <p>PayaGo Ltd (&ldquo;PayaGo&rdquo;, &ldquo;we&rdquo;, &ldquo;our&rdquo;, &ldquo;us&rdquo;) is a company registered in England and Wales. We operate the PayaGo website at payago.in and the PayaGo mobile application — an AI-powered group travel planning platform that generates itineraries, facilitates group coordination, and enables group payments for travel bookings.</p>
                     </section>
 
                     <section id="eligibility" className="scroll-mt-24">
-                        <h2 className="text-2xl font-bold text-white mb-5">2. Eligibility</h2>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-5">2. Eligibility</h2>
                         <p className="mb-4">To use PayaGo, you must:</p>
                         <ul className="space-y-2">
                             {[
@@ -93,7 +93,7 @@ export default function TermsOfService() {
                     </section>
 
                     <section id="service" className="scroll-mt-24">
-                        <h2 className="text-2xl font-bold text-white mb-5">3. The Service</h2>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-5">3. The Service</h2>
                         <p className="mb-4">PayaGo provides an AI-powered platform that:</p>
                         <ul className="space-y-2 mb-6">
                             {[
@@ -113,7 +113,7 @@ export default function TermsOfService() {
                     </section>
 
                     <section id="waitlist" className="scroll-mt-24">
-                        <h2 className="text-2xl font-bold text-white mb-5">4. Waitlist & Pre-Launch</h2>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-5">4. Waitlist & Pre-Launch</h2>
                         <p className="mb-4">PayaGo is currently in pre-launch. By joining the waitlist:</p>
                         <ul className="space-y-2 mb-6">
                             {[
@@ -132,7 +132,7 @@ export default function TermsOfService() {
                     </section>
 
                     <section id="account" className="scroll-mt-24">
-                        <h2 className="text-2xl font-bold text-white mb-5">5. Your Account</h2>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-5">5. Your Account</h2>
                         <p className="mb-4">When the app launches, you will create an account. You are responsible for:</p>
                         <ul className="space-y-2 mb-4">
                             {[
@@ -151,7 +151,7 @@ export default function TermsOfService() {
                     </section>
 
                     <section id="ai-content" className="scroll-mt-24">
-                        <h2 className="text-2xl font-bold text-white mb-5">6. AI-Generated Content</h2>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-5">6. AI-Generated Content</h2>
                         <p className="mb-4">PayaGo uses AI to generate travel itineraries and suggestions. You acknowledge that:</p>
                         <ul className="space-y-2 mb-6">
                             {[
@@ -171,23 +171,23 @@ export default function TermsOfService() {
                     </section>
 
                     <section id="bookings" className="scroll-mt-24">
-                        <h2 className="text-2xl font-bold text-white mb-5">7. Bookings & Payments</h2>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-5">7. Bookings & Payments</h2>
 
-                        <h3 className="text-white font-semibold mb-3 mt-6">7.1 How bookings work</h3>
+                        <h3 className="text-slate-900 font-semibold mb-3 mt-6">7.1 How bookings work</h3>
                         <p className="mb-4">When your group confirms a trip, PayaGo facilitates individual payments from each group member for their share of the total. Once all payments are received, PayaGo submits bookings to our travel partner APIs on your behalf. You will receive confirmation emails directly from the booking partners.</p>
 
-                        <h3 className="text-white font-semibold mb-3 mt-6">7.2 Payment obligations</h3>
+                        <h3 className="text-slate-900 font-semibold mb-3 mt-6">7.2 Payment obligations</h3>
                         <p className="mb-4">By initiating a payment, you authorise PayaGo to charge your chosen payment method for the amount shown. All prices are displayed inclusive of taxes where applicable. PayaGo does not add service fees or markup to the prices shown.</p>
 
-                        <h3 className="text-white font-semibold mb-3 mt-6">7.3 Cancellations and refunds</h3>
+                        <h3 className="text-slate-900 font-semibold mb-3 mt-6">7.3 Cancellations and refunds</h3>
                         <p className="mb-4">Cancellation and refund rights are governed by the terms of each booking partner (hotel, airline, activity provider). Typical policies are: full refund more than 14 days before departure, partial refund 7–14 days before, non-refundable within 7 days — but these vary by provider. PayaGo will handle cancellation requests on your behalf and process refunds to your original payment method within the timeframes imposed by the booking partner.</p>
 
-                        <h3 className="text-white font-semibold mb-3 mt-6">7.4 Failed or partial payments</h3>
+                        <h3 className="text-slate-900 font-semibold mb-3 mt-6">7.4 Failed or partial payments</h3>
                         <p>If a group member does not complete payment within the deadline, their spot may be released and the booking may not proceed. PayaGo is not liable for trip cancellations arising from group members failing to pay their share.</p>
                     </section>
 
                     <section id="conduct" className="scroll-mt-24">
-                        <h2 className="text-2xl font-bold text-white mb-5">8. Acceptable Use</h2>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-5">8. Acceptable Use</h2>
                         <p className="mb-4">You agree not to:</p>
                         <ul className="space-y-2">
                             {[
@@ -209,13 +209,13 @@ export default function TermsOfService() {
                     </section>
 
                     <section id="ip" className="scroll-mt-24">
-                        <h2 className="text-2xl font-bold text-white mb-5">9. Intellectual Property</h2>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-5">9. Intellectual Property</h2>
                         <p className="mb-4">PayaGo Ltd owns all intellectual property rights in the PayaGo platform, including software, design, brand, and content we create. Nothing in these terms grants you any rights to our intellectual property except the limited right to use the service as described.</p>
                         <p>You retain ownership of any content you provide (trip descriptions, preferences, reviews). By submitting content, you grant PayaGo a non-exclusive, royalty-free licence to use it to provide and improve the service.</p>
                     </section>
 
                     <section id="liability" className="scroll-mt-24">
-                        <h2 className="text-2xl font-bold text-white mb-5">10. Limitation of Liability</h2>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-5">10. Limitation of Liability</h2>
                         <p className="mb-4">To the maximum extent permitted by law:</p>
                         <ul className="space-y-2 mb-6">
                             {[
@@ -235,32 +235,32 @@ export default function TermsOfService() {
                     </section>
 
                     <section id="termination" className="scroll-mt-24">
-                        <h2 className="text-2xl font-bold text-white mb-5">11. Termination</h2>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-5">11. Termination</h2>
                         <p className="mb-4">You may close your account at any time by contacting support@payago.in. We may suspend or terminate your account if you breach these terms, engage in fraudulent activity, or if we are required to do so by law. Where reasonably possible, we will give you notice before termination.</p>
                         <p>On account closure, we will delete your personal data in accordance with our Privacy Policy. Active bookings at the time of termination remain subject to the relevant booking partner&apos;s terms.</p>
                     </section>
 
                     <section id="changes" className="scroll-mt-24">
-                        <h2 className="text-2xl font-bold text-white mb-5">12. Changes to These Terms</h2>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-5">12. Changes to These Terms</h2>
                         <p>We may update these terms as our product evolves. We will notify you of material changes by email at least 14 days before they take effect. Continued use of the service after that date constitutes acceptance of the updated terms. If you do not agree to the changes, you may close your account before they take effect.</p>
                     </section>
 
                     <section id="governing-law" className="scroll-mt-24">
-                        <h2 className="text-2xl font-bold text-white mb-5">13. Governing Law</h2>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-5">13. Governing Law</h2>
                         <p>These terms are governed by and construed in accordance with the laws of England and Wales. Any disputes arising from these terms or your use of PayaGo shall be subject to the exclusive jurisdiction of the courts of England and Wales, except where applicable consumer protection law in your country of residence provides otherwise.</p>
                     </section>
 
                     <section id="contact" className="scroll-mt-24">
-                        <h2 className="text-2xl font-bold text-white mb-5">14. Contact</h2>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-5">14. Contact</h2>
                         <p>For questions about these terms, contact us at <a href="mailto:support@payago.in" className="text-[#7C5CFF] hover:underline">support@payago.in</a>. For legal notices, please use our <Link href="/contact" className="text-[#7C5CFF] hover:underline">contact page</Link>.</p>
                     </section>
                 </div>
 
-                <div className="mt-16 pt-8 border-t border-white/5 flex flex-col sm:flex-row gap-4">
-                    <Link href="/privacy" className="text-white/40 hover:text-white transition-colors text-sm">
+                <div className="mt-16 pt-8 border-t border-slate-100 flex flex-col sm:flex-row gap-4">
+                    <Link href="/privacy" className="text-slate-500 hover:text-slate-900 transition-colors text-sm">
                         Privacy Policy →
                     </Link>
-                    <Link href="/affiliate-disclosure" className="text-white/40 hover:text-white transition-colors text-sm">
+                    <Link href="/affiliate-disclosure" className="text-slate-500 hover:text-slate-900 transition-colors text-sm">
                         Affiliate Disclosure →
                     </Link>
                     <a href="mailto:support@payago.in" className="text-[#7C5CFF] hover:underline text-sm">
@@ -269,8 +269,8 @@ export default function TermsOfService() {
                 </div>
             </div>
 
-            <footer className="py-8 border-t border-white/5">
-                <div className="max-w-7xl mx-auto px-6 text-center text-white/20 text-sm">
+            <footer className="py-8 border-t border-slate-100">
+                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
                     © 2026 PayaGo Ltd. Company No. 16971574. Registered in England & Wales.
                 </div>
             </footer>

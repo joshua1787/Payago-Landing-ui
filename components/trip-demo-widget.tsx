@@ -169,9 +169,9 @@ export function TripDemoWidget() {
     const overallProgress = Math.min(100, (STEPS.slice(0, stepIndex).reduce((a, s) => a + s.duration, 0) + (STEPS[stepIndex]?.duration || 0) * stepProgress / 100) / totalDuration * 100)
 
     return (
-        <section className="relative py-24 overflow-hidden">
+        <section className="relative py-24 overflow-hidden bg-[#FDF9F0]">
             <div className="absolute inset-0">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#7C5CFF]/5 rounded-full blur-[200px]" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#C9A962]/10 rounded-full blur-[200px]" />
             </div>
 
             <div className="relative z-10 max-w-5xl mx-auto px-6">
@@ -181,13 +181,13 @@ export function TripDemoWidget() {
                         <Sparkles className="w-4 h-4 text-[#7C5CFF]" />
                         <span className="text-sm font-medium text-[#7C5CFF]">Try the AI — live demo</span>
                     </div>
-                    <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
+                    <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
                         See it build a trip in{" "}
                         <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent">
                             30 seconds
                         </span>
                     </h2>
-                    <p className="text-white/50 text-lg">Select a trip, hit Generate, watch the AI work.</p>
+                    <p className="text-slate-400 text-lg">Select a trip, hit Generate, watch the AI work.</p>
                 </div>
 
                 {/* Trip selector */}
@@ -196,13 +196,13 @@ export function TripDemoWidget() {
                         <button
                             key={i}
                             onClick={() => { setSelectedTrip(i); handleReset() }}
-                            className={`text-left p-4 rounded-xl border transition-all duration-200 ${selectedTrip === i ? "bg-[#7C5CFF]/10 border-[#7C5CFF]/40" : "bg-white/[0.02] border-white/5 hover:border-white/10"}`}
+                            className={`text-left p-4 rounded-xl border transition-all duration-200 ${selectedTrip === i ? "bg-[#7C5CFF]/10 border-[#7C5CFF]/40" : "bg-white border-amber-100 hover:border-amber-200"}`}
                         >
                             <div className="flex items-start gap-2">
-                                <MapPin className={`w-4 h-4 flex-shrink-0 mt-0.5 ${selectedTrip === i ? "text-[#7C5CFF]" : "text-white/30"}`} />
+                                <MapPin className={`w-4 h-4 flex-shrink-0 mt-0.5 ${selectedTrip === i ? "text-[#7C5CFF]" : "text-slate-400"}`} />
                                 <div>
-                                    <div className={`font-semibold text-sm ${selectedTrip === i ? "text-white" : "text-white/60"}`}>{t.destination}</div>
-                                    <div className="text-white/30 text-xs mt-0.5 leading-relaxed line-clamp-2">{t.prompt}</div>
+                                    <div className={`font-semibold text-sm ${selectedTrip === i ? "text-slate-900" : "text-slate-600"}`}>{t.destination}</div>
+                                    <div className="text-slate-400 text-xs mt-0.5 leading-relaxed line-clamp-2">{t.prompt}</div>
                                 </div>
                             </div>
                         </button>
@@ -210,20 +210,20 @@ export function TripDemoWidget() {
                 </div>
 
                 {/* Input box */}
-                <div className="bg-white/[0.03] border border-white/8 rounded-2xl p-5 mb-4">
+                <div className="bg-white border border-amber-100 rounded-2xl p-5 mb-4">
                     <div className="flex items-center gap-3 mb-3">
                         <div className="w-8 h-8 rounded-lg bg-[#7C5CFF]/20 flex items-center justify-center flex-shrink-0">
                             <Mic className="w-4 h-4 text-[#7C5CFF]" />
                         </div>
-                        <span className="text-white/40 text-xs font-semibold uppercase tracking-wider">Your trip request</span>
+                        <span className="text-slate-400 text-xs font-semibold uppercase tracking-wider">Your trip request</span>
                     </div>
-                    <p className="text-white/80 leading-relaxed text-sm pl-11">{trip.prompt}</p>
+                    <p className="text-slate-700 leading-relaxed text-sm pl-11">{trip.prompt}</p>
                     <div className="flex items-center gap-4 mt-4 pl-11">
-                        <span className="flex items-center gap-1.5 text-xs text-white/30">
+                        <span className="flex items-center gap-1.5 text-xs text-slate-400">
                             <Users className="w-3.5 h-3.5" />
                             {trip.travelers} travellers
                         </span>
-                        <span className="flex items-center gap-1.5 text-xs text-white/30">
+                        <span className="flex items-center gap-1.5 text-xs text-slate-400">
                             <Clock className="w-3.5 h-3.5" />
                             {trip.dates}
                         </span>
@@ -243,17 +243,17 @@ export function TripDemoWidget() {
                 )}
 
                 {phase === "generating" && (
-                    <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-8">
+                    <div className="bg-white border border-amber-100 rounded-2xl p-8">
                         {/* Overall progress bar */}
                         <div className="mb-6">
                             <div className="flex items-center justify-between mb-3">
                                 <div className="flex items-center gap-2">
                                     <div className="w-2 h-2 bg-[#7C5CFF] rounded-full animate-pulse" />
-                                    <span className="text-white font-semibold text-sm">AI generating your trips...</span>
+                                    <span className="text-slate-900 font-semibold text-sm">AI generating your trips...</span>
                                 </div>
                                 <span className="text-[#7C5CFF] font-mono text-sm">{Math.round(overallProgress)}%</span>
                             </div>
-                            <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                            <div className="h-1.5 bg-slate-200 rounded-full overflow-hidden">
                                 <div
                                     className="h-full bg-gradient-to-r from-[#7C5CFF] to-[#C9A962] rounded-full transition-all duration-75"
                                     style={{ width: `${overallProgress}%` }}
@@ -265,16 +265,16 @@ export function TripDemoWidget() {
                         <div className="space-y-2.5">
                             {STEPS.map((step, i) => (
                                 <div key={i} className={`flex items-center gap-3 text-sm transition-all duration-300 ${i < stepIndex ? "opacity-100" : i === stepIndex ? "opacity-100" : "opacity-20"}`}>
-                                    <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${i < stepIndex ? "bg-[#4AD7A2]/20" : i === stepIndex ? "bg-[#7C5CFF]/20 animate-pulse" : "bg-white/5"}`}>
+                                    <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${i < stepIndex ? "bg-[#4AD7A2]/20" : i === stepIndex ? "bg-[#7C5CFF]/20 animate-pulse" : "bg-slate-100"}`}>
                                         {i < stepIndex ? (
                                             <Check className="w-3 h-3 text-[#4AD7A2]" />
                                         ) : i === stepIndex ? (
                                             <div className="w-2 h-2 bg-[#7C5CFF] rounded-full" />
                                         ) : (
-                                            <div className="w-2 h-2 bg-white/20 rounded-full" />
+                                            <div className="w-2 h-2 bg-slate-300 rounded-full" />
                                         )}
                                     </div>
-                                    <span className={i < stepIndex ? "text-white/60 line-through" : i === stepIndex ? "text-white" : "text-white/30"}>
+                                    <span className={i < stepIndex ? "text-slate-400 line-through" : i === stepIndex ? "text-slate-900" : "text-slate-300"}>
                                         {step.label}
                                     </span>
                                 </div>
@@ -288,9 +288,9 @@ export function TripDemoWidget() {
                         <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-2">
                                 <div className="w-2 h-2 bg-[#4AD7A2] rounded-full" />
-                                <span className="text-white font-semibold">3 trip options ready — {trip.destination}</span>
+                                <span className="text-slate-900 font-semibold">3 trip options ready — {trip.destination}</span>
                             </div>
-                            <button onClick={handleReset} className="text-white/30 hover:text-white text-xs transition-colors">
+                            <button onClick={handleReset} className="text-slate-400 hover:text-slate-900 text-xs transition-colors">
                                 ↺ Reset
                             </button>
                         </div>
@@ -300,7 +300,7 @@ export function TripDemoWidget() {
                                 <button
                                     key={i}
                                     onClick={() => setSelectedOption(i)}
-                                    className={`text-left p-5 rounded-2xl border transition-all duration-200 relative ${selectedOption === i ? "border-opacity-60 bg-white/[0.04]" : "border-white/5 bg-white/[0.02] hover:bg-white/[0.03]"}`}
+                                    className={`text-left p-5 rounded-2xl border transition-all duration-200 relative ${selectedOption === i ? "border-opacity-60 bg-white" : "border-amber-100 bg-white hover:bg-amber-50"}`}
                                     style={selectedOption === i ? { borderColor: opt.color + "60" } : {}}
                                 >
                                     {opt.recommended && (
@@ -313,27 +313,27 @@ export function TripDemoWidget() {
                                             {opt.type}
                                         </span>
                                         <div className="text-right">
-                                            <div className="text-white font-bold">{opt.perPerson}</div>
-                                            <div className="text-white/30 text-xs">per person</div>
+                                            <div className="text-slate-900 font-bold">{opt.perPerson}</div>
+                                            <div className="text-slate-400 text-xs">per person</div>
                                         </div>
                                     </div>
 
                                     <div className="space-y-2 mb-3">
                                         <div className="flex items-start gap-2">
-                                            <Plane className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-white/30" />
-                                            <span className="text-white/50 text-xs leading-relaxed">{opt.flight}</span>
+                                            <Plane className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-slate-400" />
+                                            <span className="text-slate-500 text-xs leading-relaxed">{opt.flight}</span>
                                         </div>
                                         <div className="flex items-start gap-2">
-                                            <Hotel className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-white/30" />
-                                            <span className="text-white/50 text-xs leading-relaxed">{opt.hotel}</span>
+                                            <Hotel className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-slate-400" />
+                                            <span className="text-slate-500 text-xs leading-relaxed">{opt.hotel}</span>
                                         </div>
                                     </div>
 
-                                    <div className="border-t border-white/5 pt-3">
-                                        <div className="text-white/30 text-[10px] font-semibold uppercase tracking-wider mb-2">Highlights</div>
+                                    <div className="border-t border-slate-100 pt-3">
+                                        <div className="text-slate-400 text-[10px] font-semibold uppercase tracking-wider mb-2">Highlights</div>
                                         <ul className="space-y-1">
                                             {opt.highlights.slice(0, 3).map((h, j) => (
-                                                <li key={j} className="flex items-start gap-1.5 text-xs text-white/50">
+                                                <li key={j} className="flex items-start gap-1.5 text-xs text-slate-500">
                                                     <span style={{ color: opt.color }} className="flex-shrink-0">→</span>
                                                     {h}
                                                 </li>
@@ -342,8 +342,8 @@ export function TripDemoWidget() {
                                     </div>
 
                                     {selectedOption === i && (
-                                        <div className="mt-3 pt-3 border-t border-white/5 flex items-center justify-between">
-                                            <span className="text-xs text-white/40">Total: {opt.total}</span>
+                                        <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+                                            <span className="text-xs text-slate-400">Total: {opt.total}</span>
                                             <span className="text-xs font-semibold flex items-center gap-1" style={{ color: opt.color }}>
                                                 Selected <Check className="w-3 h-3" />
                                             </span>
@@ -355,10 +355,10 @@ export function TripDemoWidget() {
 
                         <div className="mt-4 p-5 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20 flex items-center justify-between gap-4 flex-wrap">
                             <div>
-                                <div className="text-white font-semibold text-sm mb-0.5">
+                                <div className="text-slate-900 font-semibold text-sm mb-0.5">
                                     Like what you see? The real app builds this from your voice in 30 seconds.
                                 </div>
-                                <div className="text-white/40 text-xs">Launching April 2026 — free for travellers.</div>
+                                <div className="text-slate-400 text-xs">Launching April 2026 — free for travellers.</div>
                             </div>
                             <a
                                 href="#early-access"

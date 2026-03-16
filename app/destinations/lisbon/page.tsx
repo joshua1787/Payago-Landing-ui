@@ -16,14 +16,14 @@ export const metadata: Metadata = {
 
 export default function Page() {
     return (
-        <main className="min-h-screen bg-[#04060A]">
-            <header className="border-b border-white/5 sticky top-0 z-50 backdrop-blur-xl bg-[#04060A]/80">
+        <main className="min-h-screen bg-white">
+            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
                         <img src="/payago-logo-transparent-v2.png" alt="PayaGo" className="w-9 h-9 object-contain" />
-                        <span className="text-white font-semibold text-lg">PayaGo</span>
+                        <span className="text-slate-900 font-semibold text-lg">PayaGo</span>
                     </Link>
-                    <Link href="/destinations" className="text-white/40 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                    <Link href="/destinations" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
                         <ArrowLeft className="w-4 h-4" /> Destinations
                     </Link>
                 </div>
@@ -32,28 +32,28 @@ export default function Page() {
                 <img src="/luxury-travel-destination-aerial-view-of-tropical-.jpg" alt="Lisbon travel" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-[#04060A]" />
                 <div className="absolute bottom-8 left-0 right-0 max-w-4xl mx-auto px-6">
-                    <h1 className="text-4xl md:text-5xl font-bold text-white">Lisbon Group Travel Guide</h1>
+                    <h1 className="text-4xl md:text-5xl font-bold text-slate-900">Lisbon Group Travel Guide</h1>
                 </div>
             </div>
             <div className="max-w-4xl mx-auto px-6 py-16 text-center">
-                <p className="text-white/60 text-lg mb-8">
+                <p className="text-slate-600 text-lg mb-8">
                     Full guide coming soon. PayaGo AI already knows Lisbon inside out — get early access and let the AI build your group itinerary in 30 seconds.
                 </p>
                 <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
                     Plan a Lisbon Trip — Free <ArrowRight className="w-4 h-4" />
                 </Link>
-                <div className="mt-12 pt-8 border-t border-white/5">
-                    <h3 className="text-white/40 text-sm font-semibold uppercase tracking-wider mb-4">Other destinations</h3>
+                <div className="mt-12 pt-8 border-t border-slate-100">
+                    <h3 className="text-slate-500 text-sm font-semibold uppercase tracking-wider mb-4">Other destinations</h3>
                     <div className="flex flex-wrap gap-3 justify-center">
-                        <Link key="barcelona" href="/destinations/barcelona" className="capitalize px-4 py-2 rounded-lg bg-white/[0.03] border border-white/5 text-white/60 hover:text-white hover:border-white/10 transition-all text-sm">barcelona</Link>
-                        <Link key="tokyo" href="/destinations/tokyo" className="capitalize px-4 py-2 rounded-lg bg-white/[0.03] border border-white/5 text-white/60 hover:text-white hover:border-white/10 transition-all text-sm">tokyo</Link>
-                        <Link key="paris" href="/destinations/paris" className="capitalize px-4 py-2 rounded-lg bg-white/[0.03] border border-white/5 text-white/60 hover:text-white hover:border-white/10 transition-all text-sm">paris</Link>
-                        <Link key="amsterdam" href="/destinations/amsterdam" className="capitalize px-4 py-2 rounded-lg bg-white/[0.03] border border-white/5 text-white/60 hover:text-white hover:border-white/10 transition-all text-sm">amsterdam</Link>
+                        <Link key="barcelona" href="/destinations/barcelona" className="capitalize px-4 py-2 rounded-lg bg-slate-50 border border-slate-100 text-slate-600 hover:text-slate-900 hover:border-slate-200 transition-all text-sm">barcelona</Link>
+                        <Link key="tokyo" href="/destinations/tokyo" className="capitalize px-4 py-2 rounded-lg bg-slate-50 border border-slate-100 text-slate-600 hover:text-slate-900 hover:border-slate-200 transition-all text-sm">tokyo</Link>
+                        <Link key="paris" href="/destinations/paris" className="capitalize px-4 py-2 rounded-lg bg-slate-50 border border-slate-100 text-slate-600 hover:text-slate-900 hover:border-slate-200 transition-all text-sm">paris</Link>
+                        <Link key="amsterdam" href="/destinations/amsterdam" className="capitalize px-4 py-2 rounded-lg bg-slate-50 border border-slate-100 text-slate-600 hover:text-slate-900 hover:border-slate-200 transition-all text-sm">amsterdam</Link>
                     </div>
                 </div>
             </div>
-            <footer className="py-8 border-t border-white/5">
-                <div className="max-w-7xl mx-auto px-6 text-center text-white/20 text-sm">
+            <footer className="py-8 border-t border-slate-100">
+                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
                     © 2026 PayaGo Ltd. Registered in England and Wales.
                 </div>
             </footer>

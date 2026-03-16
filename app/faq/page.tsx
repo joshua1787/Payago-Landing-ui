@@ -129,16 +129,16 @@ function FAQItem({ question, answer, color }: { question: string; answer: string
     const [isOpen, setIsOpen] = useState(false)
 
     return (
-        <div className="border-b border-white/5">
+        <div className="border-b border-slate-100">
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="w-full flex items-center justify-between py-6 text-left group"
             >
-                <span className="text-white font-medium pr-8 group-hover:text-white/90 transition-colors">{question}</span>
+                <span className="text-slate-900 font-medium pr-8 group-hover:text-slate-700 transition-colors">{question}</span>
                 <ChevronDown className={`w-5 h-5 flex-shrink-0 transition-all duration-300 ${isOpen ? 'rotate-180' : ''}`} style={{ color }} />
             </button>
             <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[500px] pb-6' : 'max-h-0'}`}>
-                <p className="text-white/50 leading-relaxed">{answer}</p>
+                <p className="text-slate-500 leading-relaxed">{answer}</p>
             </div>
         </div>
     )
@@ -161,18 +161,18 @@ const faqSchema = {
 
 export default function FAQPage() {
     return (
-        <main className="min-h-screen bg-[#04060A]">
+        <main className="min-h-screen bg-white">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
             />
-            <header className="border-b border-white/5 sticky top-0 z-50 backdrop-blur-xl bg-[#04060A]/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
                         <img src="/payago-logo-transparent-v2.png" alt="PayaGo" className="w-9 h-9 object-contain" />
-                        <span className="text-white font-semibold text-lg">PayaGo</span>
+                        <span className="text-slate-900 font-semibold text-lg">PayaGo</span>
                     </Link>
-                    <Link href="/" className="text-white/40 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                    <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
                         <ArrowLeft className="w-4 h-4" />
                         Back to Home
                     </Link>
@@ -185,22 +185,22 @@ export default function FAQPage() {
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[#C9A962]/8 rounded-full blur-[200px]" />
                 </div>
                 <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-                    <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                    <h1 className="text-5xl lg:text-7xl font-bold text-slate-900 mb-6 leading-tight">
                         Frequently Asked
                         <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent block">Questions</span>
                     </h1>
-                    <p className="text-xl text-white/50 max-w-2xl mx-auto">
+                    <p className="text-xl text-slate-500 max-w-2xl mx-auto">
                         Everything you need to know about how PayaGo plans, coordinates, and books your group trips.
                     </p>
                 </div>
             </section>
 
             {/* Category nav */}
-            <section className="border-b border-white/5 py-4 sticky top-[65px] z-40 backdrop-blur-xl bg-[#04060A]/90">
+            <section className="border-b border-slate-100 py-4 sticky top-[65px] z-40 backdrop-blur-xl bg-white/90">
                 <div className="max-w-4xl mx-auto px-6">
                     <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide pb-1">
                         {faqs.map((cat) => (
-                            <a key={cat.category} href={`#${cat.category.toLowerCase().replace(/\s+&?\s*/g, '-')}`} className="flex-shrink-0 px-4 py-1.5 rounded-full border border-white/10 text-white/40 hover:text-white hover:border-white/20 transition-all text-sm font-medium">
+                            <a key={cat.category} href={`#${cat.category.toLowerCase().replace(/\s+&?\s*/g, '-')}`} className="flex-shrink-0 px-4 py-1.5 rounded-full border border-slate-200 text-slate-500 hover:text-slate-900 hover:border-slate-200 transition-all text-sm font-medium">
                                 {cat.category}
                             </a>
                         ))}
@@ -215,7 +215,7 @@ export default function FAQPage() {
                         <div key={catIndex} id={category.category.toLowerCase().replace(/\s+&?\s*/g, '-')} className="mb-20 scroll-mt-32">
                             <div className="flex items-center gap-3 mb-8">
                                 <div className="w-2 h-6 rounded-full" style={{ background: category.color }} />
-                                <h2 className="text-2xl font-bold text-white">{category.category}</h2>
+                                <h2 className="text-2xl font-bold text-slate-900">{category.category}</h2>
                             </div>
                             <div>
                                 {category.questions.map((faq, index) => (
@@ -228,12 +228,12 @@ export default function FAQPage() {
             </section>
 
             {/* Contact CTA */}
-            <section className="py-24 border-t border-white/5">
+            <section className="py-24 border-t border-slate-100">
                 <div className="max-w-4xl mx-auto px-6 text-center">
-                    <h2 className="text-3xl font-bold text-white mb-4">Still have questions?</h2>
-                    <p className="text-white/50 mb-8">{"Our team is happy to help — usually within a few hours."}</p>
+                    <h2 className="text-3xl font-bold text-slate-900 mb-4">Still have questions?</h2>
+                    <p className="text-slate-500 mb-8">{"Our team is happy to help — usually within a few hours."}</p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <Link href="/contact" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 border border-white/10 text-white px-8 py-4 rounded-xl font-semibold transition-colors">
+                        <Link href="/contact" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 border border-slate-200 text-slate-900 px-8 py-4 rounded-xl font-semibold transition-colors">
                             Contact Us
                         </Link>
                         <Link href="/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
@@ -243,8 +243,8 @@ export default function FAQPage() {
                 </div>
             </section>
 
-            <footer className="py-8 border-t border-white/5">
-                <div className="max-w-7xl mx-auto px-6 text-center text-white/20 text-sm">
+            <footer className="py-8 border-t border-slate-100">
+                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
                     © 2026 PayaGo Ltd. Registered in England & Wales.
                 </div>
             </footer>

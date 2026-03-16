@@ -103,14 +103,14 @@ const team = [
 
 export default function AboutPage() {
     return (
-        <main className="min-h-screen bg-[#04060A]">
-            <header className="border-b border-white/5 sticky top-0 z-50 backdrop-blur-xl bg-[#04060A]/80">
+        <main className="min-h-screen bg-white">
+            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
                         <img src="/payago-logo-transparent-v2.png" alt="PayaGo" className="w-9 h-9 object-contain" />
-                        <span className="text-white font-semibold text-lg">PayaGo</span>
+                        <span className="text-slate-900 font-semibold text-lg">PayaGo</span>
                     </Link>
-                    <Link href="/" className="text-white/40 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                    <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
                         <ArrowLeft className="w-4 h-4" />
                         Back to Home
                     </Link>
@@ -129,30 +129,30 @@ export default function AboutPage() {
                         <span className="w-2 h-2 bg-[#C9A962] rounded-full animate-pulse" />
                         <span className="text-sm font-medium text-[#C9A962]">Launching April 2026</span>
                     </div>
-                    <h1 className="text-5xl lg:text-7xl font-bold text-white mb-8 leading-tight">
+                    <h1 className="text-5xl lg:text-7xl font-bold text-slate-900 mb-8 leading-tight">
                         {"We're making"}
                         <span className="bg-gradient-to-r from-[#C9A962] via-[#E5C77D] to-[#C9A962] bg-clip-text text-transparent"> group trips</span>
                         <br />actually happen
                     </h1>
-                    <p className="text-xl lg:text-2xl text-white/50 max-w-3xl mx-auto leading-relaxed">
+                    <p className="text-xl lg:text-2xl text-slate-500 max-w-3xl mx-auto leading-relaxed">
                         {"95% of group trips discussed in a WhatsApp chat never happen. Not because people don't want to go — because planning together is broken."}
                     </p>
                 </div>
             </section>
 
             {/* Stats Strip */}
-            <section className="border-y border-white/5 py-20 relative">
+            <section className="border-y border-slate-100 py-20 relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-[#C9A962]/5 via-transparent to-[#00D4FF]/5" />
                 <div className="relative max-w-7xl mx-auto px-6">
-                    <div className="grid md:grid-cols-3 gap-px bg-white/5 rounded-2xl overflow-hidden">
+                    <div className="grid md:grid-cols-3 gap-px bg-slate-100 rounded-2xl overflow-hidden">
                         {[
                             { value: "95%", label: "of group trips discussed never get booked", color: "#FF6B6B" },
                             { value: "15hrs", label: "average time spent planning a group trip manually", color: "#C9A962" },
                             { value: "30s", label: "for PayaGo AI to create a complete trip itinerary", color: "#4AD7A2" },
                         ].map((stat, i) => (
-                            <div key={i} className="bg-white/[0.02] p-12 text-center">
+                            <div key={i} className="bg-slate-50 p-12 text-center">
                                 <div className="text-6xl lg:text-7xl font-bold mb-3" style={{ color: stat.color }}>{stat.value}</div>
-                                <div className="text-white/40 text-lg leading-snug">{stat.label}</div>
+                                <div className="text-slate-500 text-lg leading-snug">{stat.label}</div>
                             </div>
                         ))}
                     </div>
@@ -167,7 +167,7 @@ export default function AboutPage() {
                             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FF6B6B]/10 border border-[#FF6B6B]/20 mb-8">
                                 <span className="text-sm font-medium text-[#FF6B6B]">Before PayaGo</span>
                             </div>
-                            <h2 className="text-3xl font-bold text-white mb-6">Planning a trip used to mean…</h2>
+                            <h2 className="text-3xl font-bold text-slate-900 mb-6">Planning a trip used to mean…</h2>
                             <div className="space-y-4">
                                 {[
                                     "3 hours comparing flights across 5 websites",
@@ -180,7 +180,7 @@ export default function AboutPage() {
                                 ].map((pain, i) => (
                                     <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-[#FF6B6B]/5 border border-[#FF6B6B]/10">
                                         <span className="text-[#FF6B6B] mt-0.5 text-lg leading-none">×</span>
-                                        <span className="text-white/60 leading-snug">{pain}</span>
+                                        <span className="text-slate-600 leading-snug">{pain}</span>
                                     </div>
                                 ))}
                             </div>
@@ -189,7 +189,7 @@ export default function AboutPage() {
                             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#4AD7A2]/10 border border-[#4AD7A2]/20 mb-8">
                                 <span className="text-sm font-medium text-[#4AD7A2]">With PayaGo</span>
                             </div>
-                            <h2 className="text-3xl font-bold text-white mb-6">The same trip now takes 5 minutes</h2>
+                            <h2 className="text-3xl font-bold text-slate-900 mb-6">The same trip now takes 5 minutes</h2>
                             <div className="space-y-4">
                                 {[
                                     "Speak one sentence — AI builds the full itinerary in 30s",
@@ -202,7 +202,7 @@ export default function AboutPage() {
                                 ].map((win, i) => (
                                     <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-[#4AD7A2]/5 border border-[#4AD7A2]/10">
                                         <span className="text-[#4AD7A2] mt-0.5 text-lg leading-none">✓</span>
-                                        <span className="text-white/70 leading-snug">{win}</span>
+                                        <span className="text-slate-600 leading-snug">{win}</span>
                                     </div>
                                 ))}
                             </div>
@@ -212,7 +212,7 @@ export default function AboutPage() {
             </section>
 
             {/* Mission */}
-            <section className="py-24 border-t border-white/5">
+            <section className="py-24 border-t border-slate-100">
                 <div className="max-w-6xl mx-auto px-6">
                     <div className="grid lg:grid-cols-2 gap-20 items-center">
                         <div>
@@ -220,39 +220,39 @@ export default function AboutPage() {
                                 <Globe className="w-4 h-4 text-[#7C5CFF]" />
                                 <span className="text-sm font-medium text-[#7C5CFF]">Our Mission</span>
                             </div>
-                            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+                            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6 leading-tight">
                                 Every group trip discussed
                                 <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent"> should actually happen</span>
                             </h2>
-                            <p className="text-white/60 text-lg leading-relaxed mb-6">
+                            <p className="text-slate-600 text-lg leading-relaxed mb-6">
                                 {"We're creating a new category — Autonomous Travel Planning. The same way Uber eliminated the friction of getting a cab, PayaGo eliminates the friction of planning a trip together."}
                             </p>
-                            <p className="text-white/60 text-lg leading-relaxed">
+                            <p className="text-slate-600 text-lg leading-relaxed">
                                 {"You shouldn't need to be a travel agent to take a group trip. One sentence. 30 seconds. Done."}
                             </p>
                         </div>
-                        <div className="relative p-10 rounded-3xl bg-white/[0.02] border border-white/5 overflow-hidden">
+                        <div className="relative p-10 rounded-3xl bg-slate-50 border border-slate-100 overflow-hidden">
                             <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#C9A962]/10 rounded-full blur-[100px]" />
                             <div className="relative z-10">
                                 <div className="flex items-center gap-3 mb-6">
                                     <div className="w-10 h-10 rounded-xl bg-[#C9A962]/20 flex items-center justify-center">
                                         <Mic className="w-5 h-5 text-[#C9A962]" />
                                     </div>
-                                    <span className="text-white/40 text-sm">User says…</span>
+                                    <span className="text-slate-500 text-sm">User says…</span>
                                 </div>
-                                <p className="text-white text-xl font-medium mb-8 leading-snug">
+                                <p className="text-slate-700 text-xl font-medium mb-8 leading-snug">
                                     "Weekend in Barcelona for 6 friends, around £400 each, beach and nightlife"
                                 </p>
-                                <div className="h-px bg-white/5 mb-8" />
+                                <div className="h-px bg-slate-100 mb-8" />
                                 <div className="flex items-center gap-3 mb-4">
                                     <div className="w-10 h-10 rounded-xl bg-[#4AD7A2]/20 flex items-center justify-center">
                                         <Brain className="w-5 h-5 text-[#4AD7A2]" />
                                     </div>
-                                    <span className="text-white/40 text-sm">PayaGo AI returns…</span>
+                                    <span className="text-slate-500 text-sm">PayaGo AI returns…</span>
                                 </div>
                                 <div className="space-y-3">
                                     {["✈️  Flights for 6 — EasyJet, Fri 7pm", "🏨  Hotel Barcelona Universal, 4.5★", "🎯  Sagrada Família + Beach Club + Rooftop"].map((item, i) => (
-                                        <div key={i} className="text-white/70 text-sm bg-white/[0.03] rounded-xl px-4 py-3">{item}</div>
+                                        <div key={i} className="text-slate-600 text-sm bg-slate-50 rounded-xl px-4 py-3">{item}</div>
                                     ))}
                                 </div>
                                 <div className="mt-6 flex items-center gap-2 text-[#4AD7A2] text-sm">
@@ -266,22 +266,22 @@ export default function AboutPage() {
             </section>
 
             {/* Values */}
-            <section className="py-24 border-t border-white/5">
+            <section className="py-24 border-t border-slate-100">
                 <div className="max-w-6xl mx-auto px-6">
                     <div className="text-center mb-16">
-                        <h2 className="text-4xl font-bold text-white mb-4">What we believe</h2>
-                        <p className="text-white/40 text-lg">The principles that drive every product decision</p>
+                        <h2 className="text-4xl font-bold text-slate-900 mb-4">What we believe</h2>
+                        <p className="text-slate-500 text-lg">The principles that drive every product decision</p>
                     </div>
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {values.map((value, index) => {
                             const Icon = value.icon
                             return (
-                                <div key={index} className="group p-8 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-500 hover:-translate-y-1">
+                                <div key={index} className="group p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-all duration-500 hover:-translate-y-1">
                                     <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-6 transition-transform duration-300 group-hover:scale-110" style={{ background: `linear-gradient(135deg, ${value.color}30, ${value.color}10)` }}>
                                         <Icon className="w-6 h-6" style={{ color: value.color }} />
                                     </div>
-                                    <h3 className="text-lg font-bold text-white mb-3">{value.title}</h3>
-                                    <p className="text-white/50 text-sm leading-relaxed">{value.description}</p>
+                                    <h3 className="text-lg font-bold text-slate-900 mb-3">{value.title}</h3>
+                                    <p className="text-slate-500 text-sm leading-relaxed">{value.description}</p>
                                 </div>
                             )
                         })}
@@ -290,23 +290,23 @@ export default function AboutPage() {
             </section>
 
             {/* Timeline */}
-            <section className="py-24 border-t border-white/5">
+            <section className="py-24 border-t border-slate-100">
                 <div className="max-w-4xl mx-auto px-6">
                     <div className="text-center mb-16">
-                        <h2 className="text-4xl font-bold text-white mb-4">Our journey</h2>
-                        <p className="text-white/40 text-lg">From a frustrating Lisbon trip to launching an AI</p>
+                        <h2 className="text-4xl font-bold text-slate-900 mb-4">Our journey</h2>
+                        <p className="text-slate-500 text-lg">From a frustrating Lisbon trip to launching an AI</p>
                     </div>
                     <div className="relative">
                         <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-[#C9A962] via-[#00D4FF] via-[#7C5CFF] to-[#4AD7A2]" />
                         <div className="space-y-14">
                             {timeline.map((item, index) => (
                                 <div key={index} className="relative pl-24">
-                                    <div className="absolute left-5 top-2 w-6 h-6 rounded-full bg-[#04060A] border-2 flex items-center justify-center" style={{ borderColor: item.accent }}>
+                                    <div className="absolute left-5 top-2 w-6 h-6 rounded-full bg-white border-2 flex items-center justify-center" style={{ borderColor: item.accent }}>
                                         <div className="w-2 h-2 rounded-full" style={{ background: item.accent }} />
                                     </div>
                                     <div className="text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: item.accent }}>{item.year}</div>
-                                    <h3 className="text-2xl font-bold text-white mb-3">{item.title}</h3>
-                                    <p className="text-white/50 leading-relaxed">{item.description}</p>
+                                    <h3 className="text-2xl font-bold text-slate-900 mb-3">{item.title}</h3>
+                                    <p className="text-slate-500 leading-relaxed">{item.description}</p>
                                 </div>
                             ))}
                         </div>
@@ -315,21 +315,21 @@ export default function AboutPage() {
             </section>
 
             {/* Team */}
-            <section className="py-24 border-t border-white/5">
+            <section className="py-24 border-t border-slate-100">
                 <div className="max-w-6xl mx-auto px-6">
                     <div className="text-center mb-16">
-                        <h2 className="text-4xl font-bold text-white mb-4">The founding team</h2>
-                        <p className="text-white/40 text-lg">Building the future of group travel from London</p>
+                        <h2 className="text-4xl font-bold text-slate-900 mb-4">The founding team</h2>
+                        <p className="text-slate-500 text-lg">Building the future of group travel from London</p>
                     </div>
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {team.map((member, index) => (
-                            <div key={index} className="group p-8 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-500 hover:-translate-y-1 text-center">
-                                <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${member.gradient} flex items-center justify-center text-xl font-bold text-white mx-auto mb-6 transition-transform duration-300 group-hover:scale-105`}>
+                            <div key={index} className="group p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-all duration-500 hover:-translate-y-1 text-center">
+                                <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${member.gradient} flex items-center justify-center text-xl font-bold text-slate-900 mx-auto mb-6 transition-transform duration-300 group-hover:scale-105`}>
                                     {member.avatar}
                                 </div>
-                                <h3 className="text-lg font-bold text-white mb-1">{member.name}</h3>
+                                <h3 className="text-lg font-bold text-slate-900 mb-1">{member.name}</h3>
                                 <div className="text-[#C9A962] text-sm mb-4 font-medium">{member.role}</div>
-                                <p className="text-white/40 text-sm leading-relaxed">{member.bio}</p>
+                                <p className="text-slate-500 text-sm leading-relaxed">{member.bio}</p>
                             </div>
                         ))}
                     </div>
@@ -337,7 +337,7 @@ export default function AboutPage() {
             </section>
 
             {/* Stats */}
-            <section className="py-24 border-t border-white/5">
+            <section className="py-24 border-t border-slate-100">
                 <div className="max-w-6xl mx-auto px-6">
                     <div className="grid md:grid-cols-4 gap-6 text-center">
                         {[
@@ -346,9 +346,9 @@ export default function AboutPage() {
                             { value: "45", label: "Countries on waitlist" },
                             { value: "4.9★", label: "Beta tester rating" },
                         ].map((stat, index) => (
-                            <div key={index} className="p-8 rounded-3xl bg-white/[0.02] border border-white/5">
+                            <div key={index} className="p-8 rounded-3xl bg-slate-50 border border-slate-100">
                                 <div className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent mb-2">{stat.value}</div>
-                                <div className="text-white/40 text-sm">{stat.label}</div>
+                                <div className="text-slate-500 text-sm">{stat.label}</div>
                             </div>
                         ))}
                     </div>
@@ -356,27 +356,27 @@ export default function AboutPage() {
             </section>
 
             {/* CTA */}
-            <section className="py-24 border-t border-white/5">
+            <section className="py-24 border-t border-slate-100">
                 <div className="max-w-4xl mx-auto px-6 text-center">
-                    <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
+                    <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
                         Join us in making
                         <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent"> every trip happen</span>
                     </h2>
-                    <p className="text-white/50 text-lg mb-10">Free early access. No credit card required. April 2026 launch.</p>
+                    <p className="text-slate-500 text-lg mb-10">Free early access. No credit card required. April 2026 launch.</p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <Link href="/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
                             Get Early Access
                             <ArrowRight className="w-4 h-4" />
                         </Link>
-                        <Link href="/careers" className="inline-flex items-center gap-2 bg-white/5 border border-white/10 text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-colors">
+                        <Link href="/careers" className="inline-flex items-center gap-2 bg-slate-100 border border-slate-200 text-slate-900 px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-colors">
                             Join the Team
                         </Link>
                     </div>
                 </div>
             </section>
 
-            <footer className="py-8 border-t border-white/5">
-                <div className="max-w-7xl mx-auto px-6 text-center text-white/20 text-sm">
+            <footer className="py-8 border-t border-slate-100">
+                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
                     © 2026 PayaGo Ltd. Registered in England & Wales.
                 </div>
             </footer>

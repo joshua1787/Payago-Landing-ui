@@ -42,7 +42,7 @@ const plans = [
         cta: "Get Early Access — Free",
         popular: false,
         gradient: "from-white/[0.03] to-transparent",
-        borderColor: "border-white/10",
+        borderColor: "border-slate-200",
         icon: Star,
     },
     {
@@ -139,14 +139,14 @@ const faqs = [
 
 export default function PricingPage() {
     return (
-        <main className="min-h-screen bg-[#04060A]">
-            <header className="border-b border-white/5 sticky top-0 z-50 backdrop-blur-xl bg-[#04060A]/80">
+        <main className="min-h-screen bg-white">
+            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
                         <img src="/payago-logo-transparent-v2.png" alt="PayaGo" className="w-9 h-9 object-contain" />
-                        <span className="text-white font-semibold text-lg">PayaGo</span>
+                        <span className="text-slate-900 font-semibold text-lg">PayaGo</span>
                     </Link>
-                    <Link href="/" className="text-white/40 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                    <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
                         <ArrowLeft className="w-4 h-4" />
                         Back to Home
                     </Link>
@@ -164,29 +164,29 @@ export default function PricingPage() {
                         <span className="w-2 h-2 bg-[#4AD7A2] rounded-full" />
                         <span className="text-sm font-medium text-[#4AD7A2]">Free for travellers — always</span>
                     </div>
-                    <h1 className="text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                    <h1 className="text-5xl lg:text-7xl font-bold text-slate-900 mb-6 leading-tight">
                         You pay nothing.
                         <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent block">Partners pay us.</span>
                     </h1>
-                    <p className="text-xl text-white/50 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
                         {"PayaGo earns a commission from travel booking partners when you book. You get the same prices you'd find anywhere else — plus an AI that builds the entire trip for you."}
                     </p>
                 </div>
             </section>
 
             {/* How we earn */}
-            <section className="py-16 border-t border-white/5">
+            <section className="py-16 border-t border-slate-100">
                 <div className="max-w-5xl mx-auto px-6">
                     <div className="text-center mb-12">
-                        <h2 className="text-2xl font-bold text-white mb-3">How the model works</h2>
-                        <p className="text-white/40">Same prices. Better experience. We earn from partners, not you.</p>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-3">How the model works</h2>
+                        <p className="text-slate-500">Same prices. Better experience. We earn from partners, not you.</p>
                     </div>
                     <div className="grid md:grid-cols-3 gap-6">
                         {howWeEarn.map((item, i) => (
-                            <div key={i} className="p-6 rounded-2xl bg-white/[0.02] border border-white/5">
+                            <div key={i} className="p-6 rounded-2xl bg-slate-50 border border-slate-100">
                                 <div className="text-lg font-bold mb-1" style={{ color: item.color }}>{item.partner}</div>
-                                <div className="text-white/30 text-xs mb-4 uppercase tracking-wider">{item.type}</div>
-                                <p className="text-white/50 text-sm leading-relaxed">{item.how}</p>
+                                <div className="text-slate-400 text-xs mb-4 uppercase tracking-wider">{item.type}</div>
+                                <p className="text-slate-500 text-sm leading-relaxed">{item.how}</p>
                             </div>
                         ))}
                     </div>
@@ -194,11 +194,11 @@ export default function PricingPage() {
             </section>
 
             {/* Plans */}
-            <section className="py-24 border-t border-white/5">
+            <section className="py-24 border-t border-slate-100">
                 <div className="max-w-6xl mx-auto px-6">
                     <div className="text-center mb-16">
-                        <h2 className="text-4xl font-bold text-white mb-4">Simple plans</h2>
-                        <p className="text-white/40 text-lg">Start free. Everything you need is in the free tier.</p>
+                        <h2 className="text-4xl font-bold text-slate-900 mb-4">Simple plans</h2>
+                        <p className="text-slate-500 text-lg">Start free. Everything you need is in the free tier.</p>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-6">
@@ -218,21 +218,21 @@ export default function PricingPage() {
                                             <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: plan.popular ? '#C9A962/20' : plan.name === 'Business' ? '#7C5CFF20' : 'rgba(255,255,255,0.05)' }}>
                                                 <Icon className="w-5 h-5" style={{ color: plan.popular ? '#C9A962' : plan.name === 'Business' ? '#7C5CFF' : 'rgba(255,255,255,0.4)' }} />
                                             </div>
-                                            <h3 className="text-xl font-bold text-white">{plan.name}</h3>
+                                            <h3 className="text-xl font-bold text-slate-900">{plan.name}</h3>
                                         </div>
-                                        <p className="text-white/40 text-sm mb-4 leading-snug">{plan.tagline}</p>
+                                        <p className="text-slate-500 text-sm mb-4 leading-snug">{plan.tagline}</p>
                                         <div className="flex items-baseline gap-2 mb-2">
-                                            <span className="text-4xl font-bold text-white">{plan.price}</span>
-                                            {plan.period && <span className="text-white/30">{plan.period}</span>}
+                                            <span className="text-4xl font-bold text-slate-900">{plan.price}</span>
+                                            {plan.period && <span className="text-slate-400">{plan.period}</span>}
                                         </div>
-                                        <p className="text-white/30 text-xs leading-relaxed">{plan.description}</p>
+                                        <p className="text-slate-400 text-xs leading-relaxed">{plan.description}</p>
                                     </div>
 
                                     <div className="space-y-3 flex-1 mb-8">
                                         {plan.features.map((feature, i) => (
                                             <div key={i} className="flex items-start gap-3">
                                                 <Check className="w-4 h-4 text-[#4AD7A2] flex-shrink-0 mt-0.5" />
-                                                <span className="text-white/70 text-sm leading-snug">{feature}</span>
+                                                <span className="text-slate-600 text-sm leading-snug">{feature}</span>
                                             </div>
                                         ))}
                                         {plan.notIncluded.map((feature, i) => (
@@ -240,7 +240,7 @@ export default function PricingPage() {
                                                 <div className="w-4 h-4 flex-shrink-0 mt-0.5 flex items-center justify-center">
                                                     <div className="w-3 h-px bg-white/40" />
                                                 </div>
-                                                <span className="text-white/40 text-sm leading-snug">{feature}</span>
+                                                <span className="text-slate-500 text-sm leading-snug">{feature}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -251,7 +251,7 @@ export default function PricingPage() {
                                             ? 'bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] hover:opacity-90'
                                             : plan.name === 'Business'
                                             ? 'bg-[#7C5CFF]/20 border border-[#7C5CFF]/30 text-[#7C5CFF] hover:bg-[#7C5CFF]/30'
-                                            : 'bg-white/10 text-white hover:bg-white/15'
+                                            : 'bg-white/10 text-slate-900 hover:bg-white/15'
                                         }`}
                                     >
                                         {plan.cta}
@@ -261,21 +261,21 @@ export default function PricingPage() {
                         })}
                     </div>
 
-                    <p className="text-center text-white/20 text-sm mt-8">
+                    <p className="text-center text-slate-400 text-sm mt-8">
                         No credit card required for Traveller plan · No hidden fees · No transaction surcharges
                     </p>
                 </div>
             </section>
 
             {/* FAQ */}
-            <section className="py-24 border-t border-white/5">
+            <section className="py-24 border-t border-slate-100">
                 <div className="max-w-3xl mx-auto px-6">
-                    <h2 className="text-3xl font-bold text-white text-center mb-16">Pricing FAQ</h2>
+                    <h2 className="text-3xl font-bold text-slate-900 text-center mb-16">Pricing FAQ</h2>
                     <div className="space-y-0 divide-y divide-white/5">
                         {faqs.map((faq, index) => (
                             <div key={index} className="py-8">
-                                <h3 className="text-lg font-semibold text-white mb-3">{faq.q}</h3>
-                                <p className="text-white/50 leading-relaxed">{faq.a}</p>
+                                <h3 className="text-lg font-semibold text-slate-900 mb-3">{faq.q}</h3>
+                                <p className="text-slate-500 leading-relaxed">{faq.a}</p>
                             </div>
                         ))}
                     </div>
@@ -283,13 +283,13 @@ export default function PricingPage() {
             </section>
 
             {/* CTA */}
-            <section className="py-24 border-t border-white/5">
+            <section className="py-24 border-t border-slate-100">
                 <div className="max-w-4xl mx-auto px-6 text-center">
-                    <h2 className="text-4xl font-bold text-white mb-6">
+                    <h2 className="text-4xl font-bold text-slate-900 mb-6">
                         Start planning your next group trip.
                         <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent"> For free.</span>
                     </h2>
-                    <p className="text-white/50 text-lg mb-10">No credit card. No commitment. Just better group travel.</p>
+                    <p className="text-slate-500 text-lg mb-10">No credit card. No commitment. Just better group travel.</p>
                     <Link href="/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
                         Get Early Access
                         <ArrowRight className="w-4 h-4" />
@@ -297,8 +297,8 @@ export default function PricingPage() {
                 </div>
             </section>
 
-            <footer className="py-8 border-t border-white/5">
-                <div className="max-w-7xl mx-auto px-6 text-center text-white/20 text-sm">
+            <footer className="py-8 border-t border-slate-100">
+                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
                     © 2026 PayaGo Ltd. Registered in England & Wales.
                 </div>
             </footer>

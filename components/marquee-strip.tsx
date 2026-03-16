@@ -33,24 +33,23 @@ const PHRASES = [
 ]
 
 function Track({ items, reverse }: { items: { text?: string; name?: string; dot: string }[]; reverse?: boolean }) {
-    // Double items for seamless loop
     const doubled = [...items, ...items]
 
     return (
         <div className="relative overflow-hidden py-3">
             {/* Edge fades */}
             <div className="absolute left-0 top-0 bottom-0 w-20 z-10 pointer-events-none"
-                style={{ background: "linear-gradient(to right, #010306, transparent)" }} />
+                style={{ background: "linear-gradient(to right, #FAFAF8, transparent)" }} />
             <div className="absolute right-0 top-0 bottom-0 w-20 z-10 pointer-events-none"
-                style={{ background: "linear-gradient(to left, #010306, transparent)" }} />
+                style={{ background: "linear-gradient(to left, #FAFAF8, transparent)" }} />
 
             <div
                 className={reverse ? "animate-marquee-reverse" : "animate-marquee"}
                 style={{ display: "flex", gap: "0", width: "max-content" }}
             >
                 {doubled.map((item, i) => (
-                    <span key={i} className="inline-flex items-center gap-3 px-6 text-[13px] font-medium text-white/30 whitespace-nowrap">
-                        <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: item.dot, boxShadow: `0 0 6px ${item.dot}80` }} />
+                    <span key={i} className="inline-flex items-center gap-3 px-6 text-[13px] font-medium text-slate-400 whitespace-nowrap">
+                        <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: item.dot }} />
                         {item.name ?? item.text}
                     </span>
                 ))}
@@ -61,7 +60,7 @@ function Track({ items, reverse }: { items: { text?: string; name?: string; dot:
 
 export function MarqueeStrip() {
     return (
-        <div className="relative border-y border-white/[0.04] bg-[#010306] overflow-hidden py-1">
+        <div className="relative border-y border-slate-100 bg-[#FAFAF8] overflow-hidden py-1">
             <Track items={DESTINATIONS.map(d => ({ name: d.name, dot: d.dot }))} />
             <Track items={PHRASES.map(p => ({ text: p.text, dot: p.dot }))} reverse />
         </div>

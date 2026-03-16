@@ -73,15 +73,15 @@ const apps = [
 
 export default function BlogPost() {
     return (
-        <main className="min-h-screen bg-[#04060A]">
+        <main className="min-h-screen bg-white">
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-            <header className="border-b border-white/5 sticky top-0 z-50 backdrop-blur-xl bg-[#04060A]/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
                         <img src="/payago-logo-transparent-v2.png" alt="PayaGo" className="w-9 h-9 object-contain" />
-                        <span className="text-white font-semibold text-lg">PayaGo</span>
+                        <span className="text-slate-900 font-semibold text-lg">PayaGo</span>
                     </Link>
-                    <Link href="/blog" className="text-white/40 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                    <Link href="/blog" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
                         <ArrowLeft className="w-4 h-4" /> Back to Blog
                     </Link>
                 </div>
@@ -90,12 +90,12 @@ export default function BlogPost() {
                 <div className="mb-3">
                     <span className="text-xs font-semibold px-3 py-1 rounded-full text-[#7C5CFF] bg-[#7C5CFF]/10 border border-[#7C5CFF]/30">AI & Technology</span>
                 </div>
-                <div className="flex flex-wrap items-center gap-4 text-sm text-white/30 mb-8">
+                <div className="flex flex-wrap items-center gap-4 text-sm text-slate-400 mb-8">
                     <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" /><time dateTime="2026-03-10">March 10, 2026</time></span>
                     <span className="w-1 h-1 rounded-full bg-white/20" />
                     <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" />7 min read</span>
                 </div>
-                <h1 className="text-4xl md:text-5xl font-bold mb-10 leading-tight text-white">
+                <h1 className="text-4xl md:text-5xl font-bold mb-10 leading-tight text-slate-900">
                     Best Group Travel Planning Apps of 2026 — Compared
                 </h1>
                 <div className="space-y-6 text-white/75 leading-relaxed text-lg mb-12">
@@ -109,15 +109,15 @@ export default function BlogPost() {
 
                 <div className="space-y-8">
                     {apps.map((app) => (
-                        <div key={app.name} className="bg-white/[0.02] border border-white/5 rounded-2xl p-6">
+                        <div key={app.name} className="bg-slate-50 border border-slate-100 rounded-2xl p-6">
                             <div className="flex items-start justify-between mb-4">
                                 <div>
-                                    <h2 className="text-xl font-bold text-white">{app.name}</h2>
-                                    <p className="text-white/40 text-sm">{app.tagline}</p>
+                                    <h2 className="text-xl font-bold text-slate-900">{app.name}</h2>
+                                    <p className="text-slate-500 text-sm">{app.tagline}</p>
                                 </div>
                                 <div className="text-right">
                                     <div className="text-sm font-semibold" style={{ color: app.color }}>{app.price}</div>
-                                    <div className="text-white/30 text-xs mt-0.5">{app.category}</div>
+                                    <div className="text-slate-400 text-xs mt-0.5">{app.category}</div>
                                 </div>
                             </div>
                             <div className="grid md:grid-cols-2 gap-4 mb-4">
@@ -125,7 +125,7 @@ export default function BlogPost() {
                                     <div className="text-xs font-semibold text-[#4AD7A2] uppercase tracking-wider mb-2">What it does well</div>
                                     <ul className="space-y-1.5">
                                         {app.pros.map((p, i) => (
-                                            <li key={i} className="flex items-start gap-2 text-xs text-white/60">
+                                            <li key={i} className="flex items-start gap-2 text-xs text-slate-600">
                                                 <Check className="w-3.5 h-3.5 text-[#4AD7A2] flex-shrink-0 mt-0.5" />{p}
                                             </li>
                                         ))}
@@ -135,31 +135,31 @@ export default function BlogPost() {
                                     <div className="text-xs font-semibold text-[#FF6B6B] uppercase tracking-wider mb-2">Limitations</div>
                                     <ul className="space-y-1.5">
                                         {app.cons.map((c, i) => (
-                                            <li key={i} className="flex items-start gap-2 text-xs text-white/60">
+                                            <li key={i} className="flex items-start gap-2 text-xs text-slate-600">
                                                 <X className="w-3.5 h-3.5 text-[#FF6B6B] flex-shrink-0 mt-0.5" />{c}
                                             </li>
                                         ))}
                                     </ul>
                                 </div>
                             </div>
-                            <div className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03]">
+                            <div className="flex items-start gap-3 p-3 rounded-xl bg-slate-50">
                                 <span className="text-xs font-semibold flex-shrink-0" style={{ color: app.color }}>Verdict:</span>
-                                <span className="text-white/60 text-xs leading-relaxed">{app.verdict}</span>
+                                <span className="text-slate-600 text-xs leading-relaxed">{app.verdict}</span>
                             </div>
                         </div>
                     ))}
                 </div>
 
                 <div className="mt-12 p-6 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20">
-                    <p className="text-white font-semibold mb-2">Try PayaGo when it launches in April 2026.</p>
-                    <p className="text-white/60 text-sm mb-4">AI plans the trip, your group votes, everyone pays their share. Free for travellers.</p>
+                    <p className="text-slate-900 font-semibold mb-2">Try PayaGo when it launches in April 2026.</p>
+                    <p className="text-slate-600 text-sm mb-4">AI plans the trip, your group votes, everyone pays their share. Free for travellers.</p>
                     <Link href="/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
                         Get Early Access — Free
                     </Link>
                 </div>
             </div>
-            <footer className="py-8 border-t border-white/5">
-                <div className="max-w-7xl mx-auto px-6 text-center text-white/20 text-sm">© 2026 PayaGo Ltd.</div>
+            <footer className="py-8 border-t border-slate-100">
+                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">© 2026 PayaGo Ltd.</div>
             </footer>
         </main>
     )

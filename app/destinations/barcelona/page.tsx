@@ -47,16 +47,16 @@ const hotels = [
 
 export default function BarcelonaPage() {
     return (
-        <main className="min-h-screen bg-[#04060A]">
+        <main className="min-h-screen bg-white">
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
 
-            <header className="border-b border-white/5 sticky top-0 z-50 backdrop-blur-xl bg-[#04060A]/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
                         <img src="/payago-logo-transparent-v2.png" alt="PayaGo" className="w-9 h-9 object-contain" />
-                        <span className="text-white font-semibold text-lg">PayaGo</span>
+                        <span className="text-slate-900 font-semibold text-lg">PayaGo</span>
                     </Link>
-                    <Link href="/destinations" className="text-white/40 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                    <Link href="/destinations" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
                         <ArrowLeft className="w-4 h-4" /> Destinations
                     </Link>
                 </div>
@@ -69,9 +69,9 @@ export default function BarcelonaPage() {
                 <div className="absolute bottom-8 left-0 right-0 max-w-4xl mx-auto px-6">
                     <div className="flex items-center gap-2 mb-2">
                         <span className="text-3xl">🇪🇸</span>
-                        <span className="text-white/60 text-sm">Spain</span>
+                        <span className="text-slate-600 text-sm">Spain</span>
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-bold text-white">Barcelona Group Travel Guide</h1>
+                    <h1 className="text-4xl md:text-5xl font-bold text-slate-900">Barcelona Group Travel Guide</h1>
                 </div>
             </div>
 
@@ -84,31 +84,31 @@ export default function BarcelonaPage() {
                         { label: "Budget/person", value: "£285–520", icon: null },
                         { label: "Travel score", value: "9.4 / 10", icon: Star },
                     ].map((s) => (
-                        <div key={s.label} className="bg-white/[0.03] border border-white/5 rounded-xl p-4 text-center">
-                            <div className="text-white font-bold text-lg">{s.value}</div>
-                            <div className="text-white/30 text-xs mt-1">{s.label}</div>
+                        <div key={s.label} className="bg-slate-50 border border-slate-100 rounded-xl p-4 text-center">
+                            <div className="text-slate-900 font-bold text-lg">{s.value}</div>
+                            <div className="text-slate-400 text-xs mt-1">{s.label}</div>
                         </div>
                     ))}
                 </div>
 
                 {/* Intro */}
-                <div className="space-y-4 text-white/70 leading-relaxed text-lg mb-12">
+                <div className="space-y-4 text-slate-600 leading-relaxed text-lg mb-12">
                     <p>Barcelona is Europe's best all-rounder for group travel. Within a 20-minute walk you can go from a Gothic medieval cathedral to a modernist Gaudí masterpiece to a beach. The food is exceptional at every price point. The nightlife goes until 6am. And it's genuinely walkable — no taxis needed for most of the city.</p>
                     <p>For groups, the key advantages are variety (everyone can find something they love), beach access (natural focal point for the day), and a food scene that accommodates any budget without feeling like you're compromising.</p>
                 </div>
 
                 {/* 5-day itinerary */}
-                <h2 className="text-2xl font-bold text-white mb-6">5-Day Group Itinerary</h2>
+                <h2 className="text-2xl font-bold text-slate-900 mb-6">5-Day Group Itinerary</h2>
                 <div className="space-y-4 mb-12">
                     {itinerary.map((day) => (
-                        <div key={day.day} className="bg-white/[0.02] border border-white/5 rounded-2xl p-6">
+                        <div key={day.day} className="bg-slate-50 border border-slate-100 rounded-2xl p-6">
                             <div className="flex items-center gap-3 mb-4">
                                 <span className="text-[#C9A962] font-black text-sm">{day.day}</span>
-                                <h3 className="text-white font-bold">{day.title}</h3>
+                                <h3 className="text-slate-900 font-bold">{day.title}</h3>
                             </div>
                             <ul className="space-y-2">
                                 {day.activities.map((a, i) => (
-                                    <li key={i} className="flex items-start gap-2.5 text-white/60 text-sm">
+                                    <li key={i} className="flex items-start gap-2.5 text-slate-600 text-sm">
                                         <ArrowRight className="w-4 h-4 text-[#C9A962]/50 flex-shrink-0 mt-0.5" />
                                         {a}
                                     </li>
@@ -119,32 +119,32 @@ export default function BarcelonaPage() {
                 </div>
 
                 {/* Hotels */}
-                <h2 className="text-2xl font-bold text-white mb-6">Where to Stay</h2>
+                <h2 className="text-2xl font-bold text-slate-900 mb-6">Where to Stay</h2>
                 <div className="grid md:grid-cols-2 gap-4 mb-12">
                     {hotels.map((h) => (
-                        <div key={h.name} className="bg-white/[0.02] border border-white/5 rounded-xl p-5">
+                        <div key={h.name} className="bg-slate-50 border border-slate-100 rounded-xl p-5">
                             <div className="flex items-start justify-between mb-2">
                                 <div>
-                                    <div className="text-white font-semibold">{h.name}</div>
+                                    <div className="text-slate-900 font-semibold">{h.name}</div>
                                     <div className="flex items-center gap-1 mt-0.5">
                                         {Array.from({ length: h.stars }).map((_, i) => <Star key={i} className="w-3 h-3 text-[#C9A962]" fill="#C9A962" />)}
-                                        <span className="text-white/40 text-xs ml-1">{h.rating}</span>
+                                        <span className="text-slate-500 text-xs ml-1">{h.rating}</span>
                                     </div>
                                 </div>
                                 <div className="text-right">
                                     <div className="text-[#C9A962] font-semibold text-sm">{h.price}</div>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-1.5 text-white/30 text-xs mb-2">
+                            <div className="flex items-center gap-1.5 text-slate-400 text-xs mb-2">
                                 <MapPin className="w-3 h-3" />{h.location}
                             </div>
-                            <p className="text-white/50 text-xs">{h.notes}</p>
+                            <p className="text-slate-500 text-xs">{h.notes}</p>
                         </div>
                     ))}
                 </div>
 
                 {/* Key tips */}
-                <h2 className="text-2xl font-bold text-white mb-6">Group Travel Tips</h2>
+                <h2 className="text-2xl font-bold text-slate-900 mb-6">Group Travel Tips</h2>
                 <div className="grid md:grid-cols-2 gap-4 mb-12">
                     {[
                         { tip: "Book Sagrada Família well in advance", detail: "Tickets sell out weeks ahead, especially in summer. Morning entry is best before tour groups arrive." },
@@ -154,11 +154,11 @@ export default function BarcelonaPage() {
                         { tip: "Avoid July–August peak", detail: "Crowds are brutal and prices surge 30-50%. April–June or September–October gives the same weather at lower cost." },
                         { tip: "T-10 metro pass for groups", detail: "Buy a 10-trip card each to save 40% on metro fares vs. single tickets. Transfers are included within 75 minutes." },
                     ].map((item, i) => (
-                        <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                        <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100">
                             <Check className="w-4 h-4 text-[#4AD7A2] flex-shrink-0 mt-0.5" />
                             <div>
-                                <div className="text-white font-semibold text-sm mb-1">{item.tip}</div>
-                                <div className="text-white/50 text-xs leading-relaxed">{item.detail}</div>
+                                <div className="text-slate-900 font-semibold text-sm mb-1">{item.tip}</div>
+                                <div className="text-slate-500 text-xs leading-relaxed">{item.detail}</div>
                             </div>
                         </div>
                     ))}
@@ -166,19 +166,19 @@ export default function BarcelonaPage() {
 
                 {/* CTA */}
                 <div className="p-6 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20">
-                    <p className="text-white font-semibold mb-2">Plan your Barcelona group trip in 30 seconds</p>
-                    <p className="text-white/60 text-sm mb-4">PayaGo AI builds a complete itinerary with live flight prices, hotels, and activities — free for travellers.</p>
+                    <p className="text-slate-900 font-semibold mb-2">Plan your Barcelona group trip in 30 seconds</p>
+                    <p className="text-slate-600 text-sm mb-4">PayaGo AI builds a complete itinerary with live flight prices, hotels, and activities — free for travellers.</p>
                     <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
                         Get Early Access — Free <ArrowRight className="w-4 h-4" />
                     </Link>
                 </div>
 
                 {/* Related */}
-                <div className="mt-12 pt-8 border-t border-white/5">
-                    <h3 className="text-white/40 text-sm font-semibold uppercase tracking-wider mb-4">More destinations</h3>
+                <div className="mt-12 pt-8 border-t border-slate-100">
+                    <h3 className="text-slate-500 text-sm font-semibold uppercase tracking-wider mb-4">More destinations</h3>
                     <div className="flex flex-wrap gap-3">
                         {["tokyo", "lisbon", "paris", "amsterdam"].map((slug) => (
-                            <Link key={slug} href={`/destinations/${slug}`} className="capitalize px-4 py-2 rounded-lg bg-white/[0.03] border border-white/5 text-white/60 hover:text-white hover:border-white/10 transition-all text-sm">
+                            <Link key={slug} href={`/destinations/${slug}`} className="capitalize px-4 py-2 rounded-lg bg-slate-50 border border-slate-100 text-slate-600 hover:text-slate-900 hover:border-slate-200 transition-all text-sm">
                                 {slug}
                             </Link>
                         ))}
@@ -186,8 +186,8 @@ export default function BarcelonaPage() {
                 </div>
             </div>
 
-            <footer className="py-8 border-t border-white/5">
-                <div className="max-w-7xl mx-auto px-6 text-center text-white/20 text-sm">
+            <footer className="py-8 border-t border-slate-100">
+                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
                     © 2026 PayaGo Ltd. Registered in England & Wales.
                 </div>
             </footer>

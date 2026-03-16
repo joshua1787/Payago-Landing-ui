@@ -42,24 +42,21 @@ export function DestinationsShowcase() {
 
     return (
         <section ref={ref} className="relative py-24 sm:py-32 overflow-hidden">
-            {/* Dark cinematic background */}
-            <div className="absolute inset-0 bg-[#04060A]" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(201,169,98,0.07),transparent)]" />
-            <div className="absolute bottom-0 left-0 w-[700px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(0,212,255,0.05),transparent_70%)] blur-[120px] pointer-events-none" />
-            <div className="absolute top-0 right-0 w-[500px] h-[300px] bg-[radial-gradient(ellipse_at_center,rgba(124,92,255,0.05),transparent_70%)] blur-[100px] pointer-events-none" />
+            <div className="absolute inset-0 bg-[#FDF9F0]" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(201,169,98,0.12),transparent)]" />
 
             <div className="relative z-10 max-w-6xl mx-auto px-6">
                 <div className={`flex flex-col lg:flex-row items-center lg:items-end justify-between mb-14 gap-6 transition-all duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
                     <div>
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C9A962]/10 border border-[#C9A962]/20 mb-4 backdrop-blur-md">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-200 mb-4">
                             <MapPin className="w-3.5 h-3.5 text-[#C9A962]" />
                             <span className="text-[12px] text-[#C9A962] font-bold uppercase tracking-wider">Popular destinations</span>
                         </div>
-                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-[-0.03em]">
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-[-0.03em]">
                             Where will <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent">AI</span> take you?
                         </h2>
                     </div>
-                    <a href="#early-access" className="group flex items-center gap-2 text-white/70 font-semibold text-sm hover:text-white transition-colors bg-white/[0.04] hover:bg-white/[0.08] px-5 py-2.5 rounded-full border border-white/10">
+                    <a href="#early-access" className="group flex items-center gap-2 text-slate-600 font-semibold text-sm hover:text-slate-900 transition-colors bg-slate-50 hover:bg-slate-100 px-5 py-2.5 rounded-full border border-slate-200">
                         Start planning
                         <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </a>
@@ -86,7 +83,7 @@ export function DestinationsShowcase() {
 
                             {/* Tag */}
                             <div className="absolute top-5 left-5">
-                                <div className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-white text-[11px] font-bold uppercase tracking-wide border border-white/20 shadow-lg`}>
+                                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-white text-[11px] font-bold uppercase tracking-wide border border-white/20 shadow-lg">
                                     <Star className="w-3 h-3 text-yellow-300 fill-yellow-300" />
                                     {dest.tag}
                                 </div>

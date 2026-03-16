@@ -104,19 +104,19 @@ const blogSchema = {
 
 export default function BlogIndex() {
     return (
-        <main className="min-h-screen bg-[#04060A]">
+        <main className="min-h-screen bg-white">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
             />
 
-            <header className="border-b border-white/5 sticky top-0 z-50 backdrop-blur-xl bg-[#04060A]/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
                         <img src="/payago-logo-transparent-v2.png" alt="PayaGo" className="w-9 h-9 object-contain" />
-                        <span className="text-white font-semibold text-lg">PayaGo</span>
+                        <span className="text-slate-900 font-semibold text-lg">PayaGo</span>
                     </Link>
-                    <Link href="/" className="text-white/40 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                    <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
                         <ArrowLeft className="w-4 h-4" />
                         Back to Home
                     </Link>
@@ -133,24 +133,24 @@ export default function BlogIndex() {
                         <span className="w-2 h-2 bg-[#C9A962] rounded-full" />
                         <span className="text-sm font-medium text-[#C9A962]">Travel insights from the PayaGo team</span>
                     </div>
-                    <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                    <h1 className="text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight">
                         The Travel Blog
                     </h1>
-                    <p className="text-xl text-white/50 max-w-2xl">
+                    <p className="text-xl text-slate-500 max-w-2xl">
                         Destination guides, AI travel tips, and everything you need to plan better group trips.
                     </p>
                 </div>
             </section>
 
             {/* Articles */}
-            <section className="py-8 border-t border-white/5">
+            <section className="py-8 border-t border-slate-100">
                 <div className="max-w-4xl mx-auto px-6">
                     <div className="space-y-6">
                         {articles.map((article) => (
                             <Link
                                 key={article.slug}
                                 href={`/blog/${article.slug}`}
-                                className="group block bg-white/[0.02] border border-white/5 rounded-2xl p-8 hover:bg-white/[0.04] hover:border-white/10 transition-all duration-300"
+                                className="group block bg-slate-50 border border-slate-100 rounded-2xl p-8 hover:bg-slate-50 hover:border-slate-200 transition-all duration-300"
                             >
                                 <div className="flex flex-wrap items-center gap-4 mb-4">
                                     <span
@@ -159,7 +159,7 @@ export default function BlogIndex() {
                                     >
                                         {article.category}
                                     </span>
-                                    <div className="flex items-center gap-3 text-sm text-white/30">
+                                    <div className="flex items-center gap-3 text-sm text-slate-400">
                                         <span className="flex items-center gap-1.5">
                                             <Calendar className="w-3.5 h-3.5" />
                                             <time dateTime={article.dateISO}>{article.date}</time>
@@ -171,10 +171,10 @@ export default function BlogIndex() {
                                         </span>
                                     </div>
                                 </div>
-                                <h2 className="text-2xl font-bold text-white mb-3 group-hover:text-[#C9A962] transition-colors leading-snug">
+                                <h2 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-[#C9A962] transition-colors leading-snug">
                                     {article.title}
                                 </h2>
-                                <p className="text-white/50 leading-relaxed max-w-2xl">{article.excerpt}</p>
+                                <p className="text-slate-500 leading-relaxed max-w-2xl">{article.excerpt}</p>
                                 <div className="mt-6 font-medium text-[#C9A962] flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
                                     Read Article <ArrowRight className="w-4 h-4" />
                                 </div>
@@ -185,10 +185,10 @@ export default function BlogIndex() {
             </section>
 
             {/* CTA */}
-            <section className="py-24 border-t border-white/5 mt-16">
+            <section className="py-24 border-t border-slate-100 mt-16">
                 <div className="max-w-4xl mx-auto px-6 text-center">
-                    <h2 className="text-3xl font-bold text-white mb-4">Ready to plan your next group trip?</h2>
-                    <p className="text-white/50 mb-8">AI builds the itinerary. Your group votes. It books automatically.</p>
+                    <h2 className="text-3xl font-bold text-slate-900 mb-4">Ready to plan your next group trip?</h2>
+                    <p className="text-slate-500 mb-8">AI builds the itinerary. Your group votes. It books automatically.</p>
                     <Link
                         href="/"
                         className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity"
@@ -199,8 +199,8 @@ export default function BlogIndex() {
                 </div>
             </section>
 
-            <footer className="py-8 border-t border-white/5">
-                <div className="max-w-7xl mx-auto px-6 text-center text-white/20 text-sm">
+            <footer className="py-8 border-t border-slate-100">
+                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
                     © 2026 PayaGo Ltd. Registered in England & Wales.
                 </div>
             </footer>

@@ -15,13 +15,13 @@ export function Navbar() {
     }, [])
 
     return (
-        <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${scrolled ? 'bg-[#010306]/80 backdrop-blur-2xl border-b border-white/[0.04] shadow-2xl shadow-black/30' : 'bg-transparent'}`}>
+        <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${scrolled ? 'bg-[#FAFAF8]/90 backdrop-blur-2xl border-b border-slate-200 shadow-sm' : 'bg-transparent'}`}>
             <div className="max-w-7xl mx-auto px-6">
                 <div className="flex items-center justify-between h-20">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2.5 group">
                         <img src="/payago-logo-transparent-v2.png" alt="PayaGo" className="w-10 h-10 object-contain" />
-                        <span className="text-white font-bold text-xl tracking-tight">PayaGo</span>
+                        <span className="text-slate-900 font-bold text-xl tracking-tight">PayaGo</span>
                     </Link>
 
                     {/* Desktop Navigation */}
@@ -36,7 +36,7 @@ export function Navbar() {
                             <a
                                 key={item.name}
                                 href={item.href}
-                                className="text-white/35 hover:text-white/80 px-4 py-2 rounded-lg text-[13px] font-medium transition-all duration-300 hover:bg-white/[0.03]"
+                                className="text-slate-500 hover:text-slate-900 px-4 py-2 rounded-lg text-[13px] font-medium transition-all duration-300 hover:bg-slate-100"
                             >
                                 {item.name}
                             </a>
@@ -57,7 +57,7 @@ export function Navbar() {
 
                     {/* Mobile Menu Button */}
                     <button
-                        className="lg:hidden text-white/60 p-2 rounded-lg hover:bg-white/[0.03] transition-colors"
+                        className="lg:hidden text-slate-600 p-2 rounded-lg hover:bg-slate-100 transition-colors"
                         onClick={() => setIsOpen(!isOpen)}
                     >
                         {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -67,7 +67,7 @@ export function Navbar() {
 
             {/* Mobile Menu */}
             {isOpen && (
-                <div className="lg:hidden border-t border-white/[0.04] bg-[#010306]/95 backdrop-blur-2xl">
+                <div className="lg:hidden border-t border-slate-200 bg-[#FAFAF8]/95 backdrop-blur-2xl">
                     <div className="px-6 py-6 space-y-1.5">
                         {[
                             { name: "How It Works", href: "#how-it-works" },
@@ -79,7 +79,7 @@ export function Navbar() {
                             <a
                                 key={item.name}
                                 href={item.href}
-                                className="block py-3 text-white/50 hover:text-white/80 transition-colors font-medium text-[15px]"
+                                className="block py-3 text-slate-600 hover:text-slate-900 transition-colors font-medium text-[15px]"
                                 onClick={() => setIsOpen(false)}
                             >
                                 {item.name}

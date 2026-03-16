@@ -159,14 +159,14 @@ const sections = [
 
 export default function PrivacyPolicy() {
     return (
-        <main className="min-h-screen bg-[#04060A]">
-            <header className="border-b border-white/5 sticky top-0 z-50 backdrop-blur-xl bg-[#04060A]/80">
+        <main className="min-h-screen bg-white">
+            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
                         <img src="/payago-logo-transparent-v2.png" alt="PayaGo" className="w-9 h-9 object-contain" />
-                        <span className="text-white font-semibold text-lg">PayaGo</span>
+                        <span className="text-slate-900 font-semibold text-lg">PayaGo</span>
                     </Link>
-                    <Link href="/" className="text-white/40 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                    <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
                         <ArrowLeft className="w-4 h-4" />
                         Back to Home
                     </Link>
@@ -174,26 +174,26 @@ export default function PrivacyPolicy() {
             </header>
 
             <div className="max-w-3xl mx-auto px-6 pt-16 pb-24">
-                <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight text-white">
+                <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight text-slate-900">
                     Privacy Policy
                 </h1>
-                <p className="text-white/40 text-sm mb-2">Last updated: March 2026</p>
-                <p className="text-white/40 text-sm mb-12">PayaGo Ltd · Registered in England & Wales</p>
+                <p className="text-slate-500 text-sm mb-2">Last updated: March 2026</p>
+                <p className="text-slate-500 text-sm mb-12">PayaGo Ltd · Registered in England & Wales</p>
 
                 <div className="p-6 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20 mb-12">
-                    <p className="text-white font-semibold mb-2">The short version</p>
-                    <p className="text-white/70 text-base leading-relaxed">
+                    <p className="text-slate-900 font-semibold mb-2">The short version</p>
+                    <p className="text-slate-600 text-base leading-relaxed">
                         We collect your email to send you early access updates. When the app launches, we collect only what we need to provide the service. We use Gemini AI and Claude AI to generate itineraries — your inputs are processed in real time and not used to train AI models. We never sell your data. You can request deletion at any time by emailing privacy@payago.in.
                     </p>
                 </div>
 
                 {/* Table of contents */}
-                <nav className="mb-12 p-5 rounded-2xl bg-white/[0.02] border border-white/5">
-                    <p className="text-white/30 text-xs font-semibold uppercase tracking-wider mb-4">Contents</p>
+                <nav className="mb-12 p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                    <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-4">Contents</p>
                     <ol className="space-y-2">
                         {sections.map((s) => (
                             <li key={s.id}>
-                                <a href={`#${s.id}`} className="text-white/50 hover:text-[#C9A962] transition-colors text-sm">
+                                <a href={`#${s.id}`} className="text-slate-500 hover:text-[#C9A962] transition-colors text-sm">
                                     {s.title}
                                 </a>
                             </li>
@@ -201,10 +201,10 @@ export default function PrivacyPolicy() {
                     </ol>
                 </nav>
 
-                <div className="space-y-14 text-white/70 leading-relaxed">
+                <div className="space-y-14 text-slate-600 leading-relaxed">
                     {sections.map((section) => (
                         <section key={section.id} id={section.id} className="scroll-mt-24">
-                            <h2 className="text-2xl font-bold text-white mb-5">{section.title}</h2>
+                            <h2 className="text-2xl font-bold text-slate-900 mb-5">{section.title}</h2>
 
                             {section.content && section.content.map((p, i) => (
                                 <p key={i} className="mb-4 text-base leading-relaxed">{p}</p>
@@ -212,7 +212,7 @@ export default function PrivacyPolicy() {
 
                             {section.subsections && section.subsections.map((sub, i) => (
                                 <div key={i} className="mb-6">
-                                    <h3 className="text-white font-semibold mb-3">{sub.heading}</h3>
+                                    <h3 className="text-slate-900 font-semibold mb-3">{sub.heading}</h3>
                                     <ul className="space-y-2">
                                         {sub.items.map((item, j) => (
                                             <li key={j} className="flex items-start gap-2 text-sm">
@@ -225,25 +225,25 @@ export default function PrivacyPolicy() {
                             ))}
 
                             {section.rows && (
-                                <div className="overflow-hidden rounded-xl border border-white/5">
+                                <div className="overflow-hidden rounded-xl border border-slate-100">
                                     <table className="w-full text-sm">
                                         <thead>
-                                            <tr className="border-b border-white/5 bg-white/[0.02]">
-                                                <th className="text-left px-4 py-3 text-white/40 font-medium">
+                                            <tr className="border-b border-slate-100 bg-slate-50">
+                                                <th className="text-left px-4 py-3 text-slate-500 font-medium">
                                                     {section.id === "how-we-use" ? "Purpose" : "Data type"}
                                                 </th>
-                                                <th className="text-left px-4 py-3 text-white/40 font-medium">
+                                                <th className="text-left px-4 py-3 text-slate-500 font-medium">
                                                     {section.id === "how-we-use" ? "Legal basis" : "Retention period"}
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {section.rows.map((row, i) => (
-                                                <tr key={i} className="border-b border-white/5 last:border-0">
-                                                    <td className="px-4 py-3 text-white/70">
+                                                <tr key={i} className="border-b border-slate-100 last:border-0">
+                                                    <td className="px-4 py-3 text-slate-600">
                                                         {section.id === "how-we-use" ? (row as { purpose: string; basis: string }).purpose : (row as { type: string; period: string }).type}
                                                     </td>
-                                                    <td className="px-4 py-3 text-white/40">
+                                                    <td className="px-4 py-3 text-slate-500">
                                                         {section.id === "how-we-use" ? (row as { purpose: string; basis: string }).basis : (row as { type: string; period: string }).period}
                                                     </td>
                                                 </tr>
@@ -265,17 +265,17 @@ export default function PrivacyPolicy() {
                             )}
 
                             {section.footer && (
-                                <p className="mt-4 text-sm text-white/50 leading-relaxed">{section.footer}</p>
+                                <p className="mt-4 text-sm text-slate-500 leading-relaxed">{section.footer}</p>
                             )}
                         </section>
                     ))}
                 </div>
 
-                <div className="mt-16 pt-8 border-t border-white/5 flex flex-col sm:flex-row gap-4">
-                    <Link href="/terms" className="text-white/40 hover:text-white transition-colors text-sm">
+                <div className="mt-16 pt-8 border-t border-slate-100 flex flex-col sm:flex-row gap-4">
+                    <Link href="/terms" className="text-slate-500 hover:text-slate-900 transition-colors text-sm">
                         Terms of Service →
                     </Link>
-                    <Link href="/affiliate-disclosure" className="text-white/40 hover:text-white transition-colors text-sm">
+                    <Link href="/affiliate-disclosure" className="text-slate-500 hover:text-slate-900 transition-colors text-sm">
                         Affiliate Disclosure →
                     </Link>
                     <a href="mailto:privacy@payago.in" className="text-[#C9A962] hover:underline text-sm">
@@ -284,8 +284,8 @@ export default function PrivacyPolicy() {
                 </div>
             </div>
 
-            <footer className="py-8 border-t border-white/5">
-                <div className="max-w-7xl mx-auto px-6 text-center text-white/20 text-sm">
+            <footer className="py-8 border-t border-slate-100">
+                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
                     © 2026 PayaGo Ltd. Company No. 16971574. Registered in England & Wales.
                 </div>
             </footer>

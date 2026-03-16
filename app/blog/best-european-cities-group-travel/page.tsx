@@ -147,19 +147,19 @@ const cities = [
 
 export default function BlogPost() {
     return (
-        <main className="min-h-screen bg-[#04060A]">
+        <main className="min-h-screen bg-white">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
             />
 
-            <header className="border-b border-white/5 sticky top-0 z-50 backdrop-blur-xl bg-[#04060A]/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
                         <img src="/payago-logo-transparent-v2.png" alt="PayaGo" className="w-9 h-9 object-contain" />
-                        <span className="text-white font-semibold text-lg">PayaGo</span>
+                        <span className="text-slate-900 font-semibold text-lg">PayaGo</span>
                     </Link>
-                    <Link href="/blog" className="text-white/40 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                    <Link href="/blog" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
                         <ArrowLeft className="w-4 h-4" />
                         Back to Blog
                     </Link>
@@ -173,7 +173,7 @@ export default function BlogPost() {
                     </span>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-4 text-sm text-white/30 mb-8">
+                <div className="flex flex-wrap items-center gap-4 text-sm text-slate-400 mb-8">
                     <span className="flex items-center gap-1.5">
                         <Calendar className="w-3.5 h-3.5" />
                         <time dateTime="2026-02-12">February 12, 2026</time>
@@ -185,14 +185,14 @@ export default function BlogPost() {
                     </span>
                 </div>
 
-                <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight text-white">
+                <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight text-slate-900">
                     The 5 Best European Cities for Group Travel in 2026
                 </h1>
-                <p className="text-xl text-white/50 mb-10 leading-relaxed">
+                <p className="text-xl text-slate-500 mb-10 leading-relaxed">
                     Ranked by walkability, range of group activities, accommodation value, and how easy they are to coordinate for groups of 4–12. With real 2026 hotel pricing.
                 </p>
 
-                <div className="rounded-2xl overflow-hidden mb-12 aspect-video bg-white/5 border border-white/5">
+                <div className="rounded-2xl overflow-hidden mb-12 aspect-video bg-slate-100 border border-slate-100">
                     <img
                         src="/luxury-travel-destination-aerial-view-of-tropical-.jpg"
                         alt="European travel destinations"
@@ -207,21 +207,21 @@ export default function BlogPost() {
                 {/* Cities */}
                 <div className="space-y-16">
                     {cities.map((city) => (
-                        <article key={city.rank} className="border-t border-white/5 pt-12">
+                        <article key={city.rank} className="border-t border-slate-100 pt-12">
                             <div className="flex items-start justify-between gap-4 mb-6">
                                 <div>
                                     <div className="flex items-center gap-3 mb-2">
                                         <span className="text-4xl font-black" style={{ color: city.color }}>#{city.rank}</span>
                                         <div>
-                                            <h2 className="text-2xl font-bold text-white">{city.name}</h2>
-                                            <p className="text-white/40 text-sm">{city.tagline}</p>
+                                            <h2 className="text-2xl font-bold text-slate-900">{city.name}</h2>
+                                            <p className="text-slate-500 text-sm">{city.tagline}</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-1 flex-shrink-0 bg-white/[0.03] border border-white/5 rounded-xl px-3 py-2">
+                                <div className="flex items-center gap-1 flex-shrink-0 bg-slate-50 border border-slate-100 rounded-xl px-3 py-2">
                                     <Star className="w-4 h-4 text-[#C9A962]" />
-                                    <span className="text-white font-bold text-sm">{city.score}</span>
-                                    <span className="text-white/30 text-xs">/10</span>
+                                    <span className="text-slate-900 font-bold text-sm">{city.score}</span>
+                                    <span className="text-slate-400 text-xs">/10</span>
                                 </div>
                             </div>
 
@@ -232,20 +232,20 @@ export default function BlogPost() {
                                     { label: "Best time", value: city.bestTime, icon: "📅" },
                                     { label: "Ideal group", value: city.groupSize, icon: "👥" },
                                 ].map((stat) => (
-                                    <div key={stat.label} className="bg-white/[0.03] border border-white/5 rounded-xl p-3 text-center">
+                                    <div key={stat.label} className="bg-slate-50 border border-slate-100 rounded-xl p-3 text-center">
                                         <div className="text-lg mb-1">{stat.icon}</div>
-                                        <div className="text-white font-semibold text-sm">{stat.value}</div>
-                                        <div className="text-white/30 text-xs mt-0.5">{stat.label}</div>
+                                        <div className="text-slate-900 font-semibold text-sm">{stat.value}</div>
+                                        <div className="text-slate-400 text-xs mt-0.5">{stat.label}</div>
                                     </div>
                                 ))}
                             </div>
 
                             {/* Highlights */}
                             <div className="mb-6">
-                                <h3 className="text-sm font-semibold text-white/50 uppercase tracking-wider mb-3">Why groups love it</h3>
+                                <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3">Why groups love it</h3>
                                 <ul className="space-y-2">
                                     {city.highlights.map((h, i) => (
-                                        <li key={i} className="flex items-start gap-2.5 text-white/70 text-sm">
+                                        <li key={i} className="flex items-start gap-2.5 text-slate-600 text-sm">
                                             <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: city.color }} />
                                             {h}
                                         </li>
@@ -255,13 +255,13 @@ export default function BlogPost() {
 
                             {/* Tips */}
                             <div className="grid sm:grid-cols-2 gap-4">
-                                <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
                                     <div className="text-xs font-semibold text-[#4AD7A2] uppercase tracking-wider mb-2">Group tip</div>
-                                    <p className="text-white/60 text-sm leading-relaxed">{city.groupTip}</p>
+                                    <p className="text-slate-600 text-sm leading-relaxed">{city.groupTip}</p>
                                 </div>
-                                <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
                                     <div className="text-xs font-semibold text-[#FF6B6B] uppercase tracking-wider mb-2">Watch out for</div>
-                                    <p className="text-white/60 text-sm leading-relaxed">{city.avoid}</p>
+                                    <p className="text-slate-600 text-sm leading-relaxed">{city.avoid}</p>
                                 </div>
                             </div>
                         </article>
@@ -269,19 +269,19 @@ export default function BlogPost() {
                 </div>
 
                 {/* Summary */}
-                <div className="mt-16 p-6 rounded-2xl bg-white/[0.02] border border-white/5">
-                    <h2 className="text-xl font-bold text-white mb-4">Quick decision guide</h2>
-                    <div className="space-y-2 text-sm text-white/60">
-                        <p><strong className="text-white">Best all-rounder:</strong> Barcelona — something for everyone, beach + culture + nightlife.</p>
-                        <p><strong className="text-white">Best value:</strong> Budapest or Prague — half the cost of Western Europe with comparable experiences.</p>
-                        <p><strong className="text-white">Most Instagrammable:</strong> Lisbon — the tile streets, trams, and miradouros are unbeatable.</p>
-                        <p><strong className="text-white">Best for culture:</strong> Amsterdam — three world-class museums within a 10-minute walk.</p>
-                        <p><strong className="text-white">Best for a long weekend:</strong> Prague — compact enough to cover well in 3 days.</p>
+                <div className="mt-16 p-6 rounded-2xl bg-slate-50 border border-slate-100">
+                    <h2 className="text-xl font-bold text-slate-900 mb-4">Quick decision guide</h2>
+                    <div className="space-y-2 text-sm text-slate-600">
+                        <p><strong className="text-slate-900">Best all-rounder:</strong> Barcelona — something for everyone, beach + culture + nightlife.</p>
+                        <p><strong className="text-slate-900">Best value:</strong> Budapest or Prague — half the cost of Western Europe with comparable experiences.</p>
+                        <p><strong className="text-slate-900">Most Instagrammable:</strong> Lisbon — the tile streets, trams, and miradouros are unbeatable.</p>
+                        <p><strong className="text-slate-900">Best for culture:</strong> Amsterdam — three world-class museums within a 10-minute walk.</p>
+                        <p><strong className="text-slate-900">Best for a long weekend:</strong> Prague — compact enough to cover well in 3 days.</p>
                     </div>
                 </div>
 
                 <div className="mt-8 p-6 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20">
-                    <p className="text-white/80 mb-4">
+                    <p className="text-slate-600 mb-4">
                         Want a complete day-by-day itinerary for any of these cities — with live hotel prices, flights, and activities? PayaGo&apos;s AI builds it in 30 seconds.
                     </p>
                     <Link href="/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
@@ -290,8 +290,8 @@ export default function BlogPost() {
                 </div>
             </div>
 
-            <footer className="py-8 border-t border-white/5">
-                <div className="max-w-7xl mx-auto px-6 text-center text-white/20 text-sm">
+            <footer className="py-8 border-t border-slate-100">
+                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
                     © 2026 PayaGo Ltd. Registered in England & Wales.
                 </div>
             </footer>

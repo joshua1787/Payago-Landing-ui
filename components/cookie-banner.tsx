@@ -37,20 +37,20 @@ export function CookieBanner() {
             aria-label="Cookie consent"
             aria-live="polite"
         >
-            <div className="max-w-4xl mx-auto bg-[#0B1018] border border-white/10 rounded-2xl shadow-2xl shadow-black/50 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-                <div className="w-10 h-10 rounded-xl bg-[#C9A962]/15 border border-[#C9A962]/20 flex items-center justify-center flex-shrink-0">
+            <div className="max-w-4xl mx-auto bg-white border border-slate-200 rounded-2xl shadow-xl shadow-slate-200/50 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+                <div className="w-10 h-10 rounded-xl bg-[#C9A962]/10 border border-[#C9A962]/20 flex items-center justify-center flex-shrink-0">
                     <Cookie className="w-5 h-5 text-[#C9A962]" />
                 </div>
 
                 <div className="flex-1 min-w-0">
-                    <p className="text-white font-semibold text-sm mb-1">We use cookies</p>
-                    <p className="text-white/50 text-xs leading-relaxed">
+                    <p className="text-slate-900 font-semibold text-sm mb-1">We use cookies</p>
+                    <p className="text-slate-500 text-xs leading-relaxed">
                         We use essential cookies to make our site work, and optional analytics cookies (Google Analytics 4) to understand how visitors use it.{" "}
                         <Link href="/cookie-policy" className="text-[#C9A962] hover:underline">
                             Cookie Policy
                         </Link>
                         {" "}·{" "}
-                        <Link href="/privacy" className="text-white/40 hover:text-white/60 transition-colors">
+                        <Link href="/privacy" className="text-slate-400 hover:text-slate-600 transition-colors">
                             Privacy Policy
                         </Link>
                     </p>
@@ -59,7 +59,7 @@ export function CookieBanner() {
                 <div className="flex items-center gap-3 flex-shrink-0 w-full sm:w-auto">
                     <button
                         onClick={decline}
-                        className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl border border-white/10 text-white/50 hover:text-white hover:border-white/20 transition-all text-sm font-medium"
+                        className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl border border-slate-200 text-slate-500 hover:text-slate-700 hover:border-slate-300 transition-all text-sm font-medium"
                     >
                         Decline
                     </button>
@@ -71,10 +71,10 @@ export function CookieBanner() {
                     </button>
                     <button
                         onClick={decline}
-                        className="hidden sm:flex w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 items-center justify-center transition-colors flex-shrink-0"
+                        className="hidden sm:flex w-8 h-8 rounded-lg bg-slate-50 hover:bg-slate-100 items-center justify-center transition-colors flex-shrink-0"
                         aria-label="Close"
                     >
-                        <X className="w-4 h-4 text-white/40" />
+                        <X className="w-4 h-4 text-slate-400" />
                     </button>
                 </div>
             </div>

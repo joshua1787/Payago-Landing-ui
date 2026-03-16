@@ -23,19 +23,19 @@ export function BookingModal({ isOpen, onClose, type = "hotel" }: { isOpen: bool
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="max-w-2xl bg-[#0B1220] border-white/10 text-white p-0 gap-0 overflow-hidden">
+            <DialogContent className="max-w-2xl bg-white border-slate-200 text-slate-900 p-0 gap-0 overflow-hidden">
 
                 {/* Header Image */}
                 {step !== "success" && (
-                    <div className="h-32 bg-gray-800 relative">
+                    <div className="h-32 bg-slate-100 relative">
                         <img
                             src={type === 'hotel' ? "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80" : "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80"}
-                            className="w-full h-full object-cover opacity-60"
+                            className="w-full h-full object-cover opacity-80"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0B1220] to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                         <div className="absolute bottom-4 left-6">
-                            <h2 className="text-2xl font-bold">{type === 'hotel' ? 'Aman Tokyo' : 'Flight to Tokyo (NRT)'}</h2>
-                            <div className="flex items-center gap-2 text-sm text-white/70">
+                            <h2 className="text-2xl font-bold text-white">{type === 'hotel' ? 'Aman Tokyo' : 'Flight to Tokyo (NRT)'}</h2>
+                            <div className="flex items-center gap-2 text-sm text-white/80">
                                 {type === 'hotel' ? <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" /> : <Plane className="w-3 h-3" />}
                                 {type === 'hotel' ? '5.0 (Exceptional)' : 'Direct • 13h 45m'}
                             </div>
@@ -47,26 +47,26 @@ export function BookingModal({ isOpen, onClose, type = "hotel" }: { isOpen: bool
                     {step === "details" && (
                         <div className="space-y-6">
                             <div className="grid grid-cols-2 gap-4 text-sm">
-                                <div className="bg-white/5 p-3 rounded-lg">
-                                    <label className="text-white/30 text-xs block mb-1">Dates</label>
-                                    <div>Oct 12 - Oct 18</div>
+                                <div className="bg-slate-50 p-3 rounded-lg">
+                                    <label className="text-slate-400 text-xs block mb-1">Dates</label>
+                                    <div className="text-slate-900">Oct 12 - Oct 18</div>
                                 </div>
-                                <div className="bg-white/5 p-3 rounded-lg">
-                                    <label className="text-white/30 text-xs block mb-1">Guests</label>
-                                    <div>2 Adults</div>
+                                <div className="bg-slate-50 p-3 rounded-lg">
+                                    <label className="text-slate-400 text-xs block mb-1">Guests</label>
+                                    <div className="text-slate-900">2 Adults</div>
                                 </div>
                             </div>
 
-                            <div className="border border-white/10 rounded-lg p-4 space-y-3">
-                                <div className="flex justify-between">
+                            <div className="border border-slate-200 rounded-lg p-4 space-y-3">
+                                <div className="flex justify-between text-slate-700">
                                     <span>Total ({type === 'hotel' ? '5 nights' : 'Round trip'})</span>
                                     <span>$3,200.00</span>
                                 </div>
-                                <div className="flex justify-between text-white/50 text-sm">
+                                <div className="flex justify-between text-slate-400 text-sm">
                                     <span>Taxes & Fees</span>
                                     <span>$150.00</span>
                                 </div>
-                                <div className="border-t border-white/10 pt-3 flex justify-between font-bold text-lg text-blue-400">
+                                <div className="border-t border-slate-200 pt-3 flex justify-between font-bold text-lg text-blue-600">
                                     <span>Due Now</span>
                                     <span>$3,350.00</span>
                                 </div>
@@ -76,7 +76,7 @@ export function BookingModal({ isOpen, onClose, type = "hotel" }: { isOpen: bool
                                 Continue to Payment
                             </Button>
 
-                            <div className="flex justify-center items-center gap-2 text-xs text-white/30">
+                            <div className="flex justify-center items-center gap-2 text-xs text-slate-400">
                                 <span className="w-2 h-2 rounded-full bg-green-500" /> Secure booking
                             </div>
                         </div>
@@ -86,20 +86,20 @@ export function BookingModal({ isOpen, onClose, type = "hotel" }: { isOpen: bool
                         <div className="space-y-6">
                             <div className="space-y-4">
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium">Card Information</label>
-                                    <div className="bg-white/5 border border-white/10 rounded-lg p-3 flex gap-3 items-center">
-                                        <div className="w-8 h-5 bg-white/10 rounded"></div>
-                                        <input type="text" placeholder="0000 0000 0000 0000" className="bg-transparent border-none outline-none flex-1 font-mono" />
+                                    <label className="text-sm font-medium text-slate-700">Card Information</label>
+                                    <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 flex gap-3 items-center">
+                                        <div className="w-8 h-5 bg-slate-200 rounded"></div>
+                                        <input type="text" placeholder="0000 0000 0000 0000" className="bg-transparent border-none outline-none flex-1 font-mono text-slate-900 placeholder:text-slate-400" />
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium">Expiry</label>
-                                        <input type="text" placeholder="MM/YY" className="w-full bg-white/5 border border-white/10 rounded-lg p-3 outline-none" />
+                                        <label className="text-sm font-medium text-slate-700">Expiry</label>
+                                        <input type="text" placeholder="MM/YY" className="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 outline-none text-slate-900 placeholder:text-slate-400" />
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium">CVC</label>
-                                        <input type="text" placeholder="123" className="w-full bg-white/5 border border-white/10 rounded-lg p-3 outline-none" />
+                                        <label className="text-sm font-medium text-slate-700">CVC</label>
+                                        <input type="text" placeholder="123" className="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 outline-none text-slate-900 placeholder:text-slate-400" />
                                     </div>
                                 </div>
                             </div>
@@ -112,14 +112,14 @@ export function BookingModal({ isOpen, onClose, type = "hotel" }: { isOpen: bool
 
                     {step === "success" && (
                         <div className="text-center py-10 space-y-6 animate-fade-in-up">
-                            <div className="w-20 h-20 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <div className="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
                                 <Check className="w-10 h-10" />
                             </div>
-                            <h3 className="text-3xl font-bold">Booking Confirmed!</h3>
-                            <p className="text-white/50 max-w-xs mx-auto">
+                            <h3 className="text-3xl font-bold text-slate-900">Booking Confirmed!</h3>
+                            <p className="text-slate-500 max-w-xs mx-auto">
                                 Your reservation at Aman Tokyo has been confirmed. A confirmation email has been sent.
                             </p>
-                            <Button onClick={onClose} variant="outline" className="mt-4 border-white/10 hover:bg-white/5 hover:text-white">
+                            <Button onClick={onClose} variant="outline" className="mt-4 border-slate-200 hover:bg-slate-50 text-slate-700">
                                 Return to Itinerary
                             </Button>
                         </div>
