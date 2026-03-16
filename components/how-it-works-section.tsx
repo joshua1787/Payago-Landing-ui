@@ -216,27 +216,32 @@ export function HowItWorksSection() {
                                 <button
                                     key={step.number}
                                     onClick={() => setActiveStep(i)}
-                                    className={`w-full text-left group relative flex items-start gap-4 rounded-2xl p-5 transition-all duration-500 ${isActive
-                                        ? 'bg-white border border-slate-200 shadow-md shadow-slate-100'
-                                        : 'border border-transparent hover:bg-white/60'
+                                    className={`w-full text-left group relative flex items-start gap-4 rounded-2xl p-5 transition-all duration-500 border-2 ${isActive
+                                        ? 'shadow-lg'
+                                        : 'border-transparent hover:border-slate-200 hover:bg-white/60'
                                         }`}
+                                    style={isActive ? {
+                                        background: `linear-gradient(135deg, ${step.color}15 0%, white 60%)`,
+                                        borderColor: step.color + "50",
+                                        boxShadow: `0 8px 30px ${step.color}20`,
+                                    } : {}}
                                 >
                                     <div
                                         className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-500 ${isActive ? 'scale-110' : 'scale-100'}`}
                                         style={{
-                                            background: isActive ? `${step.color}12` : 'rgba(0,0,0,0.04)',
-                                            border: `1px solid ${isActive ? step.color + '30' : 'rgba(0,0,0,0.08)'}`,
-                                            boxShadow: isActive ? `0 0 20px ${step.color}12` : 'none',
+                                            background: isActive ? step.color : 'rgba(0,0,0,0.04)',
+                                            border: `1px solid ${isActive ? step.color : 'rgba(0,0,0,0.08)'}`,
+                                            boxShadow: isActive ? `0 4px 16px ${step.color}40` : 'none',
                                         }}
                                     >
-                                        <Icon className="w-[18px] h-[18px]" style={{ color: isActive ? step.color : 'rgba(0,0,0,0.25)' }} />
+                                        <Icon className="w-[18px] h-[18px]" style={{ color: isActive ? 'white' : 'rgba(0,0,0,0.25)' }} />
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-3 mb-0.5">
                                             <span className={`text-[15px] font-bold transition-colors duration-300 ${isActive ? 'text-slate-900' : 'text-slate-400'}`}>
                                                 {step.title}
                                             </span>
-                                            <span className={`text-[10px] font-mono transition-colors duration-300 ${isActive ? 'text-slate-300' : 'text-slate-200'}`}>
+                                            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-md" style={{ color: isActive ? step.color : 'rgba(0,0,0,0.2)', background: isActive ? step.color + "15" : 'transparent' }}>
                                                 {step.number}
                                             </span>
                                         </div>
@@ -246,8 +251,8 @@ export function HowItWorksSection() {
                                     </div>
                                     {/* Progress */}
                                     {isActive && (
-                                        <div className="absolute bottom-0 left-5 right-5 h-[2px] overflow-hidden rounded-full bg-slate-100">
-                                            <div className="h-full rounded-full animate-step-progress opacity-60" style={{ background: `linear-gradient(90deg, ${step.color}, ${step.color}80)` }} />
+                                        <div className="absolute bottom-0 left-5 right-5 h-[2px] overflow-hidden rounded-full" style={{ background: step.color + "20" }}>
+                                            <div className="h-full rounded-full animate-step-progress" style={{ background: step.color }} />
                                         </div>
                                     )}
                                 </button>
@@ -261,13 +266,13 @@ export function HowItWorksSection() {
                             {/* Multi-layer glow */}
                             <div className="absolute -inset-6 rounded-3xl blur-[60px] opacity-10 transition-colors duration-700" style={{ background: active.color }} />
 
-                            <div className="relative bg-white border border-slate-200 rounded-2xl overflow-hidden min-h-[300px] shadow-xl shadow-cyan-100">
+                            <div className="relative rounded-2xl overflow-hidden min-h-[300px] shadow-xl transition-all duration-700" style={{ background: `linear-gradient(145deg, ${active.color}10 0%, white 50%)`, border: `2px solid ${active.color}40`, boxShadow: `0 20px 60px ${active.color}20` }}>
                                 {/* Window chrome */}
-                                <div className="flex items-center gap-2 px-5 pt-5 pb-3 border-b border-slate-100">
-                                    <div className="w-[6px] h-[6px] rounded-full bg-slate-200" />
-                                    <div className="w-[6px] h-[6px] rounded-full bg-slate-200" />
-                                    <div className="w-[6px] h-[6px] rounded-full bg-slate-200" />
-                                    <span className="ml-3 text-slate-300 text-[10px] font-mono tracking-wider">{active.subtitle}</span>
+                                <div className="flex items-center gap-2 px-5 pt-5 pb-3 border-b" style={{ borderColor: active.color + "20", background: active.color + "08" }}>
+                                    <div className="w-[6px] h-[6px] rounded-full" style={{ background: active.color + "60" }} />
+                                    <div className="w-[6px] h-[6px] rounded-full" style={{ background: active.color + "40" }} />
+                                    <div className="w-[6px] h-[6px] rounded-full" style={{ background: active.color + "20" }} />
+                                    <span className="ml-3 text-[10px] font-mono tracking-wider" style={{ color: active.color + "80" }}>{active.subtitle}</span>
                                 </div>
                                 <div className="transition-all duration-500">
                                     {active.mockContent}

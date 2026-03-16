@@ -148,21 +148,24 @@ export function BentoSection() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
                     {/* ── Large: 30-second itinerary ── */}
-                    <div className="md:col-span-2 relative bg-white border border-slate-200 rounded-3xl p-8 overflow-hidden group hover:border-cyan-200 hover:shadow-lg hover:shadow-cyan-50 transition-all duration-700 min-h-[320px] flex flex-col">
-                        <div className="absolute top-0 right-0 w-72 h-72 bg-cyan-500/[0.04] rounded-full blur-[100px] pointer-events-none" />
-                        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle, #94a3b8 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
-
-                        <div className="relative z-10 flex-1 flex flex-col">
-                            <div className="flex items-center gap-2.5 mb-7">
-                                <div className="w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-200 flex items-center justify-center">
-                                    <Sparkles className="w-4 h-4 text-cyan-500" />
+                    <div className="md:col-span-2 relative border-2 border-cyan-200 rounded-3xl overflow-hidden group hover:border-cyan-400 hover:shadow-xl hover:shadow-cyan-100/60 transition-all duration-700 min-h-[320px] flex flex-col" style={{ background: "linear-gradient(145deg, #e0f9ff 0%, #f0fdff 40%, white 100%)" }}>
+                        {/* Colored header strip */}
+                        <div className="px-8 pt-7 pb-5" style={{ background: "linear-gradient(135deg, #00D4FF22 0%, #00D4FF08 100%)" }}>
+                            <div className="flex items-center gap-2.5">
+                                <div className="w-9 h-9 rounded-xl bg-cyan-500 flex items-center justify-center shadow-md shadow-cyan-500/30">
+                                    <Sparkles className="w-4 h-4 text-white" />
                                 </div>
-                                <div className="flex items-center gap-1.5">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                                    <span className="text-cyan-600 text-[11px] font-mono tracking-wider uppercase">AI generating itinerary</span>
+                                <div>
+                                    <div className="text-cyan-700 text-xs font-bold uppercase tracking-widest">AI-Powered Planning</div>
+                                    <div className="flex items-center gap-1.5 mt-0.5">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                                        <span className="text-cyan-500 text-[11px] font-mono">AI generating itinerary...</span>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
 
+                        <div className="px-8 pb-8 flex-1 flex flex-col">
                             <div className="flex-1">
                                 <ItineraryPreview />
                             </div>
@@ -170,82 +173,84 @@ export function BentoSection() {
                             <div className="mt-6 flex items-end justify-between">
                                 <div>
                                     <div className="text-4xl font-black text-slate-900 tracking-tight">30 seconds</div>
-                                    <div className="text-slate-400 text-sm mt-0.5">from one sentence to a full 7-day plan</div>
+                                    <div className="text-cyan-600 text-sm mt-0.5 font-medium">from one sentence to a full 7-day plan</div>
                                 </div>
-                                <div className="text-slate-100 text-7xl font-black select-none leading-none">AI</div>
+                                <div className="text-cyan-100 text-7xl font-black select-none leading-none">AI</div>
                             </div>
                         </div>
                     </div>
 
                     {/* ── Tall: Group voting ── */}
-                    <div className="md:row-span-2 relative bg-white border border-slate-200 rounded-3xl p-7 overflow-hidden group hover:border-violet-200 hover:shadow-lg hover:shadow-violet-50 transition-all duration-700 flex flex-col gap-6">
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-40 bg-violet-500/[0.04] blur-[80px] pointer-events-none" />
-
-                        <div className="relative z-10">
-                            <div className="w-10 h-10 rounded-2xl bg-violet-50 border border-violet-200 flex items-center justify-center mb-4">
-                                <Users className="w-5 h-5 text-violet-500" />
+                    <div className="md:row-span-2 relative border-2 border-violet-200 rounded-3xl overflow-hidden group hover:border-violet-400 hover:shadow-xl hover:shadow-violet-100/60 transition-all duration-700 flex flex-col" style={{ background: "linear-gradient(145deg, #ede9ff 0%, #f5f3ff 40%, white 100%)" }}>
+                        {/* Colored header */}
+                        <div className="px-7 pt-7 pb-5" style={{ background: "linear-gradient(135deg, #7C5CFF22 0%, #7C5CFF08 100%)" }}>
+                            <div className="w-10 h-10 rounded-2xl bg-violet-500 flex items-center justify-center mb-4 shadow-md shadow-violet-500/30">
+                                <Users className="w-5 h-5 text-white" />
                             </div>
                             <div className="text-xl font-bold text-slate-900 mb-1">Group voting</div>
-                            <div className="text-slate-400 text-sm">Everyone votes. No chaos.</div>
+                            <div className="text-violet-500 text-sm font-medium">Everyone votes. No chaos.</div>
                         </div>
 
-                        <div className="relative z-10 flex-1">
+                        <div className="px-7 flex-1">
                             <VotingPreview />
                         </div>
 
-                        <div className="relative z-10 mt-auto p-4 bg-violet-50 border border-violet-100 rounded-2xl">
-                            <div className="text-violet-700 text-sm font-semibold mb-2">Live progress</div>
-                            <div className="w-full bg-violet-100 rounded-full h-1.5 overflow-hidden">
-                                <div className="h-full rounded-full bg-gradient-to-r from-violet-500 to-violet-400 transition-all duration-1000" style={{ width: "80%" }} />
+                        <div className="px-7 pb-7 mt-4">
+                            <div className="p-4 bg-violet-500 rounded-2xl shadow-lg shadow-violet-500/25">
+                                <div className="text-white text-sm font-semibold mb-2">Live progress</div>
+                                <div className="w-full bg-violet-400/40 rounded-full h-2 overflow-hidden">
+                                    <div className="h-full rounded-full bg-white transition-all duration-1000" style={{ width: "80%" }} />
+                                </div>
+                                <div className="text-violet-200 text-xs mt-1.5">4 of 5 confirmed</div>
                             </div>
-                            <div className="text-slate-400 text-xs mt-1.5">4 of 5 confirmed</div>
                         </div>
                     </div>
 
                     {/* ── Bottom row left: Free forever ── */}
-                    <div className="relative bg-white border border-amber-100 rounded-3xl p-7 overflow-hidden group hover:border-amber-200 hover:shadow-lg hover:shadow-amber-50 transition-all duration-700">
-                        <div className="absolute bottom-0 right-0 w-40 h-40 bg-amber-400/[0.05] rounded-full blur-[60px] pointer-events-none" />
-
-                        <div className="relative z-10">
-                            <div className="w-10 h-10 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center mb-5">
-                                <CreditCard className="w-5 h-5 text-[#C9A962]" />
+                    <div className="relative border-2 border-amber-200 rounded-3xl overflow-hidden group hover:border-amber-400 hover:shadow-xl hover:shadow-amber-100/60 transition-all duration-700" style={{ background: "linear-gradient(145deg, #fef9ec 0%, #fffbf0 40%, white 100%)" }}>
+                        {/* Colored header strip */}
+                        <div className="px-7 pt-7 pb-5" style={{ background: "linear-gradient(135deg, #C9A96222 0%, #C9A96208 100%)" }}>
+                            <div className="w-10 h-10 rounded-2xl bg-[#C9A962] flex items-center justify-center mb-4 shadow-md shadow-amber-400/30">
+                                <CreditCard className="w-5 h-5 text-[#1a1a0e]" />
                             </div>
                             <div className="text-xl font-bold text-slate-900 mb-1">Free forever</div>
-                            <div className="text-slate-400 text-sm mb-5">No subscription. No card required.</div>
+                            <div className="text-amber-700 text-sm font-medium">No subscription. No card required.</div>
+                        </div>
 
-                            <div className="space-y-2">
+                        <div className="px-7 pb-7">
+                            <div className="space-y-2 mb-4">
                                 {["AI trip planning", "Group coordination", "Split payments", "Smart assist"].map((feat) => (
                                     <div key={feat} className="flex items-center gap-2 text-sm">
-                                        <Check className="w-3.5 h-3.5 text-[#C9A962] flex-shrink-0" />
-                                        <span className="text-slate-500">{feat}</span>
+                                        <div className="w-5 h-5 rounded-full bg-[#C9A962] flex items-center justify-center flex-shrink-0">
+                                            <Check className="w-3 h-3 text-[#1a1a0e]" />
+                                        </div>
+                                        <span className="text-slate-600 font-medium">{feat}</span>
                                     </div>
                                 ))}
                             </div>
+                            <div className="text-right text-6xl font-black select-none" style={{ color: "#C9A96230" }}>£0</div>
                         </div>
-
-                        <div className="absolute bottom-5 right-6 text-amber-200 text-6xl font-black select-none">£0</div>
                     </div>
 
                     {/* ── Bottom row right: Voice input ── */}
-                    <div className="relative bg-white border border-slate-200 rounded-3xl p-7 overflow-hidden group hover:border-amber-200 hover:shadow-lg hover:shadow-amber-50 transition-all duration-700">
-                        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-amber-400/[0.03] rounded-full blur-[60px]" />
-                        </div>
-
-                        <div className="relative z-10">
-                            <div className="w-10 h-10 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center mb-5">
-                                <Mic className="w-5 h-5 text-[#C9A962]" />
+                    <div className="relative border-2 border-rose-200 rounded-3xl overflow-hidden group hover:border-rose-400 hover:shadow-xl hover:shadow-rose-100/60 transition-all duration-700" style={{ background: "linear-gradient(145deg, #fff1f2 0%, #fff5f5 40%, white 100%)" }}>
+                        {/* Colored header strip */}
+                        <div className="px-7 pt-7 pb-5" style={{ background: "linear-gradient(135deg, #f43f5e22 0%, #f43f5e08 100%)" }}>
+                            <div className="w-10 h-10 rounded-2xl bg-rose-500 flex items-center justify-center mb-4 shadow-md shadow-rose-500/30">
+                                <Mic className="w-5 h-5 text-white" />
                             </div>
                             <div className="text-xl font-bold text-slate-900 mb-1">Just say it</div>
-                            <div className="text-slate-400 text-sm mb-5">No forms. No dropdowns. Just talk.</div>
+                            <div className="text-rose-500 text-sm font-medium">No forms. No dropdowns. Just talk.</div>
                         </div>
 
-                        <VoiceRings />
+                        <div className="px-7 pb-7">
+                            <VoiceRings />
 
-                        <div className="relative z-10 mt-4 bg-slate-50 border border-slate-100 rounded-2xl px-4 py-3">
-                            <p className="text-slate-400 text-xs italic leading-relaxed">
-                                &ldquo;7 days in Japan for 4 friends, £3,200 budget, love street food&rdquo;
-                            </p>
+                            <div className="mt-4 bg-rose-50 border border-rose-100 rounded-2xl px-4 py-3">
+                                <p className="text-rose-400 text-xs italic leading-relaxed">
+                                    &ldquo;7 days in Japan for 4 friends, £3,200 budget, love street food&rdquo;
+                                </p>
+                            </div>
                         </div>
                     </div>
 
@@ -254,15 +259,17 @@ export function BentoSection() {
                 {/* Bottom strip — 3 headline stats */}
                 <div className="grid grid-cols-3 gap-4 mt-4">
                     {[
-                        { value: "50+", label: "Destinations at launch", icon: Globe, color: "#00D4FF" },
-                        { value: "2–20", label: "Group size supported", icon: Users, color: "#7C5CFF" },
-                        { value: "Apr 2026", label: "Public launch date", icon: Zap, color: "#4AD7A2" },
+                        { value: "50+", label: "Destinations at launch", icon: Globe, color: "#00D4FF", bg: "#e0f9ff", border: "#bae6fd" },
+                        { value: "2–20", label: "Group size supported", icon: Users, color: "#7C5CFF", bg: "#ede9ff", border: "#c4b5fd" },
+                        { value: "Apr 2026", label: "Public launch date", icon: Zap, color: "#059669", bg: "#d1fae5", border: "#6ee7b7" },
                     ].map((s) => (
-                        <div key={s.label} className="flex items-center gap-4 bg-white border border-slate-100 rounded-2xl px-5 py-4 group hover:border-slate-200 hover:shadow-sm transition-all duration-300">
-                            <s.icon className="w-5 h-5 flex-shrink-0" style={{ color: s.color }} />
+                        <div key={s.label} className="flex items-center gap-4 rounded-2xl px-5 py-4 border-2 transition-all duration-300 hover:shadow-md hover:scale-[1.02]" style={{ background: s.bg, borderColor: s.border }}>
+                            <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: s.color + "25" }}>
+                                <s.icon className="w-5 h-5" style={{ color: s.color }} />
+                            </div>
                             <div>
-                                <div className="text-slate-900 font-bold text-lg leading-none">{s.value}</div>
-                                <div className="text-slate-400 text-xs mt-1">{s.label}</div>
+                                <div className="font-black text-lg leading-none" style={{ color: s.color }}>{s.value}</div>
+                                <div className="text-slate-500 text-xs mt-1">{s.label}</div>
                             </div>
                         </div>
                     ))}

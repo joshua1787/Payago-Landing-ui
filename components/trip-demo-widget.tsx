@@ -300,55 +300,67 @@ export function TripDemoWidget() {
                                 <button
                                     key={i}
                                     onClick={() => setSelectedOption(i)}
-                                    className={`text-left p-5 rounded-2xl border transition-all duration-200 relative ${selectedOption === i ? "border-opacity-60 bg-white" : "border-amber-100 bg-white hover:bg-amber-50"}`}
-                                    style={selectedOption === i ? { borderColor: opt.color + "60" } : {}}
+                                    className={`text-left rounded-2xl border-2 transition-all duration-300 relative overflow-hidden flex flex-col ${selectedOption === i ? "shadow-lg scale-[1.02]" : "hover:scale-[1.01] hover:shadow-md"}`}
+                                    style={{
+                                        borderColor: selectedOption === i ? opt.color : opt.color + "40",
+                                        background: `linear-gradient(160deg, ${opt.color}12 0%, white 45%)`,
+                                    }}
                                 >
-                                    {opt.recommended && (
-                                        <div className="absolute -top-2.5 left-4 text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: opt.color, color: "#1a1a0e" }}>
-                                            AI PICK
-                                        </div>
-                                    )}
-                                    <div className="flex items-center justify-between mb-3">
-                                        <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ color: opt.color, background: opt.color + "20" }}>
-                                            {opt.type}
-                                        </span>
-                                        <div className="text-right">
-                                            <div className="text-slate-900 font-bold">{opt.perPerson}</div>
-                                            <div className="text-slate-400 text-xs">per person</div>
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-2 mb-3">
-                                        <div className="flex items-start gap-2">
-                                            <Plane className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-slate-400" />
-                                            <span className="text-slate-500 text-xs leading-relaxed">{opt.flight}</span>
-                                        </div>
-                                        <div className="flex items-start gap-2">
-                                            <Hotel className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-slate-400" />
-                                            <span className="text-slate-500 text-xs leading-relaxed">{opt.hotel}</span>
-                                        </div>
-                                    </div>
-
-                                    <div className="border-t border-slate-100 pt-3">
-                                        <div className="text-slate-400 text-[10px] font-semibold uppercase tracking-wider mb-2">Highlights</div>
-                                        <ul className="space-y-1">
-                                            {opt.highlights.slice(0, 3).map((h, j) => (
-                                                <li key={j} className="flex items-start gap-1.5 text-xs text-slate-500">
-                                                    <span style={{ color: opt.color }} className="flex-shrink-0">→</span>
-                                                    {h}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-
-                                    {selectedOption === i && (
-                                        <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
-                                            <span className="text-xs text-slate-400">Total: {opt.total}</span>
-                                            <span className="text-xs font-semibold flex items-center gap-1" style={{ color: opt.color }}>
-                                                Selected <Check className="w-3 h-3" />
+                                    {/* Colored header band */}
+                                    <div className="px-5 pt-5 pb-4" style={{ background: `linear-gradient(135deg, ${opt.color}22 0%, ${opt.color}08 100%)` }}>
+                                        {opt.recommended && (
+                                            <div className="absolute top-3 right-3 text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm" style={{ background: opt.color, color: "#1a1a0e" }}>
+                                                ✦ AI PICK
+                                            </div>
+                                        )}
+                                        <div className="flex items-center gap-2 mb-3">
+                                            <span className="text-xs font-black px-3 py-1.5 rounded-full tracking-wider uppercase" style={{ color: "white", background: opt.color }}>
+                                                {opt.type}
                                             </span>
                                         </div>
-                                    )}
+                                        <div className="flex items-end justify-between">
+                                            <div>
+                                                <div className="text-2xl font-black text-slate-900 leading-none">{opt.perPerson}</div>
+                                                <div className="text-xs mt-0.5" style={{ color: opt.color }}>per person · {opt.total} total</div>
+                                            </div>
+                                            <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: opt.color + "20" }}>
+                                                {i === 0 ? <Plane className="w-5 h-5" style={{ color: opt.color }} /> : i === 1 ? <Star className="w-5 h-5" style={{ color: opt.color }} /> : <Hotel className="w-5 h-5" style={{ color: opt.color }} />}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Card body */}
+                                    <div className="px-5 pb-5 flex-1 flex flex-col">
+                                        <div className="space-y-2 mb-3 pt-3">
+                                            <div className="flex items-start gap-2">
+                                                <Plane className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" style={{ color: opt.color + "aa" }} />
+                                                <span className="text-slate-500 text-xs leading-relaxed">{opt.flight}</span>
+                                            </div>
+                                            <div className="flex items-start gap-2">
+                                                <Hotel className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" style={{ color: opt.color + "aa" }} />
+                                                <span className="text-slate-500 text-xs leading-relaxed">{opt.hotel}</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="border-t pt-3 flex-1" style={{ borderColor: opt.color + "25" }}>
+                                            <div className="text-[10px] font-bold uppercase tracking-wider mb-2" style={{ color: opt.color }}>Highlights</div>
+                                            <ul className="space-y-1">
+                                                {opt.highlights.slice(0, 3).map((h, j) => (
+                                                    <li key={j} className="flex items-start gap-1.5 text-xs text-slate-500">
+                                                        <span style={{ color: opt.color }} className="flex-shrink-0 font-bold">→</span>
+                                                        {h}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+
+                                        {selectedOption === i && (
+                                            <div className="mt-3 pt-3 flex items-center justify-center gap-1.5 text-xs font-bold rounded-xl py-2" style={{ background: opt.color + "15", color: opt.color }}>
+                                                <Check className="w-3.5 h-3.5" />
+                                                Selected
+                                            </div>
+                                        )}
+                                    </div>
                                 </button>
                             ))}
                         </div>
