@@ -2,6 +2,7 @@ import { Navbar } from "@/components/navbar"
 import { HeroSection } from "@/components/hero-section"
 import { StatsBar } from "@/components/stats-bar"
 import { MarqueeStrip } from "@/components/marquee-strip"
+import { PartnersStrip } from "@/components/partners-strip"
 import { HowItWorksSection } from "@/components/how-it-works-section"
 import { TripDemoWidget } from "@/components/trip-demo-widget"
 import { DestinationsShowcase } from "@/components/destinations-showcase"
@@ -19,6 +20,7 @@ export default function Home() {
       <HeroSection />
       <StatsBar />
       <MarqueeStrip />
+      <PartnersStrip />
       <HowItWorksSection />
       <TripDemoWidget />
       <DestinationsShowcase />

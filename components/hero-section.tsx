@@ -342,6 +342,28 @@ export function HeroSection() {
                 </div>
               ))}
             </div>
+
+            {/* Partner trust row */}
+            <div className="animate-fade-up" style={{ animationDelay: "0.55s" }}>
+              <div className="flex flex-wrap items-center gap-3 justify-center lg:justify-start">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-300 whitespace-nowrap">Booking via</span>
+                {[
+                  { name: "Expedia",  color: "#1B3A6B", bg: "#1B3A6B12" },
+                  { name: "Stripe",   color: "#635BFF", bg: "#635BFF12" },
+                  { name: "Kayak",    color: "#FF690F", bg: "#FF690F12" },
+                  { name: "Viator",   color: "#3DAD6A", bg: "#3DAD6A12" },
+                ].map((p) => (
+                  <div
+                    key={p.name}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                    style={{ borderColor: p.color + "30", background: p.bg, color: p.color }}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ background: p.color }} />
+                    {p.name}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Right — 3D Phone */}
