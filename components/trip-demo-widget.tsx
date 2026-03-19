@@ -169,7 +169,7 @@ export function TripDemoWidget() {
     const overallProgress = Math.min(100, (STEPS.slice(0, stepIndex).reduce((a, s) => a + s.duration, 0) + (STEPS[stepIndex]?.duration || 0) * stepProgress / 100) / totalDuration * 100)
 
     return (
-        <section className="relative py-24 overflow-hidden bg-[#FDF9F0]">
+        <section className="relative py-24 overflow-hidden bg-[#F4F6FB]">
             <div className="absolute inset-0">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#C9A962]/10 rounded-full blur-[200px]" />
             </div>

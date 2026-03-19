@@ -162,6 +162,7 @@ export function HowItWorksSection() {
     const sectionRef = useRef<HTMLDivElement>(null)
     const [isVisible, setIsVisible] = useState(false)
     const [activeStep, setActiveStep] = useState(0)
+    const [paused, setPaused] = useState(false)
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -173,18 +174,18 @@ export function HowItWorksSection() {
     }, [])
 
     useEffect(() => {
-        if (!isVisible) return
+        if (!isVisible || paused) return
         const interval = setInterval(() => {
             setActiveStep((s) => (s + 1) % steps.length)
-        }, 4000)
+        }, 5000)
         return () => clearInterval(interval)
-    }, [isVisible])
+    }, [isVisible, paused])
 
     const active = steps[activeStep]
 
     return (
         <section ref={sectionRef} id="how-it-works" className="relative py-32 sm:py-40 overflow-hidden">
-            <div className="absolute inset-0 bg-[#EEF9FF]" />
+            <div className="absolute inset-0 bg-[#FAFAF8]" />
 
             {/* Ambient glow */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-[radial-gradient(ellipse_at_center,rgba(0,212,255,0.10),transparent_70%)] blur-[100px] pointer-events-none" />
@@ -208,14 +209,14 @@ export function HowItWorksSection() {
                 <div className={`grid lg:grid-cols-[1fr_400px] gap-10 items-start transition-all duration-700 delay-200 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'}`}>
 
                     {/* Left: Step list */}
-                    <div className="space-y-1.5">
+                    <div className="space-y-1.5" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
                         {steps.map((step, i) => {
                             const Icon = step.icon
                             const isActive = i === activeStep
                             return (
                                 <button
                                     key={step.number}
-                                    onClick={() => setActiveStep(i)}
+                                    onClick={() => { setActiveStep(i); setPaused(true) }}
                                     className={`w-full text-left group relative flex items-start gap-4 rounded-2xl p-5 transition-all duration-500 border-2 ${isActive
                                         ? 'shadow-lg'
                                         : 'border-transparent hover:border-slate-200 hover:bg-white/60'
@@ -241,7 +242,7 @@ export function HowItWorksSection() {
                                             <span className={`text-[15px] font-bold transition-colors duration-300 ${isActive ? 'text-slate-900' : 'text-slate-400'}`}>
                                                 {step.title}
                                             </span>
-                                            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-md" style={{ color: isActive ? step.color : 'rgba(0,0,0,0.2)', background: isActive ? step.color + "15" : 'transparent' }}>
+                                            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full" style={{ color: isActive ? step.color : 'rgba(0,0,0,0.2)', background: isActive ? step.color + "15" : 'transparent' }}>
                                                 {step.number}
                                             </span>
                                         </div>

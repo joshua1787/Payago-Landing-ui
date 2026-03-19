@@ -71,7 +71,7 @@ export function FeaturesSection() {
 
     return (
         <section ref={sectionRef} id="features" className="relative py-28 sm:py-36 overflow-hidden">
-            <div className="absolute inset-0 bg-[#EEF9FF]" />
+            <div className="absolute inset-0 bg-[#F4F6FB]" />
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(0,212,255,0.10),transparent_70%)] blur-[100px] pointer-events-none" />
 
             <div className="relative z-10 max-w-6xl mx-auto px-6">

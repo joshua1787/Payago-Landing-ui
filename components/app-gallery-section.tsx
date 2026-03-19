@@ -221,7 +221,7 @@ export function AppGallerySection() {
     const screen = SCREENS[active]
 
     return (
-        <section className="relative py-24 overflow-hidden border-t border-slate-100 bg-[#F0EEFF]">
+        <section className="relative py-24 overflow-hidden border-t border-slate-100 bg-[#FAFAF8]">
             <div className="absolute inset-0">
                 <div className="absolute top-1/2 right-1/4 w-[600px] h-[400px] bg-[#7C5CFF]/10 rounded-full blur-[200px]" />
             </div>
@@ -232,7 +232,7 @@ export function AppGallerySection() {
                         <Zap className="w-4 h-4 text-[#00D4FF]" />
                         <span className="text-sm font-medium text-[#00D4FF]">The app — launching April 2026</span>
                     </div>
-                    <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+                    <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 tracking-[-0.03em] mb-4">
                         Built for how groups{" "}
                         <span className="bg-gradient-to-r from-[#00D4FF] to-[#7C5CFF] bg-clip-text text-transparent">
                             actually travel

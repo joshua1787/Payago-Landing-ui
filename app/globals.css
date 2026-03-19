@@ -280,7 +280,7 @@
 
 .animate-gradient-text {
   background-size: 200% 100%;
-  animation: gradient-shift 4s ease infinite, gradient-text-cycle 12s ease infinite;
+  animation: gradient-shift 8s ease infinite, gradient-text-cycle 18s ease infinite;
 }
 
 .animate-shimmer {

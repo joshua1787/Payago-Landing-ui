@@ -319,11 +319,11 @@ export function HeroSection() {
                     <div className="flex items-center gap-2 text-[11px] text-slate-400 font-mono">
                       <Zap className="w-3 h-3" /> Gemini AI · ~8s
                     </div>
-                    <button className="relative group/btn overflow-hidden bg-slate-900 text-white px-7 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 hover:scale-[1.02] active:scale-[0.97] transition-all duration-300 hover:bg-slate-800">
+                    <a href="#early-access" className="relative group/btn overflow-hidden bg-slate-900 text-white px-7 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 hover:scale-[1.02] active:scale-[0.97] transition-all duration-300 hover:bg-slate-800">
                       <span className="relative z-10 flex items-center gap-1.5">
-                        Generate <ArrowRight className="w-3.5 h-3.5" />
+                        Join Waitlist <ArrowRight className="w-3.5 h-3.5" />
                       </span>
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -345,7 +345,7 @@ export function HeroSection() {
 
             {/* Partner trust row */}
             <div className="animate-fade-up" style={{ animationDelay: "0.55s" }}>
-              <div className="flex flex-wrap items-center gap-3 justify-center lg:justify-start">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 justify-center lg:justify-start">
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-300 whitespace-nowrap">Booking via</span>
                 {[
                   { name: "Expedia",  color: "#1B3A6B", bg: "#1B3A6B12" },

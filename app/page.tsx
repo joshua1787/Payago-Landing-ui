@@ -18,9 +18,9 @@ export default function Home() {
     <main className="min-h-screen overflow-x-hidden bg-[#FAFAF8] relative">
       <Navbar />
       <HeroSection />
+      <PartnersStrip />
       <StatsBar />
       <MarqueeStrip />
-      <PartnersStrip />
       <HowItWorksSection />
       <TripDemoWidget />
       <DestinationsShowcase />

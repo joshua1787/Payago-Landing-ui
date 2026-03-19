@@ -52,6 +52,7 @@ export function StatsBar() {
     return (
         <section className="relative border-y border-slate-100 bg-[#FAFAF8] overflow-hidden">
             <div className="relative z-10 max-w-6xl mx-auto px-6 py-12">
+                <p className="text-center text-[11px] font-bold uppercase tracking-[0.2em] text-slate-300 mb-10">Built for group travel at scale</p>
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x lg:divide-slate-100">
                     {stats.map((stat) => {
                         const Icon = stat.icon

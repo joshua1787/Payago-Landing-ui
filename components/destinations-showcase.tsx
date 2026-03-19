@@ -42,7 +42,7 @@ export function DestinationsShowcase() {
 
     return (
         <section ref={ref} className="relative py-24 sm:py-32 overflow-hidden">
-            <div className="absolute inset-0 bg-[#FDF9F0]" />
+            <div className="absolute inset-0 bg-[#FAFAF8]" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(201,169,98,0.12),transparent)]" />
 
             <div className="relative z-10 max-w-6xl mx-auto px-6">

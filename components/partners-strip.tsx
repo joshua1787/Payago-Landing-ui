@@ -121,7 +121,7 @@ export function PartnersStrip() {
                             {p.live ? (
                                 <div className="ml-2 flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold" style={{ background: p.color + "15", color: p.color }}>
                                     <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: p.color }} />
-                                    LIVE
+                                    Ready
                                 </div>
                             ) : (
                                 <div className="ml-2 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-400 border border-slate-200">

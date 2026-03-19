@@ -122,7 +122,7 @@ export function BentoSection() {
 
     return (
         <section ref={ref} className="relative py-28 overflow-hidden">
-            <div className="absolute inset-0 bg-[#F0EEFF]" />
+            <div className="absolute inset-0 bg-[#F4F6FB]" />
             <div className="absolute top-1/3 left-1/4 w-[600px] h-[400px] bg-[radial-gradient(ellipse,rgba(124,92,255,0.10),transparent_70%)] blur-[100px] pointer-events-none" />
 
             <div className={`relative z-10 max-w-6xl mx-auto px-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
@@ -133,7 +133,7 @@ export function BentoSection() {
                         <Zap className="w-3.5 h-3.5 text-violet-500" />
                         <span className="text-[13px] text-slate-500 font-medium">Why PayaGo</span>
                     </div>
-                    <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 tracking-[-0.03em] mb-4">
+                    <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 tracking-[-0.03em] mb-4">
                         Four problems.{" "}
                         <span className="bg-gradient-to-r from-violet-500 to-cyan-500 bg-clip-text text-transparent">
                             One app.
@@ -147,33 +147,36 @@ export function BentoSection() {
                 {/* Bento Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-                    {/* ── Large: 30-second itinerary ── */}
-                    <div className="md:col-span-2 relative border-2 border-cyan-200 rounded-3xl overflow-hidden group hover:border-cyan-400 hover:shadow-xl hover:shadow-cyan-100/60 transition-all duration-700 min-h-[320px] flex flex-col" style={{ background: "linear-gradient(145deg, #e0f9ff 0%, #f0fdff 40%, white 100%)" }}>
-                        {/* Colored header strip */}
-                        <div className="px-8 pt-7 pb-5" style={{ background: "linear-gradient(135deg, #00D4FF22 0%, #00D4FF08 100%)" }}>
-                            <div className="flex items-center gap-2.5">
-                                <div className="w-9 h-9 rounded-xl bg-cyan-500 flex items-center justify-center shadow-md shadow-cyan-500/30">
-                                    <Sparkles className="w-4 h-4 text-white" />
-                                </div>
-                                <div>
-                                    <div className="text-cyan-700 text-xs font-bold uppercase tracking-widest">AI-Powered Planning</div>
-                                    <div className="flex items-center gap-1.5 mt-0.5">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                                        <span className="text-cyan-500 text-[11px] font-mono">AI generating itinerary...</span>
+                    {/* ── Large: 30-second itinerary — HERO CARD ── */}
+                    <div className="md:col-span-2 relative border-2 border-cyan-300 rounded-3xl overflow-hidden group hover:-translate-y-1 hover:shadow-2xl hover:shadow-cyan-200/60 transition-all duration-500 min-h-[320px] flex flex-col" style={{ background: "linear-gradient(145deg, #ddf6ff 0%, #edfbff 35%, white 100%)" }}>
+                        {/* Dominant header */}
+                        <div className="px-7 pt-7 pb-5" style={{ background: "linear-gradient(135deg, #00D4FF28 0%, #00D4FF0A 100%)" }}>
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-xl bg-cyan-500 flex items-center justify-center shadow-lg shadow-cyan-500/40">
+                                        <Sparkles className="w-5 h-5 text-white" />
                                     </div>
+                                    <div>
+                                        <div className="text-cyan-700 text-xs font-black uppercase tracking-widest">Core Feature</div>
+                                        <div className="text-slate-900 font-bold text-base">AI Itinerary Generation</div>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-cyan-500 shadow-md shadow-cyan-500/30">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                                    <span className="text-white text-[10px] font-bold uppercase tracking-wider">Live</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="px-8 pb-8 flex-1 flex flex-col">
+                        <div className="px-7 pb-7 flex-1 flex flex-col">
                             <div className="flex-1">
                                 <ItineraryPreview />
                             </div>
 
                             <div className="mt-6 flex items-end justify-between">
                                 <div>
-                                    <div className="text-4xl font-black text-slate-900 tracking-tight">30 seconds</div>
-                                    <div className="text-cyan-600 text-sm mt-0.5 font-medium">from one sentence to a full 7-day plan</div>
+                                    <div className="text-5xl font-black text-slate-900 tracking-tight leading-none">30s</div>
+                                    <div className="text-cyan-600 text-sm mt-1.5 font-semibold">from one sentence to a full 7-day plan</div>
                                 </div>
                                 <div className="text-cyan-100 text-7xl font-black select-none leading-none">AI</div>
                             </div>
@@ -181,7 +184,7 @@ export function BentoSection() {
                     </div>
 
                     {/* ── Tall: Group voting ── */}
-                    <div className="md:row-span-2 relative border-2 border-violet-200 rounded-3xl overflow-hidden group hover:border-violet-400 hover:shadow-xl hover:shadow-violet-100/60 transition-all duration-700 flex flex-col" style={{ background: "linear-gradient(145deg, #ede9ff 0%, #f5f3ff 40%, white 100%)" }}>
+                    <div className="md:row-span-2 relative border-2 border-violet-200 rounded-3xl overflow-hidden group hover:-translate-y-1 hover:shadow-xl hover:shadow-violet-100/50 transition-all duration-500 flex flex-col" style={{ background: "linear-gradient(145deg, #ede9ff 0%, #f5f3ff 40%, white 100%)" }}>
                         {/* Colored header */}
                         <div className="px-7 pt-7 pb-5" style={{ background: "linear-gradient(135deg, #7C5CFF22 0%, #7C5CFF08 100%)" }}>
                             <div className="w-10 h-10 rounded-2xl bg-violet-500 flex items-center justify-center mb-4 shadow-md shadow-violet-500/30">
@@ -207,7 +210,7 @@ export function BentoSection() {
                     </div>
 
                     {/* ── Bottom row left: Free forever ── */}
-                    <div className="relative border-2 border-amber-200 rounded-3xl overflow-hidden group hover:border-amber-400 hover:shadow-xl hover:shadow-amber-100/60 transition-all duration-700" style={{ background: "linear-gradient(145deg, #fef9ec 0%, #fffbf0 40%, white 100%)" }}>
+                    <div className="relative border-2 border-amber-200 rounded-3xl overflow-hidden group hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-100/50 transition-all duration-500" style={{ background: "linear-gradient(145deg, #fef9ec 0%, #fffbf0 40%, white 100%)" }}>
                         {/* Colored header strip */}
                         <div className="px-7 pt-7 pb-5" style={{ background: "linear-gradient(135deg, #C9A96222 0%, #C9A96208 100%)" }}>
                             <div className="w-10 h-10 rounded-2xl bg-[#C9A962] flex items-center justify-center mb-4 shadow-md shadow-amber-400/30">
@@ -233,7 +236,7 @@ export function BentoSection() {
                     </div>
 
                     {/* ── Bottom row right: Voice input ── */}
-                    <div className="relative border-2 border-rose-200 rounded-3xl overflow-hidden group hover:border-rose-400 hover:shadow-xl hover:shadow-rose-100/60 transition-all duration-700" style={{ background: "linear-gradient(145deg, #fff1f2 0%, #fff5f5 40%, white 100%)" }}>
+                    <div className="relative border-2 border-rose-200 rounded-3xl overflow-hidden group hover:-translate-y-1 hover:shadow-xl hover:shadow-rose-100/50 transition-all duration-500" style={{ background: "linear-gradient(145deg, #fff1f2 0%, #fff5f5 40%, white 100%)" }}>
                         {/* Colored header strip */}
                         <div className="px-7 pt-7 pb-5" style={{ background: "linear-gradient(135deg, #f43f5e22 0%, #f43f5e08 100%)" }}>
                             <div className="w-10 h-10 rounded-2xl bg-rose-500 flex items-center justify-center mb-4 shadow-md shadow-rose-500/30">
