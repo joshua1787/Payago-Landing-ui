@@ -28,7 +28,7 @@ const PHRASES = [
     { text: "Books Automatically", dot: "#C9A962" },
     { text: "Real-time Collaboration", dot: "#00D4FF" },
     { text: "50+ Destinations", dot: "#4AD7A2" },
-    { text: "Launching April 2026", dot: "#7C5CFF" },
+    { text: "Free for Travellers", dot: "#7C5CFF" },
     { text: "Zero Chaos", dot: "#C9A962" },
 ]
 

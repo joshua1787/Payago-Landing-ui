@@ -3,54 +3,12 @@
 import { useState, useRef, useEffect } from "react"
 import { Check, Shield, Sparkles, ArrowRight, Zap, Lock, Users } from "lucide-react"
 
-const LAUNCH_DATE = new Date("2026-04-01T00:00:00Z")
-
-function useCountdown() {
-    const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
-
-    useEffect(() => {
-        const tick = () => {
-            const diff = LAUNCH_DATE.getTime() - Date.now()
-            if (diff <= 0) {
-                setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
-                return
-            }
-            setTimeLeft({
-                days: Math.floor(diff / 86400000),
-                hours: Math.floor((diff % 86400000) / 3600000),
-                minutes: Math.floor((diff % 3600000) / 60000),
-                seconds: Math.floor((diff % 60000) / 1000),
-            })
-        }
-        tick()
-        const id = setInterval(tick, 1000)
-        return () => clearInterval(id)
-    }, [])
-
-    return timeLeft
-}
-
-function CountdownUnit({ value, label }: { value: number; label: string }) {
-    return (
-        <div className="flex flex-col items-center gap-1">
-            <div className="relative w-16 h-16 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-white/[0.08] to-transparent" />
-                <span className="relative text-2xl font-bold text-white tabular-nums">
-                    {String(value).padStart(2, "0")}
-                </span>
-            </div>
-            <span className="text-[10px] uppercase tracking-widest text-white/40 font-medium">{label}</span>
-        </div>
-    )
-}
 
 export function CTASection() {
     const [email, setEmail] = useState("")
     const [status, setStatus] = useState<"idle" | "loading" | "success">("idle")
     const sectionRef = useRef<HTMLDivElement>(null)
     const [isVisible, setIsVisible] = useState(false)
-    const countdown = useCountdown()
-
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => { if (entries[0].isIntersecting) setIsVisible(true) },
@@ -105,16 +63,6 @@ export function CTASection() {
                     Be the first to experience AI-powered travel planning. Free early access — no credit card required.
                 </p>
 
-                {/* Countdown */}
-                <div className="flex items-center justify-center gap-3 mb-12">
-                    <CountdownUnit value={countdown.days} label="Days" />
-                    <span className="text-white/30 text-2xl font-light mb-5">:</span>
-                    <CountdownUnit value={countdown.hours} label="Hours" />
-                    <span className="text-white/30 text-2xl font-light mb-5">:</span>
-                    <CountdownUnit value={countdown.minutes} label="Mins" />
-                    <span className="text-white/30 text-2xl font-light mb-5">:</span>
-                    <CountdownUnit value={countdown.seconds} label="Secs" />
-                </div>
 
                 {/* Email form */}
                 {status === "success" ? (

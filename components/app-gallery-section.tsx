@@ -230,7 +230,7 @@ export function AppGallerySection() {
                 <div className="text-center mb-16">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#00D4FF]/10 border border-[#00D4FF]/20 mb-6">
                         <Zap className="w-4 h-4 text-[#00D4FF]" />
-                        <span className="text-sm font-medium text-[#00D4FF]">The app — launching April 2026</span>
+                        <span className="text-sm font-medium text-[#00D4FF]">The app — early access open</span>
                     </div>
                     <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 tracking-[-0.03em] mb-4">
                         Built for how groups{" "}

@@ -370,7 +370,7 @@ export function TripDemoWidget() {
                                 <div className="text-slate-900 font-semibold text-sm mb-0.5">
                                     Like what you see? The real app builds this from your voice in 30 seconds.
                                 </div>
-                                <div className="text-slate-400 text-xs">Launching April 2026 — free for travellers.</div>
+                                <div className="text-slate-400 text-xs">Free for travellers. No card required.</div>
                             </div>
                             <a
                                 href="#early-access"

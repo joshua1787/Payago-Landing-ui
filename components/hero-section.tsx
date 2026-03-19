@@ -275,7 +275,7 @@ export function HeroSection() {
               </span>
               <span className="text-[12px] text-slate-500 font-medium tracking-wide uppercase">AI Travel Planning</span>
               <span className="w-[1px] h-3 bg-slate-300" />
-              <span className="text-[12px] bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent font-semibold tracking-wide">Launching April 2026</span>
+              <span className="text-[12px] bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent font-semibold tracking-wide">Early Access Open</span>
             </div>
 
             {/* Headline */}

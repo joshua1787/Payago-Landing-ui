@@ -264,7 +264,7 @@ export function BentoSection() {
                     {[
                         { value: "50+", label: "Destinations at launch", icon: Globe, color: "#00D4FF", bg: "#e0f9ff", border: "#bae6fd" },
                         { value: "2–20", label: "Group size supported", icon: Users, color: "#7C5CFF", bg: "#ede9ff", border: "#c4b5fd" },
-                        { value: "Apr 2026", label: "Public launch date", icon: Zap, color: "#059669", bg: "#d1fae5", border: "#6ee7b7" },
+                        
                     ].map((s) => (
                         <div key={s.label} className="flex items-center gap-4 rounded-2xl px-5 py-4 border-2 transition-all duration-300 hover:shadow-md hover:scale-[1.02]" style={{ background: s.bg, borderColor: s.border }}>
                             <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: s.color + "25" }}>
