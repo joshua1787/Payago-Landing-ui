@@ -19,11 +19,11 @@ export function Navbar() {
             <div className="max-w-7xl mx-auto px-6">
                 <div className="flex items-center justify-between h-20">
                     {/* Logo — crop out white padding from image */}
-                    <Link href="/" className="overflow-hidden flex-shrink-0" style={{ width: '148px', height: '32px' }}>
+                    <Link href="/" className="overflow-hidden flex-shrink-0" style={{ width: '210px', height: '40px' }}>
                         <img
                             src="/payago-logo-new.png"
                             alt="PayaGo"
-                            style={{ width: '300px', maxWidth: 'none', marginTop: '-77px', marginLeft: '-52px' }}
+                            style={{ width: '300px', maxWidth: 'none', marginTop: '-80px', marginLeft: '-50px' }}
                         />
                     </Link>
 
