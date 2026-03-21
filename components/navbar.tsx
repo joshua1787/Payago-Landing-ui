@@ -18,9 +18,13 @@ export function Navbar() {
         <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${scrolled ? 'bg-[#FAFAF8]/90 backdrop-blur-2xl border-b border-slate-200 shadow-sm' : 'bg-transparent'}`}>
             <div className="max-w-7xl mx-auto px-6">
                 <div className="flex items-center justify-between h-20">
-                    {/* Logo */}
-                    <Link href="/" className="-ml-3">
-                        <img src="/payago-logo-new.png" alt="PayaGo" className="h-14 w-auto object-contain" />
+                    {/* Logo — crop out white padding from image */}
+                    <Link href="/" className="overflow-hidden flex-shrink-0" style={{ width: '168px', height: '38px' }}>
+                        <img
+                            src="/payago-logo-new.png"
+                            alt="PayaGo"
+                            style={{ width: '440px', maxWidth: 'none', marginTop: '-120px', marginLeft: '-132px' }}
+                        />
                     </Link>
 
                     {/* Desktop Navigation */}

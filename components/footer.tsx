@@ -39,8 +39,8 @@ export function Footer() {
 
           {/* Brand */}
           <div className="col-span-2">
-            <Link href="/" className="-ml-3 inline-block mb-6">
-              <img src="/payago-logo-new.png" alt="PayaGo" className="h-12 w-auto object-contain" />
+            <Link href="/" className="overflow-hidden inline-block mb-6" style={{ width: '152px', height: '34px' }}>
+              <img src="/payago-logo-new.png" alt="PayaGo" style={{ width: '400px', maxWidth: 'none', marginTop: '-109px', marginLeft: '-120px' }} />
             </Link>
             <p className="text-slate-400 text-[13px] mb-6 max-w-xs leading-[1.7]">
               The world&apos;s first AI travel planning platform. One sentence to a fully booked group trip.
