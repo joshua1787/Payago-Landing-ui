@@ -78,7 +78,7 @@ export default function BlogPost() {
             <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <div className="flex items-center gap-2"><div className="relative w-7 h-7 flex-shrink-0"><div className="absolute inset-0 rounded-full bg-[#0f1b2d] ring-2 ring-[#00D4FF]" /><svg viewBox="0 0 32 32" className="absolute inset-0 w-full h-full" fill="none"><polygon points="16,8 20,16 16,13 12,16" fill="#00D4FF" opacity="0.9"/><polygon points="16,24 12,16 16,19 20,16" fill="#ffffff" opacity="0.5"/></svg></div><span className="text-[#0f1b2d] font-black text-lg tracking-[0.1em] uppercase" style={{ fontFamily: 'var(--font-michroma), sans-serif' }}>PayaGo</span></div>
+                        <img src="/payago-logo-new.png" alt="PayaGo" className="h-10 w-auto object-contain -ml-2" />
                         
                     </Link>
                     <Link href="/blog" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">

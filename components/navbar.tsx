@@ -19,19 +19,8 @@ export function Navbar() {
             <div className="max-w-7xl mx-auto px-6">
                 <div className="flex items-center justify-between h-20">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2 group">
-                        {/* Compass badge */}
-                        <div className="relative w-8 h-8 flex-shrink-0">
-                            <div className="absolute inset-0 rounded-full bg-[#0f1b2d] ring-2 ring-[#00D4FF] shadow-sm group-hover:ring-[#00D4FF]/80 transition-all duration-300" />
-                            <svg viewBox="0 0 32 32" className="absolute inset-0 w-full h-full" fill="none">
-                                <polygon points="16,8 20,16 16,13 12,16" fill="#00D4FF" opacity="0.9"/>
-                                <polygon points="16,24 12,16 16,19 20,16" fill="#ffffff" opacity="0.5"/>
-                            </svg>
-                        </div>
-                        {/* Wordmark */}
-                        <span className="text-[#0f1b2d] font-black text-xl tracking-[0.12em] uppercase" style={{ fontFamily: 'var(--font-michroma), sans-serif', letterSpacing: '0.1em' }}>
-                            PayaGo
-                        </span>
+                    <Link href="/" className="-ml-3">
+                        <img src="/payago-logo-new.png" alt="PayaGo" className="h-14 w-auto object-contain" />
                     </Link>
 
                     {/* Desktop Navigation */}

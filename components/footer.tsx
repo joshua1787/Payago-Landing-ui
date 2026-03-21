@@ -39,17 +39,8 @@ export function Footer() {
 
           {/* Brand */}
           <div className="col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-6 group">
-              <div className="relative w-8 h-8 flex-shrink-0">
-                <div className="absolute inset-0 rounded-full bg-[#0f1b2d] ring-2 ring-[#00D4FF] shadow-sm" />
-                <svg viewBox="0 0 32 32" className="absolute inset-0 w-full h-full" fill="none">
-                  <polygon points="16,8 20,16 16,13 12,16" fill="#00D4FF" opacity="0.9"/>
-                  <polygon points="16,24 12,16 16,19 20,16" fill="#ffffff" opacity="0.5"/>
-                </svg>
-              </div>
-              <span className="text-[#0f1b2d] font-black text-xl tracking-[0.1em] uppercase" style={{ fontFamily: 'var(--font-michroma), sans-serif' }}>
-                PayaGo
-              </span>
+            <Link href="/" className="-ml-3 inline-block mb-6">
+              <img src="/payago-logo-new.png" alt="PayaGo" className="h-12 w-auto object-contain" />
             </Link>
             <p className="text-slate-400 text-[13px] mb-6 max-w-xs leading-[1.7]">
               The world&apos;s first AI travel planning platform. One sentence to a fully booked group trip.
