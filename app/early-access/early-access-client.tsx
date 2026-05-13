@@ -1,7 +1,6 @@
 "use client"
 
-import { useMemo, useState, type FormEvent } from "react"
-import { useSearchParams } from "next/navigation"
+import { useEffect, useMemo, useState, type FormEvent } from "react"
 
 const WAITLIST_ENDPOINT = process.env.NEXT_PUBLIC_WAITLIST_ENDPOINT?.trim()
 const FALLBACK_EMAIL = "support@payago.in"
@@ -48,6 +47,26 @@ const BENEFITS = [
   },
 ]
 
+function sanitizeCampaign(value: string) {
+  return value.toLowerCase().trim().replace(/[^a-z0-9-]/g, "").slice(0, 64)
+}
+
+function readCampaignFromLocation() {
+  if (typeof window === "undefined") return ""
+
+  try {
+    return sanitizeCampaign(new URL(window.location.href).searchParams.get("c") ?? "")
+  } catch {
+    return ""
+  }
+}
+
+function getCampaignLabel(campaign: string) {
+  return campaign
+    ? CAMPAIGN_LABELS[campaign] ?? campaign.replace(/-/g, " ")
+    : "QR invite"
+}
+
 function buildMailto(email: string) {
   const subject = encodeURIComponent("PayaGo early access")
   const body = encodeURIComponent(
@@ -86,18 +105,15 @@ async function isAcceptedResponse(response: Response) {
 }
 
 export function EarlyAccessClient() {
-  const params = useSearchParams()
-  const rawCampaign = (params?.get("c") ?? "").toLowerCase().trim()
-  const safeCampaign = rawCampaign.replace(/[^a-z0-9-]/g, "").slice(0, 64)
-  const campaignLabel = useMemo(
-    () => (safeCampaign ? CAMPAIGN_LABELS[safeCampaign] ?? safeCampaign.replace(/-/g, " ") : "QR invite"),
-    [safeCampaign],
-  )
-  const source = safeCampaign ? `qr-${safeCampaign}` : "qr-general"
-
+  const [campaign, setCampaign] = useState("")
   const [email, setEmail] = useState("")
   const [status, setStatus] = useState<Status>("idle")
   const [feedback, setFeedback] = useState("")
+  const campaignLabel = useMemo(() => getCampaignLabel(campaign), [campaign])
+
+  useEffect(() => {
+    setCampaign(readCampaignFromLocation())
+  }, [])
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -125,6 +141,9 @@ export function EarlyAccessClient() {
     }
 
     try {
+      const activeCampaign = campaign || readCampaignFromLocation()
+      const source = activeCampaign ? `qr-${activeCampaign}` : "qr-general"
+
       const res = await fetch(waitlistEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -261,6 +280,13 @@ export function EarlyAccessClient() {
       </footer>
 
       <style jsx>{`
+        .ea,
+        .ea *,
+        .ea *::before,
+        .ea *::after {
+          box-sizing: border-box;
+        }
+
         .ea {
           --ea-ink: #0a1624;
           --ea-muted: #536174;
@@ -272,8 +298,12 @@ export function EarlyAccessClient() {
           --ea-teal: #00a6a6;
           --ea-coral: #ff7a59;
           --ea-gold: #c9902f;
+          width: 100%;
+          max-width: 100vw;
           min-height: 100svh;
+          min-height: 100dvh;
           overflow-x: hidden;
+          overflow-x: clip;
           position: relative;
           padding: 28px;
           background:
@@ -299,7 +329,9 @@ export function EarlyAccessClient() {
         .ea__shell {
           position: relative;
           z-index: 1;
-          width: min(1120px, 100%);
+          width: min(1120px, calc(100vw - 56px));
+          max-width: 100%;
+          overflow: hidden;
           min-height: calc(100svh - 112px);
           margin: 0 auto;
           padding: 24px;
@@ -324,6 +356,7 @@ export function EarlyAccessClient() {
           gap: 10px;
           color: var(--ea-ink);
           text-decoration: none;
+          min-width: 0;
           font-size: 1.08rem;
           font-weight: 900;
           letter-spacing: -0.04em;
@@ -357,9 +390,10 @@ export function EarlyAccessClient() {
 
         .ea__grid {
           display: grid;
-          grid-template-columns: minmax(0, 1.04fr) minmax(360px, 0.76fr);
+          grid-template-columns: minmax(0, 1.04fr) minmax(300px, 0.76fr);
           gap: 30px;
           align-items: stretch;
+          min-width: 0;
         }
 
         .ea__hero,
@@ -369,6 +403,8 @@ export function EarlyAccessClient() {
           border-radius: 30px;
           background: rgba(255, 255, 255, 0.72);
           box-shadow: 0 18px 60px rgba(10, 22, 36, 0.1);
+          min-width: 0;
+          overflow: hidden;
         }
 
         .ea__hero {
@@ -405,6 +441,7 @@ export function EarlyAccessClient() {
           font-weight: 900;
           letter-spacing: -0.08em;
           line-height: 0.9;
+          text-wrap: balance;
         }
 
         .ea__lead {
@@ -413,6 +450,7 @@ export function EarlyAccessClient() {
           color: var(--ea-muted);
           font-size: clamp(1.04rem, 1.7vw, 1.25rem);
           line-height: 1.62;
+          text-wrap: pretty;
         }
 
         .ea__lead strong {
@@ -713,7 +751,8 @@ export function EarlyAccessClient() {
         .ea__footer {
           position: relative;
           z-index: 1;
-          width: min(1120px, 100%);
+          width: min(1120px, calc(100vw - 56px));
+          max-width: 100%;
           margin: 16px auto 0;
           display: flex;
           justify-content: center;
@@ -724,21 +763,43 @@ export function EarlyAccessClient() {
 
         @media (max-width: 860px) {
           .ea {
+            width: 100vw;
+            max-width: 100vw;
             padding: 14px;
           }
 
           .ea__shell {
+            width: calc(100vw - 28px);
+            max-width: calc(100vw - 28px);
             min-height: auto;
             padding: 16px;
             border-radius: 28px;
+            overflow: hidden;
           }
 
           .ea__nav {
+            display: grid;
+            grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+            align-items: center;
             margin-bottom: 26px;
+            min-width: 0;
           }
 
           .ea__grid {
-            grid-template-columns: 1fr;
+            display: flex;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            flex-direction: column;
+            gap: 18px;
+          }
+
+          .ea__hero,
+          .ea__pass,
+          .ea__success {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
           }
 
           .ea__hero {
@@ -747,23 +808,39 @@ export function EarlyAccessClient() {
 
           .ea__hero h1,
           .ea__success h1 {
-            font-size: clamp(2.65rem, 16vw, 4.6rem);
+            max-width: 100%;
+            font-size: clamp(2.05rem, 9vw, 3rem);
+            letter-spacing: -0.055em;
+            line-height: 1;
+            overflow-wrap: break-word;
+          }
+
+          .ea__lead,
+          .ea__form,
+          .ea__privacy {
+            max-width: 100%;
+            min-width: 0;
           }
 
           .ea__form-row {
             grid-template-columns: 1fr;
           }
 
+          .ea__form input,
           .ea__form button {
             width: 100%;
           }
 
           .ea__pass {
             padding: 22px;
+            overflow-x: clip;
           }
 
           .ea__source {
-            max-width: 46vw;
+            justify-self: end;
+            min-width: 0;
+            max-width: 100%;
+            letter-spacing: 0.08em;
           }
 
           .ea__footer {
@@ -772,22 +849,150 @@ export function EarlyAccessClient() {
         }
 
         @media (max-width: 440px) {
+          .ea {
+            width: 100vw;
+            max-width: 100vw;
+            padding: 10px;
+          }
+
+          .ea__shell {
+            width: calc(100vw - 20px);
+            max-width: calc(100vw - 20px);
+            padding: 10px;
+          }
+
           .ea__nav {
+            grid-template-columns: 1fr;
             align-items: flex-start;
+            gap: 8px;
+          }
+
+          .ea__brand {
+            flex-shrink: 0;
+            font-size: 1rem;
           }
 
           .ea__source {
-            max-width: 42vw;
+            justify-self: start;
+            max-width: 100%;
             padding-inline: 10px;
+            font-size: 0.66rem;
+          }
+
+          .ea__hero {
+            padding: 22px 18px;
+          }
+
+          .ea__hero h1,
+          .ea__success h1 {
+            font-size: clamp(1.86rem, 8.2vw, 2.28rem);
+            letter-spacing: -0.045em;
           }
 
           .ea__lead {
             font-size: 1rem;
+            line-height: 1.55;
+          }
+
+          .ea__eyebrow {
+            max-width: 100%;
+            overflow-wrap: anywhere;
+          }
+
+          .ea__form-row {
+            padding: 6px;
+            border-radius: 18px;
+          }
+
+          .ea__form input {
+            padding: 13px 12px;
+            font-size: 0.98rem;
+          }
+
+          .ea__form button {
+            padding: 13px 16px;
+          }
+
+          .ea__route {
+            grid-template-columns: auto minmax(28px, 1fr) auto;
+            gap: 8px;
+          }
+
+          .ea__route span {
+            font-size: clamp(1.8rem, 13vw, 2.7rem);
+          }
+
+          .ea__pass-top,
+          .ea__pass-footer {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 6px;
           }
 
           .ea__benefit {
             grid-template-columns: 36px 1fr;
             padding: 12px;
+          }
+        }
+      `}</style>
+      <style jsx global>{`
+        html,
+        body {
+          width: 100%;
+          max-width: 100%;
+          overflow-x: hidden;
+        }
+
+        @media (max-width: 640px) {
+          [role="region"][aria-label="Install PayaGo"] {
+            display: none !important;
+          }
+
+          [role="dialog"][aria-label="Cookie consent"],
+          [role="dialog"][aria-label="Cookie consent"] * {
+            box-sizing: border-box;
+          }
+
+          [role="dialog"][aria-label="Cookie consent"] {
+            padding: 8px !important;
+            z-index: 70 !important;
+          }
+
+          [role="dialog"][aria-label="Cookie consent"] > div {
+            width: 100% !important;
+            max-width: calc(100vw - 16px) !important;
+            padding: 10px !important;
+            border-radius: 16px !important;
+            gap: 8px !important;
+          }
+
+          [role="dialog"][aria-label="Cookie consent"] > div > div:first-child {
+            display: none !important;
+          }
+
+          [role="dialog"][aria-label="Cookie consent"] p {
+            font-size: 10.5px !important;
+            line-height: 1.3 !important;
+          }
+
+          [role="dialog"][aria-label="Cookie consent"] p:first-child {
+            margin-bottom: 2px !important;
+            font-size: 11.5px !important;
+          }
+
+          [role="dialog"][aria-label="Cookie consent"] > div > div:last-child {
+            display: grid !important;
+            width: 100% !important;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+            gap: 8px !important;
+          }
+
+          [role="dialog"][aria-label="Cookie consent"] button {
+            min-width: 0 !important;
+            padding: 8px 9px !important;
+            border-radius: 11px !important;
+            font-size: 11.5px !important;
+            white-space: nowrap !important;
           }
         }
       `}</style>
