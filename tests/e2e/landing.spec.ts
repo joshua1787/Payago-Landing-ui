@@ -109,7 +109,7 @@ test("pricing page loads the early-access plan", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Simple plans" })).toBeVisible()
 })
 
-test("secondary page conversion CTAs target the waitlist", async ({ page }) => {
+test("secondary page conversion CTAs target the early access page", async ({ page }) => {
   const ctas = [
     { path: "/pricing/", name: "Get Early Access" },
     { path: "/about/", name: "Get Early Access" },
@@ -130,7 +130,7 @@ test("secondary page conversion CTAs target the waitlist", async ({ page }) => {
     await page.goto(cta.path)
     await expect(page.getByRole("link", { name: cta.name }).last()).toHaveAttribute(
       "href",
-      "/#early-access",
+      "/early-access/",
     )
   }
 
