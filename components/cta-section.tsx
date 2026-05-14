@@ -5,6 +5,7 @@ import { Check, Shield, Sparkles, ArrowRight, Zap, Lock, Users } from "lucide-re
 
 import { captureEvent } from "@/lib/analytics"
 import { OptimizedPicture } from "@/components/optimized-picture"
+import { WAITLIST_EMAIL_ERROR, WAITLIST_EMAIL_INPUT_PATTERN, isValidWaitlistEmail } from "@/lib/waitlist-email"
 
 const WAITLIST_ENDPOINT = process.env.NEXT_PUBLIC_WAITLIST_ENDPOINT?.trim()
 const WAITLIST_FALLBACK_EMAIL = "support@payago.in"
@@ -57,6 +58,17 @@ export function CTASection() {
         const normalizedEmail = email.trim()
 
         if (!normalizedEmail) return
+
+        if (!isValidWaitlistEmail(normalizedEmail)) {
+            setStatus("error")
+            setFeedback(WAITLIST_EMAIL_ERROR)
+            captureEvent("waitlist_submit_fail", {
+                location: "early_access",
+                source: "landing_cta",
+                reason: "invalid_email_format",
+            })
+            return
+        }
 
         setStatus("loading")
         setFeedback("")
@@ -114,7 +126,7 @@ export function CTASection() {
             })
 
             if (!response.ok) {
-                throw new Error(`waitlist_endpoint_${response.status}`)
+                throw new Error(response.status === 400 ? "invalid_email_format" : `waitlist_endpoint_${response.status}`)
             }
 
             if (!(await isAcceptedResponse(response))) {
@@ -131,14 +143,15 @@ export function CTASection() {
             setStatus("success")
             setFeedback("Your early-access request was accepted. We'll be in touch.")
         } catch (error) {
+            const reason = error instanceof Error ? error.message : "unknown_error"
             captureEvent("waitlist_submit_fail", {
                 location: "early_access",
                 source: "landing_cta",
                 configured: true,
-                reason: error instanceof Error ? error.message : "unknown_error",
+                reason,
             })
             setStatus("error")
-            setFeedback(`We couldn't submit your email. Please try again, or email ${WAITLIST_FALLBACK_EMAIL}.`)
+            setFeedback(reason === "invalid_email_format" ? WAITLIST_EMAIL_ERROR : `We couldn't submit your email. Please try again, or email ${WAITLIST_FALLBACK_EMAIL}.`)
         }
     }
 
@@ -206,6 +219,8 @@ export function CTASection() {
                                 <input
                                     type="email"
                                     placeholder="Enter your email"
+                                    pattern={WAITLIST_EMAIL_INPUT_PATTERN}
+                                    title={WAITLIST_EMAIL_ERROR}
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     className="flex-1 bg-transparent px-5 py-3.5 text-slate-900 text-[15px] placeholder:text-slate-400 focus:outline-none"

@@ -20,6 +20,7 @@ import {
 } from "lucide-react"
 import { PayagoWordmark } from "@/components/payago-wordmark"
 import { captureEvent } from "@/lib/analytics"
+import { WAITLIST_EMAIL_ERROR, WAITLIST_EMAIL_INPUT_PATTERN, isValidWaitlistEmail } from "@/lib/waitlist-email"
 
 const WAITLIST_ENDPOINT = process.env.NEXT_PUBLIC_WAITLIST_ENDPOINT?.trim()
 const FALLBACK_EMAIL = "support@payago.in"
@@ -244,6 +245,8 @@ function ClaimForm({
             enterKeyHint="send"
             autoComplete="email"
             placeholder="you@example.com"
+            pattern={WAITLIST_EMAIL_INPUT_PATTERN}
+            title={WAITLIST_EMAIL_ERROR}
             value={email}
             onChange={(event) => onEmailChange(event.target.value)}
             required
@@ -294,6 +297,16 @@ export function EarlyAccessClient() {
 
     const activeCampaign = campaign || readCampaignFromLocation() || "universal-qr"
 
+    if (!isValidWaitlistEmail(normalized)) {
+      setStatus("error")
+      setFeedback(WAITLIST_EMAIL_ERROR)
+      captureEvent("golden_passport_submit_fail", {
+        campaign: activeCampaign,
+        reason: "invalid_email_format",
+      })
+      return
+    }
+
     setStatus("loading")
     setFeedback("")
     captureEvent("golden_passport_submit_attempt", {
@@ -336,7 +349,9 @@ export function EarlyAccessClient() {
         }),
       })
 
-      if (!res.ok) throw new Error(`status_${res.status}`)
+      if (!res.ok) {
+        throw new Error(res.status === 400 ? "invalid_email_format" : `status_${res.status}`)
+      }
       if (!(await isAcceptedResponse(res))) {
         throw new Error(`waitlist_endpoint_unconfirmed_${res.status}`)
       }
@@ -346,12 +361,13 @@ export function EarlyAccessClient() {
       captureEvent("golden_passport_submit_success", {
         campaign: activeCampaign,
       })
-    } catch {
+    } catch (error) {
       setStatus("error")
-      setFeedback(`We could not save your request. Try again, or email ${FALLBACK_EMAIL}.`)
+      const reason = error instanceof Error ? error.message : "request_failed"
+      setFeedback(reason === "invalid_email_format" ? WAITLIST_EMAIL_ERROR : `We could not save your request. Try again, or email ${FALLBACK_EMAIL}.`)
       captureEvent("golden_passport_submit_fail", {
         campaign: activeCampaign,
-        reason: "request_failed",
+        reason,
       })
     }
   }
