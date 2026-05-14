@@ -1,51 +1,16 @@
 import { expect, test } from "@playwright/test"
 
-test("hero CTA scrolls to the early-access form", async ({ page }) => {
+test("hero CTA opens the early-access page", async ({ page }) => {
   await page.goto("/")
 
   await page
     .getByRole("link", { name: "Join the PayaGo early-access waitlist" })
     .click()
 
-  await expect(page).toHaveURL(/#early-access$/)
-  await expect(page.locator("#early-access")).toBeInViewport()
-})
-
-test("waitlist form submits to the configured capture endpoint", async ({ page }) => {
-  const waitlistRequest: { payload: Record<string, unknown> | null } = { payload: null }
-
-  await page.route("**/*", async (route) => {
-    const request = route.request()
-    const postData = request.postData()
-
-    if (request.method() === "POST" && postData?.includes('"source":"landing_cta"')) {
-      waitlistRequest.payload = JSON.parse(postData) as Record<string, unknown>
-
-      await route.fulfill({
-        status: 202,
-        contentType: "application/json",
-        headers: {
-          "access-control-allow-origin": "*",
-        },
-        body: JSON.stringify({ ok: true }),
-      })
-      return
-    }
-
-    await route.continue()
-  })
-
-  await page.goto("/#early-access")
-
-  const earlyAccess = page.locator("#early-access")
-  await earlyAccess.getByPlaceholder("Enter your email").fill("traveller@example.com")
-  await earlyAccess.getByRole("button", { name: "Get Early Access" }).click()
-
-  await expect(earlyAccess.getByRole("status")).toContainText(
-    "Your early-access request was accepted",
-  )
-  expect(waitlistRequest.payload?.email).toBe("traveller@example.com")
-  expect(waitlistRequest.payload?.source).toBe("landing_cta")
+  await expect(page).toHaveURL(/\/early-access\/$/)
+  await expect(
+    page.getByRole("heading", { name: /welcome to the payago golden passport club/i }),
+  ).toBeVisible()
 })
 
 test("golden passport claim submits to the configured waitlist endpoint", async ({ page }) => {
