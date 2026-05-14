@@ -6,27 +6,27 @@ import { ChevronDown } from "lucide-react"
 const faqs = [
     {
         question: "What is PayaGo?",
-        answer: "PayaGo is a digital wallet platform that allows you to create shared wallets with friends, family, or colleagues. Each member gets a virtual card, and when anyone pays, the bill is automatically split according to your chosen ratio. No more chasing people for money or awkward money conversations.",
+        answer: "PayaGo is an AI group travel planner. You describe the trip, PayaGo turns it into itinerary options, your group votes, and the app helps coordinate booking and each traveller's share.",
     },
     {
-        question: "How does the auto-split work?",
-        answer: "When any group member uses their PayaGo virtual card to make a payment, our system automatically splits the bill according to the ratio you've set. For example, if you have a 50/50 split with a friend and you pay £100 for dinner, you'll be charged £50 and they'll be charged £50 — instantly and automatically.",
+        question: "How does the AI planning work?",
+        answer: "PayaGo reads your destination, dates, budget, group size, and travel style from a natural-language prompt. It then assembles trip options with flights, stays, activities, and a day-by-day plan that the group can review and edit.",
     },
     {
-        question: "Do I need to pre-load money onto the card?",
-        answer: "No! PayaGo connects directly to your existing bank account. When you make a payment, only your share is withdrawn from your account. You don't need to top up or pre-load anything. It's seamless and instant.",
+        question: "Can friends vote without downloading the app?",
+        answer: "The product is designed around shareable trip links, so friends can review options and vote from a browser. App-only features can be kept for deeper collaboration, cost coordination, and trip documents.",
     },
     {
-        question: "Is my money safe?",
-        answer: "Absolutely. We partner with FCA-regulated institutions and use PCI-DSS Level 1 security — the same standard used by major banks. Your bank details are encrypted and tokenized. No one, not even group members, can access your account information.",
+        question: "Does PayaGo complete bookings for me?",
+        answer: "PayaGo helps move a group from plan to booking, but final prices, availability, payment, and confirmation are handled through supported providers. Travellers should review the final provider details before confirming.",
     },
     {
-        question: "Can I change the split ratio after payment?",
-        answer: "Yes! You can adjust split ratios at any time, even after a payment has been made. This is perfect for situations where you need to reimburse someone or adjust for a one-off expense. All changes are logged and visible to all group members.",
+        question: "How does split-cost coordination work?",
+        answer: "PayaGo is designed to estimate each traveller's share and keep contribution next steps clear, so one organiser does not have to manage the whole trip manually. Exact payment methods and provider availability can vary by launch market.",
     },
     {
-        question: "Where can I use my PayaGo card?",
-        answer: "Anywhere that accepts Visa or Mastercard — which is essentially everywhere. Use it for restaurants, online shopping, travel bookings, utility bills, and more. The virtual card works with Apple Pay and Google Pay for contactless payments.",
+        question: "Is PayaGo available now?",
+        answer: "PayaGo is presented as early access. Join the waitlist to be notified when the app is available and when booking handoff features are opened in your region.",
     },
 ]
 
@@ -35,19 +35,19 @@ function FAQItem({ faq, index, isVisible }: { faq: typeof faqs[0]; index: number
 
     return (
         <div
-            className={`transition-all duration-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+            className={`transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] duration-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
             style={{ transitionDelay: `${index * 100}ms` }}
         >
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full flex items-center justify-between p-6 bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-white/10 rounded-2xl transition-all duration-300"
+                className="w-full flex items-center justify-between p-6 bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-white/10 rounded-2xl transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] duration-300"
             >
                 <span className="text-left text-lg font-medium text-white pr-4">{faq.question}</span>
                 <ChevronDown className={`w-5 h-5 text-[#C9A962] flex-shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
             </button>
 
             <div
-                className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+                className={`overflow-hidden transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] duration-300 ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
             >
                 <div className="px-6 py-4 text-white/60 leading-relaxed">
                     {faq.answer}
@@ -85,7 +85,7 @@ export function FAQSection() {
 
             <div className="relative z-10 max-w-3xl mx-auto px-6 lg:px-8">
                 {/* Section header */}
-                <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+                <div className={`text-center mb-16 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6">
                         <span className="text-sm font-medium text-white/60">Got Questions?</span>
                     </div>
@@ -105,7 +105,7 @@ export function FAQSection() {
                 </div>
 
                 {/* CTA */}
-                <div className={`text-center mt-12 transition-all duration-700 delay-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+                <div className={`text-center mt-12 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] duration-700 delay-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
                     <p className="text-white/40 mb-4">Still have questions?</p>
                     <a
                         href="mailto:support@payago.in"

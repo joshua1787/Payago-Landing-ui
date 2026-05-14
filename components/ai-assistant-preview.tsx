@@ -58,7 +58,7 @@ export function AiAssistantPreview() {
                   <button
                     key={index}
                     onClick={() => setSelectedPrompt(prompt)}
-                    className={`px-4 py-2 rounded-full text-sm border transition-all ${
+                    className={`px-4 py-2 rounded-full text-sm border transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] ${
                       selectedPrompt === prompt
                         ? "bg-accent/10 border-accent/30 text-accent"
                         : "bg-secondary/50 border-border/50 text-muted-foreground hover:border-accent/30"
@@ -73,7 +73,7 @@ export function AiAssistantPreview() {
 
           {/* Right - Chat Preview */}
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent rounded-3xl blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent rounded-3xl" />
             <div className="relative bg-card rounded-2xl border border-border/50 shadow-xl overflow-hidden">
               {/* Chat Header */}
               <div className="flex items-center gap-3 p-4 border-b border-border/50 bg-secondary/30">
@@ -81,7 +81,7 @@ export function AiAssistantPreview() {
                   <Sparkles className="w-5 h-5 text-accent" />
                 </div>
                 <div>
-                  <p className="font-medium text-foreground text-sm">Payogo Assistant</p>
+                  <p className="font-medium text-foreground text-sm">PayaGo Assistant</p>
                   <p className="text-xs text-muted-foreground">Always here to help</p>
                 </div>
               </div>

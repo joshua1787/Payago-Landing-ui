@@ -1,25 +1,41 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight, MapPin, Users, Clock, Star } from "lucide-react"
+import { PayagoWordmark } from "@/components/payago-wordmark"
+import { OptimizedPicture } from "@/components/optimized-picture"
+import { ArrowRight, MapPin, Users } from "lucide-react"
 
 export const metadata: Metadata = {
     title: "Group Travel Destinations — AI-Planned Trips to Top Cities",
-    description: "Complete group travel guides for Barcelona, Tokyo, Lisbon, Paris, Amsterdam and more. PayaGo AI builds a fully booked itinerary for any of these destinations in 30 seconds.",
+    description: "Complete group travel guides for Barcelona, Tokyo, Lisbon, Paris, Amsterdam and more. PayaGo AI builds ready-to-review itinerary plans for these destinations quickly.",
     openGraph: {
         title: "Group Travel Destinations — PayaGo AI Trip Planner",
-        description: "AI-planned group trips to the world's best destinations. Flights, hotels, activities — built in 30 seconds.",
+        description: "AI-planned group trips to the world's best destinations. Flights, hotels, activities — built quickly.",
         url: "https://www.payago.in/destinations",
         type: "website",
+        images: [
+            {
+                url: "https://www.payago.in/og/destinations.jpg",
+                width: 1200,
+                height: 630,
+                alt: "PayaGo AI Group Travel Planning",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Group trip destination guides",
+        description: "AI-ready city guides for groups planning UK, Europe, and long-haul escapes.",
+        images: ["https://www.payago.in/og/destinations.jpg"],
     },
     alternates: { canonical: "https://www.payago.in/destinations" },
 }
 
 const destinations = [
-    { slug: "barcelona", name: "Barcelona", country: "Spain", emoji: "🇪🇸", tagline: "Beach, Gaudí & nightlife", budget: "£285–520", bestFor: "Groups of 4–10", image: "/images/travel-santorini.png", rating: 9.4, tags: ["Beach", "Nightlife", "Culture", "Food"] },
-    { slug: "tokyo", name: "Tokyo", country: "Japan", emoji: "🇯🇵", tagline: "Street food, temples & neon", budget: "£620–980", bestFor: "Groups of 2–6", image: "/images/travel-tokyo.png", rating: 9.6, tags: ["Food", "Culture", "Tech", "Temples"] },
-    { slug: "lisbon", name: "Lisbon", country: "Portugal", emoji: "🇵🇹", tagline: "Best value in Western Europe", budget: "£290–650", bestFor: "Groups of 3–8", image: "/images/travel-friends.png", rating: 9.1, tags: ["Value", "Culture", "Food", "Scenic"] },
-    { slug: "paris", name: "Paris", country: "France", emoji: "🇫🇷", tagline: "Romance, art & gastronomy", budget: "£380–900", bestFor: "Couples & small groups", image: "/images/travel-santorini.png", rating: 9.2, tags: ["Romance", "Art", "Food", "Culture"] },
-    { slug: "amsterdam", name: "Amsterdam", country: "Netherlands", emoji: "🇳🇱", tagline: "Canals, bikes & world-class museums", budget: "£320–700", bestFor: "Groups of 3–8", image: "/images/travel-friends.png", rating: 8.8, tags: ["Culture", "Bikes", "Museums", "Canals"] },
+    { slug: "barcelona", name: "Barcelona", country: "Spain", emoji: "🇪🇸", tagline: "Beach, Gaudí & nightlife", budget: "£285–520", bestFor: "Groups of 4–10", image: "/images/travel-santorini.webp", signal: "Beach + nightlife fit", stayIdea: "Eixample or Gracia base", tags: ["Beach", "Nightlife", "Culture", "Food"] },
+    { slug: "tokyo", name: "Tokyo", country: "Japan", emoji: "🇯🇵", tagline: "Street food, temples & neon", budget: "£620–980", bestFor: "Groups of 2–6", image: "/images/travel-tokyo.webp", signal: "Food + culture signal", stayIdea: "Shinjuku or Shibuya base", tags: ["Food", "Culture", "Tech", "Temples"] },
+    { slug: "lisbon", name: "Lisbon", country: "Portugal", emoji: "🇵🇹", tagline: "Best value in Western Europe", budget: "£290–650", bestFor: "Groups of 3–8", image: "/images/travel-friends.webp", signal: "Value + scenery fit", stayIdea: "Alfama or Bairro Alto base", tags: ["Value", "Culture", "Food", "Scenic"] },
+    { slug: "paris", name: "Paris", country: "France", emoji: "🇫🇷", tagline: "Romance, art & gastronomy", budget: "£380–900", bestFor: "Couples & small groups", image: "/images/travel-santorini.webp", signal: "Art + dining signal", stayIdea: "Marais or Saint-Germain base", tags: ["Romance", "Art", "Food", "Culture"] },
+    { slug: "amsterdam", name: "Amsterdam", country: "Netherlands", emoji: "🇳🇱", tagline: "Canals, bikes & world-class museums", budget: "£320–700", bestFor: "Groups of 3–8", image: "/images/travel-friends.webp", signal: "Museums + canals fit", stayIdea: "Canal belt or De Pijp base", tags: ["Culture", "Bikes", "Museums", "Canals"] },
 ]
 
 const destinationSchema = {
@@ -41,10 +57,10 @@ export default function DestinationsHub() {
         <main className="min-h-screen bg-white">
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(destinationSchema) }} />
 
-            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="overflow-hidden inline-flex" style={{display:"inline-flex",width:"144px",height:"32px"}}><img src="/payago-logo-new.png" alt="PayaGo" style={{width:"380px",maxWidth:"none",marginTop:"-103px",marginLeft:"-114px"}} /></span>
+                        <PayagoWordmark />
                         
                     </Link>
                     <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors text-sm">← Home</Link>
@@ -53,8 +69,8 @@ export default function DestinationsHub() {
 
             <section className="relative py-24 overflow-hidden">
                 <div className="absolute inset-0">
-                    <div className="absolute top-1/2 left-1/4 w-[500px] h-[400px] bg-[#C9A962]/6 rounded-full blur-[200px]" />
-                    <div className="absolute top-1/2 right-1/4 w-[400px] h-[300px] bg-[#7C5CFF]/5 rounded-full blur-[200px]" />
+                    <div className="absolute top-1/2 left-1/4 w-[500px] h-[400px] bg-[#C9A962]/6 rounded-full" />
+                    <div className="absolute top-1/2 right-1/4 w-[400px] h-[300px] bg-[#7C5CFF]/5 rounded-full" />
                 </div>
                 <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C9A962]/10 border border-[#C9A962]/20 mb-8">
@@ -65,7 +81,7 @@ export default function DestinationsHub() {
                         Group Travel<br />Destination Guides
                     </h1>
                     <p className="text-xl text-slate-500 max-w-2xl mx-auto">
-                        Complete guides for the world's best group travel destinations — with real pricing, insider tips, and AI-generated itineraries ready in 30 seconds.
+                        Complete guides for the world's best group travel destinations — with sample budget ranges, insider tips, and AI-generated itineraries ready quickly.
                     </p>
                 </div>
             </section>
@@ -74,13 +90,19 @@ export default function DestinationsHub() {
                 <div className="max-w-6xl mx-auto px-6">
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {destinations.map((dest) => (
-                            <Link key={dest.slug} href={`/destinations/${dest.slug}`} className="group block bg-slate-50 border border-slate-100 rounded-2xl overflow-hidden hover:border-slate-200 hover:-translate-y-1 transition-all duration-300">
+                            <Link key={dest.slug} href={`/destinations/${dest.slug}`} className="group block bg-slate-50 border border-slate-100 rounded-2xl overflow-hidden hover:border-slate-200 hover:-translate-y-1 transition-[border-color,transform] duration-300">
                                 <div className="aspect-video bg-slate-100 overflow-hidden relative">
-                                    <img src={dest.image} alt={`Group travel in ${dest.name}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                    <OptimizedPicture
+                                        src={dest.image}
+                                        alt={`Group travel in ${dest.name}`}
+                                        className="contents"
+                                        imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        sizes="(min-width: 1200px) 33vw, (min-width: 768px) 50vw, 100vw"
+                                    />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                                    <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-black/50 backdrop-blur-sm rounded-lg px-2 py-1">
-                                        <Star className="w-3 h-3 text-[#C9A962]" />
-                                        <span className="text-slate-900 text-xs font-bold">{dest.rating}</span>
+                                    <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-black/70 rounded-lg px-2 py-1">
+                                        <MapPin className="w-3 h-3 text-[#C9A962]" />
+                                        <span className="text-white text-xs font-bold">{dest.signal}</span>
                                     </div>
                                     <div className="absolute top-3 right-3 text-2xl">{dest.emoji}</div>
                                 </div>
@@ -97,12 +119,17 @@ export default function DestinationsHub() {
                                             <span key={t} className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 border border-slate-100">{t}</span>
                                         ))}
                                     </div>
+                                    <div className="text-slate-400 text-xs mb-4">{dest.stayIdea}</div>
                                     <div className="flex items-center justify-between pt-3 border-t border-slate-100">
                                         <div>
                                             <div className="text-slate-900 font-semibold text-sm">{dest.budget}</div>
                                             <div className="text-slate-400 text-xs">per person</div>
                                         </div>
-                                        <div className="flex items-center gap-1 text-[#C9A962] text-sm font-medium group-hover:gap-2 transition-all">
+                                        <div className="hidden sm:flex items-center gap-1 text-slate-400 text-xs">
+                                            <Users className="w-3.5 h-3.5" />
+                                            {dest.bestFor}
+                                        </div>
+                                        <div className="flex items-center gap-1 text-[#C9A962] text-sm font-medium group-hover:gap-2 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left]">
                                             Plan this trip <ArrowRight className="w-4 h-4" />
                                         </div>
                                     </div>
@@ -116,9 +143,9 @@ export default function DestinationsHub() {
             <section className="py-16 border-t border-slate-100">
                 <div className="max-w-4xl mx-auto px-6 text-center">
                     <h2 className="text-3xl font-bold text-slate-900 mb-4">Don't see your destination?</h2>
-                    <p className="text-slate-500 mb-8">PayaGo AI can plan group trips to any destination in the world — just describe it and the AI builds the full itinerary in 30 seconds.</p>
+                    <p className="text-slate-500 mb-8">PayaGo AI can plan group trips to any destination in the world — just describe it and the AI builds the full itinerary quickly.</p>
                     <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
-                        Get Early Access — Free <ArrowRight className="w-4 h-4" />
+                        Get Early Access <ArrowRight className="w-4 h-4" />
                     </Link>
                 </div>
             </section>

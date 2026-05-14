@@ -5,12 +5,12 @@ import { Check } from "lucide-react"
 
 const plans = [
   {
-    name: "Free Trial",
-    price: "$0",
-    period: "14 days",
-    description: "Perfect for exploring Payogo",
-    features: ["3 AI-generated itineraries", "Basic trip planning", "Email support", "Mobile app access"],
-    cta: "Start Free Trial",
+    name: "Early Access",
+    price: "Waitlist",
+    period: "",
+    description: "Perfect for exploring PayaGo",
+    features: ["3 AI-generated itinerary options", "Basic trip planning", "Email support", "Early-access product updates"],
+    cta: "Join Waitlist",
     highlighted: false,
   },
   {
@@ -20,10 +20,10 @@ const plans = [
     description: "For frequent travelers",
     features: [
       "Unlimited itineraries",
-      "Real-time AI assistance",
-      "Priority booking access",
-      "Exclusive deals & discounts",
-      "24/7 priority support",
+      "AI planning assistance",
+      "Supported booking next steps",
+      "Provider terms review prompts",
+      "Priority support queue",
       "Trip collaboration",
     ],
     cta: "Get Started",
@@ -70,7 +70,7 @@ export function Pricing() {
             >
               {plan.highlighted && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-accent text-accent-foreground text-xs font-medium">
-                  Most Popular
+                  Early access plan
                 </div>
               )}
 

@@ -55,8 +55,8 @@ export function TripPlanner() {
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           {/* Left - Input Form (Holographic Panel) */}
           <div className="relative group animate-fade-up" style={{ animationDelay: "0.2s" }}>
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-accent via-accent-secondary to-accent opacity-30 blur-md rounded-2xl group-hover:opacity-50 transition-opacity" />
-            <div className="relative bg-[#0B1220]/90 backdrop-blur-xl rounded-2xl border border-white/10 p-8">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-accent via-accent-secondary to-accent opacity-30 rounded-2xl group-hover:opacity-50 transition-opacity" />
+            <div className="relative bg-[#0B1220] rounded-2xl border border-white/10 p-8">
               <div className="space-y-6">
                 {/* Destination */}
                 <div>
@@ -66,7 +66,7 @@ export function TripPlanner() {
                     <select
                       value={selectedDestination}
                       onChange={(e) => setSelectedDestination(e.target.value)}
-                      className="w-full bg-[#04060A]/50 border border-white/10 rounded-xl pl-12 pr-4 py-4 text-foreground appearance-none focus:outline-none focus:border-accent focus:shadow-[0_0_15px_rgba(0,212,255,0.3)] transition-all"
+                      className="w-full bg-[#04060A]/50 border border-white/10 rounded-xl pl-12 pr-4 py-4 text-foreground appearance-none focus:outline-none focus:border-accent focus:shadow-[0_0_15px_rgba(0,212,255,0.3)] transition-[border-color,box-shadow]"
                     >
                       {destinations.map((dest) => (
                         <option key={dest} value={dest} className="bg-[#0B1220]">
@@ -86,7 +86,7 @@ export function TripPlanner() {
                       type="text"
                       value={dates}
                       onChange={(e) => setDates(e.target.value)}
-                      className="w-full bg-[#04060A]/50 border border-white/10 rounded-xl pl-12 pr-4 py-4 text-foreground focus:outline-none focus:border-accent focus:shadow-[0_0_15px_rgba(0,212,255,0.3)] transition-all"
+                      className="w-full bg-[#04060A]/50 border border-white/10 rounded-xl pl-12 pr-4 py-4 text-foreground focus:outline-none focus:border-accent focus:shadow-[0_0_15px_rgba(0,212,255,0.3)] transition-[border-color,box-shadow]"
                       placeholder="Select dates"
                     />
                   </div>
@@ -99,7 +99,7 @@ export function TripPlanner() {
                     {[1, 2, 3, 4].map((num) => (
                       <button
                         key={num}
-                        className="flex-1 py-3 rounded-xl border border-white/10 bg-[#04060A]/30 text-sm font-medium hover:border-accent hover:bg-accent/10 hover:shadow-[0_0_10px_rgba(0,212,255,0.2)] transition-all focus:outline-none"
+                        className="flex-1 py-3 rounded-xl border border-white/10 bg-[#04060A]/30 text-sm font-medium hover:border-accent hover:bg-accent/10 hover:shadow-[0_0_10px_rgba(0,212,255,0.2)] transition-[background-color,border-color,box-shadow] focus:outline-none"
                       >
                         {num}
                       </button>
@@ -109,7 +109,7 @@ export function TripPlanner() {
 
                 <Button
                   onClick={handleGenerate}
-                  className="w-full bg-gradient-to-r from-accent to-accent-secondary text-[#04060A] font-bold h-14 text-base shadow-lg shadow-accent/20 hover:shadow-accent/40 hover:scale-[1.02] transition-all group border-0"
+                  className="w-full bg-gradient-to-r from-accent to-accent-secondary text-[#04060A] font-bold h-14 text-base shadow-lg shadow-accent/20 hover:shadow-accent/40 hover:scale-[1.02] transition-[box-shadow,transform] group border-0"
                 >
                   {isGenerating ? (
                     <span className="flex items-center gap-2">
@@ -132,14 +132,14 @@ export function TripPlanner() {
             {/* Scanner Line Animation */}
             <div className="absolute top-0 left-0 w-full h-[2px] bg-accent/50 shadow-[0_0_15px_#00D4FF] animate-pulse z-20 pointer-events-none opacity-50" style={{ animationDuration: '3s' }} />
 
-            <div className="bg-[#0B1220]/80 backdrop-blur-xl rounded-2xl border border-white/10 p-8 shadow-2xl relative overflow-hidden">
+            <div className="bg-[#0B1220] rounded-2xl border border-white/10 p-8 shadow-2xl relative overflow-hidden">
               <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/5">
                 <div>
                   <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
                     {selectedDestination}
-                    <span className="text-xs font-mono text-accent bg-accent/10 px-2 py-1 rounded border border-accent/20">CONFIRMED</span>
+                    <span className="text-xs font-mono text-accent bg-accent/10 px-2 py-1 rounded border border-accent/20">DRAFT</span>
                   </h3>
-                  <p className="text-sm text-muted-foreground mt-1 font-mono">ID: {isGenerating ? "GENERATING..." : "8X92-B7A1"}</p>
+                  <p className="text-sm text-muted-foreground mt-1 font-mono">ID: {isGenerating ? "GENERATING..." : "DRAFT-PLAN"}</p>
                 </div>
               </div>
 
@@ -152,7 +152,7 @@ export function TripPlanner() {
                     {/* Hover reveal gradient */}
                     <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
-                    <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center shrink-0 border border-accent/20 group-hover:shadow-[0_0_15px_rgba(0,212,255,0.2)] transition-all">
+                    <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center shrink-0 border border-accent/20 group-hover:shadow-[0_0_15px_rgba(0,212,255,0.2)] transition-shadow">
                       <item.icon className="w-5 h-5 text-accent" />
                     </div>
                     <div className="relative">

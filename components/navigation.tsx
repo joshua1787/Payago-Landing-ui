@@ -1,66 +1,66 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { PayagoWordmark } from "@/components/payago-wordmark"
 import { Menu, X } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { captureEvent } from "@/lib/analytics"
 
 export function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
 
   return (
     <nav
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        isScrolled ? "bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-sm" : "bg-transparent",
-      )}
+      className="fixed top-0 left-0 right-0 z-50 bg-background/95 border-b border-border/50 shadow-sm"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
-            <img src="/payago-symbol.png" alt="Payago" className="w-8 h-8 object-contain transition-transform group-hover:scale-105 rounded-lg" />
-            <span className="text-xl font-semibold tracking-tight text-foreground">Payago</span>
-          </a>
+          <Link href="/" className="flex items-center gap-2 group">
+            <PayagoWordmark />
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <a href="/#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Features
             </a>
             <a href="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Blog
             </a>
-            <a href="#planner" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <a href="/#planner" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Trip Planner
             </a>
-            <a href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <a href="/#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Pricing
             </a>
-            <a href="#contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <a href="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Contact
             </a>
           </div>
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-3">
-            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-              Sign In
+            <Button asChild variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+              <Link
+                href="/contact"
+                onClick={() => captureEvent("cta_click", { location: "navigation_desktop", label: "contact" })}
+              >
+                Contact
+              </Link>
             </Button>
             <Button
+              asChild
               size="sm"
               className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20"
             >
-              Get Early Access
+              <Link
+                href="/#early-access"
+                onClick={() => captureEvent("cta_click", { location: "navigation_desktop", label: "get_early_access" })}
+              >
+                Get Early Access
+              </Link>
             </Button>
           </div>
 
@@ -74,27 +74,37 @@ export function Navigation() {
         {isMobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-border/50">
             <div className="flex flex-col gap-4">
-              <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <a href="/#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Features
               </a>
               <a href="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Blog
               </a>
-              <a href="#planner" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <a href="/#planner" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Trip Planner
               </a>
-              <a href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <a href="/#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Pricing
               </a>
-              <a href="#contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <a href="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Contact
               </a>
               <div className="flex flex-col gap-2 pt-4 border-t border-border/50">
-                <Button variant="ghost" size="sm" className="justify-start">
-                  Sign In
+                <Button asChild variant="ghost" size="sm" className="justify-start">
+                  <Link
+                    href="/contact"
+                    onClick={() => captureEvent("cta_click", { location: "navigation_mobile", label: "contact" })}
+                  >
+                    Contact
+                  </Link>
                 </Button>
-                <Button size="sm" className="bg-primary text-primary-foreground">
-                  Get Early Access
+                <Button asChild size="sm" className="bg-primary text-primary-foreground">
+                  <Link
+                    href="/#early-access"
+                    onClick={() => captureEvent("cta_click", { location: "navigation_mobile", label: "get_early_access" })}
+                  >
+                    Get Early Access
+                  </Link>
                 </Button>
               </div>
             </div>

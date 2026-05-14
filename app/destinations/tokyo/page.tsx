@@ -1,15 +1,31 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowLeft, MapPin, Star, Users, Calendar, ArrowRight, Check } from "lucide-react"
+import { PayagoWordmark } from "@/components/payago-wordmark"
+import { OptimizedPicture } from "@/components/optimized-picture"
+import { ArrowLeft, ArrowRight, Check } from "lucide-react"
 
 export const metadata: Metadata = {
     title: "Tokyo Group Travel Guide 2026 — 7-Day Itinerary, Costs & Tips",
-    description: "Complete group travel guide for Tokyo: 7-day itinerary, real costs (£620–980 per person), best neighbourhoods, transport tips, and where to eat. AI plans the full trip in 30 seconds.",
+    description: "Complete group travel guide for Tokyo: 7-day itinerary, example costs (£620–980 per person), best neighbourhoods, transport tips, and where to eat. AI plans the full trip quickly.",
     openGraph: {
         title: "Tokyo Group Travel Guide 2026 | PayaGo",
-        description: "7-day Tokyo group itinerary with real costs. Street food, temples, neon — AI-planned in 30 seconds.",
+        description: "7-day Tokyo group itinerary with budget ranges. Street food, temples, neon — AI-planned quickly.",
         url: "https://www.payago.in/destinations/tokyo",
         type: "article",
+        images: [
+            {
+                url: "https://www.payago.in/og/destinations-tokyo.jpg",
+                width: 1200,
+                height: 630,
+                alt: "PayaGo AI Group Travel Planning",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Tokyo group travel guide",
+        description: "Street food, temples, neon districts, and a 7-day group itinerary.",
+        images: ["https://www.payago.in/og/destinations-tokyo.jpg"],
     },
     alternates: { canonical: "https://www.payago.in/destinations/tokyo" },
 }
@@ -34,7 +50,7 @@ const itinerary = [
     { day: "Day 1", title: "Arrival & Shinjuku", activities: ["Land at Narita or Haneda — take Narita Express or Airport Limousine", "Check in — Shinjuku or Shibuya are best for groups", "Evening: Shinjuku neon lights & izakayas", "Golden Gai for drinks in tiny atmospheric bars", "Omoide Yokocho (Memory Lane) for yakitori"] },
     { day: "Day 2", title: "Asakusa & Temples", activities: ["Senso-ji Temple at 7am (before crowds)", "Nakamise shopping street for souvenirs", "Tsukiji Outer Market breakfast (tuna sashimi)", "TeamLab Borderless digital art museum (book ahead)", "Sumida River cruise at sunset", "Akihabara evening: electronics & anime"] },
     { day: "Day 3", title: "Shibuya & Harajuku", activities: ["Meiji Shrine morning walk through forest", "Harajuku: Takeshita Street & Omotesando", "Shibuya Crossing (best from Starbucks or Shibuya Sky)", "Lunch: conveyor belt sushi (kaiten-zushi)", "Daikanyama & Nakameguro canal walk", "Shibuya nightlife: clubs & rooftop bars"] },
-    { day: "Day 4", title: "Tsukiji & Ginza", activities: ["Morning cooking class in Tsukiji area", "Ginza luxury shopping & people watching", "Toyosu fish market (pre-booked tuna auction)", "Odaiba: Rainbow Bridge & teamLab Planets", "Onsen experience at Odaiba public baths", "Ramen for dinner in Shinjuku"] },
+    { day: "Day 4", title: "Tsukiji & Ginza", activities: ["Morning cooking class in Tsukiji area", "Ginza premium shopping & people watching", "Toyosu fish market (pre-booked tuna auction)", "Odaiba: Rainbow Bridge & teamLab Planets", "Onsen experience at Odaiba public baths", "Ramen for dinner in Shinjuku"] },
     { day: "Day 5", title: "Day Trip: Nikko or Kamakura", activities: ["Nikko: UNESCO shrines & waterfalls (2hr by train)", "OR Kamakura: Giant Buddha & temples (1hr by train)", "Packed bento lunch on the train", "Return by late afternoon", "Farewell group dinner: kaiseki or wagyu beef"] },
     { day: "Day 6", title: "Hidden Tokyo", activities: ["Yanaka neighbourhood: old Tokyo atmosphere", "Koenji for vintage clothing & indie cafes", "Shimokitazawa: bars, live music, antique shops", "Depachika (department store basement food halls)", "Shinjuku Omoide Yokocho final drinks"] },
     { day: "Day 7", title: "Departure", activities: ["Morning: last ramen or sushi breakfast", "Duty-free shopping at Narita or Haneda", "Take Narita Express — allow 90 minutes to airport", "Flight home with overstuffed suitcases"] },
@@ -45,10 +61,10 @@ export default function TokyoPage() {
         <main className="min-h-screen bg-white">
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
 
-            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="overflow-hidden inline-flex" style={{display:"inline-flex",width:"144px",height:"32px"}}><img src="/payago-logo-new.png" alt="PayaGo" style={{width:"380px",maxWidth:"none",marginTop:"-103px",marginLeft:"-114px"}} /></span>
+                        <PayagoWordmark />
                         
                     </Link>
                     <Link href="/destinations" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
@@ -58,7 +74,7 @@ export default function TokyoPage() {
             </header>
 
             <div className="relative h-72 overflow-hidden">
-                <img src="/images/travel-tokyo.png" alt="Tokyo skyline at night" className="w-full h-full object-cover" />
+                <OptimizedPicture src="/images/travel-tokyo.webp" alt="Tokyo skyline at night" imgClassName="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-[#04060A]" />
                 <div className="absolute bottom-8 left-0 right-0 max-w-4xl mx-auto px-6">
                     <div className="flex items-center gap-2 mb-2"><span className="text-3xl">🇯🇵</span><span className="text-slate-600 text-sm">Japan</span></div>
@@ -72,7 +88,7 @@ export default function TokyoPage() {
                         { label: "Best time", value: "Mar–May, Oct–Nov" },
                         { label: "Ideal group", value: "2–6 people" },
                         { label: "Budget/person", value: "£620–980" },
-                        { label: "Travel score", value: "9.6 / 10" },
+                        { label: "Group fit", value: "Food + culture" },
                     ].map((s) => (
                         <div key={s.label} className="bg-slate-50 border border-slate-100 rounded-xl p-4 text-center">
                             <div className="text-slate-900 font-bold text-lg">{s.value}</div>
@@ -109,7 +125,7 @@ export default function TokyoPage() {
                 <div className="grid md:grid-cols-2 gap-4 mb-12">
                     {[
                         { tip: "IC Card for transport", detail: "Load a Suica or Pasmo card at the airport. Tap in/out of every train and subway — no ticket queues." },
-                        { tip: "Book TeamLab 3 weeks ahead", detail: "TeamLab Borderless sells out completely. Book online the moment your dates are confirmed." },
+                        { tip: "Book TeamLab 3 weeks ahead", detail: "TeamLab Borderless peak slots can go quickly. Book online once your dates are confirmed." },
                         { tip: "Google Translate camera mode", detail: "Point your phone camera at any Japanese menu — instant translation. Essential for group ordering." },
                         { tip: "Cherry blossom timing", detail: "March–April is beautiful but the most crowded and expensive week of the year. Book 6 months ahead if you want this period." },
                         { tip: "Cash is still king", detail: "Many traditional restaurants are cash only. Use 7-Eleven or Japan Post ATMs — they reliably accept foreign cards." },
@@ -126,10 +142,10 @@ export default function TokyoPage() {
                 </div>
 
                 <div className="p-6 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20">
-                    <p className="text-slate-900 font-semibold mb-2">Plan your Tokyo group trip in 30 seconds</p>
-                    <p className="text-slate-600 text-sm mb-4">PayaGo AI builds a complete itinerary with live flight prices, hotels, and activities — free for travellers.</p>
+                    <p className="text-slate-900 font-semibold mb-2">Plan your Tokyo group trip quickly</p>
+                    <p className="text-slate-600 text-sm mb-4">PayaGo AI builds a ready-to-review itinerary with flight options, hotels, and activities. Join the early-access waitlist.</p>
                     <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
-                        Get Early Access — Free <ArrowRight className="w-4 h-4" />
+                        Get Early Access <ArrowRight className="w-4 h-4" />
                     </Link>
                 </div>
 
@@ -137,7 +153,7 @@ export default function TokyoPage() {
                     <h3 className="text-slate-500 text-sm font-semibold uppercase tracking-wider mb-4">More destinations</h3>
                     <div className="flex flex-wrap gap-3">
                         {["barcelona", "lisbon", "paris", "amsterdam"].map((slug) => (
-                            <Link key={slug} href={`/destinations/${slug}`} className="capitalize px-4 py-2 rounded-lg bg-slate-50 border border-slate-100 text-slate-600 hover:text-slate-900 hover:border-slate-200 transition-all text-sm">{slug}</Link>
+                            <Link key={slug} href={`/destinations/${slug}`} className="capitalize px-4 py-2 rounded-lg bg-slate-50 border border-slate-100 text-slate-600 hover:text-slate-900 hover:border-slate-200 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] text-sm">{slug}</Link>
                         ))}
                     </div>
                 </div>

@@ -1,24 +1,23 @@
 "use client"
 
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { Check, Loader2, Plane, Star } from "lucide-react"
+import { OptimizedPicture } from "@/components/optimized-picture"
+import { Check, ExternalLink, Hotel, Plane } from "lucide-react"
 import { useState } from "react"
 
 export function BookingModal({ isOpen, onClose, type = "hotel" }: { isOpen: boolean; onClose: () => void; type?: "hotel" | "flight" }) {
-    const [step, setStep] = useState<"details" | "payment" | "success">("details")
-    const [isProcessing, setIsProcessing] = useState(false)
+    const [step, setStep] = useState<"details" | "handoff" | "success">("details")
 
-    const handleBook = () => {
-        setStep("payment")
+    const sampleName = type === "hotel" ? "Tokyo hotel handoff preview" : "Tokyo flight handoff preview"
+    const sampleMeta = type === "hotel" ? "Sample stay idea • final availability on partner site" : "Sample flight idea • final fare on partner site"
+
+    const handleHandoff = () => {
+        setStep("handoff")
     }
 
-    const handlePay = () => {
-        setIsProcessing(true)
-        setTimeout(() => {
-            setIsProcessing(false)
-            setStep("success")
-        }, 2000)
+    const handleReady = () => {
+        setStep("success")
     }
 
     return (
@@ -28,16 +27,18 @@ export function BookingModal({ isOpen, onClose, type = "hotel" }: { isOpen: bool
                 {/* Header Image */}
                 {step !== "success" && (
                     <div className="h-32 bg-slate-100 relative">
-                        <img
+                        <OptimizedPicture
                             src={type === 'hotel' ? "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80" : "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80"}
-                            className="w-full h-full object-cover opacity-80"
+                            alt={type === 'hotel' ? "Sample hotel booking preview" : "Sample flight booking preview"}
+                            className="contents"
+                            imgClassName="w-full h-full object-cover opacity-80"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                         <div className="absolute bottom-4 left-6">
-                            <h2 className="text-2xl font-bold text-white">{type === 'hotel' ? 'Aman Tokyo' : 'Flight to Tokyo (NRT)'}</h2>
+                            <h2 className="text-2xl font-bold text-white">{sampleName}</h2>
                             <div className="flex items-center gap-2 text-sm text-white/80">
-                                {type === 'hotel' ? <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" /> : <Plane className="w-3 h-3" />}
-                                {type === 'hotel' ? '5.0 (Exceptional)' : 'Direct • 13h 45m'}
+                                {type === 'hotel' ? <Hotel className="w-3 h-3" /> : <Plane className="w-3 h-3" />}
+                                {sampleMeta}
                             </div>
                         </div>
                     </div>
@@ -59,66 +60,84 @@ export function BookingModal({ isOpen, onClose, type = "hotel" }: { isOpen: bool
 
                             <div className="border border-slate-200 rounded-lg p-4 space-y-3">
                                 <div className="flex justify-between text-slate-700">
-                                    <span>Total ({type === 'hotel' ? '5 nights' : 'Round trip'})</span>
+                                    <span>Example {type === 'hotel' ? 'stay' : 'round-trip'} estimate</span>
                                     <span>$3,200.00</span>
                                 </div>
                                 <div className="flex justify-between text-slate-400 text-sm">
-                                    <span>Taxes & Fees</span>
-                                    <span>$150.00</span>
+                                    <span>Partner fees/taxes</span>
+                                    <span>Shown at checkout</span>
                                 </div>
                                 <div className="border-t border-slate-200 pt-3 flex justify-between font-bold text-lg text-blue-600">
-                                    <span>Due Now</span>
-                                    <span>$3,350.00</span>
+                                    <span>Due in this demo</span>
+                                    <span>$0.00</span>
                                 </div>
                             </div>
 
-                            <Button onClick={handleBook} className="w-full bg-blue-600 hover:bg-blue-500 py-6 text-lg">
-                                Continue to Payment
+                            <Button onClick={handleHandoff} className="w-full bg-blue-600 hover:bg-blue-500 py-6 text-lg">
+                                Preview Partner Handoff
                             </Button>
 
                             <div className="flex justify-center items-center gap-2 text-xs text-slate-400">
-                                <span className="w-2 h-2 rounded-full bg-green-500" /> Secure booking
+                                <span className="w-2 h-2 rounded-full bg-blue-500" /> Demo only — no reservation or payment
                             </div>
                         </div>
                     )}
 
-                    {step === "payment" && (
+                    {step === "handoff" && (
                         <div className="space-y-6">
-                            <div className="space-y-4">
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-slate-700">Card Information</label>
-                                    <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 flex gap-3 items-center">
-                                        <div className="w-8 h-5 bg-slate-200 rounded"></div>
-                                        <input type="text" placeholder="0000 0000 0000 0000" className="bg-transparent border-none outline-none flex-1 font-mono text-slate-900 placeholder:text-slate-400" />
-                                    </div>
+                            <div>
+                                <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-600 mb-4">
+                                    <ExternalLink className="w-3.5 h-3.5" />
+                                    Provider handoff preview
                                 </div>
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium text-slate-700">Expiry</label>
-                                        <input type="text" placeholder="MM/YY" className="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 outline-none text-slate-900 placeholder:text-slate-400" />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium text-slate-700">CVC</label>
-                                        <input type="text" placeholder="123" className="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 outline-none text-slate-900 placeholder:text-slate-400" />
-                                    </div>
-                                </div>
+                                <h3 className="text-2xl font-bold text-slate-900">Ready to hand off details</h3>
+                                <p className="text-slate-500 text-sm mt-2">
+                                    PayaGo would prepare trip context for a provider-led handoff. The provider confirms availability, final price, and any payment requirements.
+                                </p>
                             </div>
 
-                            <Button onClick={handlePay} disabled={isProcessing} className="w-full bg-blue-600 hover:bg-blue-500 py-6 text-lg relative">
-                                {isProcessing ? <Loader2 className="w-6 h-6 animate-spin" /> : "Pay $3,350.00"}
-                            </Button>
+                            <div className="grid gap-3">
+                                {[
+                                    "Dates, guests, and trip notes are prepared for transfer.",
+                                    "No card details are collected in this demo.",
+                                    "A reservation is only made if the traveller completes checkout with the provider.",
+                                ].map((item) => (
+                                    <div key={item} className="flex items-start gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm text-slate-600">
+                                        <Check className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                                        <span>{item}</span>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+                                Demo preview only: continuing here does not create a reservation, take a charge, or send an email.
+                            </div>
+
+                            <div className="grid sm:grid-cols-2 gap-3">
+                                <Button onClick={() => setStep("details")} variant="outline" className="border-slate-200 hover:bg-slate-50 text-slate-700 py-6">
+                                    Back to Details
+                                </Button>
+                                <Button onClick={handleReady} className="bg-blue-600 hover:bg-blue-500 py-6 text-lg">
+                                    Mark Handoff Ready
+                                </Button>
+                            </div>
                         </div>
                     )}
 
                     {step === "success" && (
                         <div className="text-center py-10 space-y-6 animate-fade-in-up">
-                            <div className="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <div className="w-20 h-20 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                                 <Check className="w-10 h-10" />
                             </div>
-                            <h3 className="text-3xl font-bold text-slate-900">Booking Confirmed!</h3>
-                            <p className="text-slate-500 max-w-xs mx-auto">
-                                Your reservation at Aman Tokyo has been confirmed. A confirmation email has been sent.
-                            </p>
+                            <div>
+                                <h3 className="text-3xl font-bold text-slate-900">Demo Handoff Ready</h3>
+                                <p className="text-slate-500 max-w-sm mx-auto mt-3">
+                                    The provider handoff preview is ready. No reservation was made, no charge was taken, and no email was sent.
+                                </p>
+                            </div>
+                            <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600 max-w-sm mx-auto">
+                                Travellers would finish any booking directly with the provider after reviewing provider terms and availability.
+                            </div>
                             <Button onClick={onClose} variant="outline" className="mt-4 border-slate-200 hover:bg-slate-50 text-slate-700">
                                 Return to Itinerary
                             </Button>

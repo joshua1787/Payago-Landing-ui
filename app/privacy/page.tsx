@@ -1,12 +1,27 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { PayagoWordmark } from "@/components/payago-wordmark"
 import { ArrowLeft } from "lucide-react"
 
 export const metadata: Metadata = {
     title: "Privacy Policy — PayaGo",
-    description: "How PayaGo collects, uses, and protects your personal data. GDPR and UK GDPR compliant. Last updated March 2026.",
+    description: "How PayaGo collects, uses, and protects your personal data, including UK GDPR and EU GDPR rights. Last updated March 2026.",
     alternates: {
         canonical: "https://www.payago.in/privacy",
+    },
+    openGraph: {
+        title: "Privacy Policy — PayaGo",
+        description: "How PayaGo collects, uses, and protects personal data during early access.",
+        url: "https://www.payago.in/privacy",
+        siteName: "PayaGo",
+        type: "article",
+        images: ["https://www.payago.in/og/privacy.jpg"],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Privacy Policy — PayaGo",
+        description: "How PayaGo collects, uses, and protects personal data during early access.",
+        images: ["https://www.payago.in/og/privacy.jpg"],
     },
 }
 
@@ -15,7 +30,7 @@ const sections = [
         id: "who-we-are",
         title: "1. Who we are",
         content: [
-            "PayaGo Ltd is a company registered in England and Wales (Company No. 16971574). Our registered address is available on request. We operate the PayaGo website at payago.in and the PayaGo mobile application (launching April 2026).",
+            "PayaGo Ltd is a company registered in England and Wales (Company No. 16971574). Our registered address is available on request. We operate the PayaGo website at payago.in and the PayaGo early-access product.",
             "PayaGo Ltd is the data controller for personal data collected through our website and app. If you have questions about how we handle your data, contact us at privacy@payago.in.",
         ],
     },
@@ -36,8 +51,8 @@ const sections = [
                 items: [
                     "Account information: name, email address, profile photo (optional)",
                     "Trip data: destinations, dates, group size, budget preferences, itineraries you create",
-                    "Payment information: processed securely by our payment provider — we never store card details",
-                    "Voice input: if you use voice trip creation, audio is processed in real time and not stored after transcription",
+                    "Checkout information: processed by the relevant provider-led checkout or payment provider where available — we never store card details",
+                    "Voice input: if you use voice trip creation, audio is processed during the transcription session and not stored after transcription",
                     "Usage data: features used, screens visited, error logs — to improve the product",
                     "Device information: device type, OS version, app version — for compatibility and support",
                 ],
@@ -58,7 +73,7 @@ const sections = [
         rows: [
             { purpose: "Send waitlist updates and early access invitations", basis: "Legitimate interest / Consent" },
             { purpose: "Provide the PayaGo travel planning service", basis: "Contract performance" },
-            { purpose: "Process group payments through our payment provider", basis: "Contract performance" },
+            { purpose: "Support provider-led checkout or payment handoff", basis: "Contract performance" },
             { purpose: "Improve our AI models and product features", basis: "Legitimate interest" },
             { purpose: "Send product updates and feature announcements", basis: "Consent (you can unsubscribe any time)" },
             { purpose: "Comply with legal obligations (tax, fraud prevention)", basis: "Legal obligation" },
@@ -69,9 +84,9 @@ const sections = [
         id: "ai-processing",
         title: "4. AI processing",
         content: [
-            "PayaGo uses Google Gemini AI and Anthropic Claude AI to generate trip itineraries, process natural language input, and provide travel assistance. When you describe a trip, your input (destination, budget, preferences, group size) is sent to these AI providers to generate results.",
-            "Google Gemini processes your requests under Google's API terms of service and privacy policy. Anthropic Claude processes your requests under Anthropic's API terms and privacy policy. Neither provider uses your individual inputs to train their models under our enterprise API agreements.",
-            "Voice inputs are transcribed to text in real time and only the text transcript is sent to AI providers — audio is not retained or transmitted.",
+            "PayaGo uses AI providers to generate trip itineraries, process natural language input, and provide travel assistance. When you describe a trip, your input (destination, budget, preferences, group size) is sent to these AI providers to generate results.",
+            "AI service providers used by PayaGo process requests under their applicable API terms and privacy policies. We configure providers to limit retention and training use where those controls are available.",
+            "Voice inputs are transcribed to text during the transcription session and only the text transcript is sent to AI providers — audio is not retained or transmitted.",
             "We recommend you do not include sensitive personal information (passport numbers, financial account details) in trip descriptions.",
         ],
     },
@@ -82,9 +97,9 @@ const sections = [
             "We do not sell your personal data to third parties. We share data only where necessary to provide the service:",
         ],
         list: [
-            "Travel booking partners (hotels, flights, activities) — to complete bookings you request. Only the information needed to make the booking is shared (names, dates, contact details).",
-            "Payment processor — to process group payments securely. We share only what is required for payment processing; card details are handled entirely by the payment provider.",
-            "Google (Gemini AI) and Anthropic (Claude AI) — to generate itineraries and process natural language input, as described in Section 4.",
+            "Travel providers (hotels, flights, activities) — to support booking handoff where you choose to continue with a provider. Only the information needed for that handoff is shared where applicable (names, dates, contact details).",
+            "Payment or checkout providers — to support provider-led checkout where available. We share only what is required for the selected checkout flow; card details are handled entirely by the payment provider.",
+            "AI providers — to generate itineraries and process natural language input, as described in Section 4.",
             "Analytics providers (Google Analytics 4) — anonymised usage data to understand product performance.",
             "Cloud infrastructure providers — to host and operate our service, under data processing agreements.",
             "Legal authorities — where required by law, court order, or to protect safety.",
@@ -97,7 +112,7 @@ const sections = [
             { type: "Waitlist email address", period: "Until you unsubscribe or request deletion" },
             { type: "Account data", period: "For the duration of your account, plus 3 years after closure" },
             { type: "Trip data", period: "For the duration of your account; deleted on account closure unless you export it" },
-            { type: "Payment records", period: "7 years (UK legal requirement for financial records)" },
+            { type: "Payment records", period: "Where payment records exist, retained as required for accounting, tax, and legal obligations" },
             { type: "Analytics data", period: "26 months (Google Analytics default)" },
             { type: "Support communications", period: "3 years from the last communication" },
         ],
@@ -123,7 +138,7 @@ const sections = [
         id: "security",
         title: "8. Security",
         content: [
-            "We apply industry-standard security measures including TLS encryption in transit, encryption at rest for sensitive data, access controls limiting who within PayaGo can access personal data, and regular security reviews.",
+            "We use practical safeguards appropriate for an early-stage product, including secure transport where our services are configured for it, access controls, and a bias toward collecting only the data needed to operate PayaGo.",
             "No system is 100% secure. In the event of a data breach that poses a risk to your rights and freedoms, we will notify the ICO within 72 hours and affected users as required by law.",
         ],
     },
@@ -160,10 +175,10 @@ const sections = [
 export default function PrivacyPolicy() {
     return (
         <main className="min-h-screen bg-white">
-            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="overflow-hidden inline-flex" style={{display:"inline-flex",width:"144px",height:"32px"}}><img src="/payago-logo-new.png" alt="PayaGo" style={{width:"380px",maxWidth:"none",marginTop:"-103px",marginLeft:"-114px"}} /></span>
+                        <PayagoWordmark />
                         
                     </Link>
                     <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
@@ -183,7 +198,7 @@ export default function PrivacyPolicy() {
                 <div className="p-6 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20 mb-12">
                     <p className="text-slate-900 font-semibold mb-2">The short version</p>
                     <p className="text-slate-600 text-base leading-relaxed">
-                        We collect your email to send you early access updates. When the app launches, we collect only what we need to provide the service. We use Gemini AI and Claude AI to generate itineraries — your inputs are processed in real time and not used to train AI models. We never sell your data. You can request deletion at any time by emailing privacy@payago.in.
+                        We collect your email to send early access updates. When the app launches, we collect only what we need to provide the service. We use AI providers to generate itinerary suggestions. We do not use your waitlist email to train AI models. Trip prompts may be processed by our AI providers to generate itinerary suggestions, subject to our provider and privacy controls. We never sell your data. You can request deletion at any time by emailing privacy@payago.in.
                     </p>
                 </div>
 

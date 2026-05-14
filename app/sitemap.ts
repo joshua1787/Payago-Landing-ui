@@ -5,7 +5,7 @@ export const dynamic = "force-static"
 const siteUrl = "https://www.payago.in"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const now = new Date("2026-03-13")
+    const now = new Date("2026-05-13")
 
     const staticRoutes: MetadataRoute.Sitemap = [
         {
@@ -37,6 +37,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: now,
             changeFrequency: "monthly",
             priority: 0.8,
+        },
+        {
+            url: `${siteUrl}/trip`,
+            lastModified: now,
+            changeFrequency: "monthly",
+            priority: 0.7,
         },
         {
             url: `${siteUrl}/about`,
@@ -143,6 +149,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
         {
             url: `${siteUrl}/affiliate-disclosure`,
+            lastModified: now,
+            changeFrequency: "yearly",
+            priority: 0.3,
+        },
+        {
+            url: `${siteUrl}/cookie-policy`,
             lastModified: now,
             changeFrequency: "yearly",
             priority: 0.3,

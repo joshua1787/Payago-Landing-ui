@@ -1,12 +1,27 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { PayagoWordmark } from "@/components/payago-wordmark"
 import { ArrowLeft } from "lucide-react"
 
 export const metadata: Metadata = {
     title: "Cookie Policy — PayaGo",
-    description: "How PayaGo uses cookies and similar technologies on payago.in. GDPR and UK GDPR compliant.",
+    description: "How PayaGo uses cookies and similar technologies on payago.in, including UK GDPR and EU GDPR rights.",
     alternates: {
         canonical: "https://www.payago.in/cookie-policy",
+    },
+    openGraph: {
+        title: "Cookie Policy — PayaGo",
+        description: "How PayaGo uses essential and optional analytics cookies on payago.in.",
+        url: "https://www.payago.in/cookie-policy",
+        siteName: "PayaGo",
+        type: "article",
+        images: ["https://www.payago.in/og/cookie-policy.jpg"],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Cookie Policy — PayaGo",
+        description: "How PayaGo uses essential and optional analytics cookies on payago.in.",
+        images: ["https://www.payago.in/og/cookie-policy.jpg"],
     },
 }
 
@@ -36,10 +51,10 @@ const cookieTypes = [
 export default function CookiePolicy() {
     return (
         <main className="min-h-screen bg-white">
-            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="overflow-hidden inline-flex" style={{display:"inline-flex",width:"144px",height:"32px"}}><img src="/payago-logo-new.png" alt="PayaGo" style={{width:"380px",maxWidth:"none",marginTop:"-103px",marginLeft:"-114px"}} /></span>
+                        <PayagoWordmark />
                         
                     </Link>
                     <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">

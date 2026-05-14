@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import { Sparkles, Pencil, Users, CreditCard, CloudSun, Check, Landmark, UtensilsCrossed, Palette, GripVertical, Hotel, Plane, CloudRain, TrendingDown, Sun, Bell } from "lucide-react"
+import { useState } from "react"
+import { Sparkles, Pencil, Users, CreditCard, CloudSun, Check, Landmark, UtensilsCrossed, Palette, GripVertical, Hotel, Plane, CloudRain, Sun, Bell } from "lucide-react"
 
 const steps = [
     {
@@ -9,17 +9,17 @@ const steps = [
         icon: Sparkles,
         title: "AI Builds It",
         subtitle: "From one sentence",
-        description: "Type your dream trip. Gemini AI returns a complete day-by-day itinerary with timings, costs, and locations — in under 30 seconds.",
+        description: "Type your dream trip. PayaGo AI returns a complete day-by-day itinerary with timings, costs, and locations — in minutes.",
         color: "#22d3ee",
         gradient: "from-cyan-500 to-cyan-400",
         mockContent: (
             <div className="space-y-3 p-5">
                 <div className="flex items-center gap-2.5 mb-4">
-                    <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-sm shadow-cyan-400/50" />
-                    <span className="text-cyan-600 text-[11px] font-mono tracking-wide">Generating itinerary...</span>
+                    <div className="w-2 h-2 rounded-full bg-cyan-400 shadow-sm shadow-cyan-400/50" />
+                    <span className="text-cyan-600 text-[11px] font-mono tracking-wide">Itinerary draft ready</span>
                 </div>
                 {["Day 1: Tokyo Arrival", "Day 2: Asakusa & Shibuya", "Day 3: Hakone day trip"].map((d, i) => (
-                    <div key={i} className="flex items-center gap-3 animate-fade-up" style={{ animationDelay: `${i * 0.2}s` }}>
+                    <div key={i} className="flex items-center gap-3">
                         <div className="w-5 h-5 rounded-md bg-cyan-500/10 flex items-center justify-center">
                             <Check className="w-3 h-3 text-cyan-500" />
                         </div>
@@ -50,7 +50,7 @@ const steps = [
                     { name: "Tsukiji Market", time: "12:30 PM", Icon: UtensilsCrossed, iconColor: "#f43f5e", dragging: true },
                     { name: "teamLab", time: "3:00 PM", Icon: Palette, iconColor: "#8b5cf6" },
                 ].map((item, i) => (
-                    <div key={i} className={`flex items-center gap-3 rounded-xl p-3 text-xs transition-all ${item.dragging ? 'bg-violet-50 border border-violet-200 scale-[1.02] translate-x-1 shadow-md shadow-violet-100' : 'bg-slate-50 border border-slate-100'}`}>
+                    <div key={i} className={`flex items-center gap-3 rounded-xl p-3 text-xs transition-[background-color,border-color,box-shadow] ${item.dragging ? 'bg-violet-50 border border-violet-200 shadow-md shadow-violet-100' : 'bg-slate-50 border border-slate-100'}`}>
                         <div className="w-7 h-7 rounded-lg flex items-center justify-center bg-white border border-slate-100">
                             <item.Icon className="w-3.5 h-3.5" style={{ color: item.iconColor }} />
                         </div>
@@ -68,8 +68,8 @@ const steps = [
         number: "03",
         icon: Users,
         title: "Share with Group",
-        subtitle: "Everyone edits live",
-        description: "Send a link. Friends join and see every change in real-time. Vote on activities, comment, and chat — all in one place.",
+        subtitle: "Everyone reviews together",
+        description: "Send a link. Friends can review the shared plan, vote on activities, comment, and discuss next steps in one place.",
         color: "#60a5fa",
         gradient: "from-blue-500 to-blue-400",
         mockContent: (
@@ -84,15 +84,15 @@ const steps = [
                         <div key={i} className={`w-8 h-8 rounded-full bg-gradient-to-br ${g.gradient} ring-2 ring-white`} />
                     ))}
                 </div>
-                <div className="text-slate-500 text-[11px] font-medium">4 members editing live</div>
+                <div className="text-slate-500 text-[11px] font-medium">4 members reviewing the plan</div>
                 <div className="space-y-2.5">
                     <div className="flex items-center gap-2 text-[11px]">
-                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                         <span className="text-emerald-600">Sarah voted on Senso-ji</span>
                         <Check className="w-3 h-3 text-emerald-400 ml-auto" />
                     </div>
                     <div className="flex items-center gap-2 text-[11px]">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" style={{ animationDelay: "0.5s" }} />
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
                         <span className="text-blue-600">Mike added Shibuya Crossing</span>
                     </div>
                 </div>
@@ -102,15 +102,15 @@ const steps = [
     {
         number: "04",
         icon: CreditCard,
-        title: "Book Everything",
-        subtitle: "One checkout, zero extra apps",
-        description: "Hotels, flights, and activities all booked in one place. Secure payments. Confirmations drop straight into your itinerary.",
+        title: "Coordinate Booking",
+        subtitle: "Shared plan, booking next steps",
+        description: "Keep hotels, flights, and activities in one shared plan, then continue through supported booking handoff paths when the group is ready.",
         color: "#34d399",
         gradient: "from-emerald-500 to-emerald-400",
         mockContent: (
             <div className="p-5 space-y-2.5">
                 {[
-                    { name: "Aman Tokyo", type: "Hotel", price: "£350/night", Icon: Hotel, iconColor: "#34d399" },
+                    { name: "Group-friendly stay idea", type: "Hotel", price: "est. £350/night", Icon: Hotel, iconColor: "#34d399" },
                     { name: "LHR → NRT", type: "Flight", price: "£489", Icon: Plane, iconColor: "#60a5fa" },
                 ].map((b, i) => (
                     <div key={i} className="flex items-center gap-3 bg-slate-50 border border-slate-100 rounded-xl p-3.5 text-xs">
@@ -126,7 +126,7 @@ const steps = [
                 ))}
                 <div className="flex items-center justify-center gap-1.5 mt-2 text-slate-400 text-[10px] font-mono">
                     <CreditCard className="w-3 h-3" />
-                    Secure checkout
+                    Supported booking handoff
                 </div>
             </div>
         ),
@@ -135,15 +135,15 @@ const steps = [
         number: "05",
         icon: CloudSun,
         title: "Smart Assist",
-        subtitle: "Proactive during your trip",
-        description: "Weather alerts. Price drop notifications. Morning briefings. Arrival tips. PayaGo stays useful the entire trip.",
+        subtitle: "Helpful trip context",
+        description: "Weather context, reminders, packing notes, and arrival tips can help the group review trip details before and during travel.",
         color: "#fbbf24",
         gradient: "from-amber-500 to-yellow-400",
         mockContent: (
             <div className="p-5 space-y-2.5">
                 {[
                     { Icon: CloudRain, text: "Rain tomorrow — indoor alternatives ready", color: "text-blue-600", iconColor: "#60a5fa", bg: "bg-blue-50" },
-                    { Icon: TrendingDown, text: "Hotel price dropped £45/night", color: "text-emerald-600", iconColor: "#34d399", bg: "bg-emerald-50" },
+                    { Icon: Bell, text: "Reminder: review booking details", color: "text-emerald-600", iconColor: "#34d399", bg: "bg-emerald-50" },
                     { Icon: Sun, text: "Day 3: Clear skies, 24°C", color: "text-amber-600", iconColor: "#fbbf24", bg: "bg-amber-50" },
                 ].map((a, i) => (
                     <div key={i} className="flex items-center gap-3 bg-slate-50 border border-slate-100 rounded-xl p-3 text-xs">
@@ -159,46 +159,26 @@ const steps = [
 ]
 
 export function HowItWorksSection() {
-    const sectionRef = useRef<HTMLDivElement>(null)
-    const [isVisible, setIsVisible] = useState(false)
     const [activeStep, setActiveStep] = useState(0)
-    const [paused, setPaused] = useState(false)
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => { if (entries[0].isIntersecting) setIsVisible(true) },
-            { threshold: 0.1 }
-        )
-        if (sectionRef.current) observer.observe(sectionRef.current)
-        return () => observer.disconnect()
-    }, [])
-
-    useEffect(() => {
-        if (!isVisible || paused) return
-        const interval = setInterval(() => {
-            setActiveStep((s) => (s + 1) % steps.length)
-        }, 5000)
-        return () => clearInterval(interval)
-    }, [isVisible, paused])
 
     const active = steps[activeStep]
 
     return (
-        <section ref={sectionRef} id="how-it-works" className="relative py-32 sm:py-40 overflow-hidden">
+        <section id="how-it-works" className="scroll-stable-section relative py-32 sm:py-40 overflow-hidden">
             <div className="absolute inset-0 bg-[#FAFAF8]" />
 
             {/* Ambient glow */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-[radial-gradient(ellipse_at_center,rgba(0,212,255,0.10),transparent_70%)] blur-[100px] pointer-events-none" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-[radial-gradient(ellipse_at_center,rgba(0,212,255,0.10),transparent_70%)] pointer-events-none" />
 
             <div className="relative z-10 max-w-6xl mx-auto px-6">
                 {/* Header */}
-                <div className={`text-center mb-20 transition-all duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+                <div className="text-center mb-20">
                     <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-slate-200 shadow-sm mb-6">
                         <span className="text-[13px] text-slate-500 font-medium">Five steps, one app</span>
                     </div>
                     <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 tracking-[-0.03em] mb-5">
                         From idea to{" "}
-                        <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 bg-clip-text text-transparent">boarding pass</span>
+                        <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 bg-clip-text text-transparent">shared plan</span>
                     </h2>
                     <p className="text-[17px] text-slate-400 max-w-md mx-auto leading-relaxed">
                         The entire journey in one seamless flow.
@@ -206,33 +186,33 @@ export function HowItWorksSection() {
                 </div>
 
                 {/* Interactive Step View */}
-                <div className={`grid lg:grid-cols-[1fr_400px] gap-10 items-start transition-all duration-700 delay-200 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'}`}>
+                <div className="grid lg:grid-cols-[1fr_400px] gap-10 items-start">
 
                     {/* Left: Step list */}
-                    <div className="space-y-1.5" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+                    <div className="space-y-1.5">
                         {steps.map((step, i) => {
                             const Icon = step.icon
                             const isActive = i === activeStep
                             return (
                                 <button
                                     key={step.number}
-                                    onClick={() => { setActiveStep(i); setPaused(true) }}
-                                    className={`w-full text-left group relative flex items-start gap-4 rounded-2xl p-5 transition-all duration-500 border-2 ${isActive
-                                        ? 'shadow-lg'
+                                    onClick={() => setActiveStep(i)}
+                                    className={`w-full text-left group relative flex items-start gap-4 rounded-2xl p-5 transition-[background-color,border-color,box-shadow] duration-300 border-2 ${isActive
+                                        ? 'shadow-sm'
                                         : 'border-transparent hover:border-slate-200 hover:bg-white/60'
                                         }`}
                                     style={isActive ? {
                                         background: `linear-gradient(135deg, ${step.color}15 0%, white 60%)`,
                                         borderColor: step.color + "50",
-                                        boxShadow: `0 8px 30px ${step.color}20`,
+                                        boxShadow: "none",
                                     } : {}}
                                 >
                                     <div
-                                        className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-500 ${isActive ? 'scale-110' : 'scale-100'}`}
+                                        className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-[background-color,border-color,box-shadow] duration-300"
                                         style={{
                                             background: isActive ? step.color : 'rgba(0,0,0,0.04)',
                                             border: `1px solid ${isActive ? step.color : 'rgba(0,0,0,0.08)'}`,
-                                            boxShadow: isActive ? `0 4px 16px ${step.color}40` : 'none',
+                                            boxShadow: 'none',
                                         }}
                                     >
                                         <Icon className="w-[18px] h-[18px]" style={{ color: isActive ? 'white' : 'rgba(0,0,0,0.25)' }} />
@@ -246,14 +226,14 @@ export function HowItWorksSection() {
                                                 {step.number}
                                             </span>
                                         </div>
-                                        <p className={`text-[13px] leading-relaxed transition-all duration-500 overflow-hidden ${isActive ? 'text-slate-500 max-h-24 opacity-100 mt-1.5' : 'max-h-0 opacity-0'}`}>
+                                        <p className={`text-[13px] leading-relaxed transition-[opacity,color] duration-300 overflow-hidden ${isActive ? 'text-slate-500 max-h-24 opacity-100 mt-1.5' : 'max-h-0 opacity-0'}`}>
                                             {step.description}
                                         </p>
                                     </div>
                                     {/* Progress */}
                                     {isActive && (
                                         <div className="absolute bottom-0 left-5 right-5 h-[2px] overflow-hidden rounded-full" style={{ background: step.color + "20" }}>
-                                            <div className="h-full rounded-full animate-step-progress" style={{ background: step.color }} />
+                                            <div className="h-full w-full rounded-full" style={{ background: step.color }} />
                                         </div>
                                     )}
                                 </button>
@@ -262,12 +242,12 @@ export function HowItWorksSection() {
                     </div>
 
                     {/* Right: Mock preview */}
-                    <div className="hidden lg:block sticky top-28">
+                    <div className="hidden lg:block lg:self-start">
                         <div className="relative">
                             {/* Multi-layer glow */}
-                            <div className="absolute -inset-6 rounded-3xl blur-[60px] opacity-10 transition-colors duration-700" style={{ background: active.color }} />
+                            <div className="absolute -inset-6 rounded-3xl opacity-10 transition-colors duration-700" style={{ background: active.color }} />
 
-                            <div className="relative rounded-2xl overflow-hidden min-h-[300px] shadow-xl transition-all duration-700" style={{ background: `linear-gradient(145deg, ${active.color}10 0%, white 50%)`, border: `2px solid ${active.color}40`, boxShadow: `0 20px 60px ${active.color}20` }}>
+                            <div className="relative rounded-2xl overflow-hidden min-h-[300px] shadow-sm transition-[background-color,border-color] duration-300" style={{ background: `linear-gradient(145deg, ${active.color}10 0%, white 50%)`, border: `2px solid ${active.color}40`, boxShadow: "none" }}>
                                 {/* Window chrome */}
                                 <div className="flex items-center gap-2 px-5 pt-5 pb-3 border-b" style={{ borderColor: active.color + "20", background: active.color + "08" }}>
                                     <div className="w-[6px] h-[6px] rounded-full" style={{ background: active.color + "60" }} />
@@ -275,7 +255,7 @@ export function HowItWorksSection() {
                                     <div className="w-[6px] h-[6px] rounded-full" style={{ background: active.color + "20" }} />
                                     <span className="ml-3 text-[10px] font-mono tracking-wider" style={{ color: active.color + "80" }}>{active.subtitle}</span>
                                 </div>
-                                <div className="transition-all duration-500">
+                                <div className="transition-colors duration-300">
                                     {active.mockContent}
                                 </div>
                             </div>

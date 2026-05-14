@@ -27,11 +27,11 @@ import { cn } from "@/lib/utils"
 import { InviteModal } from "./invite-modal"
 import { BookingModal } from "./booking-modal"
 
-// Mock Data
+// Demo data for the interactive trip workspace preview.
 const INITIAL_ITINERARY: Record<string, Activity[]> = {
     "Day 1": [
         { id: "1", title: "Arrival at Narita", time: "09:00 AM", location: "Narita Airport", cost: "$20", category: "flight" },
-        { id: "2", title: "Check-in: Aman Tokyo", time: "11:00 AM", location: "Otemachi Tower", cost: "$800", category: "hotel" },
+        { id: "2", title: "Check-in: Shinjuku stay idea", time: "11:00 AM", location: "Shinjuku area", cost: "Est. $220", category: "hotel" },
         { id: "3", title: "Ramen Street Lunch", time: "01:00 PM", location: "Tokyo Station", cost: "$15", category: "food" },
     ],
     "Day 2": [
@@ -139,7 +139,7 @@ export function ItineraryBoard() {
                 <div className="flex gap-3">
                     <button
                         onClick={() => setIsInviteOpen(true)}
-                        className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-all active:scale-95"
+                        className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] active:scale-95"
                     >
                         <Share2 className="w-4 h-4" /> Invite
                     </button>
@@ -162,7 +162,7 @@ export function ItineraryBoard() {
                             key={day}
                             onClick={() => setActiveDay(day)}
                             className={cn(
-                                "w-full text-left p-4 rounded-xl transition-all duration-200 flex justify-between items-center group relative overflow-hidden",
+                                "w-full text-left p-4 rounded-xl transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] duration-200 flex justify-between items-center group relative overflow-hidden",
                                 activeDay === day
                                     ? "bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 text-slate-900 shadow-md"
                                     : "text-slate-400 hover:bg-slate-50 hover:text-slate-700 border border-transparent"
@@ -245,7 +245,7 @@ export function ItineraryBoard() {
                             </DragOverlay>
                         </DndContext>
 
-                        <button className="w-full mt-4 py-4 rounded-xl border border-dashed border-slate-300 text-slate-400 hover:text-slate-600 hover:border-slate-400 hover:bg-white transition-all group flex items-center justify-center gap-2">
+                        <button className="w-full mt-4 py-4 rounded-xl border border-dashed border-slate-300 text-slate-400 hover:text-slate-600 hover:border-slate-400 hover:bg-white transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] group flex items-center justify-center gap-2">
                             <Plus className="w-4 h-4 group-hover:scale-110 transition-transform" />
                             <span className="text-sm font-medium uppercase tracking-wider">Add Activity</span>
                         </button>

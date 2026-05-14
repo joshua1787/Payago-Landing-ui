@@ -1,31 +1,20 @@
 "use client"
 
-import { Star } from "lucide-react"
-
 const testimonials = [
   {
-    name: "Sarah Mitchell",
-    role: "Travel Blogger",
-    image: "/professional-woman-smiling-portrait.png",
+    title: "Planning starts from a shared brief",
     quote:
-      "Payogo transformed how I plan my trips. The AI understood exactly what I was looking for and created an itinerary that exceeded my expectations.",
-    rating: 5,
+      "Early testers want a single place to capture dates, budgets, preferences, and constraints before the itinerary draft is created.",
   },
   {
-    name: "James Chen",
-    role: "Business Executive",
-    image: "/professional-asian-man-smiling.png",
+    title: "Group decisions need less back-and-forth",
     quote:
-      "As someone who travels frequently for work, the seamless booking experience saves me hours every week. The assistant handles everything flawlessly.",
-    rating: 5,
+      "Testing has focused on simple votes and clear tradeoffs so friends can compare options without losing decisions in chat threads.",
   },
   {
-    name: "Elena Rodriguez",
-    role: "Adventure Seeker",
-    image: "/young-latina-woman-portrait-smiling-outdoors.jpg",
+    title: "Costs should be visible early",
     quote:
-      "The hidden gems recommendations were incredible. I discovered places I would never have found on my own. Truly a game-changer for adventurous travelers.",
-    rating: 5,
+      "Feedback is shaping how PayaGo explains shared costs, contribution timing, and payment expectations before a trip is confirmed.",
   },
 ]
 
@@ -34,9 +23,9 @@ export function Testimonials() {
     <section className="py-24 lg:py-32 bg-background">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-sm font-medium text-accent uppercase tracking-wider mb-4">Testimonials</h2>
+          <h2 className="text-sm font-medium text-accent uppercase tracking-wider mb-4">Early Testing Themes</h2>
           <p className="text-3xl lg:text-5xl font-serif font-medium text-foreground text-balance">
-            Loved by travelers worldwide
+            What we are learning from group-trip planning
           </p>
         </div>
 
@@ -44,29 +33,18 @@ export function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-card rounded-2xl border border-border/50 p-8 hover:shadow-xl hover:shadow-accent/5 transition-all duration-300"
+              className="bg-card rounded-2xl border border-border/50 p-8 hover:shadow-xl hover:shadow-accent/5 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] duration-300"
             >
-              {/* Rating */}
-              <div className="flex gap-1 mb-6">
-                {Array.from({ length: testimonial.rating }).map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-accent text-accent" />
-                ))}
-              </div>
+              <div className="w-10 h-1 rounded-full bg-accent mb-6" />
 
               {/* Quote */}
-              <p className="text-foreground leading-relaxed mb-8 text-balance">"{testimonial.quote}"</p>
+              <p className="text-lg font-semibold text-foreground mb-4 text-balance">{testimonial.title}</p>
+              <p className="text-muted-foreground leading-relaxed text-balance">{testimonial.quote}</p>
 
-              {/* Author */}
-              <div className="flex items-center gap-4">
-                <img
-                  src={testimonial.image || "/placeholder.svg"}
-                  alt={testimonial.name}
-                  className="w-14 h-14 rounded-full object-cover border-2 border-border/50"
-                />
-                <div>
-                  <p className="font-semibold text-foreground">{testimonial.name}</p>
-                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                </div>
+              <div className="mt-8 pt-6 border-t border-border/50">
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                  Product research theme
+                </p>
               </div>
             </div>
           ))}

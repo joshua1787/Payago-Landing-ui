@@ -1,15 +1,31 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { PayagoWordmark } from "@/components/payago-wordmark"
+import { OptimizedPicture } from "@/components/optimized-picture"
 import { ArrowLeft, Clock, Calendar } from "lucide-react"
 
 export const metadata: Metadata = {
-    title: "Barcelona Group Trip: What It Actually Costs in 2026",
-    description: "Real Barcelona group trip costs in 2026: flights from London, hotel prices by neighbourhood, food budgets, and activities. With a sample 5-day budget for 6 people.",
+    title: "Barcelona Group Trip: What It Can Cost in 2026",
+    description: "Example Barcelona group trip budget ranges in 2026: flights from London, hotel prices by neighbourhood, food budgets, and activities. With a sample 5-day budget for 6 people.",
     openGraph: {
-        title: "Barcelona Group Trip: What It Actually Costs in 2026 | PayaGo Blog",
-        description: "Real Barcelona group trip costs in 2026: flights from London, hotel prices by neighbourhood, food budgets, and activities. With a sample 5-day budget for 6 people.",
+        title: "Barcelona Group Trip: What It Can Cost in 2026 | PayaGo Blog",
+        description: "Example Barcelona group trip budget ranges in 2026: flights from London, hotel prices by neighbourhood, food budgets, and activities. With a sample 5-day budget for 6 people.",
         url: "https://www.payago.in/blog/barcelona-group-trip-budget",
         type: "article",
+        images: [
+            {
+                url: "https://www.payago.in/og/blog-barcelona-group-trip-budget.jpg",
+                width: 1200,
+                height: 630,
+                alt: "PayaGo AI Group Travel Planning",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Barcelona group trip budget",
+        description: "Example costs, neighbourhood choices, and planning tips for Barcelona groups.",
+        images: ["https://www.payago.in/og/blog-barcelona-group-trip-budget.jpg"],
     },
     alternates: { canonical: "https://www.payago.in/blog/barcelona-group-trip-budget" },
 }
@@ -17,10 +33,10 @@ export const metadata: Metadata = {
 const schema = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: "Barcelona Group Trip: What It Actually Costs in 2026",
+    headline: "Barcelona Group Trip: What It Can Cost in 2026",
     datePublished: "2026-03-12",
     author: { "@type": "Organization", name: "PayaGo" },
-    publisher: { "@type": "Organization", name: "PayaGo", logo: { "@type": "ImageObject", url: "https://www.payago.in/payago_logo_transparent.png" } },
+    publisher: { "@type": "Organization", name: "PayaGo", logo: { "@type": "ImageObject", url: "https://www.payago.in/icon.svg" } },
     url: "https://www.payago.in/blog/barcelona-group-trip-budget",
 }
 
@@ -28,10 +44,10 @@ export default function BlogPost() {
     return (
         <main className="min-h-screen bg-white">
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="overflow-hidden inline-flex" style={{display:"inline-flex",width:"144px",height:"32px"}}><img src="/payago-logo-new.png" alt="PayaGo" style={{width:"380px",maxWidth:"none",marginTop:"-103px",marginLeft:"-114px"}} /></span>
+                        <PayagoWordmark />
                         
                     </Link>
                     <Link href="/blog" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
@@ -48,14 +64,14 @@ export default function BlogPost() {
                     <span className="w-1 h-1 rounded-full bg-white/20" />
                     <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" />6 min read</span>
                 </div>
-                <h1 className="text-4xl md:text-5xl font-bold mb-10 leading-tight text-slate-900">Barcelona Group Trip: What It Actually Costs in 2026</h1>
+                <h1 className="text-4xl md:text-5xl font-bold mb-10 leading-tight text-slate-900">Barcelona Group Trip: What It Can Cost in 2026</h1>
                 <div className="rounded-2xl overflow-hidden mb-12 aspect-video bg-slate-100 border border-slate-100">
-                    <img src="/images/travel-santorini.png" alt="Travel destination" className="w-full h-full object-cover" />
+                    <OptimizedPicture src="/images/travel-santorini.webp" alt="Travel destination" imgClassName="w-full h-full object-cover" />
                 </div>
                 <div className="space-y-8 text-white/75 leading-relaxed text-lg">
-                    <p>Barcelona is frequently cited as Europe's best value group destination, but 'value' is relative. A 5-day trip for 6 people can cost £1,500 total or £3,000+ depending on your choices. Here's what things actually cost in 2026, with real numbers.</p>
+                    <p>Barcelona is frequently cited as Europe's best value group destination, but 'value' is relative. A 5-day trip for 6 people can cost £1,500 total or £3,000+ depending on your choices. Here is a practical 2026 budget model with example ranges.</p>
                     <h2 className="text-2xl font-bold text-slate-900 mt-12 mb-4">Flights: what to pay, when to book</h2>
-                    <p>From London, Barcelona is served by 4 airlines on 3 airports. The cheapest regular route is London Gatwick to Barcelona El Prat on EasyJet or Vueling (£35–90 each way in non-peak periods). For a group of 6, booking 8–12 weeks ahead typically gets you under £80 per person return. Flying on Tuesday or Wednesday is consistently 20–30% cheaper than Friday or Sunday. Avoid school holidays — prices triple.</p>
+                    <p>From London, Barcelona is served by multiple airlines across several airports. London Gatwick to Barcelona El Prat on EasyJet or Vueling can be one of the cheaper routes in non-peak periods. For a group of 6, booking 8–12 weeks ahead usually gives you more choice. Avoid school holidays because prices can rise sharply.</p>
                     <h2 className="text-2xl font-bold text-slate-900 mt-12 mb-4">Hotel costs by neighbourhood</h2>
                     <p>Where you stay in Barcelona makes a dramatic difference to price and experience. Las Ramblas area (the tourist spine): £90–150/night but overrun with pickpockets and tourist traps. Eixample: the best balance of price and location — £70–120/night, central, near Gaudí buildings, excellent restaurants. Gracia: bohemian, local feel, slightly cheaper at £60–100/night but 15 minutes from the beach. Barceloneta: sea views and beach access at a premium — £120–200/night.</p>
                     <h2 className="text-2xl font-bold text-slate-900 mt-12 mb-4">Sample 5-day budget for 6 people</h2>
@@ -78,10 +94,10 @@ export default function BlogPost() {
                         </table>
                     </div>
                     <div className="mt-12 p-6 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20">
-                        <p className="text-slate-900 font-semibold mb-2">Let AI plan your group trip in 30 seconds — with live prices.</p>
-                        <p className="text-slate-600 text-sm mb-4">PayaGo builds a complete itinerary with real hotel and flight prices. Free for travellers. Launching April 2026.</p>
-                        <Link href="/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
-                            Get Early Access — Free
+                        <p className="text-slate-900 font-semibold mb-2">Let AI draft your group trip quickly.</p>
+                        <p className="text-slate-600 text-sm mb-4">PayaGo builds a review-ready itinerary, helps your group vote, and coordinates booking handoff. Launching early access phase.</p>
+                        <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
+                            Get Early Access
                         </Link>
                     </div>
                 </div>

@@ -17,11 +17,11 @@ const SCREENS = [
                 </div>
                 <div className="flex-1 flex flex-col items-center justify-center p-6 relative">
                     <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-48 h-48 rounded-full bg-[#C9A962]/5 animate-ping" style={{ animationDuration: "3s" }} />
-                        <div className="absolute w-36 h-36 rounded-full bg-[#C9A962]/8 animate-ping" style={{ animationDuration: "2s", animationDelay: "0.5s" }} />
+                        <div className="w-48 h-48 rounded-full bg-[#C9A962]/5" />
+                        <div className="absolute w-36 h-36 rounded-full bg-[#C9A962]/8" />
                     </div>
                     <div className="relative z-10 flex flex-col items-center">
-                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#C9A962] to-[#E5C77D] flex items-center justify-center mb-5 shadow-lg shadow-[#C9A962]/20">
+                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#C9A962] to-[#E5C77D] flex items-center justify-center mb-5 shadow-sm">
                             <Mic className="w-8 h-8 text-[#1a1a0e]" />
                         </div>
                         <div className="text-white font-semibold text-center text-sm mb-2">Listening...</div>
@@ -50,7 +50,7 @@ const SCREENS = [
         label: "AI Itinerary",
         icon: Sparkles,
         color: "#7C5CFF",
-        description: "Day-by-day plan built in 30 seconds",
+        description: "Day-by-day plan built quickly",
         phone: (
             <div className="w-full h-full bg-[#07101E] rounded-[28px] overflow-hidden flex flex-col relative">
                 <div className="h-6 bg-[#04090F] flex items-center justify-center">
@@ -95,8 +95,7 @@ const SCREENS = [
                     </div>
                 </div>
                 {/* Price Drop Toast — pinned inside the phone */}
-                <div className="mx-3 mb-3 mt-2 flex items-center gap-3 bg-[#1A1008] border border-[#C9A962]/40 rounded-2xl px-3 py-2.5 shadow-lg shadow-black/40"
-                    style={{ boxShadow: "0 0 20px rgba(201,169,98,0.15)" }}>
+                <div className="mx-3 mb-3 mt-2 flex items-center gap-3 bg-[#1A1008] border border-[#C9A962]/40 rounded-2xl px-3 py-2.5 shadow-sm">
                     <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#C9A962] to-[#E5C77D] flex items-center justify-center flex-shrink-0">
                         <svg className="w-4 h-4 text-[#1a1a0e]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
@@ -164,18 +163,18 @@ const SCREENS = [
     },
     {
         id: "payment",
-        label: "Split Payment",
+        label: "Split Costs",
         icon: CreditCard,
         color: "#4AD7A2",
-        description: "Everyone pays their share — no chasing",
+        description: "Review estimated shares before booking",
         phone: (
             <div className="w-full h-full bg-[#07101E] rounded-[28px] overflow-hidden flex flex-col">
                 <div className="h-6 bg-[#04090F] flex items-center justify-center">
                     <div className="w-16 h-1.5 bg-white/20 rounded-full" />
                 </div>
                 <div className="flex-1 px-4 pt-4">
-                    <h3 className="text-white font-bold text-sm mb-1">Payment request sent</h3>
-                    <p className="text-white/40 text-xs mb-4">Each person pays their own share</p>
+                    <h3 className="text-white font-bold text-sm mb-1">Cost split ready</h3>
+                    <p className="text-white/40 text-xs mb-4">Each person can review their estimated share</p>
                     <div className="bg-white/[0.03] border border-white/5 rounded-xl p-4 mb-4">
                         <div className="flex items-center justify-between mb-3">
                             <span className="text-white/60 text-xs">Your share</span>
@@ -189,17 +188,17 @@ const SCREENS = [
                     </div>
                     <div className="space-y-2 mb-4">
                         {[
-                            { name: "You", paid: true, amount: "£780" },
-                            { name: "Sarah", paid: true, amount: "£780" },
-                            { name: "Marcus", paid: false, amount: "£780" },
-                            { name: "Priya", paid: false, amount: "£780" },
+                            { name: "You", reviewed: true, amount: "£780" },
+                            { name: "Sarah", reviewed: true, amount: "£780" },
+                            { name: "Marcus", reviewed: false, amount: "£780" },
+                            { name: "Priya", reviewed: false, amount: "£780" },
                         ].map((p) => (
                             <div key={p.name} className="flex items-center justify-between text-xs">
                                 <span className="text-white/60">{p.name}</span>
                                 <div className="flex items-center gap-2">
                                     <span className="text-white/40">{p.amount}</span>
-                                    {p.paid ? (
-                                        <span className="text-[#4AD7A2] flex items-center gap-0.5"><Check className="w-3 h-3" /> Paid</span>
+                                    {p.reviewed ? (
+                                        <span className="text-[#4AD7A2] flex items-center gap-0.5"><Check className="w-3 h-3" /> Reviewed</span>
                                     ) : (
                                         <span className="text-white/30">Pending</span>
                                     )}
@@ -208,7 +207,7 @@ const SCREENS = [
                         ))}
                     </div>
                     <div className="bg-[#4AD7A2]/10 border border-[#4AD7A2]/20 rounded-xl py-3 text-center">
-                        <span className="text-[#4AD7A2] text-xs font-semibold">Auto-booking when all 4 pay</span>
+                        <span className="text-[#4AD7A2] text-xs font-semibold">Booking handoff when the group is ready</span>
                     </div>
                 </div>
             </div>
@@ -221,10 +220,12 @@ export function AppGallerySection() {
     const screen = SCREENS[active]
 
     return (
-        <section className="relative py-24 overflow-hidden border-t border-slate-100 bg-[#FAFAF8]">
-            <div className="absolute inset-0">
-                <div className="absolute top-1/2 right-1/4 w-[600px] h-[400px] bg-[#7C5CFF]/10 rounded-full blur-[200px]" />
-            </div>
+        <section
+            className="scroll-stable-section relative py-24 overflow-hidden border-t border-slate-100 bg-[#FAFAF8]"
+            style={{
+                backgroundImage: "radial-gradient(ellipse 55% 42% at 68% 50%, rgba(124,92,255,0.08), transparent 72%)",
+            }}
+        >
 
             <div className="relative z-10 max-w-6xl mx-auto px-6">
                 <div className="text-center mb-16">
@@ -239,7 +240,7 @@ export function AppGallerySection() {
                         </span>
                     </h2>
                     <p className="text-slate-500 text-lg max-w-2xl mx-auto">
-                        From voice input to fully booked — every step designed to eliminate the friction of group travel.
+                        From voice input to a coordinated trip plan — every step designed to reduce the friction of group travel.
                     </p>
                 </div>
 
@@ -248,13 +249,13 @@ export function AppGallerySection() {
                     <div className="flex justify-center">
                         <div className="relative">
                             {/* Phone frame */}
-                            <div className="w-[240px] h-[480px] bg-[#0D1B2A] rounded-[32px] border-2 border-slate-200 shadow-2xl shadow-slate-200/50 overflow-hidden relative">
+                            <div className="w-[240px] h-[480px] bg-[#0D1B2A] rounded-[32px] border-2 border-slate-200 shadow-md overflow-hidden relative">
                                 <div className="absolute inset-0 rounded-[30px] overflow-hidden">
                                     {screen.phone}
                                 </div>
                             </div>
                             {/* Glow */}
-                            <div className="absolute -inset-8 rounded-full blur-[60px] opacity-20 -z-10" style={{ background: screen.color }} />
+                            <div className="absolute -inset-6 rounded-full opacity-10 -z-10" style={{ background: screen.color }} />
                         </div>
                     </div>
 
@@ -267,7 +268,7 @@ export function AppGallerySection() {
                                     <button
                                         key={s.id}
                                         onClick={() => setActive(i)}
-                                        className={`w-full text-left p-4 rounded-xl border transition-all duration-200 ${active === i ? "bg-white border-opacity-40 shadow-sm" : "bg-white border-violet-100 hover:bg-violet-50"}`}
+                                        className={`w-full text-left p-4 rounded-xl border transition-[background-color,border-color,box-shadow] duration-200 ${active === i ? "bg-white border-opacity-40 shadow-sm" : "bg-white border-violet-100 hover:bg-violet-50"}`}
                                         style={active === i ? { borderColor: s.color + "60" } : {}}
                                     >
                                         <div className="flex items-center gap-4">
@@ -287,9 +288,9 @@ export function AppGallerySection() {
 
                         <div className="grid grid-cols-3 gap-3">
                             {[
-                                { value: "30s", label: "To build a trip" },
-                                { value: "Free", label: "For travellers" },
-                                { value: "Apr 26", label: "Launch date" },
+                                { value: "Fast", label: "Trip drafts" },
+                                { value: "Waitlist", label: "Early access" },
+                                { value: "Partners", label: "Booking handoff" },
                             ].map((stat) => (
                                 <div key={stat.label} className="bg-white border border-violet-100 rounded-xl p-3 text-center">
                                     <div className="text-slate-900 font-bold text-lg">{stat.value}</div>

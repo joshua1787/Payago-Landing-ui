@@ -1,151 +1,192 @@
-"use client"
+import { ArrowRight, CreditCard, LifeBuoy, Map, Mic, Sparkles, Users, Wallet } from "lucide-react"
 
-import { useEffect, useRef, useState } from "react"
-
-const partners = [
+const capabilities = [
     {
-        name: "Expedia",
-        label: "Hotels & Flights",
-        color: "#1B3A6B",
-        accent: "#00A7CF",
-        icon: (
-            <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-            </svg>
-        ),
-        live: true,
+        title: "Voice + Text Trip Builder",
+        eyebrow: "AI intake",
+        description: "Speak or type the trip once. PayaGo captures destination, dates, budget, group size, and travel style before drafting plan options.",
+        icon: Mic,
+        color: "#7C5CFF",
+        metric: "prompt to plan",
+        proof: ["Voice input", "Natural prompts"],
     },
     {
-        name: "Stripe",
-        label: "Payments",
-        color: "#635BFF",
-        accent: "#7B73FF",
-        icon: (
-            <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
-                <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.591-7.305z"/>
-            </svg>
-        ),
-        live: true,
+        title: "AI Itinerary Workspace",
+        eyebrow: "Trip planning",
+        description: "Turn the draft into a shared itinerary with day-by-day schedules, timeline views, map context, and editable trip events.",
+        icon: Map,
+        color: "#00A7CF",
+        metric: "timeline + map",
+        proof: ["Trip itinerary", "Editable events"],
     },
     {
-        name: "Kayak",
-        label: "Flight Search",
-        color: "#FF690F",
-        accent: "#FF8C42",
-        icon: (
-            <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
-                <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
-            </svg>
-        ),
-        live: false,
+        title: "Group Voting + Chat",
+        eyebrow: "Collaboration",
+        description: "Create the group, invite friends, collect votes, and keep decisions visible alongside the trip instead of buried in chat threads.",
+        icon: Users,
+        color: "#EC4899",
+        metric: "shared votes",
+        proof: ["Invite flows", "Voting results"],
     },
     {
-        name: "Viator",
-        label: "Experiences",
-        color: "#3DAD6A",
-        accent: "#4CC97A",
-        icon: (
-            <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-            </svg>
-        ),
-        live: false,
+        title: "Split-Cost Coordination",
+        eyebrow: "Cost coordination",
+        description: "Show member shares, review methods, coordination states, booking summaries, tickets, and vouchers in one coordinated flow.",
+        icon: CreditCard,
+        color: "#10B981",
+        metric: "member shares",
+        proof: ["Split details", "Booking summary"],
+    },
+    {
+        title: "Wallet + Saved Trips",
+        eyebrow: "Trip tools",
+        description: "Keep payment methods, rewards context, saved ideas, wishlists, and trip essentials close to the plan the group is building.",
+        icon: Wallet,
+        color: "#C9A962",
+        metric: "saved context",
+        proof: ["Wallet", "Wishlist"],
+    },
+    {
+        title: "Guides, Support + Alerts",
+        eyebrow: "Travel assist",
+        description: "Destination guides, help flows, notifications, profile preferences, and trip management screens support the journey after planning.",
+        icon: LifeBuoy,
+        color: "#F97316",
+        metric: "in-trip help",
+        proof: ["Help center", "Notifications"],
     },
 ]
 
-const aiPartners = [
-    { name: "Google Gemini", label: "AI Engine", color: "#4285F4" },
-    { name: "Claude AI", label: "AI Assistant", color: "#D97757" },
+const journeySteps = [
+    { step: "01", label: "Ask", detail: "Voice or text prompt" },
+    { step: "02", label: "Plan", detail: "AI itinerary draft" },
+    { step: "03", label: "Agree", detail: "Group vote + chat" },
+    { step: "04", label: "Review", detail: "Split-cost review" },
+    { step: "05", label: "Travel", detail: "Guides + support" },
+]
+
+const productSystems = [
+    "AI voice service",
+    "AI itinerary service",
+    "Trip itinerary screens",
+    "Group chat",
+    "Invite flows",
+    "Voting results",
+    "Review methods",
+    "Split-cost details",
+    "Tickets and vouchers",
+    "Wallet",
+    "Wishlist",
+    "Help and support",
 ]
 
 export function PartnersStrip() {
-    const ref = useRef<HTMLDivElement>(null)
-    const [visible, setVisible] = useState(false)
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([e]) => { if (e.isIntersecting) setVisible(true) },
-            { threshold: 0.2 }
-        )
-        if (ref.current) observer.observe(ref.current)
-        return () => observer.disconnect()
-    }, [])
-
     return (
-        <section ref={ref} className="relative py-14 bg-[#FAFAF8] border-b border-slate-100 overflow-hidden">
-            {/* Subtle ambient */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(0,212,255,0.04),transparent_60%)] pointer-events-none" />
+        <section className="relative py-20 bg-[#FAFAF8] border-y border-slate-100 overflow-hidden">
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute left-1/2 top-0 h-72 w-[680px] -translate-x-1/2 rounded-full bg-cyan-200/20" />
+                <div className="absolute -right-24 bottom-8 h-72 w-72 rounded-full bg-[#C9A962]/15" />
+                <div
+                    className="absolute inset-0 opacity-[0.05]"
+                    style={{
+                        backgroundImage: "linear-gradient(#0f172a 1px, transparent 1px), linear-gradient(90deg, #0f172a 1px, transparent 1px)",
+                        backgroundSize: "54px 54px",
+                    }}
+                />
+            </div>
 
-            <div className="max-w-6xl mx-auto px-6">
-                {/* Header */}
-                <div className={`text-center mb-10 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                    <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-slate-400 mb-1">Integration Partners</p>
-                    <p className="text-slate-300 text-xs">Everything in one app — powered by the tools you already trust</p>
+            <div className="relative max-w-7xl mx-auto px-6">
+                <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-10 items-end mb-12">
+                    <div>
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900 text-white text-[10px] font-bold uppercase tracking-[0.2em] mb-5">
+                            <Sparkles className="w-3 h-3 text-[#C9A962]" />
+                            PayaGo Trip OS
+                        </div>
+                        <h2 className="text-3xl md:text-5xl font-light tracking-[-0.04em] text-slate-950 leading-[0.95]">
+                            The product stack inside PayaGo.
+                        </h2>
+                    </div>
+                    <div className="lg:max-w-2xl">
+                        <p className="text-slate-500 text-base md:text-lg leading-8">
+                            PayaGo brings the full group trip into one flow: AI trip creation, itinerary management, group decisions, split-cost coordination, wallet context, saved trips, and support from one shared workspace.
+                        </p>
+                    </div>
                 </div>
 
-                {/* Partner cards */}
-                <div className="flex flex-wrap items-center justify-center gap-4">
-                    {partners.map((p, i) => (
-                        <div
-                            key={p.name}
-                            className={`group relative flex items-center gap-3 px-5 py-3.5 rounded-2xl border-2 bg-white transition-all duration-500 hover:-translate-y-1 hover:shadow-xl cursor-default ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
-                            style={{
-                                borderColor: p.color + "30",
-                                transitionDelay: `${i * 80}ms`,
-                                boxShadow: `0 2px 16px ${p.color}10`,
-                            }}
-                            onMouseEnter={e => {
-                                (e.currentTarget as HTMLElement).style.borderColor = p.color + "80"
-                                ;(e.currentTarget as HTMLElement).style.boxShadow = `0 12px 40px ${p.color}25`
-                            }}
-                            onMouseLeave={e => {
-                                (e.currentTarget as HTMLElement).style.borderColor = p.color + "30"
-                                ;(e.currentTarget as HTMLElement).style.boxShadow = `0 2px 16px ${p.color}10`
-                            }}
-                        >
-                            {/* Icon */}
+                <div className="mb-6 overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-3 shadow-[0_12px_36px_rgba(15,23,42,0.04)]">
+                    <div className="grid gap-2 md:grid-cols-5">
+                        {journeySteps.map((item, index) => (
+                            <div key={item.step} className="relative rounded-[1.4rem] border border-slate-100 bg-slate-50/80 px-4 py-4">
+                                {index < journeySteps.length - 1 && (
+                                    <ArrowRight className="absolute right-3 top-4 hidden h-4 w-4 text-slate-300 md:block" />
+                                )}
+                                <p className="text-[10px] font-black uppercase tracking-[0.24em] text-cyan-500">{item.step}</p>
+                                <p className="mt-2 text-sm font-bold text-slate-950">{item.label}</p>
+                                <p className="mt-1 text-xs leading-5 text-slate-500">{item.detail}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+                    {capabilities.map((capability) => {
+                        const Icon = capability.icon
+
+                        return (
                             <div
-                                className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
-                                style={{ background: p.color + "15", color: p.color }}
+                                key={capability.title}
+                                className="group relative min-h-[260px] overflow-hidden rounded-[2rem] border border-slate-100 bg-white p-6 shadow-[0_12px_36px_rgba(15,23,42,0.04)] transition-[border-color,background-color] duration-200 hover:border-slate-200 hover:bg-slate-50/60"
                             >
-                                {p.icon}
-                            </div>
+                                <div className="absolute -right-16 -top-16 h-36 w-36 rounded-full opacity-15 transition-opacity duration-500 group-hover:opacity-25" style={{ background: capability.color }} />
+                                <div className="relative flex h-full flex-col">
+                                    <div className="flex items-start justify-between gap-4">
+                                        <div className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-sm" style={{ background: `${capability.color}18`, color: capability.color }}>
+                                            <Icon className="w-5 h-5" />
+                                        </div>
+                                        <div className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">
+                                            {capability.metric}
+                                        </div>
+                                    </div>
 
-                            {/* Text */}
-                            <div>
-                                <div className="text-slate-900 font-bold text-sm leading-none">{p.name}</div>
-                                <div className="text-slate-400 text-[11px] mt-0.5">{p.label}</div>
-                            </div>
+                                    <div className="mt-7">
+                                        <p className="text-[11px] font-bold uppercase tracking-[0.22em]" style={{ color: capability.color }}>
+                                            {capability.eyebrow}
+                                        </p>
+                                        <h3 className="mt-2 text-xl font-bold tracking-[-0.03em] text-slate-950">
+                                            {capability.title}
+                                        </h3>
+                                        <p className="mt-3 text-sm leading-7 text-slate-500">
+                                            {capability.description}
+                                        </p>
+                                    </div>
 
-                            {/* Status badge */}
-                            {p.live ? (
-                                <div className="ml-2 flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold" style={{ background: p.color + "15", color: p.color }}>
-                                    <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: p.color }} />
-                                    Ready
+                                    <div className="mt-auto pt-6 flex flex-wrap gap-2">
+                                        {capability.proof.map((item) => (
+                                            <span key={item} className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-500">
+                                                {item}
+                                            </span>
+                                        ))}
+                                    </div>
                                 </div>
-                            ) : (
-                                <div className="ml-2 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-400 border border-slate-200">
-                                    Q3 2026
-                                </div>
-                            )}
-                        </div>
-                    ))}
+                            </div>
+                        )
+                    })}
                 </div>
 
-                {/* AI divider */}
-                <div className={`flex items-center gap-6 mt-10 justify-center transition-all duration-700 delay-500 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-                    <div className="h-px w-16 bg-gradient-to-r from-transparent to-slate-200" />
-                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-300">AI powered by</span>
-                    <div className="h-px w-16 bg-gradient-to-l from-transparent to-slate-200" />
-                </div>
-                <div className={`flex items-center justify-center gap-6 mt-4 transition-all duration-700 delay-600 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-                    {aiPartners.map((p) => (
-                        <div key={p.name} className="flex items-center gap-2 group">
-                            <div className="w-2 h-2 rounded-full flex-shrink-0 animate-pulse" style={{ background: p.color }} />
-                            <span className="text-slate-500 text-xs font-semibold group-hover:text-slate-800 transition-colors">{p.name}</span>
-                            <span className="text-slate-300 text-[10px]">{p.label}</span>
+                <div className="mt-8 overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950 p-5 md:p-6">
+                    <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+                        <div>
+                            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-cyan-300">What powers the flow</p>
+                            <p className="mt-1 text-sm text-slate-400">Each layer connects to a PayaGo app or wallet capability already represented in the product experience.</p>
                         </div>
-                    ))}
+                        <div className="flex flex-wrap gap-2 md:justify-end">
+                            {productSystems.map((system) => (
+                                <span key={system} className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1.5 text-xs font-semibold text-slate-200">
+                                    {system}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

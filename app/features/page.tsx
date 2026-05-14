@@ -1,15 +1,30 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { PayagoWordmark } from "@/components/payago-wordmark"
 import { ArrowLeft, ArrowRight, Mic, Sparkles, Users, CreditCard, Brain, MapPin, CloudRain, ThumbsUp, Route, ShoppingBag, PiggyBank, Clock, Zap, Shield } from "lucide-react"
 
 export const metadata: Metadata = {
-    title: "PayaGo Features — AI Itinerary, Group Voting, Split Payments & More",
-    description: "Every feature in PayaGo: voice AI trip creation, 30-second itineraries, group voting, split payments, Travel DNA personalisation, and real-time trip assistance.",
+    title: "PayaGo Features — AI Itinerary, Group Voting, Cost Coordination & More",
+    description: "Every feature in PayaGo: voice AI trip creation, itinerary options, group review, cost coordination, planned Travel DNA personalisation, and trip assistance.",
     openGraph: {
-        title: "PayaGo Features — AI Itinerary, Group Voting, Split Payments",
-        description: "Voice AI trip creation, 30-second itineraries, group voting, split payments, and real-time trip assistance.",
+        title: "PayaGo Features — AI Itinerary, Group Voting, Cost Coordination",
+        description: "Voice AI trip creation, itinerary options, group review, cost coordination, and trip assistance.",
         url: "https://www.payago.in/features",
         type: "website",
+        images: [
+            {
+                url: "https://www.payago.in/og/features.jpg",
+                width: 1200,
+                height: 630,
+                alt: "PayaGo AI Group Travel Planning",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Features built for group travel",
+        description: "Voice AI trip creation, shared review, voting, cost visibility, and supported handoff.",
+        images: ["https://www.payago.in/og/features.jpg"],
     },
     alternates: {
         canonical: "https://www.payago.in/features",
@@ -22,8 +37,8 @@ const categories = [
         badge: "Core Feature",
         badgeColor: "#C9A962",
         title: "AI Trip Creation",
-        subtitle: "One sentence in. Complete trip out.",
-        description: "The heart of PayaGo. Speak naturally, and Gemini AI builds a full, bookable trip in under 30 seconds — searching over a thousand options in parallel so you never have to.",
+        subtitle: "One sentence in. Trip options out.",
+        description: "The heart of PayaGo. Speak naturally, and PayaGo AI builds ready-to-review trip options in minutes using supported travel data and provider information where available.",
         color: "#C9A962",
         features: [
             {
@@ -31,32 +46,32 @@ const categories = [
                 title: "Voice-First Input",
                 description: "Talk like you're texting a friend. No forms, no dropdowns, no decision fatigue. The AI extracts destination, dates, budget, group size, and vibe from a single natural sentence.",
                 color: "#C9A962",
-                stat: "5 seconds",
-                statLabel: "vs 5+ hours of manual research",
+                stat: "Natural",
+                statLabel: "no long forms required",
             },
             {
                 icon: Sparkles,
                 title: "3 Complete Options",
-                description: "You get Budget, Balanced, and Premium options — each with flights, hotel, and a full day-by-day schedule. AI explains why each one works for your group.",
+                description: "You get Budget, Balanced, and Premium options — each with flight ideas, hotel options, and a day-by-day schedule. AI explains why each one could work for your group.",
                 color: "#E5C77D",
-                stat: "1,350+",
-                statLabel: "options searched simultaneously",
+                stat: "3",
+                statLabel: "trip options to compare",
             },
             {
                 icon: Clock,
-                title: "30-Second Itinerary",
-                description: "Parallel API calls to flight, hotel, and activity providers run simultaneously. Gemini AI assembles the results into complete, hour-by-hour plans with timings, costs, and local tips.",
+                title: "Fast Itinerary Drafts",
+                description: "PayaGo AI assembles supported flight, hotel, and activity information into day-by-day plans with timing, budget, and local context for your group to review.",
                 color: "#FF9F43",
-                stat: "< 30s",
-                statLabel: "end-to-end generation time",
+                stat: "Minutes",
+                statLabel: "from idea to draft plan",
             },
             {
                 icon: Brain,
                 title: "Intelligent Filtering",
-                description: "AI eliminates bad options automatically — flights with 3+ connections, hotels under 4 stars, activities with poor reviews — before you ever see them.",
+                description: "AI uses quality signals to reduce poor-fit options — awkward flights, weak hotel matches, and low-quality activities — before presenting a shortlist.",
                 color: "#C9A962",
-                stat: "4★+",
-                statLabel: "minimum quality threshold enforced",
+                stat: "Curated",
+                statLabel: "shortlist for the group",
             },
         ],
     },
@@ -65,30 +80,30 @@ const categories = [
         badge: "Group Feature",
         badgeColor: "#7C5CFF",
         title: "Group Coordination",
-        subtitle: "From 50 WhatsApp messages to 5 minutes.",
-        description: "PayaGo replaces the group chat chaos with a structured, automated coordination engine. Share, vote, decide — without anyone having to chase anyone.",
+        subtitle: "From group-chat chaos to one shared plan.",
+        description: "PayaGo replaces scattered planning with a structured coordination flow. Share, vote, decide, and keep the plan visible to everyone.",
         color: "#7C5CFF",
         features: [
             {
                 icon: Users,
                 title: "Shareable Trip Link",
-                description: "Send one link via WhatsApp, email, or text. Friends see the full trip — flights, hotel, itinerary, costs — without downloading the app. They vote directly in the browser.",
+                description: "Send one link via WhatsApp, email, or text. Friends can review the full trip — flights, hotel ideas, itinerary, and estimated costs — without downloading the app. They can respond in the browser where enabled.",
                 color: "#7C5CFF",
                 stat: "0",
-                statLabel: "app downloads needed to vote",
+                statLabel: "app downloads needed to review",
             },
             {
                 icon: ThumbsUp,
-                title: "Real-Time Voting",
-                description: "I'm In / Maybe / Can't Make It. You see responses as they arrive. No more checking in 24 hours later to find half the group hasn't responded.",
+                title: "Shared Trip Responses",
+                description: "I'm In / Maybe / Can't Make It. You see responses in one place as they are submitted, so the organiser is not chasing stale group-chat replies.",
                 color: "#9B7FFF",
-                stat: "Live",
+                stat: "Shared",
                 statLabel: "response dashboard",
             },
             {
                 icon: Zap,
-                title: "Auto-Reminders",
-                description: "AI sends gentle, personalised reminders to anyone who hasn't voted after 12 hours. You don't have to be the annoying one in the group chat.",
+                title: "Reminder Nudges",
+                description: "PayaGo helps organisers nudge anyone who has not responded yet, so decisions do not disappear inside a busy group chat.",
                 color: "#7C5CFF",
                 stat: "0",
                 statLabel: "manual follow-ups needed",
@@ -96,93 +111,93 @@ const categories = [
             {
                 icon: Route,
                 title: "Conflict Resolution",
-                description: "If dates don't work for everyone, AI finds alternatives that do, regenerates the trip options for new dates, and re-invites the group — automatically.",
+                description: "If dates do not work for everyone, PayaGo helps compare responses and explore alternative dates before the group refreshes the plan.",
                 color: "#6B4FFF",
-                stat: "Auto",
-                statLabel: "date conflict detection",
+                stat: "Assisted",
+                statLabel: "date conflict handling",
             },
         ],
     },
     {
-        id: "payments",
-        badge: "No More Chasing",
+        id: "cost-coordination",
+        badge: "Cost Coordination",
         badgeColor: "#4AD7A2",
-        title: "Group Payments",
-        subtitle: "Everyone pays their share. Nobody fronts £2,000.",
-        description: "The moment the group confirms, payment requests go out to every member for their exact share. Secured and PCI-compliant. No one person carries the financial risk of a group trip.",
+        title: "Cost Coordination",
+        subtitle: "Everyone sees their share before the group commits.",
+        description: "When the group is ready, PayaGo helps coordinate each member's estimated share and keeps next steps clear. The organiser does not have to manage the whole trip through a spreadsheet.",
         color: "#4AD7A2",
         features: [
             {
                 icon: CreditCard,
-                title: "Split-to-Each Payment",
-                description: "Everyone pays their own share directly in the app — not Sarah's bank account. £390 each, not £2,340 from one person. Payments go straight to the booking.",
+                title: "Member Share Visibility",
+                description: "Everyone can see their own estimated share and review any provider-led handoff where available instead of relying on one friend's spreadsheet.",
                 color: "#4AD7A2",
-                stat: "£0",
-                statLabel: "one person needs to front",
+                stat: "Split",
+                statLabel: "share visibility",
             },
             {
                 icon: Shield,
-                title: "Secure Payments",
-                description: "Every payment is processed through PCI-DSS Level 1 certified infrastructure, 3D Secure authenticated, and fraud-protected. The same standards used by the world's largest platforms.",
+                title: "Provider-led checkout",
+                description: "Where checkout is available, details are handled by providers and partner flows. Available methods, terms, and confirmation steps are shown by the provider before the group commits.",
                 color: "#34C38F",
-                stat: "PCI-DSS",
-                statLabel: "Level 1 — highest tier",
+                stat: "Clear",
+                statLabel: "checkout terms shown upfront",
             },
             {
                 icon: Zap,
-                title: "Instant Booking",
-                description: "The moment all payments clear — usually within 2 minutes — flights, hotel, and activities are booked simultaneously. Confirmations drop into everyone's inbox.",
+                title: "Booking Handoff",
+                description: "Once the group is ready, PayaGo can guide the organiser and travellers into a provider-led booking handoff where available. Confirmations follow the relevant provider process.",
                 color: "#4AD7A2",
-                stat: "30s",
-                statLabel: "from all-paid to all-booked",
+                stat: "Ready",
+                statLabel: "for final review",
             },
             {
                 icon: Brain,
-                title: "Payment Reminders",
-                description: "AI sends automated, friendly payment nudges to anyone who hasn't paid after 6 hours. A 24-hour deadline keeps the booking window secure. You never have to ask.",
+                title: "Action Reminders",
+                description: "PayaGo is designed to help organisers send friendly reminders and keep review steps visible without chasing through a group chat.",
                 color: "#2ECC71",
-                stat: "Auto",
-                statLabel: "reminder system",
+                stat: "Clear",
+                statLabel: "next-step status",
             },
         ],
     },
     {
         id: "smart-assist",
-        badge: "Always On",
+        badge: "Trip Assist",
         badgeColor: "#00D4FF",
         title: "Smart Travel Assistance",
         subtitle: "Before, during, and after your trip.",
-        description: "PayaGo doesn't disappear after booking. It monitors your trip in real time, adapts to changes, and helps your group travel without friction from pre-departure to post-trip.",
+        description: "PayaGo helps before and during the trip with reminders, weather context, suggested updates, and shared plans your group can review together.",
         color: "#00D4FF",
         features: [
             {
                 icon: Brain,
                 title: "Travel DNA",
-                description: "After each trip, AI learns your preferences — hotel style, flight timing, activity types, budget sweet spot, group size. By your third trip, suggestions are 85%+ accurate to your tastes.",
+                description: "Planned personalisation can learn from stated preferences, saved trips, hotel style, flight timing, activity types, budget sweet spot, and group size so future drafts feel more relevant.",
                 color: "#00D4FF",
-                stat: "Gets smarter",
-                statLabel: "with every trip you take",
+                stat: "Planned",
+                statLabel: "personalisation layer",
             },
             {
                 icon: CloudRain,
-                title: "Real-Time Adaptation",
-                description: "Flight delayed? Hotel notified, group informed. Rain forecast? Outdoor activities automatically swapped for indoor alternatives. Attraction closed? Rebooked before you notice.",
+                title: "Trip Update Suggestions",
+                description: "Flight delayed? Rain forecast? Attraction closed? PayaGo helps surface useful context and suggest plan changes for the group to review.",
                 color: "#22C1E0",
-                stat: "24/7",
-                statLabel: "monitoring flights & weather",
+                stat: "Context",
+                statLabel: "for group review",
             },
             {
                 icon: MapPin,
                 title: "Pre-Trip Intelligence",
-                description: "Passport expiry checks, AI-generated packing lists tailored to destination and weather, weather forecasts 7 days before, and flight check-in reminders — all proactive, all automatic.",
+                description: "Passport reminders, AI-generated packing lists tailored to destination and weather, weather context, and flight check-in prompts help reduce pre-trip admin.",
                 color: "#00D4FF",
-                stat: "Zero",
-                statLabel: "pre-trip admin for you",
+                stat: "Less",
+                statLabel: "pre-trip admin",
             },
             {
                 icon: ShoppingBag,
                 title: "During-Trip Features",
-                description: "Built-in group chat, live location sharing (optional), nearby restaurant recommendations based on your Travel DNA, and morning briefings with the day's schedule and weather.",
+                description: "Built-in group chat, optional location sharing, nearby restaurant suggestions, and morning briefings with the day's schedule and weather are part of the planned trip-assist experience.",
                 color: "#0ABFDC",
                 stat: "Hands-free",
                 statLabel: "travel assistance",
@@ -192,21 +207,21 @@ const categories = [
 ]
 
 const addons = [
-    { icon: PiggyBank, title: "Budget Tracker", description: "Real-time spend vs. budget across all bookings for the whole group.", color: "#C9A962" },
-    { icon: Route, title: "EU Transport Search", description: "Trains, buses, and ferries across 30+ European countries — in one search.", color: "#7C5CFF" },
-    { icon: CloudRain, title: "Weather Intelligence", description: "48-hour forecasts with proactive alternative suggestions before you even ask.", color: "#00D4FF" },
+    { icon: PiggyBank, title: "Budget Tracker", description: "A shared budget view that helps the group compare planned costs before booking handoff.", color: "#C9A962" },
+    { icon: Route, title: "Transport Search", description: "Planned support for trains, buses, and ferries alongside flight and stay ideas.", color: "#7C5CFF" },
+    { icon: CloudRain, title: "Weather Intelligence", description: "Weather context with suggested alternatives for the group to review.", color: "#00D4FF" },
     { icon: ShoppingBag, title: "Smart Packing List", description: "AI-generated by destination, duration, activities, and weather forecast.", color: "#4AD7A2" },
-    { icon: ThumbsUp, title: "Activity Voting", description: "Yes/Maybe/No on individual activities. Live tallies. Auto-accept on majority.", color: "#FF6B6B" },
-    { icon: Sparkles, title: "Post-Trip Summary", description: "Photos, ratings, budget breakdown, and AI suggestions for your next trip.", color: "#E5C77D" },
+    { icon: ThumbsUp, title: "Activity Responses", description: "Yes/Maybe/No on individual activities, with shared tallies so the group can make a clear decision.", color: "#FF6B6B" },
+    { icon: Sparkles, title: "Post-Trip Summary", description: "Photos, budget breakdown, saved preferences, and AI suggestions for your next trip.", color: "#E5C77D" },
 ]
 
 export default function FeaturesPage() {
     return (
         <main className="min-h-screen bg-white">
-            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="overflow-hidden inline-flex" style={{display:"inline-flex",width:"144px",height:"32px"}}><img src="/payago-logo-new.png" alt="PayaGo" style={{width:"380px",maxWidth:"none",marginTop:"-103px",marginLeft:"-114px"}} /></span>
+                        <PayagoWordmark />
                         
                     </Link>
                     <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
@@ -219,21 +234,21 @@ export default function FeaturesPage() {
             {/* Hero */}
             <section className="relative py-32 overflow-hidden">
                 <div className="absolute inset-0">
-                    <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-[#C9A962]/8 rounded-full blur-[200px]" />
-                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#7C5CFF]/8 rounded-full blur-[180px]" />
+                    <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-[#C9A962]/8 rounded-full" />
+                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#7C5CFF]/8 rounded-full" />
                     <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:60px_60px]" />
                 </div>
                 <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 border border-slate-200 mb-8">
                         <Sparkles className="w-4 h-4 text-[#C9A962]" />
-                        <span className="text-sm font-medium text-slate-600">4 core systems · Everything included · Free for travellers</span>
+                        <span className="text-sm font-medium text-slate-600">4 core systems · Built for early-access travellers</span>
                     </div>
                     <h1 className="text-5xl lg:text-7xl font-bold text-slate-900 mb-6 leading-tight">
                         Everything you need.
                         <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent block">Nothing you don't.</span>
                     </h1>
                     <p className="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
-                        Ten features. Zero tab-switching. One app that plans, coordinates, books, and guides your entire group trip.
+                        Ten feature areas for one workflow: plan, coordinate, compare costs, and move into supported booking handoff.
                     </p>
                 </div>
             </section>
@@ -264,8 +279,8 @@ export default function FeaturesPage() {
                             {cat.features.map((feature, i) => {
                                 const Icon = feature.icon
                                 return (
-                                    <div key={i} className="group relative p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
-                                        <div className="absolute top-0 right-0 w-[150px] h-[150px] rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: `${feature.color}15` }} />
+                                    <div key={i} className="group relative p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] duration-500 hover:-translate-y-2 overflow-hidden">
+                                        <div className="absolute top-0 right-0 w-[150px] h-[150px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: `${feature.color}15` }} />
                                         <div className="relative z-10">
                                             <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-6 transition-transform duration-300 group-hover:scale-110" style={{ background: `linear-gradient(135deg, ${feature.color}25, ${feature.color}08)` }}>
                                                 <Icon className="w-6 h-6" style={{ color: feature.color }} />
@@ -299,7 +314,7 @@ export default function FeaturesPage() {
                         {addons.map((addon, i) => {
                             const Icon = addon.icon
                             return (
-                                <div key={i} className="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-all duration-300 flex items-start gap-4">
+                                <div key={i} className="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] duration-300 flex items-start gap-4">
                                     <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl flex-shrink-0 transition-transform duration-300 group-hover:scale-110" style={{ background: `linear-gradient(135deg, ${addon.color}25, ${addon.color}08)` }}>
                                         <Icon className="w-5 h-5" style={{ color: addon.color }} />
                                     </div>
@@ -319,11 +334,11 @@ export default function FeaturesPage() {
                 <div className="max-w-4xl mx-auto px-6 text-center">
                     <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
                         All of this.
-                        <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent"> Free for travellers.</span>
+                        <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent"> Built for early access.</span>
                     </h2>
-                    <p className="text-slate-500 text-lg mb-4">We earn from booking partner commissions — not from you. Every feature is free, always.</p>
-                    <p className="text-slate-400 text-sm mb-10">Powered by Gemini AI · Claude AI</p>
-                    <Link href="/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
+                    <p className="text-slate-500 text-lg mb-4">Join the early-access waitlist. PayaGo may have partner or affiliate arrangements with supported booking providers.</p>
+                    <p className="text-slate-400 text-sm mb-10">Powered by PayaGo AI · Provider-led handoff where available</p>
+                    <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
                         Get Early Access
                         <ArrowRight className="w-4 h-4" />
                     </Link>

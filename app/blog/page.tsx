@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { PayagoWordmark } from "@/components/payago-wordmark"
 import { ArrowLeft, Clock, Calendar, ArrowRight } from "lucide-react"
 
 export const metadata: Metadata = {
@@ -10,6 +11,20 @@ export const metadata: Metadata = {
         description: "Discover the best destinations for group travel, how AI is transforming trip planning, and expert guides to help your next group adventure go smoothly.",
         url: "https://www.payago.in/blog",
         type: "website",
+        images: [
+            {
+                url: "https://www.payago.in/og/blog.jpg",
+                width: 1200,
+                height: 630,
+                alt: "PayaGo AI Group Travel Planning",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "PayaGo travel planning blog",
+        description: "Practical notes on AI trip planning, group budgets, and city itineraries.",
+        images: ["https://www.payago.in/og/blog.jpg"],
     },
     alternates: {
         canonical: "https://www.payago.in/blog",
@@ -22,7 +37,7 @@ const articles = [
         date: "February 15, 2026",
         dateISO: "2026-02-15",
         readTime: "6 min",
-        excerpt: "The average group trip takes 15+ hours to plan. AI travel tools are compressing that to 30 seconds — and delivering better results. Here's what's actually changed.",
+        excerpt: "Group trips can take hours of research and coordination. AI travel tools are turning that work into faster, review-ready plans.",
         slug: "ai-travel-planning-2026",
         category: "AI & Technology",
         categoryColor: "#7C5CFF",
@@ -32,7 +47,7 @@ const articles = [
         date: "February 12, 2026",
         dateISO: "2026-02-12",
         readTime: "7 min",
-        excerpt: "Barcelona, Lisbon, Prague, Amsterdam, Budapest — ranked by walkability, group activities, accommodation value, and how easy they are to coordinate. With real pricing.",
+        excerpt: "Barcelona, Lisbon, Prague, Amsterdam, Budapest — ranked by walkability, group activities, accommodation value, and how easy they are to coordinate. With example budget ranges.",
         slug: "best-european-cities-group-travel",
         category: "Destination Guides",
         categoryColor: "#C9A962",
@@ -58,7 +73,7 @@ const articles = [
         categoryColor: "#4AD7A2",
     },
     {
-        title: "Tokyo Group Trip Itinerary: 7 Days, Real Costs & Insider Tips",
+        title: "Tokyo Group Trip Itinerary: 7 Days, Budget Ranges & Insider Tips",
         date: "March 8, 2026",
         dateISO: "2026-03-08",
         readTime: "6 min",
@@ -68,11 +83,11 @@ const articles = [
         categoryColor: "#C9A962",
     },
     {
-        title: "Barcelona Group Trip: What It Actually Costs in 2026",
+        title: "Barcelona Group Trip: What It Can Cost in 2026",
         date: "March 12, 2026",
         dateISO: "2026-03-12",
         readTime: "6 min",
-        excerpt: "Real Barcelona costs in 2026: flights, hotels by neighbourhood, food budgets, and activities. With a sample 5-day budget breakdown for a group of 6.",
+        excerpt: "Example Barcelona budget ranges in 2026: flights, hotels by neighbourhood, food budgets, and activities. With a sample 5-day budget breakdown for a group of 6.",
         slug: "barcelona-group-trip-budget",
         category: "Destination Guides",
         categoryColor: "#C9A962",
@@ -110,10 +125,10 @@ export default function BlogIndex() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
             />
 
-            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="overflow-hidden inline-flex" style={{display:"inline-flex",width:"144px",height:"32px"}}><img src="/payago-logo-new.png" alt="PayaGo" style={{width:"380px",maxWidth:"none",marginTop:"-103px",marginLeft:"-114px"}} /></span>
+                        <PayagoWordmark />
                         
                     </Link>
                     <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
@@ -126,7 +141,7 @@ export default function BlogIndex() {
             {/* Hero */}
             <section className="relative py-24 overflow-hidden">
                 <div className="absolute inset-0">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[#C9A962]/8 rounded-full blur-[200px]" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[#C9A962]/8 rounded-full" />
                 </div>
                 <div className="relative z-10 max-w-4xl mx-auto px-6">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C9A962]/10 border border-[#C9A962]/20 mb-8">
@@ -150,7 +165,7 @@ export default function BlogIndex() {
                             <Link
                                 key={article.slug}
                                 href={`/blog/${article.slug}`}
-                                className="group block bg-slate-50 border border-slate-100 rounded-2xl p-8 hover:bg-slate-50 hover:border-slate-200 transition-all duration-300"
+                                className="group block bg-slate-50 border border-slate-100 rounded-2xl p-8 hover:bg-slate-50 hover:border-slate-200 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] duration-300"
                             >
                                 <div className="flex flex-wrap items-center gap-4 mb-4">
                                     <span
@@ -175,7 +190,7 @@ export default function BlogIndex() {
                                     {article.title}
                                 </h2>
                                 <p className="text-slate-500 leading-relaxed max-w-2xl">{article.excerpt}</p>
-                                <div className="mt-6 font-medium text-[#C9A962] flex items-center gap-2 group-hover:gap-3 transition-all text-sm">
+                                <div className="mt-6 font-medium text-[#C9A962] flex items-center gap-2 group-hover:gap-3 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] text-sm">
                                     Read Article <ArrowRight className="w-4 h-4" />
                                 </div>
                             </Link>
@@ -188,12 +203,12 @@ export default function BlogIndex() {
             <section className="py-24 border-t border-slate-100 mt-16">
                 <div className="max-w-4xl mx-auto px-6 text-center">
                     <h2 className="text-3xl font-bold text-slate-900 mb-4">Ready to plan your next group trip?</h2>
-                    <p className="text-slate-500 mb-8">AI builds the itinerary. Your group votes. It books automatically.</p>
+                    <p className="text-slate-500 mb-8">AI drafts the itinerary. Your group votes. PayaGo keeps booking handoff coordinated.</p>
                     <Link
-                        href="/"
+                        href="/#early-access"
                         className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity"
                     >
-                        Get Early Access — Free
+                        Get Early Access
                         <ArrowRight className="w-4 h-4" />
                     </Link>
                 </div>

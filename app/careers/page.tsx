@@ -1,42 +1,60 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowLeft, ArrowRight, MapPin, Briefcase, Clock, DollarSign, Heart, Zap, Globe, Users } from "lucide-react"
+import { PayagoWordmark } from "@/components/payago-wordmark"
+import { ArrowLeft, ArrowRight, MapPin, Briefcase, Clock, Coins, Heart, Zap, Globe, Users } from "lucide-react"
 
 export const metadata: Metadata = {
     title: "Careers — PayaGo",
-    description: "Join the PayaGo team. We're building the future of shared expenses and looking for talented people to join us.",
+    description: "Join the PayaGo team as we build a launch-stage group travel coordination product.",
+    alternates: {
+        canonical: "https://www.payago.in/careers",
+    },
+    openGraph: {
+        title: "Careers — PayaGo",
+        description: "Join the PayaGo team as we build a launch-stage group travel coordination product.",
+        url: "https://www.payago.in/careers",
+        siteName: "PayaGo",
+        type: "website",
+        images: ["https://www.payago.in/og/careers.jpg"],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Careers — PayaGo",
+        description: "Join the PayaGo team as we build a launch-stage group travel coordination product.",
+        images: ["https://www.payago.in/og/careers.jpg"],
+    },
 }
 
 const benefits = [
     {
-        icon: DollarSign,
-        title: "Competitive Salary",
-        description: "Above-market compensation with equity options for all employees.",
+        icon: Coins,
+        title: "Pay & Equity",
+        description: "Role-specific pay ranges and equity eligibility will be shared during each hiring process.",
     },
     {
         icon: Globe,
-        title: "Remote First",
-        description: "Work from anywhere. We hire globally and trust you to manage your time.",
+        title: "Remote Friendly",
+        description: "We are shaping a remote-friendly operating rhythm as the early team grows.",
     },
     {
         icon: Heart,
-        title: "Health & Wellbeing",
-        description: "Comprehensive health insurance, mental health support, and wellness budget.",
+        title: "Wellbeing Support",
+        description: "We are defining practical wellbeing support for the launch-stage team.",
     },
     {
         icon: Zap,
-        title: "Learning Budget",
-        description: "£2,000 annual budget for courses, conferences, and personal development.",
+        title: "Learning Support",
+        description: "We support relevant learning and development needs as roles and priorities mature.",
     },
     {
         icon: Clock,
         title: "Flexible Hours",
-        description: "Work when you're most productive. No micromanagement, just results.",
+        description: "We value clear ownership, useful overlap, and flexibility where the work allows it.",
     },
     {
         icon: Users,
-        title: "Team Events",
-        description: "Regular team meetups, offsites, and company-wide gatherings.",
+        title: "Team Rituals",
+        description: "We are building lightweight rituals for planning, feedback, and shared context.",
     },
 ]
 
@@ -46,35 +64,35 @@ const openings = [
         department: "Engineering",
         location: "Remote (UK/EU)",
         type: "Full-time",
-        description: "Build and scale our payment infrastructure handling millions of transactions.",
+        description: "Build reliable provider handoff and cost coordination foundations for our early-access travel product.",
     },
     {
         title: "Senior iOS Engineer",
         department: "Engineering",
         location: "Remote (UK/EU)",
         type: "Full-time",
-        description: "Craft beautiful, performant iOS experiences for our growing user base.",
+        description: "Craft beautiful, performant iOS experiences for early testers and launch users.",
     },
     {
         title: "Senior Android Engineer",
         department: "Engineering",
         location: "Remote (UK/EU)",
         type: "Full-time",
-        description: "Build the Android app that millions rely on for shared expenses.",
+        description: "Build the Android experience for early users planning trips with friends.",
     },
     {
         title: "Product Designer",
         department: "Design",
         location: "Remote (UK/EU)",
         type: "Full-time",
-        description: "Design intuitive, delightful experiences that make finance feel simple.",
+        description: "Design intuitive, delightful travel-planning flows that make group decisions feel simple.",
     },
     {
         title: "Head of Marketing",
         department: "Marketing",
         location: "London, UK",
         type: "Full-time",
-        description: "Lead our marketing efforts and help us reach millions of users.",
+        description: "Lead launch marketing across the UK, India, and UAE corridor.",
     },
     {
         title: "Customer Success Manager",
@@ -125,7 +143,7 @@ export default function CareersPage() {
             <header className="border-b border-slate-100">
                 <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="overflow-hidden inline-flex" style={{display:"inline-flex",width:"144px",height:"32px"}}><img src="/payago-logo-new.png" alt="PayaGo" style={{width:"380px",maxWidth:"none",marginTop:"-103px",marginLeft:"-114px"}} /></span>
+                        <PayagoWordmark />
                         
                     </Link>
                     <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2">
@@ -138,8 +156,8 @@ export default function CareersPage() {
             {/* Hero */}
             <section className="relative py-32 overflow-hidden">
                 <div className="absolute inset-0">
-                    <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#C9A962]/10 rounded-full blur-[200px]" />
-                    <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-[#7C5CFF]/10 rounded-full blur-[200px]" />
+                    <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#C9A962]/10 rounded-full" />
+                    <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-[#7C5CFF]/10 rounded-full" />
                 </div>
 
                 <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
@@ -148,17 +166,17 @@ export default function CareersPage() {
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4AD7A2] opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#4AD7A2]"></span>
                         </span>
-                        <span className="text-sm font-medium text-[#4AD7A2]">We're hiring!</span>
+                        <span className="text-sm font-medium text-[#4AD7A2]">Building the early team</span>
                     </div>
                     <h1 className="text-5xl lg:text-7xl font-bold text-slate-900 mb-8">
-                        Build the future of
+                        Build the launch-stage product for
                         <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent block mt-2">
-                            shared finance
+                            group travel coordination
                         </span>
                     </h1>
                     <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-                        Join a team of passionate builders solving real problems for millions of people.
-                        We're remote-first, well-funded, and just getting started.
+                        Join a team of passionate builders solving real group-travel coordination problems.
+                        We're an early-stage team shaping the first version of PayaGo with early testers and product feedback.
                     </p>
                 </div>
             </section>
@@ -189,8 +207,8 @@ export default function CareersPage() {
             <section className="py-24 border-t border-slate-100">
                 <div className="max-w-6xl mx-auto px-6">
                     <div className="text-center mb-16">
-                        <h2 className="text-4xl font-bold text-slate-900 mb-4">Benefits & Perks</h2>
-                        <p className="text-slate-600 text-lg">We take care of our team so they can take care of our users</p>
+                        <h2 className="text-4xl font-bold text-slate-900 mb-4">How We Support The Team</h2>
+                        <p className="text-slate-600 text-lg">Practical support for a launch-stage company, shared clearly during hiring</p>
                     </div>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -213,19 +231,19 @@ export default function CareersPage() {
                 </div>
             </section>
 
-            {/* Open Positions */}
+            {/* Hiring Areas */}
             <section className="py-24 border-t border-slate-100">
                 <div className="max-w-4xl mx-auto px-6">
                     <div className="text-center mb-16">
-                        <h2 className="text-4xl font-bold text-slate-900 mb-4">Open Positions</h2>
-                        <p className="text-slate-600 text-lg">Find your next role at PayaGo</p>
+                        <h2 className="text-4xl font-bold text-slate-900 mb-4">Hiring Areas</h2>
+                        <p className="text-slate-600 text-lg">Roles we expect to shape as PayaGo moves toward launch</p>
                     </div>
 
                     <div className="space-y-4">
                         {openings.map((job, index) => (
                             <div
                                 key={index}
-                                className="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-[#C9A962]/30 transition-all duration-300 cursor-pointer hover:-translate-x-1"
+                                className="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-[#C9A962]/30 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] duration-300 cursor-pointer hover:-translate-x-1"
                             >
                                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                                     <div className="flex-1">

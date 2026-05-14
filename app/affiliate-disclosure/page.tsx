@@ -1,22 +1,37 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { PayagoWordmark } from "@/components/payago-wordmark"
 import { ArrowLeft } from "lucide-react"
 
 export const metadata: Metadata = {
     title: "Affiliate Disclosure — PayaGo",
-    description: "PayaGo earns a commission from travel booking partners when you book through our app. You always pay the same price as booking direct.",
+    description: "PayaGo may participate in partner or affiliate arrangements with travel booking providers.",
     alternates: {
         canonical: "https://www.payago.in/affiliate-disclosure",
+    },
+    openGraph: {
+        title: "Affiliate Disclosure — PayaGo",
+        description: "How PayaGo discloses partner and affiliate arrangements during early access.",
+        url: "https://www.payago.in/affiliate-disclosure",
+        siteName: "PayaGo",
+        type: "article",
+        images: ["https://www.payago.in/og/affiliate-disclosure.jpg"],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Affiliate Disclosure — PayaGo",
+        description: "How PayaGo discloses partner and affiliate arrangements during early access.",
+        images: ["https://www.payago.in/og/affiliate-disclosure.jpg"],
     },
 }
 
 export default function AffiliateDisclosure() {
     return (
         <main className="min-h-screen bg-white">
-            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="overflow-hidden inline-flex" style={{display:"inline-flex",width:"144px",height:"32px"}}><img src="/payago-logo-new.png" alt="PayaGo" style={{width:"380px",maxWidth:"none",marginTop:"-103px",marginLeft:"-114px"}} /></span>
+                        <PayagoWordmark />
                         
                     </Link>
                     <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
@@ -37,34 +52,34 @@ export default function AffiliateDisclosure() {
                     <div className="p-6 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20">
                         <p className="text-slate-900 font-semibold mb-2">The short version</p>
                         <p className="text-slate-600 text-base">
-                            PayaGo earns a commission from travel booking partners when you complete a booking through our app. You always pay the same price you would pay booking directly — we never mark up prices or add service fees. This commission is how PayaGo remains free for travellers.
+                            PayaGo may participate in partner or affiliate arrangements with travel booking providers. If you choose to continue to a provider-led booking flow, provider prices, fees, taxes, and terms should be reviewed before checkout. These arrangements may help support the early-access programme.
                         </p>
                     </div>
 
                     <section>
                         <h2 className="text-2xl font-bold text-slate-900 mb-4">1. What is affiliate marketing?</h2>
                         <p>
-                            Affiliate marketing is a standard industry practice where a website or app earns a referral commission when a user completes a purchase through a partner link. PayaGo participates in affiliate programs with travel booking partners covering hotels, flights, and activities. A full list of active partners will be published here at launch.
+                            Affiliate marketing is a standard industry practice where a website or app may receive compensation when a user continues to a partner link or flow. PayaGo may participate in partner or affiliate arrangements with travel providers covering hotels, flights, and activities. Any active partner relationships will be disclosed as the product launches.
                         </p>
                     </section>
 
                     <section>
                         <h2 className="text-2xl font-bold text-slate-900 mb-4">2. Does this affect the price you pay?</h2>
                         <p>
-                            No. The affiliate commission PayaGo receives is paid by the booking partner from their own margin — it is not added on top of the price you pay. You pay the same amount you would pay booking directly.
+                            Partner prices and fees are set and displayed by the booking partner before you confirm with that provider. Any compensation PayaGo may receive would come from a partner arrangement, not from a hidden fee we add at checkout.
                         </p>
                         <p className="mt-4">
-                            PayaGo does not charge travellers any service fees, booking fees, or platform fees. Our product is entirely free for travellers.
+                            Joining PayaGo during early access is free. If paid plans or traveller fees are introduced later, they will be disclosed clearly before you pay.
                         </p>
                     </section>
 
                     <section>
-                        <h2 className="text-2xl font-bold text-slate-900 mb-4">3. Does commission affect recommendations?</h2>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-4">3. Does partner compensation affect recommendations?</h2>
                         <p>
-                            Our AI itinerary generation and recommendations are optimised for quality and relevance to your specific trip — not to maximise commission. We apply quality filters (minimum 4-star hotels, activities rated 4.5+ stars, flights without excessive connections) regardless of commission rates.
+                            Our AI itinerary generation and recommendations are optimised for quality and relevance to your specific trip — not to maximise partner compensation. We apply quality filters such as clear location, transparent partner terms, sensible routing, and provider quality signals where available.
                         </p>
                         <p className="mt-4">
-                            All booking search results and recommendations will be labelled with the fulfilling partner at the point of display in the app.
+                            Where booking options are shown, fulfilling partner information should be labelled at the point of display.
                         </p>
                     </section>
 

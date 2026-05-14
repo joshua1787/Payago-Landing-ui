@@ -1,7 +1,7 @@
-"use client"
-
 import Link from "next/link"
-import { Twitter, Linkedin, Instagram, Mail, MapPin, ArrowUpRight } from "lucide-react"
+import { Mail, MapPin, ArrowUpRight } from "lucide-react"
+
+import { PayagoWordmark } from "@/components/payago-wordmark"
 
 const footerLinks = {
   product: [
@@ -21,16 +21,11 @@ const footerLinks = {
     { name: "Cookie Policy", href: "/cookie-policy" },
     { name: "Affiliate Disclosure", href: "/affiliate-disclosure" },
   ],
-  social: [
-    { name: "Twitter", href: "#", icon: Twitter },
-    { name: "LinkedIn", href: "#", icon: Linkedin },
-    { name: "Instagram", href: "#", icon: Instagram },
-  ],
 }
 
 export function Footer() {
   return (
-    <footer id="contact" className="relative border-t border-slate-200 bg-[#F5F3EF]">
+    <footer id="contact" className="scroll-stable-section relative border-t border-slate-200 bg-[#F5F3EF]">
       {/* Subtle top glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent" />
 
@@ -39,26 +34,14 @@ export function Footer() {
 
           {/* Brand */}
           <div className="col-span-2">
-            <Link href="/" className="overflow-hidden inline-block mb-6" style={{ width: '140px', height: '30px' }}>
-              <img src="/payago-logo-new.png" alt="PayaGo" style={{ width: '280px', maxWidth: 'none', marginTop: '-72px', marginLeft: '-48px' }} />
+            <Link href="/" className="inline-flex mb-6">
+              <PayagoWordmark />
             </Link>
             <p className="text-slate-400 text-[13px] mb-6 max-w-xs leading-[1.7]">
-              The world&apos;s first AI travel planning platform. One sentence to a fully booked group trip.
+              AI travel planning for groups. One sentence to a coordinated trip plan your friends can review, vote on, and move into provider-led handoff when ready.
             </p>
-            <div className="flex items-center gap-2.5">
-              {footerLinks.social.map((item) => {
-                const Icon = item.icon
-                return (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="w-9 h-9 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-blue-500 hover:border-blue-200 hover:bg-blue-50 transition-all duration-300"
-                    aria-label={item.name}
-                  >
-                    <Icon className="w-4 h-4" />
-                  </a>
-                )
-              })}
+            <div className="rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 text-[12px] leading-5 text-slate-500">
+              Early access is open. Free to plan, with final partner prices and terms reviewed before provider-led booking.
             </div>
           </div>
 
@@ -68,10 +51,10 @@ export function Footer() {
             <ul className="space-y-3.5">
               {footerLinks.product.map((item) => (
                 <li key={item.name}>
-                  <a href={item.href} className="text-slate-400 hover:text-slate-700 transition-colors duration-300 text-[13px] flex items-center gap-1 group">
+                  <Link href={item.href} className="text-slate-400 hover:text-slate-700 transition-colors duration-300 text-[13px] flex items-center gap-1 group">
                     {item.name}
-                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-0.5 translate-x-0.5 group-hover:opacity-50 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300" />
-                  </a>
+                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -130,11 +113,11 @@ export function Footer() {
           </div>
           <div className="flex items-center gap-6 text-slate-300 text-[12px]">
             <span className="flex items-center gap-1.5">
-              <div className="w-1 h-1 rounded-full bg-emerald-400" />
-              GDPR Compliant
+              <span className="w-1 h-1 rounded-full bg-emerald-400" />
+              Privacy Policy Available
             </span>
             <span className="flex items-center gap-1.5">
-              <div className="w-1 h-1 rounded-full bg-emerald-400" />
+              <span className="w-1 h-1 rounded-full bg-emerald-400" />
               UK Registered Company
             </span>
           </div>

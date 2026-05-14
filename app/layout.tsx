@@ -1,23 +1,24 @@
 import type React from "react"
-import type { Metadata } from "next"
-import { Inter, Outfit, Michroma } from "next/font/google"
+import type { Metadata, Viewport } from "next"
 import "./globals.css"
-import { SmoothScroll } from "@/components/smooth-scroll"
 import { CookieBanner } from "@/components/cookie-banner"
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
-const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" })
-const michroma = Michroma({ weight: "400", subsets: ["latin"], variable: "--font-michroma" })
+import { PwaInstallBanner } from "@/components/pwa-install-banner"
+import { AnalyticsLoader } from "@/components/analytics-loader"
 
 const siteUrl = "https://www.payago.in"
 const siteName = "PayaGo"
-const defaultTitle = "PayaGo — AI Group Travel Planning. One Sentence to a Fully Booked Trip."
+const defaultTitle = "PayaGo — Speak the trip. We'll do the rest."
 const defaultDescription =
-  "PayaGo's AI builds a complete group trip itinerary in 30 seconds — flights, hotels, activities. Your group votes, everyone pays their share, and it books automatically. Free for travellers."
-const ogImage = `${siteUrl}/luxury-travel-destination-aerial-view-of-tropical-.jpg`
+  "PayaGo's AI drafts group trip options quickly, then helps friends review itineraries, vote, compare costs, and move into provider-led booking handoff when ready."
+const defaultOgImage = "/og/home.jpg"
+const ogImage = `${siteUrl}${defaultOgImage}`
+const appIcon = "/icon.svg"
+const logoImage = `${siteUrl}${appIcon}`
+const gaMeasurementId = "G-89EG0EBHV0"
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  applicationName: siteName,
   title: {
     default: defaultTitle,
     template: "%s | PayaGo",
@@ -25,14 +26,12 @@ export const metadata: Metadata = {
   description: defaultDescription,
   keywords: [
     "AI travel planning",
-    "group travel app",
-    "travel itinerary generator",
     "group trip planner",
+    "travel itinerary generator",
+    "group travel coordination",
     "AI itinerary",
-    "book hotels flights activities",
-    "group vacation planner",
-    "travel booking app",
-    "split travel costs",
+    "split-cost coordination",
+    "early access travel app",
     "PayaGo",
   ],
   authors: [{ name: "PayaGo Ltd", url: siteUrl }],
@@ -67,8 +66,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: "@payago_app",
-    creator: "@payago_app",
     title: defaultTitle,
     description: defaultDescription,
     images: [ogImage],
@@ -78,54 +75,79 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/payago_logo_transparent.png", sizes: "32x32", type: "image/png" },
+      { url: appIcon, sizes: "any", type: "image/svg+xml" },
     ],
-    apple: "/payago_logo_transparent.png",
-    shortcut: "/payago_logo_transparent.png",
+    shortcut: appIcon,
+  },
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    title: siteName,
+    capable: true,
+    statusBarStyle: "black-translucent",
   },
 }
 
-export const viewport = {
-  themeColor: "#ffffff",
+export const viewport: Viewport = {
+  themeColor: "#0d1220",
   width: "device-width",
   initialScale: 1,
 }
 
 const websiteSchema = {
-  "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": `${siteUrl}/#website`,
   name: siteName,
   url: siteUrl,
   description: defaultDescription,
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: `${siteUrl}/?q={search_term_string}`,
-    },
-    "query-input": "required name=search_term_string",
+  inLanguage: "en-GB",
+  publisher: {
+    "@id": `${siteUrl}/#organization`,
   },
 }
 
 const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "TravelAgency",
+  "@type": "Organization",
+  "@id": `${siteUrl}/#organization`,
   name: siteName,
   url: siteUrl,
-  logo: `${siteUrl}/payago_logo_transparent.png`,
+  logo: {
+    "@type": "ImageObject",
+    url: logoImage,
+  },
   description: defaultDescription,
-  foundingDate: "2025",
-  areaServed: "Worldwide",
-  serviceType: "AI-Powered Group Travel Planning",
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer support",
     url: `${siteUrl}/contact`,
   },
-  sameAs: [
-    "https://twitter.com/payago_app",
-  ],
+}
+
+const softwareApplicationSchema = {
+  "@type": "SoftwareApplication",
+  "@id": `${siteUrl}/#software`,
+  name: siteName,
+  url: siteUrl,
+  description: defaultDescription,
+  applicationCategory: "TravelApplication",
+  operatingSystem: "Web",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "GBP",
+    availability: "https://schema.org/PreOrder",
+    description:
+      "Free early-access waitlist; final partner pricing and booking terms are reviewed before any provider-led booking.",
+  },
+  image: ogImage,
+  inLanguage: "en-GB",
+  publisher: {
+    "@id": `${siteUrl}/#organization`,
+  },
+}
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [organizationSchema, websiteSchema, softwareApplicationSchema],
 }
 
 export default function RootLayout({
@@ -134,27 +156,17 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en-GB">
       <head>
-        {/* Google Analytics 4 — replace G-89EG0EBHV0 with your real Measurement ID */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-89EG0EBHV0" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-89EG0EBHV0');`,
-          }}
-        />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </head>
       <body className="font-sans antialiased bg-[#FAFAF8] text-slate-900">
-        <SmoothScroll />
+        <AnalyticsLoader measurementId={gaMeasurementId} />
         {children}
+        <PwaInstallBanner />
         <CookieBanner />
       </body>
     </html>

@@ -1,15 +1,31 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowLeft, Clock, Calendar, MapPin, Star } from "lucide-react"
+import { PayagoWordmark } from "@/components/payago-wordmark"
+import { OptimizedPicture } from "@/components/optimized-picture"
+import { ArrowLeft, Clock, Calendar, MapPin } from "lucide-react"
 
 export const metadata: Metadata = {
     title: "The 5 Best European Cities for Group Travel in 2026",
-    description: "Barcelona, Lisbon, Prague, Amsterdam, Budapest — ranked by walkability, group activities, accommodation value and ease of coordination. With real 2026 pricing.",
+    description: "Barcelona, Lisbon, Prague, Amsterdam, Budapest — ranked by walkability, group activities, accommodation value and ease of coordination. With example 2026 budget ranges.",
     openGraph: {
         title: "The 5 Best European Cities for Group Travel in 2026 | PayaGo",
-        description: "Barcelona, Lisbon, Prague, Amsterdam, Budapest — ranked for group trips with real pricing data.",
+        description: "Barcelona, Lisbon, Prague, Amsterdam, Budapest — ranked for group trips with budget-range data.",
         url: "https://www.payago.in/blog/best-european-cities-group-travel",
         type: "article",
+        images: [
+            {
+                url: "https://www.payago.in/og/blog-best-european-cities-group-travel.jpg",
+                width: 1200,
+                height: 630,
+                alt: "PayaGo AI Group Travel Planning",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Best European cities for groups",
+        description: "A practical shortlist for friends planning a coordinated Europe trip.",
+        images: ["https://www.payago.in/og/blog-best-european-cities-group-travel.jpg"],
     },
     alternates: {
         canonical: "https://www.payago.in/blog/best-european-cities-group-travel",
@@ -27,7 +43,7 @@ const articleSchema = {
     publisher: {
         "@type": "Organization",
         name: "PayaGo",
-        logo: { "@type": "ImageObject", url: "https://www.payago.in/payago_logo_transparent.png" },
+        logo: { "@type": "ImageObject", url: "https://www.payago.in/icon.svg" },
     },
     url: "https://www.payago.in/blog/best-european-cities-group-travel",
 }
@@ -38,12 +54,11 @@ const cities = [
         name: "Barcelona, Spain",
         tagline: "The group travel champion",
         color: "#C9A962",
-        image: "/images/travel-santorini.png",
+        image: "/images/travel-santorini.webp",
         imageAlt: "Barcelona coastline and architecture",
         budget: "£85–130",
         bestTime: "April–June, Sept–Oct",
         groupSize: "4–12 people",
-        score: 9.4,
         highlights: [
             "Walkable Gothic Quarter and Eixample districts",
             "Gaudí architecture (Sagrada Família, Park Güell)",
@@ -60,12 +75,11 @@ const cities = [
         name: "Lisbon, Portugal",
         tagline: "Europe's best-value destination",
         color: "#00D4FF",
-        image: "/images/travel-friends.png",
+        image: "/images/travel-friends.webp",
         imageAlt: "Lisbon colorful streets and trams",
         budget: "£65–95",
         bestTime: "May–September",
         groupSize: "3–8 people",
-        score: 9.1,
         highlights: [
             "Stunning miradouros (viewpoints) in Alfama and Graça",
             "Iconic yellow trams and tile-covered buildings",
@@ -82,12 +96,11 @@ const cities = [
         name: "Prague, Czech Republic",
         tagline: "Medieval charm, affordable prices",
         color: "#7C5CFF",
-        image: "/images/travel-tokyo.png",
+        image: "/images/travel-tokyo.webp",
         imageAlt: "Prague Old Town Square and Charles Bridge",
         budget: "£50–80",
         bestTime: "April–May, Sept–Oct",
         groupSize: "4–10 people",
-        score: 8.8,
         highlights: [
             "UNESCO-listed Old Town and Charles Bridge",
             "Prague Castle — largest ancient castle in the world",
@@ -104,12 +117,11 @@ const cities = [
         name: "Amsterdam, Netherlands",
         tagline: "Bikes, canals, and world-class museums",
         color: "#4AD7A2",
-        image: "/images/travel-friends.png",
+        image: "/images/travel-friends.webp",
         imageAlt: "Amsterdam canal houses and bicycles",
         budget: "£105–160",
         bestTime: "April (tulips), June–August",
         groupSize: "3–8 people",
-        score: 8.5,
         highlights: [
             "Rent bikes and cycle the entire city like locals",
             "Rijksmuseum (Rembrandt, Vermeer) and Van Gogh Museum",
@@ -126,12 +138,11 @@ const cities = [
         name: "Budapest, Hungary",
         tagline: "The underrated gem of Central Europe",
         color: "#FF6B6B",
-        image: "/images/travel-santorini.png",
+        image: "/images/travel-santorini.webp",
         imageAlt: "Budapest Parliament building and Danube river at night",
         budget: "£50–75",
         bestTime: "April–June, September",
         groupSize: "4–10 people",
-        score: 8.3,
         highlights: [
             "Thermal baths (Széchenyi, Gellért) — perfect for group relaxation",
             "Ruin bars in the Jewish Quarter for evening entertainment",
@@ -153,10 +164,10 @@ export default function BlogPost() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
             />
 
-            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="overflow-hidden inline-flex" style={{display:"inline-flex",width:"144px",height:"32px"}}><img src="/payago-logo-new.png" alt="PayaGo" style={{width:"380px",maxWidth:"none",marginTop:"-103px",marginLeft:"-114px"}} /></span>
+                        <PayagoWordmark />
                         
                     </Link>
                     <Link href="/blog" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
@@ -189,19 +200,15 @@ export default function BlogPost() {
                     The 5 Best European Cities for Group Travel in 2026
                 </h1>
                 <p className="text-xl text-slate-500 mb-10 leading-relaxed">
-                    Ranked by walkability, range of group activities, accommodation value, and how easy they are to coordinate for groups of 4–12. With real 2026 hotel pricing.
+                    Ranked by walkability, range of group activities, accommodation value, and how easy they are to coordinate for groups of 4–12. With example 2026 hotel budget ranges.
                 </p>
 
                 <div className="rounded-2xl overflow-hidden mb-12 aspect-video bg-slate-100 border border-slate-100">
-                    <img
-                        src="/luxury-travel-destination-aerial-view-of-tropical-.jpg"
-                        alt="European travel destinations"
-                        className="w-full h-full object-cover"
-                    />
+                    <OptimizedPicture src="/luxury-travel-destination-aerial-view-of-tropical-.webp" alt="European travel destinations" imgClassName="w-full h-full object-cover" />
                 </div>
 
                 <p className="text-white/75 leading-relaxed text-lg mb-12">
-                    All five cities are well-connected by budget airlines (Ryanair, EasyJet, Wizz Air) with multiple daily flights from major UK and European hubs. All have excellent public transport, so you don&apos;t need taxis. And all are well-covered by PayaGo&apos;s AI itinerary system — meaning you can get a complete day-by-day plan, with real hotel and flight prices, in under 30 seconds.
+                    All five cities are well-connected by budget airlines (Ryanair, EasyJet, Wizz Air) with multiple daily flights from major UK and European hubs. All have excellent public transport, so you don&apos;t need taxis. They also work well for PayaGo&apos;s AI itinerary flow, giving groups a clear day-by-day draft to review before booking handoff.
                 </p>
 
                 {/* Cities */}
@@ -218,10 +225,9 @@ export default function BlogPost() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-1 flex-shrink-0 bg-slate-50 border border-slate-100 rounded-xl px-3 py-2">
-                                    <Star className="w-4 h-4 text-[#C9A962]" />
-                                    <span className="text-slate-900 font-bold text-sm">{city.score}</span>
-                                    <span className="text-slate-400 text-xs">/10</span>
+                                <div className="flex flex-col items-end gap-0.5 flex-shrink-0 bg-slate-50 border border-slate-100 rounded-xl px-3 py-2">
+                                    <span className="text-slate-400 text-[10px] uppercase tracking-wider">Group fit</span>
+                                    <span className="text-slate-900 font-bold text-sm">{city.groupSize}</span>
                                 </div>
                             </div>
 
@@ -282,10 +288,10 @@ export default function BlogPost() {
 
                 <div className="mt-8 p-6 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20">
                     <p className="text-slate-600 mb-4">
-                        Want a complete day-by-day itinerary for any of these cities — with live hotel prices, flights, and activities? PayaGo&apos;s AI builds it in 30 seconds.
+                        Want a complete day-by-day itinerary for any of these cities — with flight options, hotel ideas, and activities? PayaGo&apos;s AI builds a ready-to-review draft quickly.
                     </p>
-                    <Link href="/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
-                        Plan Your Group Trip — Free
+                    <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
+                        Plan Your Group Trip
                     </Link>
                 </div>
             </div>

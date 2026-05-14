@@ -1,15 +1,30 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { PayagoWordmark } from "@/components/payago-wordmark"
 import { ArrowLeft, ArrowRight, Mic, Brain, Users, Zap, Globe, Heart } from "lucide-react"
 
 export const metadata: Metadata = {
     title: "About — PayaGo",
-    description: "The story behind PayaGo — why we built an AI that turns one sentence into a fully booked group trip. Founded after 3 weeks of planning chaos for a Lisbon trip.",
+    description: "The story behind PayaGo — why we built an AI that turns one sentence into a coordinated group trip plan. Founded after 3 weeks of planning chaos for a Lisbon trip.",
     openGraph: {
         title: "About PayaGo — Why We Built an AI Group Travel Planner",
-        description: "The story behind PayaGo — why we built an AI that turns one sentence into a fully booked group trip.",
+        description: "The story behind PayaGo — why we built an AI that turns one sentence into a coordinated group trip plan.",
         url: "https://www.payago.in/about",
         type: "website",
+        images: [
+            {
+                url: "https://www.payago.in/og/about.jpg",
+                width: 1200,
+                height: 630,
+                alt: "PayaGo AI Group Travel Planning",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "About PayaGo",
+        description: "Why we built an AI that turns one sentence into a coordinated group trip plan.",
+        images: ["https://www.payago.in/og/about.jpg"],
     },
     alternates: {
         canonical: "https://www.payago.in/about",
@@ -19,8 +34,8 @@ export const metadata: Metadata = {
 const values = [
     {
         icon: Zap,
-        title: "30 Seconds or Bust",
-        description: "If it takes longer than 30 seconds for AI to build a complete trip, we've failed. Every engineering decision flows from this principle.",
+        title: "Minutes, Not Weeks",
+        description: "If AI cannot get a group from idea to useful draft plan quickly, the product has missed the point. Every engineering decision flows from that principle.",
         color: "#C9A962",
     },
     {
@@ -32,13 +47,13 @@ const values = [
     {
         icon: Brain,
         title: "AI Does the Work",
-        description: "You shouldn't have to scroll through 1,000 hotels. The AI should know what you want and present three perfect options. That's the bar we hold ourselves to.",
+        description: "You shouldn't have to scroll through endless hotel tabs. The AI should understand the brief and present three strong options your group can actually discuss.",
         color: "#7C5CFF",
     },
     {
         icon: Heart,
-        title: "Trips Actually Happen",
-        description: "Our north star isn't sign-ups or revenue — it's trips that actually get booked. Every feature exists to move a group from 'we should go' to 'we're going'.",
+        title: "Trips Reach A Clear Next Step",
+        description: "Our north star isn't sign-ups or revenue — it's helping groups move from 'we should go' to a clear, shared next step.",
         color: "#4AD7A2",
     },
 ]
@@ -47,25 +62,25 @@ const timeline = [
     {
         year: "2024",
         title: "The Trip That Started It All",
-        description: "Our founders tried to plan a group trip to Lisbon. Eight people, six WhatsApp threads, four spreadsheets, and three weeks of back-and-forth — for a 4-day trip. They spent more time planning than they spent there.",
+        description: "Our founders tried to plan a group trip to Lisbon. Multiple chats, scattered links, spreadsheets, and weeks of back-and-forth turned a simple idea into admin. They spent more time planning than they should have.",
         accent: "#C9A962",
     },
     {
         year: "2024",
         title: "The Research",
-        description: "We spoke to hundreds of people about group travel. The frustration was universal and visceral. 95% of group trips discussed never happen. Not because people don't want to travel — because planning together is so painful people give up.",
+        description: "We spoke to travellers about group travel. The frustration was universal and visceral: people want to go, but planning together is so painful that plans often fade out.",
         accent: "#00D4FF",
     },
     {
         year: "2025",
         title: "Building the AI",
-        description: "We assembled a team of AI engineers, travel tech veterans, and UX obsessives. Voice recognition. Gemini AI generating complete itineraries. Real-time group collaboration. Travel booking integrations coming at launch.",
+        description: "We started building around the core workflow: voice or text trip input, AI-generated itinerary drafts, group collaboration, cost coordination, and provider-led booking handoff where supported.",
         accent: "#7C5CFF",
     },
     {
         year: "2026",
-        title: "Launching April 2026",
-        description: "After months of beta testing with thousands of groups, PayaGo launches on iOS and Android. The goal is simple: every group trip that's ever been discussed in a WhatsApp chat actually happens.",
+        title: "Launching early access phase",
+        description: "PayaGo is moving through early access with web and mobile experiences. The goal is simple: help more group trips move from chat to a clear plan.",
         accent: "#4AD7A2",
     },
 ]
@@ -81,21 +96,21 @@ const team = [
     {
         name: "Joshua",
         role: "Co-Founder & CTO",
-        bio: "Leads technology vision, AI infrastructure, and system architecture. Built the parallel search engine that queries 1,350+ travel options simultaneously in under 10 seconds.",
+        bio: "Leads technology vision, AI infrastructure, and system architecture for the planning engine that turns a rough group idea into structured trip options.",
         avatar: "JV",
         gradient: "from-[#00D4FF] to-[#7C5CFF]",
     },
     {
         name: "Kishore Dayanithi",
         role: "Co-Founder & CFO",
-        bio: "Owns financial strategy and partner relationships. Designed the commission model that makes PayaGo genuinely free for travellers — forever.",
+        bio: "Owns financial strategy and partner relationships, including the partner-supported model behind early access planning and provider-led handoff where supported.",
         avatar: "KD",
         gradient: "from-[#7C5CFF] to-[#4AD7A2]",
     },
     {
         name: "Aravinthan",
         role: "Co-Founder & COO",
-        bio: "Runs day-to-day operations and drives execution across engineering, product, and growth. Makes sure the 30-second promise stays a promise.",
+        bio: "Runs day-to-day operations and drives execution across engineering, product, and growth. Keeps the team focused on fast, useful trip planning.",
         avatar: "AR",
         gradient: "from-[#4AD7A2] to-[#00D4FF]",
     },
@@ -104,10 +119,10 @@ const team = [
 export default function AboutPage() {
     return (
         <main className="min-h-screen bg-white">
-            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="overflow-hidden inline-flex" style={{display:"inline-flex",width:"144px",height:"32px"}}><img src="/payago-logo-new.png" alt="PayaGo" style={{width:"380px",maxWidth:"none",marginTop:"-103px",marginLeft:"-114px"}} /></span>
+                        <PayagoWordmark />
                         
                     </Link>
                     <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
@@ -120,14 +135,14 @@ export default function AboutPage() {
             {/* Hero */}
             <section className="relative py-32 overflow-hidden">
                 <div className="absolute inset-0">
-                    <div className="absolute top-0 left-1/3 w-[700px] h-[700px] bg-[#C9A962]/8 rounded-full blur-[180px]" />
-                    <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-[#7C5CFF]/8 rounded-full blur-[150px]" />
+                    <div className="absolute top-0 left-1/3 w-[700px] h-[700px] bg-[#C9A962]/8 rounded-full" />
+                    <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-[#7C5CFF]/8 rounded-full" />
                     <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:60px_60px]" />
                 </div>
                 <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C9A962]/10 border border-[#C9A962]/20 mb-8">
                         <span className="w-2 h-2 bg-[#C9A962] rounded-full animate-pulse" />
-                        <span className="text-sm font-medium text-[#C9A962]">Launching April 2026</span>
+                        <span className="text-sm font-medium text-[#C9A962]">Launching early access phase</span>
                     </div>
                     <h1 className="text-5xl lg:text-7xl font-bold text-slate-900 mb-8 leading-tight">
                         {"We're making"}
@@ -135,7 +150,7 @@ export default function AboutPage() {
                         <br />actually happen
                     </h1>
                     <p className="text-xl lg:text-2xl text-slate-500 max-w-3xl mx-auto leading-relaxed">
-                        {"95% of group trips discussed in a WhatsApp chat never happen. Not because people don't want to go — because planning together is broken."}
+                        {"Too many group trips start in a chat and never become a clear plan. Not because people don't want to go — because planning together is broken."}
                     </p>
                 </div>
             </section>
@@ -146,9 +161,9 @@ export default function AboutPage() {
                 <div className="relative max-w-7xl mx-auto px-6">
                     <div className="grid md:grid-cols-3 gap-px bg-slate-100 rounded-2xl overflow-hidden">
                         {[
-                            { value: "95%", label: "of group trips discussed never get booked", color: "#FF6B6B" },
-                            { value: "15hrs", label: "average time spent planning a group trip manually", color: "#C9A962" },
-                            { value: "30s", label: "for PayaGo AI to create a complete trip itinerary", color: "#4AD7A2" },
+                            { value: "One", label: "shared plan instead of scattered chats", color: "#FF6B6B" },
+                            { value: "Three", label: "AI-generated options for the group to compare", color: "#C9A962" },
+                            { value: "Clear", label: "next steps from idea to booking handoff", color: "#4AD7A2" },
                         ].map((stat, i) => (
                             <div key={i} className="bg-slate-50 p-12 text-center">
                                 <div className="text-6xl lg:text-7xl font-bold mb-3" style={{ color: stat.color }}>{stat.value}</div>
@@ -170,11 +185,11 @@ export default function AboutPage() {
                             <h2 className="text-3xl font-bold text-slate-900 mb-6">Planning a trip used to mean…</h2>
                             <div className="space-y-4">
                                 {[
-                                    "3 hours comparing flights across 5 websites",
-                                    "4 hours scrolling through hotel reviews",
-                                    "50+ WhatsApp messages trying to agree on dates",
+                                    "Hours comparing flights across multiple websites",
+                                    "More hours scrolling through hotel options and reviews",
+                                    "Endless WhatsApp messages trying to agree on dates",
                                     "One person doing all the work while friends are passive",
-                                    "Chasing people for money for weeks after booking",
+                                    "Chasing people for decisions and estimated shares across multiple chats",
                                     "Someone always backs out last minute",
                                     "The trip gets indefinitely postponed",
                                 ].map((pain, i) => (
@@ -189,16 +204,16 @@ export default function AboutPage() {
                             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#4AD7A2]/10 border border-[#4AD7A2]/20 mb-8">
                                 <span className="text-sm font-medium text-[#4AD7A2]">With PayaGo</span>
                             </div>
-                            <h2 className="text-3xl font-bold text-slate-900 mb-6">The same trip now takes 5 minutes</h2>
+                            <h2 className="text-3xl font-bold text-slate-900 mb-6">The same trip becomes a shared plan</h2>
                             <div className="space-y-4">
                                 {[
-                                    "Speak one sentence — AI builds the full itinerary in 30s",
+                                    "Speak one sentence — AI builds a ready-to-review itinerary",
                                     "Get 3 complete options: Budget, Balanced, and Premium",
-                                    "Send a link — friends vote directly in the app",
-                                    "Everyone pays their own share securely, instantly",
-                                    "Flights, hotel, and activities booked automatically",
-                                    "Pre-trip reminders, packing lists, and weather alerts",
-                                    "Real-time help if flights delay or weather changes",
+                                    "Send a link — friends review the plan and respond where enabled",
+                                    "Everyone sees their share before committing",
+                                    "Flights, hotel, and activities can move through provider-led booking handoff where available",
+                                    "Planned pre-trip reminders, packing lists, and weather context",
+                                    "Shared context when flights, weather, or schedules change",
                                 ].map((win, i) => (
                                     <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-[#4AD7A2]/5 border border-[#4AD7A2]/10">
                                         <span className="text-[#4AD7A2] mt-0.5 text-lg leading-none">✓</span>
@@ -228,11 +243,11 @@ export default function AboutPage() {
                                 {"We're creating a new category — Autonomous Travel Planning. The same way Uber eliminated the friction of getting a cab, PayaGo eliminates the friction of planning a trip together."}
                             </p>
                             <p className="text-slate-600 text-lg leading-relaxed">
-                                {"You shouldn't need to be a travel agent to take a group trip. One sentence. 30 seconds. Done."}
+                                {"You shouldn't need to be a travel agent to take a group trip. One sentence. A structured plan. Clear next steps."}
                             </p>
                         </div>
                         <div className="relative p-10 rounded-3xl bg-slate-50 border border-slate-100 overflow-hidden">
-                            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#C9A962]/10 rounded-full blur-[100px]" />
+                            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#C9A962]/10 rounded-full" />
                             <div className="relative z-10">
                                 <div className="flex items-center gap-3 mb-6">
                                     <div className="w-10 h-10 rounded-xl bg-[#C9A962]/20 flex items-center justify-center">
@@ -251,13 +266,13 @@ export default function AboutPage() {
                                     <span className="text-slate-500 text-sm">PayaGo AI returns…</span>
                                 </div>
                                 <div className="space-y-3">
-                                    {["✈️  Flights for 6 — EasyJet, Fri 7pm", "🏨  Hotel Barcelona Universal, 4.5★", "🎯  Sagrada Família + Beach Club + Rooftop"].map((item, i) => (
+                                    {["Flight option for 6 — Friday evening", "Group-friendly Barcelona stay idea", "Sagrada Família + beach time + rooftop plan"].map((item, i) => (
                                         <div key={i} className="text-slate-600 text-sm bg-slate-50 rounded-xl px-4 py-3">{item}</div>
                                     ))}
                                 </div>
                                 <div className="mt-6 flex items-center gap-2 text-[#4AD7A2] text-sm">
                                     <span className="w-2 h-2 bg-[#4AD7A2] rounded-full animate-pulse" />
-                                    Complete trip built in 28 seconds
+                                    Trip option ready for review
                                 </div>
                             </div>
                         </div>
@@ -276,7 +291,7 @@ export default function AboutPage() {
                         {values.map((value, index) => {
                             const Icon = value.icon
                             return (
-                                <div key={index} className="group p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-all duration-500 hover:-translate-y-1">
+                                <div key={index} className="group p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] duration-500 hover:-translate-y-1">
                                     <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-6 transition-transform duration-300 group-hover:scale-110" style={{ background: `linear-gradient(135deg, ${value.color}30, ${value.color}10)` }}>
                                         <Icon className="w-6 h-6" style={{ color: value.color }} />
                                     </div>
@@ -323,7 +338,7 @@ export default function AboutPage() {
                     </div>
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {team.map((member, index) => (
-                            <div key={index} className="group p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-all duration-500 hover:-translate-y-1 text-center">
+                            <div key={index} className="group p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] duration-500 hover:-translate-y-1 text-center">
                                 <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${member.gradient} flex items-center justify-center text-xl font-bold text-slate-900 mx-auto mb-6 transition-transform duration-300 group-hover:scale-105`}>
                                     {member.avatar}
                                 </div>
@@ -341,10 +356,10 @@ export default function AboutPage() {
                 <div className="max-w-6xl mx-auto px-6">
                     <div className="grid md:grid-cols-4 gap-6 text-center">
                         {[
-                            { value: "15K+", label: "Waitlist signups" },
-                            { value: "2K+", label: "Beta trips planned" },
-                            { value: "45", label: "Countries on waitlist" },
-                            { value: "4.9★", label: "Beta tester rating" },
+                            { value: "AI", label: "Itinerary drafting" },
+                            { value: "Group", label: "Voting and collaboration" },
+                            { value: "Split", label: "Cost coordination" },
+                            { value: "Partner", label: "Booking handoff" },
                         ].map((stat, index) => (
                             <div key={index} className="p-8 rounded-3xl bg-slate-50 border border-slate-100">
                                 <div className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent mb-2">{stat.value}</div>
@@ -362,9 +377,9 @@ export default function AboutPage() {
                         Join us in making
                         <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent"> every trip happen</span>
                     </h2>
-                    <p className="text-slate-500 text-lg mb-10">Free early access. No credit card required. April 2026 launch.</p>
+	                    <p className="text-slate-500 text-lg mb-10">Join the early-access waitlist. No credit card required. Mobile experiences are planned.</p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <Link href="/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
+                        <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
                             Get Early Access
                             <ArrowRight className="w-4 h-4" />
                         </Link>

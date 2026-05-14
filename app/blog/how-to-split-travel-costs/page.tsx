@@ -1,15 +1,31 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { PayagoWordmark } from "@/components/payago-wordmark"
+import { OptimizedPicture } from "@/components/optimized-picture"
 import { ArrowLeft, Clock, Calendar } from "lucide-react"
 
 export const metadata: Metadata = {
     title: "How to Split Travel Costs in a Group (Without the Drama)",
-    description: "The fairest ways to split group travel costs in 2026 — from flights and hotels to activities and dinners. Why equal splits cause fights, and how PayaGo handles it automatically.",
+    description: "The fairest ways to split group travel costs in 2026 — from flights and hotels to activities and dinners. Why equal splits cause fights, and how PayaGo keeps each person's share coordinated.",
     openGraph: {
         title: "How to Split Travel Costs in a Group (Without the Drama) | PayaGo Blog",
         description: "The fairest ways to split group travel costs — and why equal splits cause more arguments than you'd expect.",
         url: "https://www.payago.in/blog/how-to-split-travel-costs",
         type: "article",
+        images: [
+            {
+                url: "https://www.payago.in/og/blog-how-to-split-travel-costs.jpg",
+                width: 1200,
+                height: 630,
+                alt: "PayaGo AI Group Travel Planning",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "How to split travel costs",
+        description: "Simple ways to keep group trip budgets visible and fair.",
+        images: ["https://www.payago.in/og/blog-how-to-split-travel-costs.jpg"],
     },
     alternates: { canonical: "https://www.payago.in/blog/how-to-split-travel-costs" },
 }
@@ -20,7 +36,7 @@ const schema = {
     headline: "How to Split Travel Costs in a Group (Without the Drama)",
     datePublished: "2026-03-05",
     author: { "@type": "Organization", name: "PayaGo" },
-    publisher: { "@type": "Organization", name: "PayaGo", logo: { "@type": "ImageObject", url: "https://www.payago.in/payago_logo_transparent.png" } },
+    publisher: { "@type": "Organization", name: "PayaGo", logo: { "@type": "ImageObject", url: "https://www.payago.in/icon.svg" } },
     url: "https://www.payago.in/blog/how-to-split-travel-costs",
 }
 
@@ -28,10 +44,10 @@ export default function BlogPost() {
     return (
         <main className="min-h-screen bg-white">
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="overflow-hidden inline-flex" style={{display:"inline-flex",width:"144px",height:"32px"}}><img src="/payago-logo-new.png" alt="PayaGo" style={{width:"380px",maxWidth:"none",marginTop:"-103px",marginLeft:"-114px"}} /></span>
+                        <PayagoWordmark />
                         
                     </Link>
                     <Link href="/blog" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
@@ -52,7 +68,7 @@ export default function BlogPost() {
                     How to Split Travel Costs in a Group (Without the Drama)
                 </h1>
                 <div className="rounded-2xl overflow-hidden mb-12 aspect-video bg-slate-100 border border-slate-100">
-                    <img src="/images/travel-friends.png" alt="Group of friends travelling together" className="w-full h-full object-cover" />
+                    <OptimizedPicture src="/images/travel-friends.webp" alt="Group of friends travelling together" imgClassName="w-full h-full object-cover" />
                 </div>
                 <div className="space-y-8 text-white/75 leading-relaxed text-lg">
                     <p>
@@ -81,9 +97,9 @@ export default function BlogPost() {
                     <h2 className="text-2xl font-bold text-slate-900 mt-12 mb-4">The 4 methods — ranked by fairness</h2>
                     <div className="space-y-4">
                         {[
-                            { rank: "Best", method: "Everyone pays their own share directly", detail: "PayaGo's approach. Each person is charged exactly their share at booking — no fronting costs, no chasing. This eliminates the core dynamic that causes resentment.", color: "#4AD7A2" },
+                            { rank: "Best", method: "Everyone sees their own share before booking", detail: "PayaGo's approach. Each person sees their estimated share before booking handoff, so the group can coordinate without one person fronting the full cost. This reduces the core dynamic that causes resentment.", color: "#4AD7A2" },
                             { rank: "Good", method: "Splitwise / Tricount app tracking", detail: "Works well for trips where costs are genuinely variable. Track everything, settle at the end. Main downside: someone still has to front the costs.", color: "#C9A962" },
-                            { rank: "OK", method: "Rotating payments", detail: "Each person pays for one dinner, one activity etc. Works in practice if the amounts are similar, but breaks down with big-ticket items like boat charters.", color: "#7C5CFF" },
+                            { rank: "OK", method: "Rotating who pays", detail: "Each person pays for one dinner, one activity etc. Works in practice if the amounts are similar, but breaks down with big-ticket items like boat charters.", color: "#7C5CFF" },
                             { rank: "Avoid", method: "One person pays everything, gets paid back", detail: "This is how most groups default — and it's the worst option. The payer takes on financial risk, the stress of chasing people, and often loses money when someone inevitably shorts them.", color: "#FF6B6B" },
                         ].map((item) => (
                             <div key={item.rank} className="flex gap-4 p-5 rounded-xl bg-slate-50 border border-slate-100">
@@ -112,19 +128,19 @@ export default function BlogPost() {
                         ))}
                     </div>
 
-                    <h2 className="text-2xl font-bold text-slate-900 mt-12 mb-4">How PayaGo handles this automatically</h2>
+                    <h2 className="text-2xl font-bold text-slate-900 mt-12 mb-4">How PayaGo keeps shares coordinated</h2>
                     <p>
-                        PayaGo is built around the direct payment model — the approach that generates the least conflict. When your group confirms a trip, each person receives a payment request for exactly their share (for example, £780 each, not £3,120 from one person). Everyone pays directly in the app. Once all payments clear, everything books simultaneously.
+                        PayaGo is built around split-cost visibility and coordination. When your group agrees on a trip plan, each person can see their estimated share (for example, £780 each, not £3,120 from one person) before provider-led handoff, so one friend does not have to carry the full amount.
                     </p>
                     <p>
-                        Nobody fronts the money. Nobody chases anyone. Nobody loses £200 because someone claims they &ldquo;already transferred&rdquo; when they didn&apos;t.
+                        Nobody has to be the default trip banker. The aim is clearer visibility before provider checkout, less chasing, and fewer awkward repayment conversations.
                     </p>
 
                     <div className="mt-12 p-6 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20">
-                        <p className="text-slate-900 font-semibold mb-2">Plan your next group trip — payments sorted automatically.</p>
-                        <p className="text-slate-600 text-sm mb-4">AI builds the itinerary, your group votes, everyone pays their share. Launching April 2026.</p>
-                        <Link href="/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
-                            Get Early Access — Free
+                        <p className="text-slate-900 font-semibold mb-2">Plan your next group trip — costs coordinated from the start.</p>
+                        <p className="text-slate-600 text-sm mb-4">AI suggests the itinerary, your group votes, and everyone can see their share before provider booking handoff. Launching early access phase.</p>
+                        <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
+                            Get Early Access
                         </Link>
                     </div>
                 </div>

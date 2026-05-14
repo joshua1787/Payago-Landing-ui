@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { PayagoWordmark } from "@/components/payago-wordmark"
 import { ArrowLeft, Clock, Calendar, Check, X } from "lucide-react"
 
 export const metadata: Metadata = {
@@ -10,6 +11,20 @@ export const metadata: Metadata = {
         description: "Honest comparison of the top group travel apps in 2026. What each does well and what it doesn't.",
         url: "https://www.payago.in/blog/best-group-travel-apps-2026",
         type: "article",
+        images: [
+            {
+                url: "https://www.payago.in/og/blog-best-group-travel-apps-2026.jpg",
+                width: 1200,
+                height: 630,
+                alt: "PayaGo AI Group Travel Planning",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Best group travel apps in 2026",
+        description: "How to compare planning, voting, cost coordination, and trip handoff tools.",
+        images: ["https://www.payago.in/og/blog-best-group-travel-apps-2026.jpg"],
     },
     alternates: { canonical: "https://www.payago.in/blog/best-group-travel-apps-2026" },
 }
@@ -20,7 +35,7 @@ const schema = {
     headline: "Best Group Travel Planning Apps of 2026 — Compared",
     datePublished: "2026-03-10",
     author: { "@type": "Organization", name: "PayaGo" },
-    publisher: { "@type": "Organization", name: "PayaGo", logo: { "@type": "ImageObject", url: "https://www.payago.in/payago_logo_transparent.png" } },
+    publisher: { "@type": "Organization", name: "PayaGo", logo: { "@type": "ImageObject", url: "https://www.payago.in/icon.svg" } },
     url: "https://www.payago.in/blog/best-group-travel-apps-2026",
 }
 
@@ -28,13 +43,13 @@ const apps = [
     {
         name: "PayaGo",
         tagline: "AI-powered group trip planner",
-        category: "AI planning + coordination + booking",
+        category: "AI planning + coordination + provider-led handoff",
         color: "#C9A962",
-        pros: ["AI builds complete itinerary in 30 seconds", "Group voting built-in", "Split payments (each person pays their share)", "Live flight/hotel/activity prices", "Real-time collaborative editing"],
-        cons: ["Launching April 2026 (not live yet)", "Requires app download for payments"],
+        pros: ["AI drafts complete itinerary options quickly", "Group voting built-in", "Split-cost coordination", "Flight, hotel, and activity options", "Shared collaborative editing"],
+        cons: ["Launching early access phase (not live yet)", "Booking handoff is still in early access"],
         bestFor: "Groups who want one app for everything",
-        price: "Free for travellers",
-        verdict: "The only app that combines AI planning, group coordination, and payments in one place. Nothing else comes close for group trips.",
+        price: "Free to join early access",
+        verdict: "A focused option for groups that want AI planning, group decisions, cost coordination, and booking handoff in one flow.",
     },
     {
         name: "TripIt",
@@ -52,8 +67,8 @@ const apps = [
         tagline: "Collaborative trip planner & map",
         category: "Collaborative planning",
         color: "#00D4FF",
-        pros: ["Beautiful map-based interface", "Real-time collaboration", "Import Google Maps lists", "Good for route planning"],
-        cons: ["No AI itinerary generation", "No booking", "No group payments", "Manual research still required"],
+        pros: ["Beautiful map-based interface", "Shared collaboration", "Import Google Maps lists", "Good for route planning"],
+        cons: ["No AI itinerary generation", "No booking", "No split-cost coordination", "Manual research still required"],
         bestFor: "Road trips and self-drive holidays with a set route",
         price: "Free / £8/month Pro",
         verdict: "Great for mapping out a route, but doesn't reduce the research and coordination work.",
@@ -63,7 +78,7 @@ const apps = [
         tagline: "Search + saved places",
         category: "Research tool",
         color: "#4AD7A2",
-        pros: ["Everyone already has it", "Real-time reviews and hours", "Offline maps", "Reserve with Google integration"],
+        pros: ["Everyone already has it", "Current reviews and hours", "Offline maps", "Reserve with Google integration"],
         cons: ["Not designed for group trips", "No coordination features", "No shared itinerary", "You still have to manually book everything"],
         bestFor: "On-the-ground navigation and finding places",
         price: "Free",
@@ -75,10 +90,10 @@ export default function BlogPost() {
     return (
         <main className="min-h-screen bg-white">
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="overflow-hidden inline-flex" style={{display:"inline-flex",width:"144px",height:"32px"}}><img src="/payago-logo-new.png" alt="PayaGo" style={{width:"380px",maxWidth:"none",marginTop:"-103px",marginLeft:"-114px"}} /></span>
+                        <PayagoWordmark />
                         
                     </Link>
                     <Link href="/blog" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
@@ -103,7 +118,7 @@ export default function BlogPost() {
                         The travel app market is crowded, but if you look closely, most apps solve only a slice of the group travel problem. TripIt organises your trip after you&apos;ve booked it. Wanderlog helps you map a route you&apos;ve already decided on. Google Maps helps you navigate once you&apos;re there.
                     </p>
                     <p>
-                        None of them solve the actual hard problem: going from &ldquo;we should go somewhere&rdquo; to &ldquo;everything is booked and everyone has paid.&rdquo; Here&apos;s an honest comparison of what&apos;s available in 2026.
+                        None of them solve the actual hard problem: going from &ldquo;we should go somewhere&rdquo; to &ldquo;we have a coordinated plan, clear cost visibility, and a path to provider-led booking.&rdquo; Here&apos;s an honest comparison of what&apos;s available in 2026.
                     </p>
                 </div>
 
@@ -151,10 +166,10 @@ export default function BlogPost() {
                 </div>
 
                 <div className="mt-12 p-6 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20">
-                    <p className="text-slate-900 font-semibold mb-2">Try PayaGo when it launches in April 2026.</p>
-                    <p className="text-slate-600 text-sm mb-4">AI plans the trip, your group votes, everyone pays their share. Free for travellers.</p>
-                    <Link href="/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
-                        Get Early Access — Free
+                    <p className="text-slate-900 font-semibold mb-2">Try PayaGo when it launches in early access phase.</p>
+                    <p className="text-slate-600 text-sm mb-4">AI plans the trip, your group votes, and everyone can coordinate their share through the early-access experience.</p>
+                    <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
+                        Get Early Access
                     </Link>
                 </div>
             </div>

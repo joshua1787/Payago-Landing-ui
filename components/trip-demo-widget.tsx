@@ -1,7 +1,8 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Mic, Sparkles, Plane, Hotel, MapPin, Clock, Users, Star, ArrowRight, ChevronRight, Check } from "lucide-react"
+import { captureEvent } from "@/lib/analytics"
 
 const DEMO_TRIPS = [
     {
@@ -16,7 +17,7 @@ const DEMO_TRIPS = [
                 perPerson: "£620",
                 total: "£2,480",
                 flight: "London Heathrow → Tokyo Narita — British Airways, 1 stop, 14h 20m",
-                hotel: "Shinjuku Granbell Hotel ★★★★ — 4.6/5 (2,847 reviews)",
+                hotel: "Shinjuku Granbell Hotel — social Shinjuku base, strong street-food access",
                 highlights: ["Senso-ji Temple at dawn", "Tsukiji Outer Market breakfast", "Shibuya Crossing & Harajuku", "Akihabara electronics district", "TeamLab Borderless digital art"],
             },
             {
@@ -25,7 +26,7 @@ const DEMO_TRIPS = [
                 perPerson: "£780",
                 total: "£3,120",
                 flight: "London Heathrow → Tokyo Haneda — ANA, direct, 11h 45m",
-                hotel: "Cerulean Tower Tokyu Hotel ★★★★★ — 4.8/5 (1,203 reviews)",
+                hotel: "Cerulean Tower Tokyu Hotel — polished Shibuya stay idea, easy transit",
                 highlights: ["Private tea ceremony in Yanaka", "Tsukiji breakfast +築地 cooking class", "Day trip to Nikko Shrines", "Shinjuku izakaya bar crawl", "Teamlab Planets + Odaiba"],
                 recommended: true,
             },
@@ -35,7 +36,7 @@ const DEMO_TRIPS = [
                 perPerson: "£980",
                 total: "£3,920",
                 flight: "London Heathrow → Tokyo Haneda — JAL Business Class, direct, 11h 45m",
-                hotel: "Park Hyatt Tokyo ★★★★★ — 4.9/5 (876 reviews) — Lost in Translation views",
+                hotel: "Park Hyatt Tokyo — premium city-view stay idea",
                 highlights: ["Private sushi masterclass with chef", "Bullet train to Kyoto (day trip)", "Exclusive sumo morning practice visit", "Michelin-starred dinner in Ginza", "Private Tsukiji market tour"],
             },
         ]
@@ -52,7 +53,7 @@ const DEMO_TRIPS = [
                 perPerson: "£285",
                 total: "£1,710",
                 flight: "London Gatwick → Barcelona El Prat — EasyJet, direct, 2h 10m",
-                hotel: "Generator Barcelona ★★★★ — 4.5/5 (4,201 reviews) — Gracia district",
+                hotel: "Generator Barcelona — social Gracia district stay idea",
                 highlights: ["Barceloneta beach day", "Free walking tour Gothic Quarter", "La Boqueria market lunch", "Parc Güell (free early morning)", "Ramblas → El Born nightlife"],
             },
             {
@@ -61,7 +62,7 @@ const DEMO_TRIPS = [
                 perPerson: "£380",
                 total: "£2,280",
                 flight: "London Heathrow → Barcelona El Prat — British Airways, direct, 2h 05m",
-                hotel: "Hotel Arts Barcelona ★★★★★ — 4.7/5 (2,109 reviews) — beachfront",
+                hotel: "Hotel Arts Barcelona — beachfront stay idea for groups",
                 highlights: ["Sagrada Família skip-the-line tickets", "Barceloneta beach + water sports", "Camp Nou stadium tour", "Seafood dinner in Barceloneta", "Nightclub entry at Opium Barcelona"],
                 recommended: true,
             },
@@ -71,7 +72,7 @@ const DEMO_TRIPS = [
                 perPerson: "£520",
                 total: "£3,120",
                 flight: "London City → Barcelona — Vueling Business, direct, 2h 15m",
-                hotel: "W Barcelona ★★★★★ — 4.8/5 (987 reviews) — sail-shaped tower, beachfront",
+                hotel: "W Barcelona — sail-shaped beachfront stay idea",
                 highlights: ["Private Gaudí architecture tour", "Catamaran sunset cruise", "Michelin tapas tasting menu", "VIP entry + table at Pacha Barcelona", "Day trip to Sitges by private transfer"],
             },
         ]
@@ -88,7 +89,7 @@ const DEMO_TRIPS = [
                 perPerson: "£890",
                 total: "£1,780",
                 flight: "London Stansted → Lisbon — Ryanair, direct, 2h 30m",
-                hotel: "LX Boutique Hotel ★★★★ — 4.6/5 (1,876 reviews) — Alfama views",
+                hotel: "LX Boutique Hotel — Alfama-view stay idea",
                 highlights: ["Alfama & Mouraria walking tour", "Sintra palaces day trip", "Cascais beach day", "Train to Algarve (Lagos)", "Ponta da Piedade cliffs boat tour"],
             },
             {
@@ -97,7 +98,7 @@ const DEMO_TRIPS = [
                 perPerson: "£1,150",
                 total: "£2,300",
                 flight: "London Heathrow → Lisbon — TAP Portugal, direct, 2h 25m",
-                hotel: "Bairro Alto Hotel ★★★★★ — 4.8/5 (934 reviews) + Algarve resort",
+                hotel: "Bairro Alto Hotel + Algarve resort — city-to-coast stay idea",
                 highlights: ["Private Fado dinner in Alfama", "Sintra + Cascais private driver day", "Scenic train to Algarve", "Benagil sea cave boat tour", "Rooftop sundowners in Tavira"],
                 recommended: true,
             },
@@ -116,8 +117,8 @@ const DEMO_TRIPS = [
 
 const STEPS = [
     { label: "Understanding your trip...", duration: 600 },
-    { label: "Searching live flights...", duration: 700 },
-    { label: "Filtering hotels (4★+)...", duration: 600 },
+    { label: "Finding flight options...", duration: 700 },
+    { label: "Filtering stay-fit ideas...", duration: 600 },
     { label: "Finding best activities...", duration: 500 },
     { label: "Building 3 itinerary options...", duration: 700 },
 ]
@@ -126,65 +127,102 @@ export function TripDemoWidget() {
     const [selectedTrip, setSelectedTrip] = useState(0)
     const [phase, setPhase] = useState<"idle" | "generating" | "done">("idle")
     const [stepIndex, setStepIndex] = useState(0)
-    const [stepProgress, setStepProgress] = useState(0)
     const [selectedOption, setSelectedOption] = useState(1) // default to Balanced
+    const generationTimersRef = useRef<number[]>([])
 
-    const totalDuration = STEPS.reduce((a, s) => a + s.duration, 0)
-
-    const handleGenerate = () => {
-        setPhase("generating")
-        setStepIndex(0)
-        setStepProgress(0)
-
-        let elapsed = 0
-        let currentStep = 0
-
-        const tick = setInterval(() => {
-            elapsed += 40
-            const stepStart = STEPS.slice(0, currentStep).reduce((a, s) => a + s.duration, 0)
-            const stepEnd = stepStart + STEPS[currentStep].duration
-            const progress = Math.min(100, ((elapsed - stepStart) / STEPS[currentStep].duration) * 100)
-            setStepProgress(progress)
-
-            if (elapsed >= stepEnd && currentStep < STEPS.length - 1) {
-                currentStep++
-                setStepIndex(currentStep)
-            }
-
-            if (elapsed >= totalDuration) {
-                clearInterval(tick)
-                setPhase("done")
-            }
-        }, 40)
+    const clearGenerationTimers = () => {
+        generationTimersRef.current.forEach((timer) => window.clearTimeout(timer))
+        generationTimersRef.current = []
     }
 
-    const handleReset = () => {
+    useEffect(() => {
+        return () => clearGenerationTimers()
+    }, [])
+
+    const resetDemoState = () => {
+        clearGenerationTimers()
         setPhase("idle")
         setStepIndex(0)
-        setStepProgress(0)
         setSelectedOption(1)
     }
 
+    const handleGenerate = () => {
+        const trip = DEMO_TRIPS[selectedTrip]
+        captureEvent("trip_demo_generate_click", {
+            trip: trip.destination,
+            travelers: trip.travelers,
+        })
+
+        setPhase("generating")
+        setStepIndex(0)
+
+        clearGenerationTimers()
+
+        let cumulativeDelay = 0
+        generationTimersRef.current = STEPS.map((step, index) => {
+            cumulativeDelay += step.duration
+            return window.setTimeout(() => {
+                if (index < STEPS.length - 1) {
+                    setStepIndex(index + 1)
+                    return
+                }
+
+                setStepIndex(STEPS.length - 1)
+                setPhase("done")
+            }, cumulativeDelay)
+        })
+    }
+
+    const handleReset = () => {
+        captureEvent("trip_demo_reset_click", {
+            trip: DEMO_TRIPS[selectedTrip].destination,
+            phase,
+        })
+        resetDemoState()
+    }
+
+    const handleTripSelect = (index: number) => {
+        const trip = DEMO_TRIPS[index]
+        captureEvent("trip_demo_trip_select", {
+            trip: trip.destination,
+            index,
+        })
+        setSelectedTrip(index)
+        resetDemoState()
+    }
+
+    const handleOptionSelect = (index: number) => {
+        const option = DEMO_TRIPS[selectedTrip].options[index]
+        captureEvent("trip_demo_option_select", {
+            trip: DEMO_TRIPS[selectedTrip].destination,
+            option: option.type,
+            index,
+        })
+        setSelectedOption(index)
+    }
+
     const trip = DEMO_TRIPS[selectedTrip]
-    const overallProgress = Math.min(100, (STEPS.slice(0, stepIndex).reduce((a, s) => a + s.duration, 0) + (STEPS[stepIndex]?.duration || 0) * stepProgress / 100) / totalDuration * 100)
+    const overallProgress = phase === "done" ? 100 : Math.round((stepIndex / STEPS.length) * 100)
 
     return (
-        <section className="relative py-24 overflow-hidden bg-[#F4F6FB]">
-            <div className="absolute inset-0">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#C9A962]/10 rounded-full blur-[200px]" />
-            </div>
+        <section
+            className="scroll-stable-section relative py-24 overflow-hidden bg-[#F4F6FB]"
+            style={{
+                backgroundImage: "radial-gradient(ellipse 70% 45% at 50% 45%, rgba(201,169,98,0.09), transparent 72%)",
+            }}
+        >
 
             <div className="relative z-10 max-w-5xl mx-auto px-6">
                 {/* Header */}
                 <div className="text-center mb-12">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#7C5CFF]/10 border border-[#7C5CFF]/20 mb-6">
                         <Sparkles className="w-4 h-4 text-[#7C5CFF]" />
-                        <span className="text-sm font-medium text-[#7C5CFF]">Try the AI — live demo</span>
+                        <span className="text-sm font-medium text-[#7C5CFF]">Try the AI flow — preview demo</span>
                     </div>
                     <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
                         See it build a trip in{" "}
                         <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent">
-                            30 seconds
+                            just minutes
                         </span>
                     </h2>
                     <p className="text-slate-400 text-lg">Select a trip, hit Generate, watch the AI work.</p>
@@ -195,8 +233,8 @@ export function TripDemoWidget() {
                     {DEMO_TRIPS.map((t, i) => (
                         <button
                             key={i}
-                            onClick={() => { setSelectedTrip(i); handleReset() }}
-                            className={`text-left p-4 rounded-xl border transition-all duration-200 ${selectedTrip === i ? "bg-[#7C5CFF]/10 border-[#7C5CFF]/40" : "bg-white border-amber-100 hover:border-amber-200"}`}
+                            onClick={() => handleTripSelect(i)}
+                            className={`text-left p-4 rounded-xl border transition-[background-color,border-color] duration-200 ${selectedTrip === i ? "bg-[#7C5CFF]/10 border-[#7C5CFF]/40" : "bg-white border-amber-100 hover:border-amber-200"}`}
                         >
                             <div className="flex items-start gap-2">
                                 <MapPin className={`w-4 h-4 flex-shrink-0 mt-0.5 ${selectedTrip === i ? "text-[#7C5CFF]" : "text-slate-400"}`} />
@@ -248,14 +286,14 @@ export function TripDemoWidget() {
                         <div className="mb-6">
                             <div className="flex items-center justify-between mb-3">
                                 <div className="flex items-center gap-2">
-                                    <div className="w-2 h-2 bg-[#7C5CFF] rounded-full animate-pulse" />
+                                    <div className="w-2 h-2 bg-[#7C5CFF] rounded-full" />
                                     <span className="text-slate-900 font-semibold text-sm">AI generating your trips...</span>
                                 </div>
                                 <span className="text-[#7C5CFF] font-mono text-sm">{Math.round(overallProgress)}%</span>
                             </div>
                             <div className="h-1.5 bg-slate-200 rounded-full overflow-hidden">
                                 <div
-                                    className="h-full bg-gradient-to-r from-[#7C5CFF] to-[#C9A962] rounded-full transition-all duration-75"
+                                    className="h-full bg-gradient-to-r from-[#7C5CFF] to-[#C9A962] rounded-full transition-[width] duration-300"
                                     style={{ width: `${overallProgress}%` }}
                                 />
                             </div>
@@ -264,8 +302,8 @@ export function TripDemoWidget() {
                         {/* Steps */}
                         <div className="space-y-2.5">
                             {STEPS.map((step, i) => (
-                                <div key={i} className={`flex items-center gap-3 text-sm transition-all duration-300 ${i < stepIndex ? "opacity-100" : i === stepIndex ? "opacity-100" : "opacity-20"}`}>
-                                    <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${i < stepIndex ? "bg-[#4AD7A2]/20" : i === stepIndex ? "bg-[#7C5CFF]/20 animate-pulse" : "bg-slate-100"}`}>
+                                <div key={i} className={`flex items-center gap-3 text-sm transition-opacity duration-300 ${i < stepIndex ? "opacity-100" : i === stepIndex ? "opacity-100" : "opacity-20"}`}>
+                                    <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${i < stepIndex ? "bg-[#4AD7A2]/20" : i === stepIndex ? "bg-[#7C5CFF]/20" : "bg-slate-100"}`}>
                                         {i < stepIndex ? (
                                             <Check className="w-3 h-3 text-[#4AD7A2]" />
                                         ) : i === stepIndex ? (
@@ -299,8 +337,8 @@ export function TripDemoWidget() {
                             {trip.options.map((opt, i) => (
                                 <button
                                     key={i}
-                                    onClick={() => setSelectedOption(i)}
-                                    className={`text-left rounded-2xl border-2 transition-all duration-300 relative overflow-hidden flex flex-col ${selectedOption === i ? "shadow-lg scale-[1.02]" : "hover:scale-[1.01] hover:shadow-md"}`}
+                                    onClick={() => handleOptionSelect(i)}
+                                    className="text-left rounded-2xl border-2 transition-[background-color,border-color] duration-200 relative overflow-hidden flex flex-col hover:bg-white"
                                     style={{
                                         borderColor: selectedOption === i ? opt.color : opt.color + "40",
                                         background: `linear-gradient(160deg, ${opt.color}12 0%, white 45%)`,
@@ -368,15 +406,15 @@ export function TripDemoWidget() {
                         <div className="mt-4 p-5 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20 flex items-center justify-between gap-4 flex-wrap">
                             <div>
                                 <div className="text-slate-900 font-semibold text-sm mb-0.5">
-                                    Like what you see? The real app builds this from your voice in 30 seconds.
+                                    Like what you see? The real app builds this from your voice quickly.
                                 </div>
-                                <div className="text-slate-400 text-xs">Free for travellers. No card required.</div>
+                                <div className="text-slate-400 text-xs">Join the early-access waitlist. No card required.</div>
                             </div>
                             <a
                                 href="#early-access"
                                 className="flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-5 py-2.5 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm flex-shrink-0"
                             >
-                                Join Waitlist — Free
+                                Join Waitlist
                                 <ArrowRight className="w-4 h-4" />
                             </a>
                         </div>

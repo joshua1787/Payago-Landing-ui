@@ -1,82 +1,69 @@
-"use client"
+import { Sparkles, Users, CreditCard, Train, CloudSun, Vote, Brain, Backpack, PieChart, Mic } from "lucide-react"
 
-import { useEffect, useRef, useState } from "react"
-import { Sparkles, Users, CreditCard, Train, CloudSun, Vote, Brain, Backpack, PieChart, ArrowUpRight, Mic } from "lucide-react"
+import { OptimizedPicture } from "@/components/optimized-picture"
 
 const heroFeatures = [
     {
         icon: Sparkles,
         title: "AI Itinerary Generation",
-        description: "One sentence in, full itinerary out. Gemini AI crafts day-by-day plans with timings, costs, and local gems.",
+        description: "One sentence in, full itinerary out. PayaGo AI drafts day-by-day plans with timings, budgets, and local gems.",
         color: "#0ea5e9",
         accent: "from-cyan-400 to-blue-500",
-        stat: "< 30s",
-        statLabel: "generation time",
-        image: "/images/travel-santorini.png",
+        stat: "Fast",
+        statLabel: "trip draft",
+        image: "/images/travel-santorini.webp",
     },
     {
         icon: Users,
-        title: "Real-Time Collaboration",
-        description: "Everyone sees every change instantly via WebSocket. Comment, edit, and decide — together.",
+        title: "Shared Collaboration",
+        description: "Everyone can review the shared plan, comment, suggest changes, and decide together without the planning thread getting lost.",
         color: "#8b5cf6",
         accent: "from-violet-400 to-purple-500",
-        stat: "Live",
-        statLabel: "sync across devices",
-        image: "/images/travel-friends.png",
+        stat: "Shared",
+        statLabel: "review space",
+        image: "/images/travel-friends.webp",
     },
     {
         icon: CreditCard,
-        title: "In-App Booking",
-        description: "Hotels, flights, and activities — all in one checkout. Commission-based model means it's completely free for travellers.",
+        title: "Booking Next Steps",
+        description: "Compare flights, hotels, and activities in one shared plan, then continue through supported handoff paths when available.",
         color: "#10b981",
         accent: "from-emerald-400 to-teal-500",
-        stat: "3-in-1",
-        statLabel: "booking partners",
-        image: "/images/travel-tokyo.png",
+        stat: "Supported",
+        statLabel: "handoff paths",
+        image: "/images/travel-tokyo.webp",
     },
     {
         icon: Mic,
         title: "Voice AI Guide",
-        description: "Talk to PayaGo like a human. It plans, books, and guides you 24/7—completely hands-free.",
+        description: "Talk to PayaGo like a human. It helps plan, compare options, and guide the group before and during the trip.",
         color: "#f43f5e",
         accent: "from-rose-400 to-red-500",
-        stat: "24/7",
-        statLabel: "voice assistance",
-        tag: "Coming Soon Q3 2026",
-        image: "/images/voice-ai-assistant.png",
+        stat: "Soon",
+        statLabel: "voice guide",
+        tag: "Coming Soon future updates",
+        image: "/images/voice-ai-assistant.webp",
     },
 ]
 
 const gridFeatures = [
-    { icon: Train, title: "EU Transport Search", description: "UK trains, EU rails, ferries, and buses across 30+ countries.", color: "#3b82f6" },
-    { icon: CloudSun, title: "Weather Intelligence", description: "48-hour forecasts with proactive alerts and indoor alternatives.", color: "#f59e0b" },
-    { icon: Vote, title: "Group Voting", description: "Yes/Maybe/No on every activity. Live tallies. Auto-accept majority.", color: "#ec4899" },
-    { icon: Brain, title: "AI Optimisation", description: "Route optimisation, timing fixes, hidden gems — continuous improvement.", color: "#6366f1" },
+    { icon: Train, title: "Transport Search", description: "Flight, rail, ferry, and bus options across supported UK and EU routes.", color: "#3b82f6" },
+    { icon: CloudSun, title: "Weather Context", description: "Forecast-aware planning with indoor alternatives when conditions change.", color: "#f59e0b" },
+    { icon: Vote, title: "Group Voting", description: "Yes/Maybe/No on every activity. Shared vote summaries help the organiser confirm the best option.", color: "#ec4899" },
+    { icon: Brain, title: "AI Optimisation", description: "Route optimisation, timing fixes, and local ideas that improve as the plan changes.", color: "#6366f1" },
     { icon: Backpack, title: "Smart Packing List", description: "AI-generated based on destination, weather, activities, and duration.", color: "#f97316" },
-    { icon: PieChart, title: "Budget Tracker", description: "Real-time spend vs budget across all bookings for the whole group.", color: "#14b8a6" },
+    { icon: PieChart, title: "Budget Tracker", description: "Estimated spend vs budget across selected trip options for the whole group.", color: "#14b8a6" },
 ]
 
 export function FeaturesSection() {
-    const sectionRef = useRef<HTMLDivElement>(null)
-    const [isVisible, setIsVisible] = useState(false)
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => { if (entries[0].isIntersecting) setIsVisible(true) },
-            { threshold: 0.05 }
-        )
-        if (sectionRef.current) observer.observe(sectionRef.current)
-        return () => observer.disconnect()
-    }, [])
-
     return (
-        <section ref={sectionRef} id="features" className="relative py-28 sm:py-36 overflow-hidden">
+        <section id="features" className="scroll-stable-section relative py-28 sm:py-36 overflow-hidden">
             <div className="absolute inset-0 bg-[#F4F6FB]" />
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(0,212,255,0.10),transparent_70%)] blur-[100px] pointer-events-none" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(0,212,255,0.10),transparent_70%)] pointer-events-none" />
 
             <div className="relative z-10 max-w-6xl mx-auto px-6">
                 {/* Header */}
-                <div className={`text-center mb-20 transition-all duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+                <div className="text-center mb-20">
                     <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-violet-50 border border-violet-200 mb-6">
                         <span className="text-[13px] text-violet-600 font-semibold">Platform capabilities</span>
                     </div>
@@ -85,32 +72,32 @@ export function FeaturesSection() {
                         <span className="bg-gradient-to-r from-[#7C5CFF] via-[#00D4FF] to-[#4AD7A2] bg-clip-text text-transparent">Nothing you don&apos;t.</span>
                     </h2>
                     <p className="text-[17px] text-slate-400 max-w-lg mx-auto leading-relaxed">
-                        Ten features. Zero tab-switching. One app that does it all.
+                        AI planning, shared review, split-cost visibility, and supported booking next steps in one workflow.
                     </p>
                 </div>
 
                 {/* Hero feature cards with photos */}
-                <div className={`grid md:grid-cols-2 gap-4 mb-4 transition-all duration-700 delay-150 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'}`}>
-                    {heroFeatures.map((feature, i) => {
+                <div className="grid md:grid-cols-2 gap-4 mb-4">
+                    {heroFeatures.map((feature) => {
                         const Icon = feature.icon
                         return (
                             <div
                                 key={feature.title}
-                                className="group relative rounded-3xl overflow-hidden transition-all duration-700 hover:-translate-y-2 hover:shadow-2xl hover:shadow-slate-200"
-                                style={{ transitionDelay: `${i * 100}ms` }}
+                                className="group relative rounded-3xl overflow-hidden border border-transparent transition-colors duration-200 hover:border-slate-200"
                             >
                                 {/* Travel photo background */}
                                 <div className="relative h-48 overflow-hidden">
-                                    <img
+                                    <OptimizedPicture
                                         src={feature.image}
                                         alt={feature.title}
-                                        className={`w-full h-full object-cover ${i % 2 === 0 ? "animate-ken-burns" : "animate-ken-burns-alt"}`}
+                                        className="contents"
+                                        imgClassName="w-full h-full object-cover"
                                         style={{ transformOrigin: "center center" }}
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
 
                                     {/* Stat badge */}
-                                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md rounded-xl px-3.5 py-2 shadow-lg">
+                                    <div className="absolute top-4 right-4 bg-white rounded-xl px-3.5 py-2 shadow-sm">
                                         <div className="text-slate-900 text-[15px] font-bold">{feature.stat}</div>
                                         <div className="text-slate-500 text-[9px] font-medium uppercase tracking-wider">{feature.statLabel}</div>
                                     </div>
@@ -120,7 +107,7 @@ export function FeaturesSection() {
                                 <div className="relative bg-white border border-slate-100 p-6 pb-7">
                                     <div className="flex items-start gap-3.5 mb-3">
                                         <div
-                                            className={`w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br ${feature.accent} shadow-lg flex-shrink-0`}
+                                            className={`w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br ${feature.accent} shadow-sm flex-shrink-0`}
                                         >
                                             <Icon className="w-5 h-5 text-white" />
                                         </div>
@@ -138,7 +125,7 @@ export function FeaturesSection() {
                                     </div>
 
                                     {/* Bottom shimmer */}
-                                    <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-slate-200 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                                    <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-slate-200 to-transparent opacity-80" />
                                 </div>
                             </div>
                         )
@@ -146,21 +133,20 @@ export function FeaturesSection() {
                 </div>
 
                 {/* Grid features */}
-                <div className={`grid sm:grid-cols-2 lg:grid-cols-3 gap-3 transition-all duration-700 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'}`}>
-                    {gridFeatures.map((feature, i) => {
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {gridFeatures.map((feature) => {
                         const Icon = feature.icon
                         return (
                             <div
                                 key={feature.title}
-                                className="group relative bg-white border border-slate-100 rounded-2xl p-5 overflow-hidden transition-all duration-500 hover:border-slate-200 hover:shadow-lg hover:shadow-slate-100 hover:-translate-y-0.5"
-                                style={{ transitionDelay: `${200 + i * 60}ms` }}
+                                className="group relative bg-white border border-slate-100 rounded-2xl p-5 overflow-hidden transition-colors duration-200 hover:border-slate-200"
                             >
                                 {/* Subtle colored glow on hover */}
-                                <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-[80px] opacity-0 group-hover:opacity-10 transition-opacity duration-700" style={{ background: feature.color }} />
+                                <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full opacity-0 group-hover:opacity-10 transition-opacity duration-700" style={{ background: feature.color }} />
 
                                 <div className="flex items-start gap-4">
                                     <div
-                                        className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-500 group-hover:scale-110 group-hover:shadow-lg"
+                                        className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
                                         style={{
                                             background: `${feature.color}12`,
                                             border: `1px solid ${feature.color}25`,

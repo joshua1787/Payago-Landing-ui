@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { PayagoWordmark } from "@/components/payago-wordmark"
 import { ArrowLeft } from "lucide-react"
 
 export const metadata: Metadata = {
@@ -8,15 +9,29 @@ export const metadata: Metadata = {
     alternates: {
         canonical: "https://www.payago.in/terms",
     },
+    openGraph: {
+        title: "Terms of Service — PayaGo",
+        description: "PayaGo terms of service for the website and early-access product.",
+        url: "https://www.payago.in/terms",
+        siteName: "PayaGo",
+        type: "article",
+        images: ["https://www.payago.in/og/terms.jpg"],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Terms of Service — PayaGo",
+        description: "PayaGo terms of service for the website and early-access product.",
+        images: ["https://www.payago.in/og/terms.jpg"],
+    },
 }
 
 export default function TermsOfService() {
     return (
         <main className="min-h-screen bg-white">
-            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="overflow-hidden inline-flex" style={{display:"inline-flex",width:"144px",height:"32px"}}><img src="/payago-logo-new.png" alt="PayaGo" style={{width:"380px",maxWidth:"none",marginTop:"-103px",marginLeft:"-114px"}} /></span>
+                        <PayagoWordmark />
                         
                     </Link>
                     <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
@@ -51,7 +66,7 @@ export default function TermsOfService() {
                             ["#waitlist", "4. Waitlist & Pre-Launch"],
                             ["#account", "5. Your Account"],
                             ["#ai-content", "6. AI-Generated Content"],
-                            ["#bookings", "7. Bookings & Payments"],
+                            ["#bookings", "7. Bookings & Checkout"],
                             ["#conduct", "8. Acceptable Use"],
                             ["#ip", "9. Intellectual Property"],
                             ["#liability", "10. Limitation of Liability"],
@@ -71,7 +86,7 @@ export default function TermsOfService() {
 
                     <section id="about" className="scroll-mt-24">
                         <h2 className="text-2xl font-bold text-slate-900 mb-5">1. About PayaGo</h2>
-                        <p>PayaGo Ltd (&ldquo;PayaGo&rdquo;, &ldquo;we&rdquo;, &ldquo;our&rdquo;, &ldquo;us&rdquo;) is a company registered in England and Wales. We operate the PayaGo website at payago.in and the PayaGo mobile application — an AI-powered group travel planning platform that generates itineraries, facilitates group coordination, and enables group payments for travel bookings.</p>
+                        <p>PayaGo Ltd (&ldquo;PayaGo&rdquo;, &ldquo;we&rdquo;, &ldquo;our&rdquo;, &ldquo;us&rdquo;) is a company registered in England and Wales. We operate the PayaGo website at payago.in and the PayaGo early-access product — an AI-powered group travel planning experience that generates itinerary suggestions, supports group coordination, provides split-cost visibility, and supports provider-led booking handoff where available.</p>
                     </section>
 
                     <section id="eligibility" className="scroll-mt-24">
@@ -97,10 +112,10 @@ export default function TermsOfService() {
                         <p className="mb-4">PayaGo provides an AI-powered platform that:</p>
                         <ul className="space-y-2 mb-6">
                             {[
-                                "Generates complete group travel itineraries from natural language descriptions using Google Gemini AI and Anthropic Claude AI",
+                                "Generates itinerary suggestions from natural language descriptions using AI providers",
                                 "Facilitates group voting and coordination for trip decisions",
-                                "Enables group payments where each member pays their individual share",
-                                "Connects to travel booking providers to complete hotel, flight, and activity reservations",
+                                "Provides split-cost visibility so group members can understand their individual share",
+                                "Supports provider-led booking handoff for hotel, flight, and activity options where available",
                                 "Provides pre-trip and in-trip travel assistance",
                             ].map((item, i) => (
                                 <li key={i} className="flex items-start gap-2 text-sm">
@@ -109,7 +124,7 @@ export default function TermsOfService() {
                                 </li>
                             ))}
                         </ul>
-                        <p>PayaGo acts as a technology intermediary. We are not a travel agent, tour operator, airline, hotel, or financial institution. The actual travel services are provided by third-party booking partners, and those partners&apos; own terms and conditions apply to your bookings.</p>
+                        <p>PayaGo acts as a technology intermediary. We are not a travel agent, tour operator, airline, hotel, or financial institution. The actual travel services and checkout flows are provided by third-party travel providers, and those providers&apos; own terms and conditions apply to any booking you complete with them.</p>
                     </section>
 
                     <section id="waitlist" className="scroll-mt-24">
@@ -128,7 +143,7 @@ export default function TermsOfService() {
                                 </li>
                             ))}
                         </ul>
-                        <p>The features, pricing, and launch dates described on our website are subject to change. References to &ldquo;April 2026&rdquo; and other dates are estimates and not contractual commitments.</p>
+                        <p>The features, pricing, and launch dates described on our website are subject to change. References to &ldquo;early access phase&rdquo; and other dates are estimates and not contractual commitments.</p>
                     </section>
 
                     <section id="account" className="scroll-mt-24">
@@ -156,8 +171,8 @@ export default function TermsOfService() {
                         <ul className="space-y-2 mb-6">
                             {[
                                 "AI-generated itineraries are suggestions, not professional travel advice",
-                                "Prices shown are pulled from live APIs and may change between generation and booking — always verify final prices before confirming",
-                                "Availability of hotels, flights, and activities is checked at generation time; availability cannot be guaranteed until booking is confirmed",
+                                "Prices and availability shown in planning flows may change between itinerary generation and booking handoff — always verify final prices before confirming",
+                                "Availability of hotels, flights, and activities cannot be guaranteed until booking is confirmed through the relevant partner or provider",
                                 "AI recommendations may not reflect your personal circumstances — always exercise your own judgement before committing to a trip",
                                 "PayaGo is not liable for decisions made based on AI-generated content",
                             ].map((item, i) => (
@@ -167,23 +182,23 @@ export default function TermsOfService() {
                                 </li>
                             ))}
                         </ul>
-                        <p>We continuously work to improve accuracy, but AI systems can make errors. We recommend reviewing any itinerary before sharing it with your group or making payments.</p>
+                        <p>We continuously work to improve accuracy, but AI systems can make errors. We recommend reviewing any itinerary before sharing it with your group or continuing to provider-led checkout.</p>
                     </section>
 
                     <section id="bookings" className="scroll-mt-24">
-                        <h2 className="text-2xl font-bold text-slate-900 mb-5">7. Bookings & Payments</h2>
+                        <h2 className="text-2xl font-bold text-slate-900 mb-5">7. Bookings & Checkout</h2>
 
                         <h3 className="text-slate-900 font-semibold mb-3 mt-6">7.1 How bookings work</h3>
-                        <p className="mb-4">When your group confirms a trip, PayaGo facilitates individual payments from each group member for their share of the total. Once all payments are received, PayaGo submits bookings to our travel partner APIs on your behalf. You will receive confirmation emails directly from the booking partners.</p>
+                        <p className="mb-4">When your group is ready to confirm a trip, PayaGo helps show each member&apos;s estimated share and hands off booking steps to supported travel providers where available. Bookings are not confirmed until the relevant provider checkout or confirmation flow is completed. Confirmation details are provided by the relevant provider for completed bookings.</p>
 
-                        <h3 className="text-slate-900 font-semibold mb-3 mt-6">7.2 Payment obligations</h3>
-                        <p className="mb-4">By initiating a payment, you authorise PayaGo to charge your chosen payment method for the amount shown. All prices are displayed inclusive of taxes where applicable. PayaGo does not add service fees or markup to the prices shown.</p>
+                        <h3 className="text-slate-900 font-semibold mb-3 mt-6">7.2 Provider-led checkout</h3>
+                        <p className="mb-4">When you continue to a supported provider-led checkout flow, the relevant payment processor or booking partner controls the final amount, payment method, and confirmation. Partner taxes, partner charges, platform charges, currency charges, and other costs, where applicable, should be reviewed before you confirm with that provider.</p>
 
                         <h3 className="text-slate-900 font-semibold mb-3 mt-6">7.3 Cancellations and refunds</h3>
-                        <p className="mb-4">Cancellation and refund rights are governed by the terms of each booking partner (hotel, airline, activity provider). Typical policies are: full refund more than 14 days before departure, partial refund 7–14 days before, non-refundable within 7 days — but these vary by provider. PayaGo will handle cancellation requests on your behalf and process refunds to your original payment method within the timeframes imposed by the booking partner.</p>
+                        <p className="mb-4">Cancellation and refund rights are governed by the terms of each booking partner (hotel, airline, activity provider). Typical policies vary by provider and fare type. Where supported, PayaGo can help route cancellation requests to the relevant partner, but refund eligibility, timing, and payment method handling are controlled by the booking partner or payment processor.</p>
 
-                        <h3 className="text-slate-900 font-semibold mb-3 mt-6">7.4 Failed or partial payments</h3>
-                        <p>If a group member does not complete payment within the deadline, their spot may be released and the booking may not proceed. PayaGo is not liable for trip cancellations arising from group members failing to pay their share.</p>
+                        <h3 className="text-slate-900 font-semibold mb-3 mt-6">7.4 Failed or partial checkout</h3>
+                        <p>If a group member does not complete a provider-led checkout step within the relevant deadline, their spot may be released and the booking may not proceed. PayaGo is not liable for trip cancellations arising from group members failing to complete provider checkout.</p>
                     </section>
 
                     <section id="conduct" className="scroll-mt-24">
@@ -211,7 +226,7 @@ export default function TermsOfService() {
                     <section id="ip" className="scroll-mt-24">
                         <h2 className="text-2xl font-bold text-slate-900 mb-5">9. Intellectual Property</h2>
                         <p className="mb-4">PayaGo Ltd owns all intellectual property rights in the PayaGo platform, including software, design, brand, and content we create. Nothing in these terms grants you any rights to our intellectual property except the limited right to use the service as described.</p>
-                        <p>You retain ownership of any content you provide (trip descriptions, preferences, reviews). By submitting content, you grant PayaGo a non-exclusive, royalty-free licence to use it to provide and improve the service.</p>
+                        <p>You retain ownership of any content you provide (trip descriptions, preferences, feedback). By submitting content, you grant PayaGo a non-exclusive, royalty-free licence to use it to provide and improve the service.</p>
                     </section>
 
                     <section id="liability" className="scroll-mt-24">
@@ -220,7 +235,7 @@ export default function TermsOfService() {
                         <ul className="space-y-2 mb-6">
                             {[
                                 "PayaGo is provided 'as is' without warranty of any kind",
-                                "We are not liable for the actions, services, or failures of third-party booking partners",
+                                "We are not liable for the actions, services, or failures of third-party travel providers",
                                 "We are not liable for indirect, incidental, or consequential losses arising from your use of the service",
                                 "Our total liability to you for any claim shall not exceed the total amount you paid to PayaGo in the 12 months preceding the claim",
                                 "We are not liable for losses caused by events outside our reasonable control (including technical failures of third-party APIs, airline cancellations, or natural events)",
@@ -237,7 +252,7 @@ export default function TermsOfService() {
                     <section id="termination" className="scroll-mt-24">
                         <h2 className="text-2xl font-bold text-slate-900 mb-5">11. Termination</h2>
                         <p className="mb-4">You may close your account at any time by contacting support@payago.in. We may suspend or terminate your account if you breach these terms, engage in fraudulent activity, or if we are required to do so by law. Where reasonably possible, we will give you notice before termination.</p>
-                        <p>On account closure, we will delete your personal data in accordance with our Privacy Policy. Active bookings at the time of termination remain subject to the relevant booking partner&apos;s terms.</p>
+                        <p>On account closure, we will delete your personal data in accordance with our Privacy Policy. Any active bookings at the time of termination remain subject to the relevant booking partner&apos;s terms.</p>
                     </section>
 
                     <section id="changes" className="scroll-mt-24">

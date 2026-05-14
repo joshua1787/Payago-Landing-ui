@@ -1,15 +1,30 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { PayagoWordmark } from "@/components/payago-wordmark"
 import { ArrowLeft, ArrowRight, Check, Sparkles, Building2, Star } from "lucide-react"
 
 export const metadata: Metadata = {
-    title: "PayaGo Pricing — Free for Travellers, Always",
-    description: "PayaGo is 100% free for travellers. We earn a commission from travel booking partners when you book — you pay the same prices as booking direct.",
+    title: "PayaGo Pricing — Early Access",
+    description: "PayaGo is free to join during early access. Partner or affiliate arrangements may support the service, and final provider terms, prices, and fees should be reviewed before booking.",
     openGraph: {
-        title: "PayaGo Pricing — Free for Travellers, Always",
-        description: "PayaGo is free for travellers. We earn from partner commissions — you pay the same price as booking direct.",
+        title: "PayaGo Pricing — Early Access",
+        description: "Free to join during early access, with provider-led handoff where available and final provider terms reviewed before booking.",
         url: "https://www.payago.in/pricing",
         type: "website",
+        images: [
+            {
+                url: "https://www.payago.in/og/pricing.jpg",
+                width: 1200,
+                height: 630,
+                alt: "PayaGo AI Group Travel Planning",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Early-access pricing",
+        description: "Free to join while PayaGo opens its first launch waves.",
+        images: ["https://www.payago.in/og/pricing.jpg"],
     },
     alternates: {
         canonical: "https://www.payago.in/pricing",
@@ -20,18 +35,18 @@ const plans = [
     {
         name: "Traveller",
         price: "Free",
-        period: "forever",
-        tagline: "Everything you need to plan and book group trips",
-        description: "Core AI planning, group coordination, and in-app booking — all free. We earn a commission from travel booking partners when you book, not from you.",
+        period: "early access",
+        tagline: "Everything you need to plan and coordinate group trips",
+        description: "Core AI planning, group coordination, and provider-led booking handoff where available during early access. PayaGo may have partner or affiliate arrangements with supported travel providers.",
         features: [
-            "AI itinerary generation (30 seconds)",
+            "AI itinerary generation (just minutes)",
             "3 complete trip options per search",
             "Voice-first trip creation",
             "Group invite & voting system",
-            "Group payments (each person pays their share)",
-            "In-app booking (hotels, flights, activities)",
+            "Estimated share coordination",
+            "Provider-led booking handoff for hotels, flights, and activities where available",
             "Pre-trip reminders & packing list",
-            "Weather alerts & real-time adaptation",
+            "Weather context & suggested updates",
             "Built-in group chat",
             "Post-trip summary",
         ],
@@ -39,7 +54,7 @@ const plans = [
             "Travel DNA personalisation",
             "Unlimited saved trips",
         ],
-        cta: "Get Early Access — Free",
+        cta: "Get Early Access",
         popular: false,
         gradient: "from-white/[0.03] to-transparent",
         borderColor: "border-slate-200",
@@ -55,7 +70,7 @@ const plans = [
             "Everything in Traveller",
             "Travel DNA (AI learns your preferences)",
             "Unlimited saved & past trips",
-            "Priority booking access",
+            "Priority early feature access",
             "Early feature access",
             "Advanced budget analytics",
             "Multi-currency trip planning",
@@ -80,9 +95,9 @@ const plans = [
             "White-label options",
             "Dedicated account manager",
             "Custom integrations",
-            "SLA guarantee",
+            "Priority support",
             "Team management dashboard",
-            "Volume pricing on bookings",
+            "Commercial terms reviewed case by case",
         ],
         notIncluded: [],
         cta: "Contact Us",
@@ -97,19 +112,19 @@ const howWeEarn = [
     {
         partner: "Hotels",
         type: "Accommodation bookings",
-        how: "We receive a commission from hotel booking providers when you book accommodation through PayaGo. The price you see is the same you'd find booking directly — we never mark it up.",
+        how: "We may have partner or affiliate arrangements with accommodation providers for bookings started through a supported provider-led flow. Final prices and provider terms should be reviewed before booking.",
         color: "#C9A962",
     },
     {
         partner: "Flights",
         type: "Flight bookings",
-        how: "Flight booking partners pay us a referral fee for flights booked through PayaGo. You get the best live fares — no surcharge, no service fee added by us.",
+        how: "Flight providers may participate in partner or affiliate arrangements for bookings started through a supported handoff. Available fares, taxes, and fees are shown by the relevant provider.",
         color: "#00D4FF",
     },
     {
         partner: "Activities",
         type: "Tours & experiences",
-        how: "Activity providers pay a commission on bookings. Same price as booking direct — we just make it happen automatically inside your itinerary.",
+        how: "Activity providers may participate in partner or affiliate arrangements. PayaGo can keep the activity inside your trip plan and hand you off to a provider-led flow where available.",
         color: "#7C5CFF",
     },
 ]
@@ -117,33 +132,33 @@ const howWeEarn = [
 const faqs = [
     {
         q: "Is PayaGo really free? What's the catch?",
-        a: "No catch. PayaGo earns a commission from travel booking partners when you complete a booking through the app. The prices you pay are identical to booking directly — we never mark up fares or add service fees. It's the same model as comparison sites, except we also build the itinerary and coordinate your whole group.",
+        a: "PayaGo is free to join during early access. We may have partner or affiliate arrangements with travel booking providers when a booking starts through a supported provider-led flow. Final prices, provider terms, and any applicable fees should be reviewed before you commit.",
     },
     {
         q: "Does PayaGo add any fees on top of bookings?",
-        a: "No. Zero booking fees, zero service charges, zero markup. The prices shown are live prices direct from booking providers. We earn from the partner, not from you.",
+        a: "Any applicable booking fees, taxes, or provider charges are shown by the relevant provider before you commit. PayaGo's goal is to make the commercial model clear and partner-supported wherever possible.",
     },
     {
         q: "Are there any payment processing fees?",
-        a: "Payment processing costs are included in the total shown. You'll never see a surprise fee at checkout.",
+        a: "Payment processing and provider charges, if applicable, are shown by the relevant provider-led checkout flow before payment.",
     },
     {
         q: "When will the Explorer plan launch and what will it cost?",
-        a: "We haven't set a price yet. Explorer will launch after our April 2026 iOS/Android release. Join the waitlist to be notified first — early access users will get preferential pricing.",
+        a: "We haven't set a price yet. Explorer will launch after early-access testing progresses. Join the waitlist to be notified when pricing and availability are ready to share.",
     },
     {
         q: "Can I get a refund if I need to cancel a trip?",
-        a: "Refunds follow each booking provider's cancellation policy. Typically: 100% refund more than 14 days before departure, 50% for 7–14 days, and non-refundable within 7 days (unless the provider offers more flexibility). We handle the refund request on your behalf.",
+        a: "Refunds follow each booking provider's cancellation policy. PayaGo surfaces provider terms before booking and helps point you to the right support path if plans change.",
     },
 ]
 
 export default function PricingPage() {
     return (
         <main className="min-h-screen bg-white">
-            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="overflow-hidden inline-flex" style={{display:"inline-flex",width:"144px",height:"32px"}}><img src="/payago-logo-new.png" alt="PayaGo" style={{width:"380px",maxWidth:"none",marginTop:"-103px",marginLeft:"-114px"}} /></span>
+                        <PayagoWordmark />
                         
                     </Link>
                     <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
@@ -156,20 +171,20 @@ export default function PricingPage() {
             {/* Hero */}
             <section className="relative py-32 overflow-hidden">
                 <div className="absolute inset-0">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[#C9A962]/8 rounded-full blur-[200px]" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[#C9A962]/8 rounded-full" />
                     <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:60px_60px]" />
                 </div>
                 <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#4AD7A2]/10 border border-[#4AD7A2]/20 mb-8">
                         <span className="w-2 h-2 bg-[#4AD7A2] rounded-full" />
-                        <span className="text-sm font-medium text-[#4AD7A2]">Free for travellers — always</span>
+                        <span className="text-sm font-medium text-[#4AD7A2]">Free to join early access</span>
                     </div>
                     <h1 className="text-5xl lg:text-7xl font-bold text-slate-900 mb-6 leading-tight">
-                        You pay nothing.
-                        <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent block">Partners pay us.</span>
+                        Start planning in early access.
+                        <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent block">Book with clear terms.</span>
                     </h1>
                     <p className="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
-                        {"PayaGo earns a commission from travel booking partners when you book. You get the same prices you'd find anywhere else — plus an AI that builds the entire trip for you."}
+                        {"PayaGo may have partner or affiliate arrangements with supported travel providers. Final prices, provider terms, and any applicable fees should be reviewed before the group commits."}
                     </p>
                 </div>
             </section>
@@ -179,7 +194,7 @@ export default function PricingPage() {
                 <div className="max-w-5xl mx-auto px-6">
                     <div className="text-center mb-12">
                         <h2 className="text-2xl font-bold text-slate-900 mb-3">How the model works</h2>
-                        <p className="text-slate-500">Same prices. Better experience. We earn from partners, not you.</p>
+                        <p className="text-slate-500">Partner-supported where available. Provider terms reviewed before booking.</p>
                     </div>
                     <div className="grid md:grid-cols-3 gap-6">
                         {howWeEarn.map((item, i) => (
@@ -198,7 +213,7 @@ export default function PricingPage() {
                 <div className="max-w-6xl mx-auto px-6">
                     <div className="text-center mb-16">
                         <h2 className="text-4xl font-bold text-slate-900 mb-4">Simple plans</h2>
-                        <p className="text-slate-500 text-lg">Start free. Everything you need is in the free tier.</p>
+                        <p className="text-slate-500 text-lg">Start in early access. Core planning tools are included in the Traveller plan.</p>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-6">
@@ -246,8 +261,8 @@ export default function PricingPage() {
                                     </div>
 
                                     <Link
-                                        href="/"
-                                        className={`w-full py-4 rounded-xl font-semibold transition-all text-center ${plan.popular
+                                        href={plan.cta === "Contact Us" ? "/contact" : "/#early-access"}
+                                        className={`w-full py-4 rounded-xl font-semibold transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] text-center ${plan.popular
                                             ? 'bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] hover:opacity-90'
                                             : plan.name === 'Business'
                                             ? 'bg-[#7C5CFF]/20 border border-[#7C5CFF]/30 text-[#7C5CFF] hover:bg-[#7C5CFF]/30'
@@ -262,7 +277,7 @@ export default function PricingPage() {
                     </div>
 
                     <p className="text-center text-slate-400 text-sm mt-8">
-                        No credit card required for Traveller plan · No hidden fees · No transaction surcharges
+                        No credit card required for the waitlist · Provider terms and any applicable fees should be reviewed before booking
                     </p>
                 </div>
             </section>
@@ -287,10 +302,10 @@ export default function PricingPage() {
                 <div className="max-w-4xl mx-auto px-6 text-center">
                     <h2 className="text-4xl font-bold text-slate-900 mb-6">
                         Start planning your next group trip.
-                        <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent"> For free.</span>
+                        <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent"> With early access.</span>
                     </h2>
                     <p className="text-slate-500 text-lg mb-10">No credit card. No commitment. Just better group travel.</p>
-                    <Link href="/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
+                    <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
                         Get Early Access
                         <ArrowRight className="w-4 h-4" />
                     </Link>

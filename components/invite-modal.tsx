@@ -24,7 +24,7 @@ export function InviteModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
                         Invite Friends
                     </DialogTitle>
                     <DialogDescription className="text-slate-500">
-                        Share this trip to plan together in real-time.
+                        Share this trip for one shared review flow.
                     </DialogDescription>
                 </DialogHeader>
 

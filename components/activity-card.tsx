@@ -2,6 +2,7 @@
 
 import { Clock, MapPin, MoreHorizontal, DollarSign } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { OptimizedPicture } from "@/components/optimized-picture"
 
 export interface Activity {
     id: string
@@ -17,7 +18,7 @@ export function ActivityCard({ activity, isDragging }: { activity: Activity; isD
     return (
         <div
             className={cn(
-                "group relative overflow-hidden rounded-xl bg-white border border-slate-200 transition-all duration-300 hover:border-slate-300 select-none",
+                "group relative overflow-hidden rounded-xl bg-white border border-slate-200 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] duration-300 hover:border-slate-300 select-none",
                 isDragging ? "rotate-3 scale-105 shadow-2xl shadow-blue-500/20 z-50 cursor-grabbing" : "hover:-translate-y-1 hover:shadow-md cursor-grab"
             )}
         >
@@ -70,7 +71,14 @@ export function ActivityCard({ activity, isDragging }: { activity: Activity; isD
                 {/* Optional Image Thumbnail */}
                 {activity.image && (
                     <div className="w-16 h-16 rounded-lg bg-white/5 shrink-0 overflow-hidden">
-                        <img src={activity.image} alt={activity.title} className="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity" />
+                        <OptimizedPicture
+                            src={activity.image}
+                            alt={activity.title}
+                            className="contents"
+                            imgClassName="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity"
+                            loading="lazy"
+                            sizes="64px"
+                        />
                     </div>
                 )}
             </div>

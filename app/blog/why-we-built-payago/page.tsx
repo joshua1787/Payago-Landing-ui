@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { PayagoWordmark } from "@/components/payago-wordmark"
+import { OptimizedPicture } from "@/components/optimized-picture"
 import { ArrowLeft, Clock, Calendar } from "lucide-react"
 
 export const metadata: Metadata = {
@@ -10,6 +12,20 @@ export const metadata: Metadata = {
         description: "A week-long Italy trip with five friends turned into weeks of chaos. That frustration became a product.",
         url: "https://www.payago.in/blog/why-we-built-payago",
         type: "article",
+        images: [
+            {
+                url: "https://www.payago.in/og/blog-why-we-built-payago.jpg",
+                width: 1200,
+                height: 630,
+                alt: "PayaGo AI Group Travel Planning",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Why we built PayaGo",
+        description: "The group-trip chaos that turned into an AI planning product.",
+        images: ["https://www.payago.in/og/blog-why-we-built-payago.jpg"],
     },
     alternates: {
         canonical: "https://www.payago.in/blog/why-we-built-payago",
@@ -27,7 +43,7 @@ const articleSchema = {
     publisher: {
         "@type": "Organization",
         name: "PayaGo",
-        logo: { "@type": "ImageObject", url: "https://www.payago.in/payago_logo_transparent.png" },
+        logo: { "@type": "ImageObject", url: "https://www.payago.in/icon.svg" },
     },
     url: "https://www.payago.in/blog/why-we-built-payago",
 }
@@ -40,10 +56,10 @@ export default function BlogPost() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
             />
 
-            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="overflow-hidden inline-flex" style={{display:"inline-flex",width:"144px",height:"32px"}}><img src="/payago-logo-new.png" alt="PayaGo" style={{width:"380px",maxWidth:"none",marginTop:"-103px",marginLeft:"-114px"}} /></span>
+                        <PayagoWordmark />
                         
                     </Link>
                     <Link href="/blog" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
@@ -77,11 +93,7 @@ export default function BlogPost() {
                 </h1>
 
                 <div className="rounded-2xl overflow-hidden mb-12 aspect-video bg-slate-100 border border-slate-100">
-                    <img
-                        src="/luxury-travel-destination-aerial-view-of-tropical-.jpg"
-                        alt="Group travel inspiration — what PayaGo makes possible"
-                        className="w-full h-full object-cover"
-                    />
+                    <OptimizedPicture src="/luxury-travel-destination-aerial-view-of-tropical-.webp" alt="Group travel inspiration — what PayaGo makes possible" imgClassName="w-full h-full object-cover" />
                 </div>
 
                 <div className="space-y-8 text-white/75 leading-relaxed text-lg">
@@ -139,15 +151,15 @@ export default function BlogPost() {
                     <h2 className="text-2xl font-bold text-slate-900 mt-12 mb-4">What we built</h2>
 
                     <p>
-                        PayaGo is one app that handles the entire journey from &ldquo;we should go somewhere&rdquo; to &ldquo;everything is booked.&rdquo;
+                        PayaGo is one app that helps move the group from &ldquo;we should go somewhere&rdquo; to a coordinated trip plan everyone can review and act on.
                     </p>
 
                     <div className="grid sm:grid-cols-2 gap-4 my-8">
                         {[
                             { step: "01", title: "You talk", desc: "Tell the AI your destination, dates, budget, and preferences — by voice or text, in one sentence." },
-                            { step: "02", title: "AI builds it", desc: "Three complete trip options — flights, hotels, activities — generated in 30 seconds with live pricing." },
+                            { step: "02", title: "AI builds it", desc: "Trip options — flights, hotels, activities — generated quickly for the group to review." },
                             { step: "03", title: "Group votes", desc: "Share a link. Everyone votes on their preferred option. No WhatsApp threads." },
-                            { step: "04", title: "Everyone pays", desc: "Each person pays their exact share directly in the app. Nobody fronts the full amount." },
+                            { step: "04", title: "Everyone coordinates", desc: "Each person can see their share and move through supported payment or booking flows without one friend carrying the full amount." },
                         ].map((item) => (
                             <div key={item.step} className="p-5 rounded-xl bg-slate-50 border border-slate-100">
                                 <div className="text-[#C9A962] font-black text-2xl mb-2">{item.step}</div>
@@ -164,18 +176,18 @@ export default function BlogPost() {
                     </p>
 
                     <p>
-                        PayaGo is free for travellers. We earn a commission from travel booking partners when you book through the app — the same commission those platforms pay to any affiliate. You pay the same price you&apos;d pay booking directly. We make money when you travel well.
+                        Joining PayaGo during early access is free. We may earn commission from supported travel providers when you continue through eligible provider-led links or flows, and final prices, fees, taxes, and terms are shown before you confirm.
                     </p>
 
                     <p>
-                        We&apos;re launching in April 2026. We&apos;re not building another app that lives in a folder you never open — we&apos;re building the one you open when you want to actually go somewhere.
+                        We&apos;re launching in early access phase. We&apos;re not building another app that lives in a folder you never open — we&apos;re building the one you open when you want to actually go somewhere.
                     </p>
 
                     <div className="mt-12 p-6 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20">
                         <p className="text-slate-900 font-semibold mb-2">Join the waitlist for early access</p>
-                        <p className="text-slate-600 text-sm mb-4">Be among the first to use PayaGo when it launches in April 2026.</p>
-                        <Link href="/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
-                            Get Early Access — Free
+                        <p className="text-slate-600 text-sm mb-4">Be among the first to use PayaGo when it launches in early access phase.</p>
+                        <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
+                            Get Early Access
                         </Link>
                     </div>
                 </div>

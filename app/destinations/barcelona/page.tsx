@@ -1,15 +1,31 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowLeft, MapPin, Star, Clock, Users, Plane, Hotel, Calendar, ArrowRight, Check } from "lucide-react"
+import { PayagoWordmark } from "@/components/payago-wordmark"
+import { OptimizedPicture } from "@/components/optimized-picture"
+import { ArrowLeft, MapPin, Users, Calendar, ArrowRight, Check } from "lucide-react"
 
 export const metadata: Metadata = {
     title: "Barcelona Group Travel Guide 2026 — Itinerary, Costs & Tips",
-    description: "Complete group travel guide for Barcelona: 5-day itinerary, real hotel prices (£85–130/night), best neighbourhoods, Gaudí tips, and group dining. AI plans the full trip in 30 seconds.",
+    description: "Complete group travel guide for Barcelona: 5-day itinerary, sample hotel budget ranges (£85–130/night), best neighbourhoods, Gaudí tips, and group dining. AI plans the full trip quickly.",
     openGraph: {
         title: "Barcelona Group Travel Guide 2026 | PayaGo",
-        description: "5-day Barcelona group itinerary with real prices. AI-planned in 30 seconds.",
+        description: "5-day Barcelona group itinerary with sample budget ranges. AI-planned quickly.",
         url: "https://www.payago.in/destinations/barcelona",
         type: "article",
+        images: [
+            {
+                url: "https://www.payago.in/og/destinations-barcelona.jpg",
+                width: 1200,
+                height: 630,
+                alt: "PayaGo AI Group Travel Planning",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Barcelona group travel guide",
+        description: "Beach, Gaudi, tapas, and budget ranges for group trips.",
+        images: ["https://www.payago.in/og/destinations-barcelona.jpg"],
     },
     alternates: { canonical: "https://www.payago.in/destinations/barcelona" },
 }
@@ -33,16 +49,16 @@ const pageSchema = {
 const itinerary = [
     { day: "Day 1", title: "Arrival & Gothic Quarter", activities: ["Check in — Eixample district recommended for groups", "Gothic Quarter walking tour (free, 2 hours)", "La Boqueria market late lunch", "El Born neighbourhood for dinner & first drinks", "Cocktail bars on Carrer del Parlament"] },
     { day: "Day 2", title: "Gaudí Architecture", activities: ["Sagrada Família — book skip-the-line tickets in advance", "Park Güell — free area or ticketed terrace", "Lunch in Gràcia neighbourhood", "Palau de la Música Catalan (optional concert)", "Dinner in Barceloneta, walk along the beach"] },
-    { day: "Day 3", title: "Beach & Waterfront", activities: ["Barceloneta beach morning (arrive early for sunbeds)", "Water sports: paddleboard or kayak hire", "Seafood lunch at La Mar Salada", "Afternoon: Montjuïc cable car + castle views", "Sunset at Bunkers del Carmel (best view in Barcelona)"] },
+    { day: "Day 3", title: "Beach & Waterfront", activities: ["Barceloneta beach morning (arrive early for sunbeds)", "Water sports: paddleboard or small-boat hire", "Seafood lunch at La Mar Salada", "Afternoon: Montjuïc cable car + castle views", "Sunset at Bunkers del Carmel (best view in Barcelona)"] },
     { day: "Day 4", title: "Football & Nightlife", activities: ["Camp Nou stadium tour (optional)", "Afternoon free — shopping on Passeig de Gràcia", "Pre-drinks at hotel (Barcelona nightlife starts late)", "Dinner 9pm+ at a traditional tapas restaurant", "Clubs open after midnight: Opium, Shôko, Pacha"] },
     { day: "Day 5", title: "Day Trip & Departure", activities: ["Day trip to Sitges (40 min by train) or Montserrat monastery", "Lunch back in Barcelona", "Last-minute shopping in El Raval", "Airport transfer — T1 for most international flights"] },
 ]
 
 const hotels = [
-    { name: "Generator Barcelona", stars: 4, rating: "4.5/5", price: "£75–100/night", location: "Gràcia", notes: "Great for groups — social atmosphere, rooftop bar" },
-    { name: "Hotel Arts Barcelona", stars: 5, rating: "4.7/5", price: "£220–380/night", location: "Barceloneta beachfront", notes: "5-star luxury, infinity pool, direct beach access" },
-    { name: "Almanac Barcelona", stars: 5, rating: "4.6/5", price: "£180–290/night", location: "Eixample", notes: "Rooftop pool with Sagrada Família views" },
-    { name: "Hotel 1898", stars: 4, rating: "4.4/5", price: "£120–180/night", location: "Las Ramblas", notes: "Rooftop pool, colonial building, central location" },
+    { name: "Generator Barcelona", signal: "Social group base", price: "£75–100/night", location: "Gràcia", notes: "Stay idea for groups that want a social atmosphere and rooftop bar." },
+    { name: "Hotel Arts Barcelona", signal: "Beachfront stay idea", price: "£220–380/night", location: "Barceloneta beachfront", notes: "Premium-leaning option with pool access and a direct beach setting." },
+    { name: "Almanac Barcelona", signal: "Central polished base", price: "£180–290/night", location: "Eixample", notes: "Rooftop pool setting with easy access to major Gaudí stops." },
+    { name: "Hotel 1898", signal: "Classic central option", price: "£120–180/night", location: "Las Ramblas", notes: "Central stay idea for groups prioritising walkability." },
 ]
 
 export default function BarcelonaPage() {
@@ -50,10 +66,10 @@ export default function BarcelonaPage() {
         <main className="min-h-screen bg-white">
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
 
-            <header className="border-b border-slate-100 sticky top-0 z-50 backdrop-blur-xl bg-white/80">
+            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
-                        <span className="overflow-hidden inline-flex" style={{display:"inline-flex",width:"144px",height:"32px"}}><img src="/payago-logo-new.png" alt="PayaGo" style={{width:"380px",maxWidth:"none",marginTop:"-103px",marginLeft:"-114px"}} /></span>
+                        <PayagoWordmark />
                         
                     </Link>
                     <Link href="/destinations" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
@@ -64,7 +80,7 @@ export default function BarcelonaPage() {
 
             {/* Hero */}
             <div className="relative h-72 overflow-hidden">
-                <img src="/images/travel-santorini.png" alt="Barcelona skyline" className="w-full h-full object-cover" />
+                <OptimizedPicture src="/images/travel-santorini.webp" alt="Barcelona skyline" imgClassName="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-[#04060A]" />
                 <div className="absolute bottom-8 left-0 right-0 max-w-4xl mx-auto px-6">
                     <div className="flex items-center gap-2 mb-2">
@@ -82,7 +98,7 @@ export default function BarcelonaPage() {
                         { label: "Best time", value: "Apr–Jun, Sep–Oct", icon: Calendar },
                         { label: "Ideal group", value: "4–12 people", icon: Users },
                         { label: "Budget/person", value: "£285–520", icon: null },
-                        { label: "Travel score", value: "9.4 / 10", icon: Star },
+                        { label: "Trip fit", value: "Beach + culture", icon: MapPin },
                     ].map((s) => (
                         <div key={s.label} className="bg-slate-50 border border-slate-100 rounded-xl p-4 text-center">
                             <div className="text-slate-900 font-bold text-lg">{s.value}</div>
@@ -126,10 +142,7 @@ export default function BarcelonaPage() {
                             <div className="flex items-start justify-between mb-2">
                                 <div>
                                     <div className="text-slate-900 font-semibold">{h.name}</div>
-                                    <div className="flex items-center gap-1 mt-0.5">
-                                        {Array.from({ length: h.stars }).map((_, i) => <Star key={i} className="w-3 h-3 text-[#C9A962]" fill="#C9A962" />)}
-                                        <span className="text-slate-500 text-xs ml-1">{h.rating}</span>
-                                    </div>
+                                    <div className="text-slate-500 text-xs mt-0.5">{h.signal}</div>
                                 </div>
                                 <div className="text-right">
                                     <div className="text-[#C9A962] font-semibold text-sm">{h.price}</div>
@@ -166,10 +179,10 @@ export default function BarcelonaPage() {
 
                 {/* CTA */}
                 <div className="p-6 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20">
-                    <p className="text-slate-900 font-semibold mb-2">Plan your Barcelona group trip in 30 seconds</p>
-                    <p className="text-slate-600 text-sm mb-4">PayaGo AI builds a complete itinerary with live flight prices, hotels, and activities — free for travellers.</p>
+                    <p className="text-slate-900 font-semibold mb-2">Plan your Barcelona group trip quickly</p>
+                    <p className="text-slate-600 text-sm mb-4">PayaGo AI builds a ready-to-review itinerary with flight options, hotels, and activities. Join the early-access waitlist.</p>
                     <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
-                        Get Early Access — Free <ArrowRight className="w-4 h-4" />
+                        Get Early Access <ArrowRight className="w-4 h-4" />
                     </Link>
                 </div>
 
@@ -178,7 +191,7 @@ export default function BarcelonaPage() {
                     <h3 className="text-slate-500 text-sm font-semibold uppercase tracking-wider mb-4">More destinations</h3>
                     <div className="flex flex-wrap gap-3">
                         {["tokyo", "lisbon", "paris", "amsterdam"].map((slug) => (
-                            <Link key={slug} href={`/destinations/${slug}`} className="capitalize px-4 py-2 rounded-lg bg-slate-50 border border-slate-100 text-slate-600 hover:text-slate-900 hover:border-slate-200 transition-all text-sm">
+                            <Link key={slug} href={`/destinations/${slug}`} className="capitalize px-4 py-2 rounded-lg bg-slate-50 border border-slate-100 text-slate-600 hover:text-slate-900 hover:border-slate-200 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] text-sm">
                                 {slug}
                             </Link>
                         ))}

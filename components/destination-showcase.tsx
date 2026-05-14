@@ -2,6 +2,7 @@
 
 import { useRef, useEffect } from "react"
 import { ArrowRight } from "lucide-react"
+import { OptimizedPicture } from "@/components/optimized-picture"
 
 const destinations = [
     {
@@ -46,7 +47,7 @@ export function DestinationShowcase() {
     return (
         <section className="py-24 bg-[#0B1220] relative overflow-hidden">
             {/* Background Ambience */}
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-secondary/5 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent-secondary/5 rounded-full pointer-events-none" />
 
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 <div className="flex justify-between items-end mb-12">
@@ -87,17 +88,19 @@ export function DestinationShowcase() {
                         >
                             {/* Image Layer */}
                             <div className="absolute inset-0">
-                                <img
+                                <OptimizedPicture
                                     src={dest.image}
                                     alt={dest.name}
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    className="contents"
+                                    imgClassName="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    sizes="(min-width: 768px) 400px, 300px"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#04060A] via-transparent to-transparent opacity-80" />
                             </div>
 
                             {/* Content Layer */}
                             <div className="absolute bottom-0 left-0 p-8 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                <div className="inline-block px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-xs font-medium text-white mb-4">
+                                <div className="inline-block px-3 py-1 rounded-full bg-black/35 border border-white/10 text-xs font-medium text-white mb-4">
                                     {dest.tag}
                                 </div>
                                 <h3 className="text-3xl font-bold text-white mb-2">{dest.name}</h3>
@@ -114,7 +117,7 @@ export function DestinationShowcase() {
                             <ArrowRight className="w-8 h-8 text-accent" />
                         </div>
                         <h3 className="text-2xl font-bold text-foreground mb-2">View All Destinations</h3>
-                        <p className="text-muted-foreground">Discover 500+ more locations available in our database.</p>
+                        <p className="text-muted-foreground">Explore destination guides and AI-assisted trip ideas as PayaGo expands.</p>
                     </div>
                 </div>
             </div>

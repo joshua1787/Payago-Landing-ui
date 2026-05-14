@@ -4,8 +4,6 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowRight, MapPin, Calendar, Sparkles, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
-// Note: You might need to install 'cmdk' and 'date-fns' if not present, but based on package.json they are there.
-// We'll use standard inputs for now to keep it dependency-light but styled heavily.
 
 export function TripInputForm() {
     const [step, setStep] = useState<"dest" | "date" | "style" | "generating">("dest")
@@ -30,7 +28,7 @@ export function TripInputForm() {
 
     return (
         <div className="w-full max-w-2xl mx-auto min-h-[400px] relative font-sans perspective-1000">
-            <div className="absolute inset-0 bg-blue-500/10 blur-[100px] rounded-full mix-blend-screen pointer-events-none" />
+            <div className="absolute inset-0 bg-blue-500/10 rounded-full mix-blend-screen pointer-events-none" />
 
             <AnimatePresence mode="wait">
                 {step === "dest" && (
@@ -51,7 +49,7 @@ export function TripInputForm() {
                                 autoFocus
                                 type="text"
                                 placeholder="Tokyo, Paris, Mars..."
-                                className="w-full bg-white/5 border border-white/10 rounded-3xl py-8 pl-16 pr-8 text-3xl md:text-4xl text-white placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all shadow-[0_0_50px_-10px_rgba(0,0,0,0.5)] backdrop-blur-xl"
+                                className="w-full bg-[#121826] border border-white/10 rounded-3xl py-8 pl-16 pr-8 text-3xl md:text-4xl text-white placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-[border-color,box-shadow] shadow-[0_0_50px_-10px_rgba(0,0,0,0.5)]"
                                 value={formData.destination}
                                 onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
                                 onKeyDown={(e) => e.key === "Enter" && handleNext()}
@@ -79,7 +77,7 @@ export function TripInputForm() {
                                 autoFocus
                                 type="text"
                                 placeholder="Next weekend, July..."
-                                className="w-full bg-white/5 border border-white/10 rounded-3xl py-8 pl-16 pr-8 text-3xl md:text-4xl text-white placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all shadow-[0_0_50px_-10px_rgba(0,0,0,0.5)] backdrop-blur-xl"
+                                className="w-full bg-[#121826] border border-white/10 rounded-3xl py-8 pl-16 pr-8 text-3xl md:text-4xl text-white placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-[border-color,box-shadow] shadow-[0_0_50px_-10px_rgba(0,0,0,0.5)]"
                                 value={formData.dates}
                                 onChange={(e) => setFormData({ ...formData, dates: e.target.value })}
                                 onKeyDown={(e) => e.key === "Enter" && handleNext()}
@@ -108,7 +106,7 @@ export function TripInputForm() {
                             Your vibe?
                         </h2>
                         <div className="grid grid-cols-2 gap-4">
-                            {["Relaxed 😌", "Adventure 🧗", "Party 🪩", "Culture 🏛️", "Foodie 🍜", "Luxury 💎"].map((style) => (
+                            {["Relaxed 😌", "Adventure 🧗", "Party 🪩", "Culture 🏛️", "Foodie 🍜", "Premium comfort"].map((style) => (
                                 <button
                                     key={style}
                                     onClick={() => {
@@ -119,7 +117,7 @@ export function TripInputForm() {
                                         }, 300)
                                     }}
                                     className={cn(
-                                        "p-6 rounded-2xl border text-left text-xl transition-all duration-300",
+                                        "p-6 rounded-2xl border text-left text-xl transition-[background-color,border-color,box-shadow,transform,color] duration-300",
                                         formData.style === style
                                             ? "bg-blue-600 border-blue-400 text-white shadow-[0_0_30px_rgba(37,99,235,0.5)] scale-105"
                                             : "bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:border-white/20 hover:scale-105 hover:text-white"
@@ -159,7 +157,7 @@ export function TripInputForm() {
                         </div>
 
                         <div className="flex gap-2 text-sm text-white/30 font-mono">
-                            <span>AI_MODEL: GEMINI-1.5-PRO</span>
+                            <span>AI PLANNER</span>
                             <span className="animate-pulse">PROCESSING...</span>
                         </div>
                     </motion.div>
@@ -175,7 +173,7 @@ function ContinueButton({ onClick, disabled }: { onClick: () => void, disabled: 
             onClick={onClick}
             disabled={disabled}
             className={cn(
-                "group flex items-center gap-2 text-xl font-semibold transition-all duration-300",
+                "group flex items-center gap-2 text-xl font-semibold transition-[gap,opacity,transform,color] duration-300",
                 disabled ? "opacity-0 translate-x-[-20px] pointer-events-none" : "opacity-100 translate-x-0 text-white hover:gap-4"
             )}
         >

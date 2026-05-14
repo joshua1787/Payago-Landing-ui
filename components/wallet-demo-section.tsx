@@ -37,29 +37,29 @@ export function WalletDemoSection() {
 
             {/* Gradient accents */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px]">
-                <div className="absolute top-0 left-0 w-80 h-80 bg-[#C9A962]/10 rounded-full blur-[120px]" />
-                <div className="absolute bottom-0 right-0 w-80 h-80 bg-[#00D4FF]/10 rounded-full blur-[120px]" />
+                <div className="absolute top-0 left-0 w-80 h-80 bg-[#C9A962]/10 rounded-full" />
+                <div className="absolute bottom-0 right-0 w-80 h-80 bg-[#00D4FF]/10 rounded-full" />
             </div>
 
             <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
                 <div className="grid lg:grid-cols-2 gap-16 items-center">
                     {/* Left: Interactive Demo */}
-                    <div className={`order-2 lg:order-1 transition-all duration-700 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-20 opacity-0'}`}>
+                    <div className={`order-2 lg:order-1 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] duration-700 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-20 opacity-0'}`}>
                         <div className="relative bg-gradient-to-br from-[#0F1829] to-[#0A1220] rounded-3xl border border-white/5 overflow-hidden shadow-2xl">
                             {/* Tab bar */}
                             <div className="flex border-b border-white/5">
                                 <button
                                     onClick={() => setActiveTab('split')}
-                                    className={`flex-1 py-4 text-sm font-medium transition-all ${activeTab === 'split'
+                                    className={`flex-1 py-4 text-sm font-medium transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] ${activeTab === 'split'
                                             ? 'text-[#C9A962] border-b-2 border-[#C9A962]'
                                             : 'text-white/40 hover:text-white/60'
                                         }`}
                                 >
-                                    Split Payment
+                                    Split Preview
                                 </button>
                                 <button
                                     onClick={() => setActiveTab('track')}
-                                    className={`flex-1 py-4 text-sm font-medium transition-all ${activeTab === 'track'
+                                    className={`flex-1 py-4 text-sm font-medium transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] ${activeTab === 'track'
                                             ? 'text-[#C9A962] border-b-2 border-[#C9A962]'
                                             : 'text-white/40 hover:text-white/60'
                                         }`}
@@ -74,7 +74,7 @@ export function WalletDemoSection() {
                                     <div className="space-y-8">
                                         {/* Amount */}
                                         <div className="text-center">
-                                            <div className="text-white/40 text-sm mb-2">Total Amount</div>
+                                            <div className="text-white/40 text-sm mb-2">Total estimate</div>
                                             <div className="text-5xl font-bold text-white">
                                                 £{splitAmount.toFixed(2)}
                                             </div>
@@ -89,7 +89,7 @@ export function WalletDemoSection() {
                                             <div className="relative">
                                                 <div className="h-3 bg-white/5 rounded-full overflow-hidden">
                                                     <div
-                                                        className="h-full bg-gradient-to-r from-[#C9A962] to-[#00D4FF] transition-all duration-300"
+                                                        className="h-full bg-gradient-to-r from-[#C9A962] to-[#00D4FF] transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] duration-300"
                                                         style={{ width: `${splitRatio}%` }}
                                                     />
                                                 </div>
@@ -102,7 +102,7 @@ export function WalletDemoSection() {
                                                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                                                 />
                                                 <div
-                                                    className="absolute top-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full shadow-lg border-2 border-[#C9A962] pointer-events-none transition-all duration-300"
+                                                    className="absolute top-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full shadow-lg border-2 border-[#C9A962] pointer-events-none transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] duration-300"
                                                     style={{ left: `calc(${splitRatio}% - 12px)` }}
                                                 />
                                             </div>
@@ -119,23 +119,23 @@ export function WalletDemoSection() {
                                                 <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#C9A962] to-[#E5C77D] flex items-center justify-center text-xl font-bold text-[#1E3A5F] mb-2">
                                                     You
                                                 </div>
-                                                <div className="text-white/40 text-xs">Pays {splitRatio}%</div>
+                                                <div className="text-white/40 text-xs">Share {splitRatio}%</div>
                                             </div>
                                             <div className="flex flex-col items-center gap-1">
                                                 <div className="w-20 h-[2px] bg-gradient-to-r from-[#C9A962] to-[#00D4FF]" />
-                                                <span className="text-white/30 text-xs">Auto-split</span>
+                                                <span className="text-white/30 text-xs">Split preview</span>
                                             </div>
                                             <div className="text-center">
                                                 <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#00D4FF] to-[#0088AA] flex items-center justify-center text-xl font-bold text-white mb-2">
                                                     AB
                                                 </div>
-                                                <div className="text-white/40 text-xs">Pays {100 - splitRatio}%</div>
+                                                <div className="text-white/40 text-xs">Share {100 - splitRatio}%</div>
                                             </div>
                                         </div>
 
                                         {/* Confirm button */}
                                         <button className="w-full py-4 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1E3A5F] font-semibold rounded-xl hover:opacity-90 transition-opacity shadow-lg shadow-[#C9A962]/20">
-                                            Confirm Split
+                                            Review Split
                                         </button>
                                     </div>
                                 ) : (
@@ -183,7 +183,7 @@ export function WalletDemoSection() {
                     </div>
 
                     {/* Right: Text content */}
-                    <div className={`order-1 lg:order-2 transition-all duration-700 delay-200 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-20 opacity-0'}`}>
+                    <div className={`order-1 lg:order-2 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] duration-700 delay-200 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-20 opacity-0'}`}>
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C9A962]/10 border border-[#C9A962]/20 mb-6">
                             <span className="text-sm font-medium text-[#C9A962]">Interactive Demo</span>
                         </div>
@@ -193,15 +193,15 @@ export function WalletDemoSection() {
                         </h2>
 
                         <p className="text-xl text-white/60 mb-8 leading-relaxed">
-                            Try our interactive demo. Drag the slider to adjust split ratios.
-                            Switch tabs to see expense tracking. This is exactly what you'll get in the app.
+                            Try our interactive demo. Drag the slider to preview split ratios.
+                            Switch tabs to see shared cost visibility and clear next steps.
                         </p>
 
                         <div className="space-y-4">
                             {[
-                                { title: "Real-time splitting", desc: "Adjust ratios before or after payment" },
-                                { title: "Complete transparency", desc: "Every transaction logged and visible" },
-                                { title: "Instant settlements", desc: "Money moves immediately, no chasing" },
+                                { title: "Split preview", desc: "Adjust ratios before the group reviews costs" },
+                                { title: "Shared visibility", desc: "Keep planned and recent costs easy to compare" },
+                                { title: "Clear next steps", desc: "See what still needs review before booking handoff" },
                             ].map((item, i) => (
                                 <div key={i} className="flex items-start gap-4">
                                     <div className="w-8 h-8 rounded-lg bg-[#C9A962]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
