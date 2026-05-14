@@ -237,7 +237,7 @@ export default function FAQPage() {
                         <Link href="/contact" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 border border-slate-200 text-slate-900 px-8 py-4 rounded-xl font-semibold transition-colors">
                             Contact Us
                         </Link>
-                        <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
+                        <Link href="/early-access/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
                             Get Early Access
                         </Link>
                     </div>

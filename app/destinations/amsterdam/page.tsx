@@ -55,7 +55,7 @@ export default function Page() {
                 <p className="text-slate-600 text-lg mb-8">
                     Full guide coming soon. PayaGo AI already knows Amsterdam inside out — get early access and let the AI build your group itinerary quickly.
                 </p>
-                <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
+                <Link href="/early-access/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
                     Plan an Amsterdam Trip <ArrowRight className="w-4 h-4" />
                 </Link>
                 <div className="mt-12 pt-8 border-t border-slate-100">

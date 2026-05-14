@@ -261,7 +261,7 @@ export default function PricingPage() {
                                     </div>
 
                                     <Link
-                                        href={plan.cta === "Contact Us" ? "/contact" : "/#early-access"}
+                                        href={plan.cta === "Contact Us" ? "/contact" : "/early-access/"}
                                         className={`w-full py-4 rounded-xl font-semibold transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] text-center ${plan.popular
                                             ? 'bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] hover:opacity-90'
                                             : plan.name === 'Business'
@@ -305,7 +305,7 @@ export default function PricingPage() {
                         <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent"> With early access.</span>
                     </h2>
                     <p className="text-slate-500 text-lg mb-10">No credit card. No commitment. Just better group travel.</p>
-                    <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
+                    <Link href="/early-access/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
                         Get Early Access
                         <ArrowRight className="w-4 h-4" />
                     </Link>

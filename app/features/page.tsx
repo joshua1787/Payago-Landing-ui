@@ -338,7 +338,7 @@ export default function FeaturesPage() {
                     </h2>
                     <p className="text-slate-500 text-lg mb-4">Join the early-access waitlist. PayaGo may have partner or affiliate arrangements with supported booking providers.</p>
                     <p className="text-slate-400 text-sm mb-10">Powered by PayaGo AI · Provider-led handoff where available</p>
-                    <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
+                    <Link href="/early-access/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
                         Get Early Access
                         <ArrowRight className="w-4 h-4" />
                     </Link>

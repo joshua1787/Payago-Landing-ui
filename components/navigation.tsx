@@ -56,7 +56,7 @@ export function Navigation() {
               className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/20"
             >
               <Link
-                href="/#early-access"
+                href="/early-access/"
                 onClick={() => captureEvent("cta_click", { location: "navigation_desktop", label: "get_early_access" })}
               >
                 Get Early Access
@@ -100,7 +100,7 @@ export function Navigation() {
                 </Button>
                 <Button asChild size="sm" className="bg-primary text-primary-foreground">
                   <Link
-                    href="/#early-access"
+                    href="/early-access/"
                     onClick={() => captureEvent("cta_click", { location: "navigation_mobile", label: "get_early_access" })}
                   >
                     Get Early Access

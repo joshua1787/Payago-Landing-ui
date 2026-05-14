@@ -379,7 +379,7 @@ export default function AboutPage() {
                     </h2>
 	                    <p className="text-slate-500 text-lg mb-10">Join the early-access waitlist. No credit card required. Mobile experiences are planned.</p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
+                        <Link href="/early-access/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
                             Get Early Access
                             <ArrowRight className="w-4 h-4" />
                         </Link>

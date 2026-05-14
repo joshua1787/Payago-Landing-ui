@@ -144,7 +144,7 @@ export default function DestinationsHub() {
                 <div className="max-w-4xl mx-auto px-6 text-center">
                     <h2 className="text-3xl font-bold text-slate-900 mb-4">Don't see your destination?</h2>
                     <p className="text-slate-500 mb-8">PayaGo AI can plan group trips to any destination in the world — just describe it and the AI builds the full itinerary quickly.</p>
-                    <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
+                    <Link href="/early-access/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
                         Get Early Access <ArrowRight className="w-4 h-4" />
                     </Link>
                 </div>

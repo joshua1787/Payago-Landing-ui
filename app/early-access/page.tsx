@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import { Suspense } from "react"
 import { EarlyAccessClient } from "./early-access-client"
 
 export const metadata: Metadata = {
@@ -36,9 +35,5 @@ export const metadata: Metadata = {
 }
 
 export default function EarlyAccessPage() {
-  return (
-    <Suspense fallback={null}>
-      <EarlyAccessClient />
-    </Suspense>
-  )
+  return <EarlyAccessClient />
 }

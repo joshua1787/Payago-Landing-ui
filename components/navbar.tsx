@@ -40,7 +40,7 @@ export function Navbar() {
                     {/* CTA */}
                     <div className="hidden lg:flex items-center gap-3">
                         <a
-                            href="/#early-access"
+                            href="/early-access/"
                             className="relative group px-6 py-2.5 rounded-xl text-sm font-semibold overflow-hidden"
                             onClick={() => captureEvent("navbar_desktop_cta_click")}
                         >
@@ -88,7 +88,7 @@ export function Navbar() {
                             </a>
                         ))}
                         <a
-                            href="/#early-access"
+                            href="/early-access/"
                             className="block w-full text-center bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3.5 rounded-xl font-semibold text-[14px] mt-4"
                             onClick={() => {
                                 captureEvent("navbar_mobile_cta_click")

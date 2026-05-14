@@ -290,7 +290,7 @@ export default function BlogPost() {
                     <p className="text-slate-600 mb-4">
                         Want a complete day-by-day itinerary for any of these cities — with flight options, hotel ideas, and activities? PayaGo&apos;s AI builds a ready-to-review draft quickly.
                     </p>
-                    <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
+                    <Link href="/early-access/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
                         Plan Your Group Trip
                     </Link>
                 </div>

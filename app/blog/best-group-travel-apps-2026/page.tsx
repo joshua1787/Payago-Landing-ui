@@ -168,7 +168,7 @@ export default function BlogPost() {
                 <div className="mt-12 p-6 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20">
                     <p className="text-slate-900 font-semibold mb-2">Try PayaGo when it launches in early access phase.</p>
                     <p className="text-slate-600 text-sm mb-4">AI plans the trip, your group votes, and everyone can coordinate their share through the early-access experience.</p>
-                    <Link href="/#early-access" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
+                    <Link href="/early-access/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm">
                         Get Early Access
                     </Link>
                 </div>
