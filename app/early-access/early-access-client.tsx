@@ -49,7 +49,7 @@ const PASSPORT_BENEFITS = [
   {
     icon: Stamp,
     title: "Collect real travel stamps",
-    body: "Every trip booked through Payago becomes part of your travel story. Every 3-4 months, members can send their passport to our team for official destination stamps.",
+    body: "Every trip booked through Payago becomes part of your travel story. Every 3-4 months, members can send their Golden Passport collectible to our team for destination stamps.",
   },
   {
     icon: Gift,
@@ -451,7 +451,7 @@ export function EarlyAccessClient() {
                 <div className="mt-4 grid gap-2 text-sm text-[#5b4b33] sm:grid-cols-3">
                   <span className="inline-flex items-center gap-2 font-bold">
                     <PackageCheck className="h-4 w-4 text-[#8a5a06]" aria-hidden="true" />
-                    Physical passport.
+                    Physical collectible.
                   </span>
                   <span className="inline-flex items-center gap-2 font-bold">
                     <Stamp className="h-4 w-4 text-[#8a5a06]" aria-hidden="true" />
@@ -521,7 +521,7 @@ export function EarlyAccessClient() {
           <section className="overflow-hidden rounded-[2rem] bg-[#10131b] p-5 text-white shadow-[0_24px_60px_rgba(18,15,10,0.18)] sm:p-7">
             <div className="inline-flex items-center gap-2 rounded-full border border-[#f6be4a]/24 bg-[#f6be4a]/10 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#ffd879]">
               <Stamp className="h-4 w-4" aria-hidden="true" />
-              Real travel stamps
+              Collectible travel stamps
             </div>
             <h2
               className="mt-5 text-4xl font-black leading-[0.9] tracking-[-0.06em] sm:text-5xl"
@@ -530,7 +530,7 @@ export function EarlyAccessClient() {
               Your journey becomes collectible.
             </h2>
             <p className="mt-4 text-base leading-7 text-white/70">
-              Every trip booked through Payago becomes part of your travel story. Every 3-4 months, members can send their Golden Passport to our team. We will stamp the countries and destinations explored through the app, just like a real passport experience.
+              Every trip booked through Payago becomes part of your travel story. Every 3-4 months, members can send their Golden Passport collectible to our team. We will stamp the countries and destinations explored through the app as part of a collectible member ritual.
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
               {STAMP_DESTINATIONS.map((destination) => (
