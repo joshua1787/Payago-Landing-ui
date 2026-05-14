@@ -11,6 +11,9 @@ test("hero CTA opens the early-access page", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: /welcome to the payago golden passport club/i }),
   ).toBeVisible()
+  await expect(
+    page.getByText("This is a collectible membership product issued by Payago and is not a government-issued passport or travel document.").first(),
+  ).toBeVisible()
 })
 
 test("golden passport claim submits to the configured waitlist endpoint", async ({ page }) => {

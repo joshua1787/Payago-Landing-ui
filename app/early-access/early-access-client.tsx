@@ -25,6 +25,7 @@ import { WAITLIST_EMAIL_ERROR, WAITLIST_EMAIL_INPUT_PATTERN, isValidWaitlistEmai
 const WAITLIST_ENDPOINT = process.env.NEXT_PUBLIC_WAITLIST_ENDPOINT?.trim()
 const FALLBACK_EMAIL = "support@payago.in"
 const FOUNDING_MEMBER_LIMIT = "1,000"
+const GOLDEN_PASSPORT_DISCLAIMER = "This is a collectible membership product issued by Payago and is not a government-issued passport or travel document."
 
 type Status = "idle" | "loading" | "success" | "error" | "unconfigured"
 
@@ -265,6 +266,10 @@ function ClaimForm({
         <p className="mt-3 text-xs font-semibold leading-5 text-white/64">
           Free founding claim. Shipping details are requested later after your place is confirmed.
         </p>
+        <div className="mt-3 flex items-start gap-2 rounded-2xl border border-[#f6be4a]/20 bg-[#f6be4a]/10 px-3 py-3 text-xs font-semibold leading-5 text-[#ffe6a6]">
+          <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#f6be4a]" aria-hidden="true" />
+          <p>{GOLDEN_PASSPORT_DISCLAIMER}</p>
+        </div>
         <div className="mt-2 min-h-5" aria-live="polite">
           {feedback ? <p className="text-xs font-bold text-[#ffd879]">{feedback}</p> : null}
         </div>
@@ -487,9 +492,14 @@ export function EarlyAccessClient() {
               This is not another digital badge.
             </h2>
           </div>
-          <p className="max-w-2xl text-base leading-7 text-[#5b4b33] lg:text-lg lg:leading-8">
-            This is a real physical passport shipped to your address after your founding place is confirmed. It is built to make your Payago travel history collectible.
-          </p>
+          <div className="max-w-2xl space-y-3 text-base leading-7 text-[#5b4b33] lg:text-lg lg:leading-8">
+            <p>
+              This is a premium physical collectible shipped to your address after your founding place is confirmed. It is built to make your Payago travel history collectible.
+            </p>
+            <p className="rounded-2xl border border-[#151006]/10 bg-white px-4 py-3 text-sm font-bold leading-6 text-[#6d4a10] lg:text-base lg:leading-7">
+              {GOLDEN_PASSPORT_DISCLAIMER}
+            </p>
+          </div>
         </div>
 
         <div className="mx-auto mt-7 grid w-full max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-4" aria-label="Golden Passport benefits">
