@@ -110,7 +110,7 @@ export function SocialProofSection() {
 
                 {/* Early access CTA */}
                 <div className={`flex flex-col sm:flex-row items-center justify-center gap-4 mt-16 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] duration-700 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-                    <a href="#early-access" className="px-6 py-3 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-colors text-white font-semibold">
+                    <a href="/early-access/" className="px-6 py-3 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-colors text-white font-semibold">
                         Join Early Access
                     </a>
                     <span className="text-white/40 text-sm">Mobile app availability will be announced to waitlist members.</span>

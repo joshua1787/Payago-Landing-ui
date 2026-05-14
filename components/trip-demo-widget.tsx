@@ -411,7 +411,7 @@ export function TripDemoWidget() {
                                 <div className="text-slate-400 text-xs">Join the early-access waitlist. No card required.</div>
                             </div>
                             <a
-                                href="#early-access"
+                                href="/early-access/"
                                 className="flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-5 py-2.5 rounded-xl font-semibold hover:opacity-90 transition-opacity text-sm flex-shrink-0"
                             >
                                 Join Waitlist

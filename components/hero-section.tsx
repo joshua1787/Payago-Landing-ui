@@ -264,7 +264,7 @@ export function HeroSection() {
               ].map((cta) => (
                 <a
                   key={cta.label}
-                  href="#early-access"
+                  href="/early-access/"
                   className="group/store inline-flex items-center gap-3 rounded-2xl bg-slate-950 px-5 py-3 text-white shadow-sm transition-colors duration-200 hover:bg-slate-800"
                   aria-label={cta.ariaLabel}
                   onClick={() => captureEvent("hero_cta_click", { cta: cta.analyticsId })}
@@ -304,7 +304,7 @@ export function HeroSection() {
                       <Zap className="w-3 h-3" /> PayaGo AI · draft preview
                     </div>
                     <a
-                      href="#early-access"
+                      href="/early-access/"
                       className="relative group/btn overflow-hidden bg-slate-900 text-white px-7 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 transition-colors duration-200 hover:bg-slate-800"
                       onClick={() => captureEvent("hero_waitlist_input_cta_click")}
                     >

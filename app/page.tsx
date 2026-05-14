@@ -11,7 +11,6 @@ import { BentoSection } from "@/components/bento-section"
 import { FeaturesSection } from "@/components/features-section"
 import { AppGallerySection } from "@/components/app-gallery-section"
 import { CinematicReel } from "@/components/cinematic-reel"
-import { CTASection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
 
 export const metadata: Metadata = {
@@ -61,7 +60,6 @@ export default function Home() {
       <FeaturesSection />
       <AppGallerySection />
       <CinematicReel />
-      <CTASection />
       <Footer />
     </main>
   )

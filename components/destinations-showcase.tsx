@@ -43,7 +43,7 @@ export function DestinationsShowcase() {
                             Where will <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent">AI</span> take you?
                         </h2>
                     </div>
-                    <a href="#early-access" className="group flex items-center gap-2 text-slate-600 font-semibold text-sm hover:text-slate-900 transition-colors bg-slate-50 hover:bg-slate-100 px-5 py-2.5 rounded-full border border-slate-200">
+                    <a href="/early-access/" className="group flex items-center gap-2 text-slate-600 font-semibold text-sm hover:text-slate-900 transition-colors bg-slate-50 hover:bg-slate-100 px-5 py-2.5 rounded-full border border-slate-200">
                         Start planning
                         <ArrowRight className="w-4 h-4 opacity-70 transition-opacity group-hover:opacity-100" />
                     </a>
