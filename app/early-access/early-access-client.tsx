@@ -27,7 +27,11 @@ const FALLBACK_EMAIL = "support@payago.in"
 const FOUNDING_MEMBER_LIMIT = "1,000"
 const GOLDEN_PASSPORT_DISCLAIMER = "This is a collectible membership product issued by Payago and is not a government-issued passport or travel document."
 
-type Status = "idle" | "loading" | "success" | "error" | "unconfigured"
+type Status = "idle" | "loading" | "success" | "duplicate" | "error" | "unconfigured"
+type WaitlistSubmitResult = {
+  accepted: boolean
+  alreadyExists: boolean
+}
 
 const CAMPAIGN_LABELS: Record<string, string> = {
   "universal-qr": "Universal QR invite",
@@ -151,22 +155,27 @@ function getAbsoluteHttpEndpoint(endpoint: string | undefined) {
   }
 }
 
-async function isAcceptedResponse(response: Response) {
-  if ([201, 202, 204].includes(response.status)) {
-    return true
-  }
-
+async function readWaitlistResult(response: Response): Promise<WaitlistSubmitResult> {
   if (!response.headers.get("content-type")?.includes("application/json")) {
-    return false
+    return {
+      accepted: [201, 202, 204].includes(response.status),
+      alreadyExists: false,
+    }
   }
 
   const payload = await response.json().catch(() => null)
   if (!payload || typeof payload !== "object") {
-    return false
+    return {
+      accepted: [201, 202, 204].includes(response.status),
+      alreadyExists: false,
+    }
   }
 
   const result = payload as Record<string, unknown>
-  return result.ok === true || result.accepted === true || result.success === true
+  return {
+    accepted: result.ok === true || result.accepted === true || result.success === true || [201, 202, 204].includes(response.status),
+    alreadyExists: result.already_exists === true || result.alreadyExists === true,
+  }
 }
 
 function GoldenPassportPreview({ compact = false }: { compact?: boolean }) {
@@ -357,14 +366,18 @@ export function EarlyAccessClient() {
       if (!res.ok) {
         throw new Error(res.status === 400 ? "invalid_email_format" : `status_${res.status}`)
       }
-      if (!(await isAcceptedResponse(res))) {
+      const result = await readWaitlistResult(res)
+
+      if (!result.accepted) {
         throw new Error(`waitlist_endpoint_unconfirmed_${res.status}`)
       }
 
-      setStatus("success")
+      setStatus(result.alreadyExists ? "duplicate" : "success")
       setEmail("")
+      setFeedback(result.alreadyExists ? "You're already on the Golden Passport early-access list with this email." : "")
       captureEvent("golden_passport_submit_success", {
         campaign: activeCampaign,
+        already_exists: result.alreadyExists,
       })
     } catch (error) {
       setStatus("error")
@@ -395,20 +408,24 @@ export function EarlyAccessClient() {
 
         <div className="mx-auto grid w-full max-w-6xl items-center gap-8 py-8 sm:py-12 lg:min-h-[calc(100dvh-6rem)] lg:grid-cols-[minmax(0,1fr)_minmax(340px,0.72fr)] lg:gap-14">
           <section className="max-w-3xl">
-            {status === "success" ? (
+            {status === "success" || status === "duplicate" ? (
               <div className="rounded-[2rem] border border-[#151006]/12 bg-[#fff8e9] p-5 shadow-[0_24px_70px_rgba(18,15,10,0.18)] sm:p-8" aria-live="polite">
                 <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#0d6b50]/20 bg-[#dff8ed] px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#0d6b50]">
                   <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
-                  Founding request saved
+                  {status === "duplicate" ? "Already on the list" : "Founding request saved"}
                 </div>
                 <h1
                   className="text-balance text-5xl font-black leading-[0.9] tracking-[-0.075em] text-[#151006] sm:text-6xl lg:text-7xl"
                   style={{ fontFamily: "var(--font-outfit)" }}
                 >
-                  You are on the Golden Passport list.
+                  {status === "duplicate" ? "This email is already on the Golden Passport list." : "You are on the Golden Passport list."}
                 </h1>
                 <p className="mt-5 max-w-xl text-base leading-7 text-[#4c412f] sm:text-lg sm:leading-8">
-                  We saved your request from the <strong className="text-[#151006]">{campaignLabel}</strong>. Watch your inbox for the next step to confirm your founding-member details and shipping information.
+                  {status === "duplicate" ? (
+                    <>We found an existing request from the <strong className="text-[#151006]">{campaignLabel}</strong>. No new duplicate row was created.</>
+                  ) : (
+                    <>We saved your request from the <strong className="text-[#151006]">{campaignLabel}</strong>. Watch your inbox for the next step to confirm your founding-member details and shipping information.</>
+                  )}
                 </p>
                 <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                   <Link href="/" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#151006] px-5 py-4 text-sm font-black text-white shadow-[0_14px_30px_rgba(18,15,10,0.20)] transition hover:bg-[#2a2113]">

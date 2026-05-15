@@ -10,24 +10,33 @@ import { WAITLIST_EMAIL_ERROR, WAITLIST_EMAIL_INPUT_PATTERN, isValidWaitlistEmai
 const WAITLIST_ENDPOINT = process.env.NEXT_PUBLIC_WAITLIST_ENDPOINT?.trim()
 const WAITLIST_FALLBACK_EMAIL = "support@payago.in"
 
-type WaitlistStatus = "idle" | "loading" | "success" | "error" | "unconfigured"
+type WaitlistStatus = "idle" | "loading" | "success" | "duplicate" | "error" | "unconfigured"
+type WaitlistSubmitResult = {
+    accepted: boolean
+    alreadyExists: boolean
+}
 
-async function isAcceptedResponse(response: Response) {
-    if ([201, 202, 204].includes(response.status)) {
-        return true
-    }
-
+async function readWaitlistResult(response: Response): Promise<WaitlistSubmitResult> {
     if (!response.headers.get("content-type")?.includes("application/json")) {
-        return false
+        return {
+            accepted: [201, 202, 204].includes(response.status),
+            alreadyExists: false,
+        }
     }
 
     const payload = await response.json().catch(() => null)
     if (!payload || typeof payload !== "object") {
-        return false
+        return {
+            accepted: [201, 202, 204].includes(response.status),
+            alreadyExists: false,
+        }
     }
 
     const result = payload as Record<string, unknown>
-    return result.ok === true || result.accepted === true || result.success === true
+    return {
+        accepted: result.ok === true || result.accepted === true || result.success === true || [201, 202, 204].includes(response.status),
+        alreadyExists: result.already_exists === true || result.alreadyExists === true,
+    }
 }
 
 function buildWaitlistMailto(email: string) {
@@ -129,7 +138,9 @@ export function CTASection() {
                 throw new Error(response.status === 400 ? "invalid_email_format" : `waitlist_endpoint_${response.status}`)
             }
 
-            if (!(await isAcceptedResponse(response))) {
+            const result = await readWaitlistResult(response)
+
+            if (!result.accepted) {
                 throw new Error(`waitlist_endpoint_unconfirmed_${response.status}`)
             }
 
@@ -137,11 +148,12 @@ export function CTASection() {
                 location: "early_access",
                 source: "landing_cta",
                 status: response.status,
+                already_exists: result.alreadyExists,
                 configured: true,
             })
             setEmail("")
-            setStatus("success")
-            setFeedback("Your early-access request was accepted. We'll be in touch.")
+            setStatus(result.alreadyExists ? "duplicate" : "success")
+            setFeedback(result.alreadyExists ? "You're already on the PayaGo early-access waitlist with this email." : "Your early-access request was accepted. We'll be in touch.")
         } catch (error) {
             const reason = error instanceof Error ? error.message : "unknown_error"
             captureEvent("waitlist_submit_fail", {
@@ -203,7 +215,7 @@ export function CTASection() {
 
 
                 {/* Email form */}
-                {status === "success" ? (
+                {status === "success" || status === "duplicate" ? (
                     <div role="status" aria-live="polite">
                         <div className="inline-flex items-center gap-3 bg-white text-emerald-600 rounded-2xl px-8 py-5 text-base font-semibold shadow-md">
                             <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center">
