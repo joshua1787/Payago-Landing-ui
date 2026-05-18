@@ -25,7 +25,11 @@ import { WAITLIST_EMAIL_ERROR, WAITLIST_EMAIL_INPUT_PATTERN, isValidWaitlistEmai
 const WAITLIST_ENDPOINT = process.env.NEXT_PUBLIC_WAITLIST_ENDPOINT?.trim()
 const FALLBACK_EMAIL = "support@payago.in"
 const FOUNDING_MEMBER_LIMIT = "1,000"
+const MAX_REFERRAL_LENGTH = 254
 const GOLDEN_PASSPORT_DISCLAIMER = "This is a collectible membership product issued by Payago and is not a government-issued passport or travel document."
+const REFERRAL_CASHBACK_COPY = "For every successful referral, you can earn \u00a35 to \u00a3200 cashback. The more people you refer, the more you can earn - rewards are added for each successful referral."
+const REFERRAL_SUCCESS_COPY = "A referral becomes successful when your invited friend completes their first eligible PayaGo trip."
+const PASSPORT_FULFILLMENT_COPY = "Once you complete your first eligible PayaGo trip, you receive your PayaGo Golden Passport. Your total approved cashback from all referrals can be credited at the same time - either to your bank or alongside your passport."
 
 type Status = "idle" | "loading" | "success" | "duplicate" | "error" | "unconfigured"
 type WaitlistSubmitResult = {
@@ -48,7 +52,7 @@ const PASSPORT_BENEFITS = [
   {
     icon: TicketCheck,
     title: "Your own physical Golden Passport",
-    body: "A premium collectible passport issued by Payago with your name, membership ID, lifetime access status, and personalized travel identity.",
+    body: "A premium collectible passport issued by Payago after your first eligible trip, with your name, membership ID, lifetime access status, and personalized travel identity.",
   },
   {
     icon: Stamp,
@@ -128,6 +132,39 @@ function readCampaignFromLocation() {
   } catch {
     return ""
   }
+}
+
+function sanitizeReferralValue(value: string) {
+  return value.replace(/[\r\n\t]+/g, " ").replace(/\s+/g, " ").trim().slice(0, MAX_REFERRAL_LENGTH)
+}
+
+function readReferralFromLocation() {
+  if (typeof window === "undefined") return ""
+
+  try {
+    return sanitizeReferralValue(new URL(window.location.href).searchParams.get("ref") ?? "")
+  } catch {
+    return ""
+  }
+}
+
+function buildWaitlistMetadata(browserReferrer: string, urlReferral: string, referralValue: string) {
+  const metadata: Record<string, string> = {}
+  const cleanBrowserReferrer = browserReferrer.trim()
+  const cleanURLReferral = sanitizeReferralValue(urlReferral)
+  const cleanReferral = sanitizeReferralValue(referralValue)
+
+  if (cleanBrowserReferrer) {
+    metadata.browser_referrer = cleanBrowserReferrer
+  }
+  if (cleanURLReferral) {
+    metadata.url_referral = cleanURLReferral
+  }
+  if (cleanReferral) {
+    metadata.referral_source = cleanURLReferral && cleanReferral === cleanURLReferral ? "url_ref" : "manual"
+  }
+
+  return metadata
 }
 
 function getCampaignLabel(campaign: string) {
@@ -223,15 +260,19 @@ function GoldenPassportPreview({ compact = false }: { compact?: boolean }) {
 
 function ClaimForm({
   email,
+  referral,
   feedback,
   status,
   onEmailChange,
+  onReferralChange,
   onSubmit,
 }: {
   email: string
+  referral: string
   feedback: string
   status: Status
   onEmailChange: (email: string) => void
+  onReferralChange: (referral: string) => void
   onSubmit: (event: FormEvent<HTMLFormElement>) => void
 }) {
   return (
@@ -272,9 +313,35 @@ function ClaimForm({
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
+        <div className="mt-3 grid gap-2">
+          <label className="text-xs font-black uppercase tracking-[0.16em] text-[#f6be4a]" htmlFor="early-access-referral">
+            Referral code or inviter email <span className="text-white/45">(optional)</span>
+          </label>
+          <input
+            id="early-access-referral"
+            name="referral"
+            type="text"
+            inputMode="text"
+            autoComplete="off"
+            placeholder="GP-2026-ABCD1234 or friend@example.com"
+            maxLength={MAX_REFERRAL_LENGTH}
+            value={referral}
+            onChange={(event) => onReferralChange(event.target.value)}
+            disabled={status === "loading"}
+            aria-describedby="early-access-referral-help"
+            className="min-w-0 rounded-[0.95rem] border border-white/10 bg-[#fff8e8] px-4 py-4 text-base font-bold text-slate-950 outline-none placeholder:text-slate-400 focus:shadow-[0_0_0_3px_rgba(246,190,74,0.30)] sm:px-5"
+          />
+          <p id="early-access-referral-help" className="text-xs font-semibold leading-5 text-white/58">
+            Enter your reference code from the PayaGo welcome email. If someone referred you, enter the email ID of the person who invited you.
+          </p>
+        </div>
         <p className="mt-3 text-xs font-semibold leading-5 text-white/64">
-          Free founding claim. Shipping details are requested later after your place is confirmed.
+          Free founding claim. Trip and passport delivery details are requested later before fulfillment.
         </p>
+        <div className="mt-3 flex items-start gap-2 rounded-2xl border border-[#45d19d]/20 bg-[#45d19d]/10 px-3 py-3 text-xs font-semibold leading-5 text-[#ccffe9]">
+          <Gift className="mt-0.5 h-4 w-4 shrink-0 text-[#45d19d]" aria-hidden="true" />
+          <p>{REFERRAL_CASHBACK_COPY} {REFERRAL_SUCCESS_COPY}</p>
+        </div>
         <div className="mt-3 flex items-start gap-2 rounded-2xl border border-[#f6be4a]/20 bg-[#f6be4a]/10 px-3 py-3 text-xs font-semibold leading-5 text-[#ffe6a6]">
           <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#f6be4a]" aria-hidden="true" />
           <p>{GOLDEN_PASSPORT_DISCLAIMER}</p>
@@ -290,6 +357,9 @@ function ClaimForm({
 export function EarlyAccessClient() {
   const [campaign, setCampaign] = useState("")
   const [email, setEmail] = useState("")
+  const [referral, setReferral] = useState("")
+  const [urlReferral, setUrlReferral] = useState("")
+  const [submittedEmail, setSubmittedEmail] = useState("")
   const [status, setStatus] = useState<Status>("idle")
   const [feedback, setFeedback] = useState("")
   const campaignLabel = useMemo(() => getCampaignLabel(campaign), [campaign])
@@ -297,10 +367,14 @@ export function EarlyAccessClient() {
 
   useEffect(() => {
     const activeCampaign = readCampaignFromLocation()
+    const activeReferral = readReferralFromLocation()
     setCampaign(activeCampaign)
+    setUrlReferral(activeReferral)
+    setReferral((current) => current || activeReferral)
     captureEvent("golden_passport_landing_view", {
       campaign: activeCampaign || "universal-qr",
       label: getCampaignLabel(activeCampaign),
+      referral_present: Boolean(activeReferral),
     })
   }, [])
 
@@ -310,6 +384,8 @@ export function EarlyAccessClient() {
     if (!normalized) return
 
     const activeCampaign = campaign || readCampaignFromLocation() || "universal-qr"
+    const activeURLReferral = urlReferral || readReferralFromLocation()
+    const referralValue = sanitizeReferralValue(referral)
 
     if (!isValidWaitlistEmail(normalized)) {
       setStatus("error")
@@ -325,6 +401,7 @@ export function EarlyAccessClient() {
     setFeedback("")
     captureEvent("golden_passport_submit_attempt", {
       campaign: activeCampaign,
+      referral_present: Boolean(referralValue),
     })
 
     if (!WAITLIST_ENDPOINT) {
@@ -350,6 +427,7 @@ export function EarlyAccessClient() {
     }
 
     try {
+      const browserReferrer = typeof document !== "undefined" ? document.referrer : ""
       const res = await fetch(waitlistEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -359,7 +437,8 @@ export function EarlyAccessClient() {
           campaign: activeCampaign,
           page: "/early-access",
           interest: "golden-passport-club",
-          referrer: typeof document !== "undefined" ? document.referrer : "",
+          referrer: referralValue,
+          metadata: buildWaitlistMetadata(browserReferrer, activeURLReferral, referralValue),
         }),
       })
 
@@ -373,11 +452,13 @@ export function EarlyAccessClient() {
       }
 
       setStatus(result.alreadyExists ? "duplicate" : "success")
+      setSubmittedEmail(normalized)
       setEmail("")
       setFeedback(result.alreadyExists ? "You're already on the Golden Passport early-access list with this email." : "")
       captureEvent("golden_passport_submit_success", {
         campaign: activeCampaign,
         already_exists: result.alreadyExists,
+        referral_present: Boolean(referralValue),
       })
     } catch (error) {
       setStatus("error")
@@ -424,9 +505,12 @@ export function EarlyAccessClient() {
                   {status === "duplicate" ? (
                     <>We found an existing request from the <strong className="text-[#151006]">{campaignLabel}</strong>. No new duplicate row was created.</>
                   ) : (
-                    <>We saved your request from the <strong className="text-[#151006]">{campaignLabel}</strong>. Watch your inbox for the next step to confirm your founding-member details and shipping information.</>
+                    <>We saved your request from the <strong className="text-[#151006]">{campaignLabel}</strong>. Watch your inbox for your private reference and founder launch updates.</>
                   )}
                 </p>
+                <div className="mt-5 max-w-xl rounded-2xl border border-[#0d6b50]/15 bg-[#e7f8ef] px-4 py-4 text-sm font-bold leading-6 text-[#164b38]">
+                  Share your claim reference from the welcome email, or ask friends to enter {submittedEmail ? <strong>{submittedEmail}</strong> : "your submitted email"} when they join. {REFERRAL_CASHBACK_COPY} {PASSPORT_FULFILLMENT_COPY}
+                </div>
                 <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                   <Link href="/" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#151006] px-5 py-4 text-sm font-black text-white shadow-[0_14px_30px_rgba(18,15,10,0.20)] transition hover:bg-[#2a2113]">
                     Continue to website
@@ -452,15 +536,17 @@ export function EarlyAccessClient() {
                 <div className="mt-5 max-w-2xl space-y-3 text-pretty text-[1.02rem] leading-7 text-[#4c412f] sm:text-xl sm:leading-9">
                   <p>Travel is not just about destinations anymore.</p>
                   <p>It is about collecting memories, stamps, rewards, and experiences that stay with you for life.</p>
-                  <p className="font-black text-[#151006]">Become one of the first {FOUNDING_MEMBER_LIMIT} lifetime members and receive your own exclusive Payago Golden Passport.</p>
+                  <p className="font-black text-[#151006]">Become one of the first {FOUNDING_MEMBER_LIMIT} lifetime members and unlock your exclusive Payago Golden Passport after your first eligible trip.</p>
                 </div>
 
                 <div className="mt-6 max-w-2xl sm:mt-8">
                   <ClaimForm
                     email={email}
+                    referral={referral}
                     feedback={feedback}
                     status={status}
                     onEmailChange={setEmail}
+                    onReferralChange={setReferral}
                     onSubmit={handleSubmit}
                   />
                 </div>
@@ -511,7 +597,7 @@ export function EarlyAccessClient() {
           </div>
           <div className="max-w-2xl space-y-3 text-base leading-7 text-[#5b4b33] lg:text-lg lg:leading-8">
             <p>
-              This is a premium physical collectible shipped to your address after your founding place is confirmed. It is built to make your Payago travel history collectible.
+              This is a premium physical collectible issued after your first eligible PayaGo trip. It is built to make your Payago travel history collectible.
             </p>
             <p className="rounded-2xl border border-[#151006]/10 bg-white px-4 py-3 text-sm font-bold leading-6 text-[#6d4a10] lg:text-base lg:leading-7">
               {GOLDEN_PASSPORT_DISCLAIMER}
@@ -635,6 +721,9 @@ export function EarlyAccessClient() {
             </h2>
             <p className="mt-4 text-base leading-7 text-[#5b4b33]">
               Golden Passport begins your journey. Successful referrals and active travel participation can move members toward Platinum Voyager and the rare Black Horizon tier. Some journeys may even be partially funded by us.
+            </p>
+            <p className="mt-4 rounded-2xl border border-[#0d6b50]/15 bg-[#e7f8ef] px-4 py-3 text-sm font-black leading-6 text-[#164b38]">
+              {REFERRAL_CASHBACK_COPY} {REFERRAL_SUCCESS_COPY} {PASSPORT_FULFILLMENT_COPY}
             </p>
           </div>
           <div className="grid gap-2 sm:grid-cols-2">

@@ -40,9 +40,10 @@ test("golden passport claim submits to the configured waitlist endpoint", async 
     await route.continue()
   })
 
-  await page.goto("/early-access/?c=universal-qr")
+  await page.goto("/early-access/?c=universal-qr&ref=GP-2026-ABCD1234")
 
   await page.getByLabel("Email for Golden Passport Club").fill("founder@example.com")
+  await expect(page.getByLabel(/referral code or inviter email/i)).toHaveValue("GP-2026-ABCD1234")
   await page.getByRole("button", { name: "Claim founding place" }).click()
 
   await expect(
@@ -53,6 +54,14 @@ test("golden passport claim submits to the configured waitlist endpoint", async 
   expect(waitlistRequest.payload?.campaign).toBe("universal-qr")
   expect(waitlistRequest.payload?.page).toBe("/early-access")
   expect(waitlistRequest.payload?.interest).toBe("golden-passport-club")
+  expect(waitlistRequest.payload?.referrer).toBe("GP-2026-ABCD1234")
+
+  const metadata = waitlistRequest.payload?.metadata as Record<string, unknown> | undefined
+  expect(metadata?.url_referral).toBe("GP-2026-ABCD1234")
+  expect(metadata?.referral_source).toBe("url_ref")
+  if (metadata?.browser_referrer) {
+    expect(typeof metadata.browser_referrer).toBe("string")
+  }
 })
 
 test("universal QR route redirects to early access with campaign parameters", async ({ page }) => {

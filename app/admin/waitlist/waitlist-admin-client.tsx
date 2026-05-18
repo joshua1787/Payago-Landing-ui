@@ -201,7 +201,7 @@ function LoginPanel({
             Golden Passport demand, visible to the team.
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-[#d9caa6]">
-            Approved Payago users can review submitted emails, search by source or campaign, and export a CSV for stakeholder and marketing follow-up.
+            Approved Payago users can review submitted emails, referral codes, inviter emails, source attribution, and export a CSV for stakeholder and marketing follow-up.
           </p>
         </div>
 
@@ -590,7 +590,7 @@ export function WaitlistAdminClient() {
                   type="search"
                   value={searchDraft}
                   onChange={(event) => setSearchDraft(event.target.value)}
-                  placeholder="Search email, source, campaign, page..."
+                  placeholder="Search email, source, campaign, inviter, code..."
                   className="min-h-12 w-full rounded-2xl border border-white/10 bg-[#171920] py-3 pl-11 pr-4 text-sm font-bold text-white outline-none placeholder:text-white/34 focus:shadow-[0_0_0_3px_rgba(246,190,74,0.20)]"
                 />
               </form>
@@ -619,7 +619,7 @@ export function WaitlistAdminClient() {
                 <table className="min-w-[1120px] w-full border-collapse text-left text-sm">
                   <thead className="bg-[#f6be4a]/12 text-[0.68rem] font-black uppercase tracking-[0.16em] text-[#ffd879]">
                     <tr>
-                      {["Email", "Source", "Campaign", "Page", "Interest", "Referrer", "Created", "Updated"].map((heading) => (
+                      {["Email", "Source", "Campaign", "Page", "Interest", "Invited by / code", "Created", "Updated"].map((heading) => (
                         <th key={heading} scope="col" className="px-4 py-3">
                           {heading}
                         </th>
