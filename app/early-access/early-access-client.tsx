@@ -286,7 +286,7 @@ function ClaimForm({
           <span>Golden Passport claim</span>
           <span>No card needed</span>
         </div>
-        <div className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto]">
+        <div className="grid gap-2">
           <label className="sr-only" htmlFor="early-access-email">Email for Golden Passport Club</label>
           <input
             id="early-access-email"
@@ -304,14 +304,6 @@ function ClaimForm({
             disabled={status === "loading"}
             className="min-w-0 rounded-[0.95rem] border border-white/10 bg-[#fff8e8] px-4 py-4 text-base font-bold text-slate-950 outline-none placeholder:text-slate-400 focus:shadow-[0_0_0_3px_rgba(246,190,74,0.30)] sm:px-5"
           />
-          <button
-            type="submit"
-            disabled={status === "loading"}
-            className="inline-flex min-h-14 items-center justify-center gap-2 rounded-[0.95rem] bg-[#f6be4a] px-5 py-4 text-sm font-black text-[#151006] shadow-[0_14px_30px_rgba(246,190,74,0.20)] transition hover:bg-[#ffd879] disabled:cursor-progress disabled:opacity-70"
-          >
-            {status === "loading" ? "Claiming..." : "Claim founding place"}
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </button>
         </div>
         <div className="mt-3 grid gap-2">
           <label className="text-xs font-black uppercase tracking-[0.16em] text-[#f6be4a]" htmlFor="early-access-referral">
@@ -335,6 +327,14 @@ function ClaimForm({
             Enter your reference code from the PayaGo welcome email. If someone referred you, enter the email ID of the person who invited you.
           </p>
         </div>
+        <button
+          type="submit"
+          disabled={status === "loading"}
+          className="mt-3 inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-[0.95rem] bg-[#f6be4a] px-5 py-4 text-sm font-black text-[#151006] shadow-[0_14px_30px_rgba(246,190,74,0.20)] transition hover:bg-[#ffd879] disabled:cursor-progress disabled:opacity-70"
+        >
+          {status === "loading" ? "Claiming..." : "Claim founding place"}
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </button>
         <p className="mt-3 text-xs font-semibold leading-5 text-white/64">
           Free founding claim. Trip and passport delivery details are requested later before fulfillment.
         </p>
