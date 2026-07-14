@@ -9,11 +9,11 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Best Group Travel Planning Apps of 2026 — Compared | PayaGo Blog",
         description: "Honest comparison of the top group travel apps in 2026. What each does well and what it doesn't.",
-        url: "https://www.payago.in/blog/best-group-travel-apps-2026",
+        url: "https://payago.in/blog/best-group-travel-apps-2026",
         type: "article",
         images: [
             {
-                url: "https://www.payago.in/og/blog-best-group-travel-apps-2026.jpg",
+                url: "https://payago.in/og/blog-best-group-travel-apps-2026.jpg",
                 width: 1200,
                 height: 630,
                 alt: "PayaGo AI Group Travel Planning",
@@ -24,9 +24,9 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Best group travel apps in 2026",
         description: "How to compare planning, voting, cost coordination, and trip handoff tools.",
-        images: ["https://www.payago.in/og/blog-best-group-travel-apps-2026.jpg"],
+        images: ["https://payago.in/og/blog-best-group-travel-apps-2026.jpg"],
     },
-    alternates: { canonical: "https://www.payago.in/blog/best-group-travel-apps-2026" },
+    alternates: { canonical: "https://payago.in/blog/best-group-travel-apps-2026" },
 }
 
 const schema = {
@@ -35,8 +35,8 @@ const schema = {
     headline: "Best Group Travel Planning Apps of 2026 — Compared",
     datePublished: "2026-03-10",
     author: { "@type": "Organization", name: "PayaGo" },
-    publisher: { "@type": "Organization", name: "PayaGo", logo: { "@type": "ImageObject", url: "https://www.payago.in/icon.svg" } },
-    url: "https://www.payago.in/blog/best-group-travel-apps-2026",
+    publisher: { "@type": "Organization", name: "PayaGo", logo: { "@type": "ImageObject", url: "https://payago.in/icon.svg" } },
+    url: "https://payago.in/blog/best-group-travel-apps-2026",
 }
 
 const apps = [

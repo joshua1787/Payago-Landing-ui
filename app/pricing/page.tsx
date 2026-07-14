@@ -9,11 +9,11 @@ export const metadata: Metadata = {
     openGraph: {
         title: "PayaGo Pricing — Early Access",
         description: "Free to join during early access, with provider-led handoff where available and final provider terms reviewed before booking.",
-        url: "https://www.payago.in/pricing",
+        url: "https://payago.in/pricing",
         type: "website",
         images: [
             {
-                url: "https://www.payago.in/og/pricing.jpg",
+                url: "https://payago.in/og/pricing.jpg",
                 width: 1200,
                 height: 630,
                 alt: "PayaGo AI Group Travel Planning",
@@ -24,10 +24,10 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Early-access pricing",
         description: "Free to join while PayaGo opens its first launch waves.",
-        images: ["https://www.payago.in/og/pricing.jpg"],
+        images: ["https://payago.in/og/pricing.jpg"],
     },
     alternates: {
-        canonical: "https://www.payago.in/pricing",
+        canonical: "https://payago.in/pricing",
     },
 }
 

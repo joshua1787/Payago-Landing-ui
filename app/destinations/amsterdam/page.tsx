@@ -10,11 +10,11 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Amsterdam Group Travel Guide 2026 | PayaGo",
         description: "Group travel guide for Amsterdam with sample budget context. AI-planned quickly.",
-        url: "https://www.payago.in/destinations/amsterdam",
+        url: "https://payago.in/destinations/amsterdam",
         type: "article",
         images: [
             {
-                url: "https://www.payago.in/og/destinations-amsterdam.jpg",
+                url: "https://payago.in/og/destinations-amsterdam.jpg",
                 width: 1200,
                 height: 630,
                 alt: "PayaGo AI Group Travel Planning",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Amsterdam group travel guide",
         description: "Canals, bikes, museums, and group-friendly neighbourhood planning.",
-        images: ["https://www.payago.in/og/destinations-amsterdam.jpg"],
+        images: ["https://payago.in/og/destinations-amsterdam.jpg"],
     },
-    alternates: { canonical: "https://www.payago.in/destinations/amsterdam" },
+    alternates: { canonical: "https://payago.in/destinations/amsterdam" },
 }
 
 export default function Page() {

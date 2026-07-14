@@ -10,11 +10,11 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Why We Built PayaGo — The Founding Story | PayaGo Blog",
         description: "A week-long Italy trip with five friends turned into weeks of chaos. That frustration became a product.",
-        url: "https://www.payago.in/blog/why-we-built-payago",
+        url: "https://payago.in/blog/why-we-built-payago",
         type: "article",
         images: [
             {
-                url: "https://www.payago.in/og/blog-why-we-built-payago.jpg",
+                url: "https://payago.in/og/blog-why-we-built-payago.jpg",
                 width: 1200,
                 height: 630,
                 alt: "PayaGo AI Group Travel Planning",
@@ -25,10 +25,10 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Why we built PayaGo",
         description: "The group-trip chaos that turned into an AI planning product.",
-        images: ["https://www.payago.in/og/blog-why-we-built-payago.jpg"],
+        images: ["https://payago.in/og/blog-why-we-built-payago.jpg"],
     },
     alternates: {
-        canonical: "https://www.payago.in/blog/why-we-built-payago",
+        canonical: "https://payago.in/blog/why-we-built-payago",
     },
 }
 
@@ -43,9 +43,9 @@ const articleSchema = {
     publisher: {
         "@type": "Organization",
         name: "PayaGo",
-        logo: { "@type": "ImageObject", url: "https://www.payago.in/icon.svg" },
+        logo: { "@type": "ImageObject", url: "https://payago.in/icon.svg" },
     },
-    url: "https://www.payago.in/blog/why-we-built-payago",
+    url: "https://payago.in/blog/why-we-built-payago",
 }
 
 export default function BlogPost() {

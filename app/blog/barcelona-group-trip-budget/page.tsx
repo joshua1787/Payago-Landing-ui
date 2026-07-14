@@ -10,11 +10,11 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Barcelona Group Trip: What It Can Cost in 2026 | PayaGo Blog",
         description: "Example Barcelona group trip budget ranges in 2026: flights from London, hotel prices by neighbourhood, food budgets, and activities. With a sample 5-day budget for 6 people.",
-        url: "https://www.payago.in/blog/barcelona-group-trip-budget",
+        url: "https://payago.in/blog/barcelona-group-trip-budget",
         type: "article",
         images: [
             {
-                url: "https://www.payago.in/og/blog-barcelona-group-trip-budget.jpg",
+                url: "https://payago.in/og/blog-barcelona-group-trip-budget.jpg",
                 width: 1200,
                 height: 630,
                 alt: "PayaGo AI Group Travel Planning",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Barcelona group trip budget",
         description: "Example costs, neighbourhood choices, and planning tips for Barcelona groups.",
-        images: ["https://www.payago.in/og/blog-barcelona-group-trip-budget.jpg"],
+        images: ["https://payago.in/og/blog-barcelona-group-trip-budget.jpg"],
     },
-    alternates: { canonical: "https://www.payago.in/blog/barcelona-group-trip-budget" },
+    alternates: { canonical: "https://payago.in/blog/barcelona-group-trip-budget" },
 }
 
 const schema = {
@@ -36,8 +36,8 @@ const schema = {
     headline: "Barcelona Group Trip: What It Can Cost in 2026",
     datePublished: "2026-03-12",
     author: { "@type": "Organization", name: "PayaGo" },
-    publisher: { "@type": "Organization", name: "PayaGo", logo: { "@type": "ImageObject", url: "https://www.payago.in/icon.svg" } },
-    url: "https://www.payago.in/blog/barcelona-group-trip-budget",
+    publisher: { "@type": "Organization", name: "PayaGo", logo: { "@type": "ImageObject", url: "https://payago.in/icon.svg" } },
+    url: "https://payago.in/blog/barcelona-group-trip-budget",
 }
 
 export default function BlogPost() {

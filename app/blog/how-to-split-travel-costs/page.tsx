@@ -10,11 +10,11 @@ export const metadata: Metadata = {
     openGraph: {
         title: "How to Split Travel Costs in a Group (Without the Drama) | PayaGo Blog",
         description: "The fairest ways to split group travel costs — and why equal splits cause more arguments than you'd expect.",
-        url: "https://www.payago.in/blog/how-to-split-travel-costs",
+        url: "https://payago.in/blog/how-to-split-travel-costs",
         type: "article",
         images: [
             {
-                url: "https://www.payago.in/og/blog-how-to-split-travel-costs.jpg",
+                url: "https://payago.in/og/blog-how-to-split-travel-costs.jpg",
                 width: 1200,
                 height: 630,
                 alt: "PayaGo AI Group Travel Planning",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "How to split travel costs",
         description: "Simple ways to keep group trip budgets visible and fair.",
-        images: ["https://www.payago.in/og/blog-how-to-split-travel-costs.jpg"],
+        images: ["https://payago.in/og/blog-how-to-split-travel-costs.jpg"],
     },
-    alternates: { canonical: "https://www.payago.in/blog/how-to-split-travel-costs" },
+    alternates: { canonical: "https://payago.in/blog/how-to-split-travel-costs" },
 }
 
 const schema = {
@@ -36,8 +36,8 @@ const schema = {
     headline: "How to Split Travel Costs in a Group (Without the Drama)",
     datePublished: "2026-03-05",
     author: { "@type": "Organization", name: "PayaGo" },
-    publisher: { "@type": "Organization", name: "PayaGo", logo: { "@type": "ImageObject", url: "https://www.payago.in/icon.svg" } },
-    url: "https://www.payago.in/blog/how-to-split-travel-costs",
+    publisher: { "@type": "Organization", name: "PayaGo", logo: { "@type": "ImageObject", url: "https://payago.in/icon.svg" } },
+    url: "https://payago.in/blog/how-to-split-travel-costs",
 }
 
 export default function BlogPost() {

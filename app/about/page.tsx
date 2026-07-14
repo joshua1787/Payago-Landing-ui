@@ -9,11 +9,11 @@ export const metadata: Metadata = {
     openGraph: {
         title: "About PayaGo — Why We Built an AI Group Travel Planner",
         description: "The story behind PayaGo — why we built an AI that turns one sentence into a coordinated group trip plan.",
-        url: "https://www.payago.in/about",
+        url: "https://payago.in/about",
         type: "website",
         images: [
             {
-                url: "https://www.payago.in/og/about.jpg",
+                url: "https://payago.in/og/about.jpg",
                 width: 1200,
                 height: 630,
                 alt: "PayaGo AI Group Travel Planning",
@@ -24,10 +24,10 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "About PayaGo",
         description: "Why we built an AI that turns one sentence into a coordinated group trip plan.",
-        images: ["https://www.payago.in/og/about.jpg"],
+        images: ["https://payago.in/og/about.jpg"],
     },
     alternates: {
-        canonical: "https://www.payago.in/about",
+        canonical: "https://payago.in/about",
     },
 }
 

@@ -10,11 +10,11 @@ export const metadata: Metadata = {
     openGraph: {
         title: "How AI is Changing Group Travel Planning in 2026 | PayaGo Blog",
         description: "Group trips can take hours of research and coordination. AI travel tools are turning that work into faster, review-ready plans.",
-        url: "https://www.payago.in/blog/ai-travel-planning-2026",
+        url: "https://payago.in/blog/ai-travel-planning-2026",
         type: "article",
         images: [
             {
-                url: "https://www.payago.in/og/blog-ai-travel-planning-2026.jpg",
+                url: "https://payago.in/og/blog-ai-travel-planning-2026.jpg",
                 width: 1200,
                 height: 630,
                 alt: "PayaGo AI Group Travel Planning",
@@ -25,10 +25,10 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "How AI is changing group travel",
         description: "What faster, review-ready itinerary planning means for groups in 2026.",
-        images: ["https://www.payago.in/og/blog-ai-travel-planning-2026.jpg"],
+        images: ["https://payago.in/og/blog-ai-travel-planning-2026.jpg"],
     },
     alternates: {
-        canonical: "https://www.payago.in/blog/ai-travel-planning-2026",
+        canonical: "https://payago.in/blog/ai-travel-planning-2026",
     },
 }
 
@@ -43,10 +43,10 @@ const articleSchema = {
     publisher: {
         "@type": "Organization",
         name: "PayaGo",
-        logo: { "@type": "ImageObject", url: "https://www.payago.in/icon.svg" },
+        logo: { "@type": "ImageObject", url: "https://payago.in/icon.svg" },
     },
-    url: "https://www.payago.in/blog/ai-travel-planning-2026",
-    mainEntityOfPage: "https://www.payago.in/blog/ai-travel-planning-2026",
+    url: "https://payago.in/blog/ai-travel-planning-2026",
+    mainEntityOfPage: "https://payago.in/blog/ai-travel-planning-2026",
 }
 
 export default function BlogPost() {

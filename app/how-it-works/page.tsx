@@ -9,11 +9,11 @@ export const metadata: Metadata = {
     openGraph: {
         title: "How PayaGo Works — Voice to Coordinated Group Trip Plan",
         description: "From one sentence to a coordinated group trip plan. Voice input, AI itinerary options, group review, and cost coordination.",
-        url: "https://www.payago.in/how-it-works",
+        url: "https://payago.in/how-it-works",
         type: "website",
         images: [
             {
-                url: "https://www.payago.in/og/how-it-works.jpg",
+                url: "https://payago.in/og/how-it-works.jpg",
                 width: 1200,
                 height: 630,
                 alt: "PayaGo AI Group Travel Planning",
@@ -24,10 +24,10 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "How PayaGo works",
         description: "From one sentence to a structured plan your group can review.",
-        images: ["https://www.payago.in/og/how-it-works.jpg"],
+        images: ["https://payago.in/og/how-it-works.jpg"],
     },
     alternates: {
-        canonical: "https://www.payago.in/how-it-works",
+        canonical: "https://payago.in/how-it-works",
     },
 }
 

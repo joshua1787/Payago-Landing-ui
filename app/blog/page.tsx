@@ -9,11 +9,11 @@ export const metadata: Metadata = {
     openGraph: {
         title: "PayaGo Travel Blog — Group Trip Tips & Destination Guides",
         description: "Discover the best destinations for group travel, how AI is transforming trip planning, and expert guides to help your next group adventure go smoothly.",
-        url: "https://www.payago.in/blog",
+        url: "https://payago.in/blog",
         type: "website",
         images: [
             {
-                url: "https://www.payago.in/og/blog.jpg",
+                url: "https://payago.in/og/blog.jpg",
                 width: 1200,
                 height: 630,
                 alt: "PayaGo AI Group Travel Planning",
@@ -24,10 +24,10 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "PayaGo travel planning blog",
         description: "Practical notes on AI trip planning, group budgets, and city itineraries.",
-        images: ["https://www.payago.in/og/blog.jpg"],
+        images: ["https://payago.in/og/blog.jpg"],
     },
     alternates: {
-        canonical: "https://www.payago.in/blog",
+        canonical: "https://payago.in/blog",
     },
 }
 
@@ -109,11 +109,11 @@ const blogSchema = {
     "@type": "Blog",
     name: "PayaGo Travel Blog",
     description: "Group travel tips, AI travel planning guides, and destination inspiration from the PayaGo team.",
-    url: "https://www.payago.in/blog",
+    url: "https://payago.in/blog",
     publisher: {
         "@type": "Organization",
         name: "PayaGo",
-        url: "https://www.payago.in",
+        url: "https://payago.in",
     },
 }
 

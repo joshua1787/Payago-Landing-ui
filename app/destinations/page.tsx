@@ -10,11 +10,11 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Group Travel Destinations — PayaGo AI Trip Planner",
         description: "AI-planned group trips to the world's best destinations. Flights, hotels, activities — built quickly.",
-        url: "https://www.payago.in/destinations",
+        url: "https://payago.in/destinations",
         type: "website",
         images: [
             {
-                url: "https://www.payago.in/og/destinations.jpg",
+                url: "https://payago.in/og/destinations.jpg",
                 width: 1200,
                 height: 630,
                 alt: "PayaGo AI Group Travel Planning",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Group trip destination guides",
         description: "AI-ready city guides for groups planning UK, Europe, and long-haul escapes.",
-        images: ["https://www.payago.in/og/destinations.jpg"],
+        images: ["https://payago.in/og/destinations.jpg"],
     },
-    alternates: { canonical: "https://www.payago.in/destinations" },
+    alternates: { canonical: "https://payago.in/destinations" },
 }
 
 const destinations = [
@@ -48,7 +48,7 @@ const destinationSchema = {
         "@type": "ListItem",
         position: i + 1,
         name: `Group Travel Guide: ${d.name}, ${d.country}`,
-        url: `https://www.payago.in/destinations/${d.slug}`,
+        url: `https://payago.in/destinations/${d.slug}`,
     })),
 }
 

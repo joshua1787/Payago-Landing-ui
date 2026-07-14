@@ -10,11 +10,11 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Lisbon Group Travel Guide 2026 | PayaGo",
         description: "Group travel guide for Lisbon with sample budget context. AI-planned quickly.",
-        url: "https://www.payago.in/destinations/lisbon",
+        url: "https://payago.in/destinations/lisbon",
         type: "article",
         images: [
             {
-                url: "https://www.payago.in/og/destinations-lisbon.jpg",
+                url: "https://payago.in/og/destinations-lisbon.jpg",
                 width: 1200,
                 height: 630,
                 alt: "PayaGo AI Group Travel Planning",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Lisbon group travel guide",
         description: "Great-value neighbourhoods, food, viewpoints, and shared planning tips.",
-        images: ["https://www.payago.in/og/destinations-lisbon.jpg"],
+        images: ["https://payago.in/og/destinations-lisbon.jpg"],
     },
-    alternates: { canonical: "https://www.payago.in/destinations/lisbon" },
+    alternates: { canonical: "https://payago.in/destinations/lisbon" },
 }
 
 export default function Page() {

@@ -7,21 +7,21 @@ export const metadata: Metadata = {
     title: "Terms of Service — PayaGo",
     description: "PayaGo terms of service. Your rights and obligations when using the PayaGo AI travel planning platform. Governed by English law.",
     alternates: {
-        canonical: "https://www.payago.in/terms",
+        canonical: "https://payago.in/terms",
     },
     openGraph: {
         title: "Terms of Service — PayaGo",
         description: "PayaGo terms of service for the website and early-access product.",
-        url: "https://www.payago.in/terms",
+        url: "https://payago.in/terms",
         siteName: "PayaGo",
         type: "article",
-        images: ["https://www.payago.in/og/terms.jpg"],
+        images: ["https://payago.in/og/terms.jpg"],
     },
     twitter: {
         card: "summary_large_image",
         title: "Terms of Service — PayaGo",
         description: "PayaGo terms of service for the website and early-access product.",
-        images: ["https://www.payago.in/og/terms.jpg"],
+        images: ["https://payago.in/og/terms.jpg"],
     },
 }
 

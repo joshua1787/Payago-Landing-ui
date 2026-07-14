@@ -7,21 +7,21 @@ export const metadata: Metadata = {
     title: "Careers — PayaGo",
     description: "Join the PayaGo team as we build a launch-stage group travel coordination product.",
     alternates: {
-        canonical: "https://www.payago.in/careers",
+        canonical: "https://payago.in/careers",
     },
     openGraph: {
         title: "Careers — PayaGo",
         description: "Join the PayaGo team as we build a launch-stage group travel coordination product.",
-        url: "https://www.payago.in/careers",
+        url: "https://payago.in/careers",
         siteName: "PayaGo",
         type: "website",
-        images: ["https://www.payago.in/og/careers.jpg"],
+        images: ["https://payago.in/og/careers.jpg"],
     },
     twitter: {
         card: "summary_large_image",
         title: "Careers — PayaGo",
         description: "Join the PayaGo team as we build a launch-stage group travel coordination product.",
-        images: ["https://www.payago.in/og/careers.jpg"],
+        images: ["https://payago.in/og/careers.jpg"],
     },
 }
 

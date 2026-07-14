@@ -7,21 +7,21 @@ export const metadata: Metadata = {
     title: "Cookie Policy — PayaGo",
     description: "How PayaGo uses cookies and similar technologies on payago.in, including UK GDPR and EU GDPR rights.",
     alternates: {
-        canonical: "https://www.payago.in/cookie-policy",
+        canonical: "https://payago.in/cookie-policy",
     },
     openGraph: {
         title: "Cookie Policy — PayaGo",
         description: "How PayaGo uses essential and optional analytics cookies on payago.in.",
-        url: "https://www.payago.in/cookie-policy",
+        url: "https://payago.in/cookie-policy",
         siteName: "PayaGo",
         type: "article",
-        images: ["https://www.payago.in/og/cookie-policy.jpg"],
+        images: ["https://payago.in/og/cookie-policy.jpg"],
     },
     twitter: {
         card: "summary_large_image",
         title: "Cookie Policy — PayaGo",
         description: "How PayaGo uses essential and optional analytics cookies on payago.in.",
-        images: ["https://www.payago.in/og/cookie-policy.jpg"],
+        images: ["https://payago.in/og/cookie-policy.jpg"],
     },
 }
 

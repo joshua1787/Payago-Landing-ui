@@ -5,7 +5,7 @@ import { CookieBanner } from "@/components/cookie-banner"
 import { PwaInstallBanner } from "@/components/pwa-install-banner"
 import { AnalyticsLoader } from "@/components/analytics-loader"
 
-const siteUrl = "https://www.payago.in"
+const siteUrl = "https://payago.in"
 const siteName = "PayaGo"
 const defaultTitle = "PayaGo — Speak the trip. We'll do the rest."
 const defaultDescription =

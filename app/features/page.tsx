@@ -9,11 +9,11 @@ export const metadata: Metadata = {
     openGraph: {
         title: "PayaGo Features — AI Itinerary, Group Voting, Cost Coordination",
         description: "Voice AI trip creation, itinerary options, group review, cost coordination, and trip assistance.",
-        url: "https://www.payago.in/features",
+        url: "https://payago.in/features",
         type: "website",
         images: [
             {
-                url: "https://www.payago.in/og/features.jpg",
+                url: "https://payago.in/og/features.jpg",
                 width: 1200,
                 height: 630,
                 alt: "PayaGo AI Group Travel Planning",
@@ -24,10 +24,10 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Features built for group travel",
         description: "Voice AI trip creation, shared review, voting, cost visibility, and supported handoff.",
-        images: ["https://www.payago.in/og/features.jpg"],
+        images: ["https://payago.in/og/features.jpg"],
     },
     alternates: {
-        canonical: "https://www.payago.in/features",
+        canonical: "https://payago.in/features",
     },
 }
 

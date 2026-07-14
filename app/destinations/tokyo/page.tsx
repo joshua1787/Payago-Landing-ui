@@ -10,11 +10,11 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Tokyo Group Travel Guide 2026 | PayaGo",
         description: "7-day Tokyo group itinerary with budget ranges. Street food, temples, neon — AI-planned quickly.",
-        url: "https://www.payago.in/destinations/tokyo",
+        url: "https://payago.in/destinations/tokyo",
         type: "article",
         images: [
             {
-                url: "https://www.payago.in/og/destinations-tokyo.jpg",
+                url: "https://payago.in/og/destinations-tokyo.jpg",
                 width: 1200,
                 height: 630,
                 alt: "PayaGo AI Group Travel Planning",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Tokyo group travel guide",
         description: "Street food, temples, neon districts, and a 7-day group itinerary.",
-        images: ["https://www.payago.in/og/destinations-tokyo.jpg"],
+        images: ["https://payago.in/og/destinations-tokyo.jpg"],
     },
-    alternates: { canonical: "https://www.payago.in/destinations/tokyo" },
+    alternates: { canonical: "https://payago.in/destinations/tokyo" },
 }
 
 const pageSchema = {
@@ -35,7 +35,7 @@ const pageSchema = {
     "@type": "TouristDestination",
     name: "Tokyo, Japan",
     description: "Tokyo is the world's largest city and one of the most extraordinary group travel destinations, combining ancient temples, futuristic technology, and an unrivalled food scene.",
-    url: "https://www.payago.in/destinations/tokyo",
+    url: "https://payago.in/destinations/tokyo",
     touristType: ["Group travellers", "Food lovers", "Culture seekers"],
     includesAttraction: [
         { "@type": "TouristAttraction", name: "Senso-ji Temple" },

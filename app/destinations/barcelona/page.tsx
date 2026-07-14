@@ -10,11 +10,11 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Barcelona Group Travel Guide 2026 | PayaGo",
         description: "5-day Barcelona group itinerary with sample budget ranges. AI-planned quickly.",
-        url: "https://www.payago.in/destinations/barcelona",
+        url: "https://payago.in/destinations/barcelona",
         type: "article",
         images: [
             {
-                url: "https://www.payago.in/og/destinations-barcelona.jpg",
+                url: "https://payago.in/og/destinations-barcelona.jpg",
                 width: 1200,
                 height: 630,
                 alt: "PayaGo AI Group Travel Planning",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Barcelona group travel guide",
         description: "Beach, Gaudi, tapas, and budget ranges for group trips.",
-        images: ["https://www.payago.in/og/destinations-barcelona.jpg"],
+        images: ["https://payago.in/og/destinations-barcelona.jpg"],
     },
-    alternates: { canonical: "https://www.payago.in/destinations/barcelona" },
+    alternates: { canonical: "https://payago.in/destinations/barcelona" },
 }
 
 const pageSchema = {
@@ -35,7 +35,7 @@ const pageSchema = {
     "@type": "TouristDestination",
     name: "Barcelona, Spain",
     description: "Barcelona is Spain's second-largest city and one of Europe's top group travel destinations, combining beach, world-class architecture, food, and nightlife.",
-    url: "https://www.payago.in/destinations/barcelona",
+    url: "https://payago.in/destinations/barcelona",
     touristType: ["Group travellers", "Friends", "Couples"],
     includesAttraction: [
         { "@type": "TouristAttraction", name: "Sagrada Família" },

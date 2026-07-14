@@ -10,11 +10,11 @@ export const metadata: Metadata = {
     openGraph: {
         title: "The 5 Best European Cities for Group Travel in 2026 | PayaGo",
         description: "Barcelona, Lisbon, Prague, Amsterdam, Budapest — ranked for group trips with budget-range data.",
-        url: "https://www.payago.in/blog/best-european-cities-group-travel",
+        url: "https://payago.in/blog/best-european-cities-group-travel",
         type: "article",
         images: [
             {
-                url: "https://www.payago.in/og/blog-best-european-cities-group-travel.jpg",
+                url: "https://payago.in/og/blog-best-european-cities-group-travel.jpg",
                 width: 1200,
                 height: 630,
                 alt: "PayaGo AI Group Travel Planning",
@@ -25,10 +25,10 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Best European cities for groups",
         description: "A practical shortlist for friends planning a coordinated Europe trip.",
-        images: ["https://www.payago.in/og/blog-best-european-cities-group-travel.jpg"],
+        images: ["https://payago.in/og/blog-best-european-cities-group-travel.jpg"],
     },
     alternates: {
-        canonical: "https://www.payago.in/blog/best-european-cities-group-travel",
+        canonical: "https://payago.in/blog/best-european-cities-group-travel",
     },
 }
 
@@ -43,9 +43,9 @@ const articleSchema = {
     publisher: {
         "@type": "Organization",
         name: "PayaGo",
-        logo: { "@type": "ImageObject", url: "https://www.payago.in/icon.svg" },
+        logo: { "@type": "ImageObject", url: "https://payago.in/icon.svg" },
     },
-    url: "https://www.payago.in/blog/best-european-cities-group-travel",
+    url: "https://payago.in/blog/best-european-cities-group-travel",
 }
 
 const cities = [

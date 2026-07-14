@@ -7,21 +7,21 @@ export const metadata: Metadata = {
     title: "Affiliate Disclosure — PayaGo",
     description: "PayaGo may participate in partner or affiliate arrangements with travel booking providers.",
     alternates: {
-        canonical: "https://www.payago.in/affiliate-disclosure",
+        canonical: "https://payago.in/affiliate-disclosure",
     },
     openGraph: {
         title: "Affiliate Disclosure — PayaGo",
         description: "How PayaGo discloses partner and affiliate arrangements during early access.",
-        url: "https://www.payago.in/affiliate-disclosure",
+        url: "https://payago.in/affiliate-disclosure",
         siteName: "PayaGo",
         type: "article",
-        images: ["https://www.payago.in/og/affiliate-disclosure.jpg"],
+        images: ["https://payago.in/og/affiliate-disclosure.jpg"],
     },
     twitter: {
         card: "summary_large_image",
         title: "Affiliate Disclosure — PayaGo",
         description: "How PayaGo discloses partner and affiliate arrangements during early access.",
-        images: ["https://www.payago.in/og/affiliate-disclosure.jpg"],
+        images: ["https://payago.in/og/affiliate-disclosure.jpg"],
     },
 }
 

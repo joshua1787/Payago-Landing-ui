@@ -6,8 +6,8 @@ import { Navbar } from "@/components/navbar"
 const title = "Trip Demo — PayaGo AI Group Travel Planner"
 const description =
     "Explore a sample PayaGo trip board with AI itinerary planning, group coordination, activities, and shared travel details in one place."
-const url = "https://www.payago.in/trip"
-const image = "https://www.payago.in/og/trip.jpg"
+const url = "https://payago.in/trip"
+const image = "https://payago.in/og/trip.jpg"
 
 export const metadata: Metadata = {
     title,

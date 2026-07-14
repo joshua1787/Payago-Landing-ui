@@ -5,8 +5,8 @@ import { ContactClient } from "./contact-client"
 const title = "Contact PayaGo — Support, Partnerships & Press"
 const description =
     "Contact PayaGo for customer support, partnership enquiries, press requests, careers, and questions about AI group travel planning."
-const url = "https://www.payago.in/contact"
-const image = "https://www.payago.in/og/contact.jpg"
+const url = "https://payago.in/contact"
+const image = "https://payago.in/og/contact.jpg"
 
 export const metadata: Metadata = {
     title,

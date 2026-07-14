@@ -10,11 +10,11 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Tokyo Group Trip Itinerary: 7 Days, Budget Ranges & Insider Tips (2026) | PayaGo Blog",
         description: "Complete 7-day Tokyo group itinerary for 2026: where to stay, what to eat, example budget ranges per person, and the experiences you cannot miss.",
-        url: "https://www.payago.in/blog/group-travel-tokyo-itinerary",
+        url: "https://payago.in/blog/group-travel-tokyo-itinerary",
         type: "article",
         images: [
             {
-                url: "https://www.payago.in/og/blog-group-travel-tokyo-itinerary.jpg",
+                url: "https://payago.in/og/blog-group-travel-tokyo-itinerary.jpg",
                 width: 1200,
                 height: 630,
                 alt: "PayaGo AI Group Travel Planning",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Tokyo group itinerary",
         description: "A 7-day framework for food, culture, neon, and day trips.",
-        images: ["https://www.payago.in/og/blog-group-travel-tokyo-itinerary.jpg"],
+        images: ["https://payago.in/og/blog-group-travel-tokyo-itinerary.jpg"],
     },
-    alternates: { canonical: "https://www.payago.in/blog/group-travel-tokyo-itinerary" },
+    alternates: { canonical: "https://payago.in/blog/group-travel-tokyo-itinerary" },
 }
 
 const schema = {
@@ -36,8 +36,8 @@ const schema = {
     headline: "Tokyo Group Trip Itinerary: 7 Days, Budget Ranges & Insider Tips (2026)",
     datePublished: "2026-03-08",
     author: { "@type": "Organization", name: "PayaGo" },
-    publisher: { "@type": "Organization", name: "PayaGo", logo: { "@type": "ImageObject", url: "https://www.payago.in/icon.svg" } },
-    url: "https://www.payago.in/blog/group-travel-tokyo-itinerary",
+    publisher: { "@type": "Organization", name: "PayaGo", logo: { "@type": "ImageObject", url: "https://payago.in/icon.svg" } },
+    url: "https://payago.in/blog/group-travel-tokyo-itinerary",
 }
 
 export default function BlogPost() {

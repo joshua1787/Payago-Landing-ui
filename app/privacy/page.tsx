@@ -7,21 +7,21 @@ export const metadata: Metadata = {
     title: "Privacy Policy — PayaGo",
     description: "How PayaGo collects, uses, and protects your personal data, including UK GDPR and EU GDPR rights. Last updated March 2026.",
     alternates: {
-        canonical: "https://www.payago.in/privacy",
+        canonical: "https://payago.in/privacy",
     },
     openGraph: {
         title: "Privacy Policy — PayaGo",
         description: "How PayaGo collects, uses, and protects personal data during early access.",
-        url: "https://www.payago.in/privacy",
+        url: "https://payago.in/privacy",
         siteName: "PayaGo",
         type: "article",
-        images: ["https://www.payago.in/og/privacy.jpg"],
+        images: ["https://payago.in/og/privacy.jpg"],
     },
     twitter: {
         card: "summary_large_image",
         title: "Privacy Policy — PayaGo",
         description: "How PayaGo collects, uses, and protects personal data during early access.",
-        images: ["https://www.payago.in/og/privacy.jpg"],
+        images: ["https://payago.in/og/privacy.jpg"],
     },
 }
 

@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next"
 
 export const dynamic = "force-static"
 
-const siteUrl = "https://www.payago.in"
+const siteUrl = "https://payago.in"
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const now = new Date("2026-05-13")

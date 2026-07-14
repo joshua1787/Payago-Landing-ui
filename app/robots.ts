@@ -11,6 +11,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/admin/"],
       },
     ],
-    sitemap: "https://www.payago.in/sitemap.xml",
+    sitemap: "https://payago.in/sitemap.xml",
   }
 }

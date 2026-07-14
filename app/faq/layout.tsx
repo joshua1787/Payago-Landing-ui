@@ -7,11 +7,11 @@ export const metadata: Metadata = {
     openGraph: {
         title: "PayaGo FAQ — AI Travel Planning, Group Trips & Payments",
         description: "Everything you need to know about PayaGo: how AI generates itineraries quickly, how group voting works, and how payments are split.",
-        url: "https://www.payago.in/faq",
+        url: "https://payago.in/faq",
         type: "website",
         images: [
             {
-                url: "https://www.payago.in/og/faq.jpg",
+                url: "https://payago.in/og/faq.jpg",
                 width: 1200,
                 height: 630,
                 alt: "PayaGo AI Group Travel Planning",
@@ -22,10 +22,10 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "PayaGo FAQ",
         description: "Answers for AI planning, group coordination, early access, and provider-led next steps.",
-        images: ["https://www.payago.in/og/faq.jpg"],
+        images: ["https://payago.in/og/faq.jpg"],
     },
     alternates: {
-        canonical: "https://www.payago.in/faq",
+        canonical: "https://payago.in/faq",
     },
 }
 
