@@ -49,12 +49,26 @@ const articleSchema = {
     mainEntityOfPage: "https://payago.in/blog/ai-travel-planning-2026",
 }
 
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://payago.in" },
+        { "@type": "ListItem", position: 2, name: "Blog", item: "https://payago.in/blog" },
+        { "@type": "ListItem", position: 3, name: "Ai Travel Planning 2026", item: "https://payago.in/blog/ai-travel-planning-2026" },
+    ],
+}
+
 export default function BlogPost() {
     return (
         <main className="min-h-screen bg-white">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
             />
 
             <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">

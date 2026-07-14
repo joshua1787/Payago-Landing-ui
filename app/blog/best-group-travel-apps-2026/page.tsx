@@ -86,10 +86,21 @@ const apps = [
     },
 ]
 
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://payago.in" },
+        { "@type": "ListItem", position: 2, name: "Blog", item: "https://payago.in/blog" },
+        { "@type": "ListItem", position: 3, name: "Best Group Travel Apps 2026", item: "https://payago.in/blog/best-group-travel-apps-2026" },
+    ],
+}
+
 export default function BlogPost() {
     return (
         <main className="min-h-screen bg-white">
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
             <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-3">
