@@ -38,6 +38,7 @@ declare global {
         dataLayer?: GtagArguments[]
         gtag?: GtagFunction
         payagoConfiguredGaIds?: string[]
+        payagoConsentDefaultSet?: boolean
     }
 }
 
@@ -49,18 +50,30 @@ function ensureGtagBase() {
     window.dataLayer = window.dataLayer ?? []
 
     if (typeof window.gtag !== "function") {
-        window.gtag = ((...args: GtagArguments) => {
-            window.dataLayer?.push(args)
-        }) as GtagFunction
+        // gtag.js only processes dataLayer entries that are the raw `arguments`
+        // object (this is exactly what Google's official snippet pushes). The
+        // previous version spread into a plain array, which gtag.js silently
+        // ignores — so no /collect beacon was ever sent and GA received no data.
+        window.gtag = function gtag() {
+            // eslint-disable-next-line prefer-rest-params
+            window.dataLayer?.push(arguments as unknown as GtagArguments)
+        } as GtagFunction
     }
 
-    window.gtag("consent", "default", {
-        analytics_storage: "denied",
-        ad_storage: "denied",
-        ad_user_data: "denied",
-        ad_personalization: "denied",
-        wait_for_update: 500,
-    })
+    // Consent Mode default MUST be set exactly once, before any config. Re-pushing
+    // it (this ran on every enable/re-render) re-denied analytics_storage AFTER it
+    // had been granted, so gtag never sent a single /collect beacon — GA showed
+    // "No data received". Guard it so it fires only once.
+    if (!window.payagoConsentDefaultSet) {
+        window.payagoConsentDefaultSet = true
+        window.gtag("consent", "default", {
+            analytics_storage: "denied",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied",
+            wait_for_update: 500,
+        })
+    }
 }
 
 export function enableGoogleAnalytics(measurementId: string) {
