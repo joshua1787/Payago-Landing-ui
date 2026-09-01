@@ -94,13 +94,6 @@ const team = [
         gradient: "from-[#C9A962] to-[#E5C77D]",
     },
     {
-        name: "Joshua",
-        role: "Co-Founder & CTO",
-        bio: "Leads technology vision, AI infrastructure, and system architecture for the planning engine that turns a rough group idea into structured trip options.",
-        avatar: "JV",
-        gradient: "from-[#00D4FF] to-[#7C5CFF]",
-    },
-    {
         name: "Kishore Dayanithi",
         role: "Co-Founder & CFO",
         bio: "Owns financial strategy and partner relationships, including the partner-supported model behind early access planning and provider-led handoff where supported.",
@@ -336,7 +329,7 @@ export default function AboutPage() {
                         <h2 className="text-4xl font-bold text-slate-900 mb-4">The founding team</h2>
                         <p className="text-slate-500 text-lg">Building the future of group travel from London</p>
                     </div>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {team.map((member, index) => (
                             <div key={index} className="group p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] duration-500 hover:-translate-y-1 text-center">
                                 <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${member.gradient} flex items-center justify-center text-xl font-bold text-slate-900 mx-auto mb-6 transition-transform duration-300 group-hover:scale-105`}>
