@@ -25,6 +25,7 @@ export function Navbar() {
                             { name: "Features", href: "/#features" },
                             { name: "Destinations", href: "/destinations" },
                             { name: "Pricing", href: "/pricing" },
+                            { name: "About", href: "/about" },
                             { name: "Blog", href: "/blog" },
                         ].map((item) => (
                             <a
@@ -76,6 +77,7 @@ export function Navbar() {
                             { name: "Features", href: "/#features" },
                             { name: "Destinations", href: "/destinations" },
                             { name: "Pricing", href: "/pricing" },
+                            { name: "About", href: "/about" },
                             { name: "Blog", href: "/blog" },
                         ].map((item) => (
                             <a
