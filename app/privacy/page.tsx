@@ -58,7 +58,32 @@ const sections = [
                 ],
             },
             {
-                heading: "2.3 Cookies and analytics",
+                heading: "2.3 Bank messages and payments you add",
+                items: [
+                    "A bank message you paste into PayaGo, or send through your private iPhone Shortcut link, is read once to find the payment. We do not keep the message text",
+                    "From it we keep the amount, currency, merchant or payee name, date and time, and your available balance if the message shows one",
+                    "We also keep what you decide about each payment, and the labels you give merchants so PayaGo can remember them. A payment only counts towards your spending once you confirm it",
+                    "PayaGo does not connect to your bank and does not read your SMS messages or email",
+                ],
+            },
+            {
+                heading: "2.4 Your own money",
+                items: [
+                    "Your own spending entries, budget and the bills you add, used for features such as Your month, Can I buy this? and Your year",
+                    "We use this to send the reminders and notes you have switched on",
+                ],
+            },
+            {
+                heading: "2.5 Family Map",
+                items: [
+                    "What you choose to write in your Family Map, such as where important things are. Please do not upload or enter passwords or account numbers. Documents are not stored",
+                    "The name and email address of the one person you name. We email them to tell them you have named them",
+                    "This information is encrypted on our servers. PayaGo holds the encryption key, so this is not end-to-end encryption",
+                    "If the person you named asks for access, we email you and a waiting period you set, of 7 to 90 days, begins. You can cancel during that time. If you do not, they can read your map when the wait ends",
+                ],
+            },
+            {
+                heading: "2.6 Cookies and analytics",
                 items: [
                     "We use essential cookies to make the website function",
                     "We use analytics cookies (Google Analytics 4) to understand how visitors use our site — you can opt out via our cookie banner",
@@ -87,6 +112,8 @@ const sections = [
             "PayaGo uses AI providers to generate trip itineraries, process natural language input, and provide travel assistance. When you describe a trip, your input (destination, budget, preferences, group size) is sent to these AI providers to generate results.",
             "AI service providers used by PayaGo process requests under their applicable API terms and privacy policies. We configure providers to limit retention and training use where those controls are available.",
             "Voice inputs are transcribed to text during the transcription session and only the text transcript is sent to AI providers — audio is not retained or transmitted.",
+            "PayaGo also uses AI for money features. If our rules are unsure about a message in a group chat, the message and your group's member names are sent to an AI provider to read it. If you import a history from another app or spreadsheet, the text of that file is sent to read it. For an unfamiliar merchant, only the merchant or payee name from a bank message is sent, never the message itself. To write short notes and insights about your spending, we send summary facts about it, such as categories and amounts, which our own servers work out first.",
+            "Amounts owed, totals and budgets are worked out by PayaGo, not by AI. Your Family Map is never sent to AI providers.",
             "We recommend you do not include sensitive personal information (passport numbers, financial account details) in trip descriptions.",
         ],
     },
@@ -99,7 +126,8 @@ const sections = [
         list: [
             "Travel providers (hotels, flights, activities) — to support booking handoff where you choose to continue with a provider. Only the information needed for that handoff is shared where applicable (names, dates, contact details).",
             "Payment or checkout providers — to support provider-led checkout where available. We share only what is required for the selected checkout flow; card details are handled entirely by the payment provider.",
-            "AI providers — to generate itineraries and process natural language input, as described in Section 4.",
+            "AI providers — to generate itineraries, process natural language input and support money features, as described in Section 4.",
+            "The person you name in your Family Map — they receive an email when you name them, and can read your map if they ask for access and you do not cancel during the waiting period.",
             "Analytics providers (Google Analytics 4) — anonymised usage data to understand product performance.",
             "Cloud infrastructure providers — to host and operate our service, under data processing agreements.",
             "Legal authorities — where required by law, court order, or to protect safety.",
@@ -111,6 +139,9 @@ const sections = [
         rows: [
             { type: "Waitlist email address", period: "Until you unsubscribe or request deletion" },
             { type: "Account data", period: "For the duration of your account, plus 3 years after closure" },
+            { type: "Payments from bank messages, your own spending and merchant labels", period: "For the duration of your account; removed when you delete your account" },
+            { type: "Family Map", period: "Until you delete it or remove the person named, or delete your account" },
+            { type: "Backups", period: "Copies of our database, including the data above, are kept for up to 30 days" },
             { type: "Trip data", period: "For the duration of your account; deleted on account closure unless you export it" },
             { type: "Payment records", period: "Where payment records exist, retained as required for accounting, tax, and legal obligations" },
             { type: "Analytics data", period: "26 months (Google Analytics default)" },
@@ -146,7 +177,7 @@ const sections = [
         id: "transfers",
         title: "9. International data transfers",
         content: [
-            "Some of our service providers (Google, Anthropic) process data in the United States. Where data is transferred outside the UK/EEA, we ensure appropriate safeguards are in place — including standard contractual clauses approved by the UK ICO or the EU Commission.",
+            "Some of our service providers (including Google, OpenAI and OpenRouter) process data in the United States. Where data is transferred outside the UK/EEA, we ensure appropriate safeguards are in place — including standard contractual clauses approved by the UK ICO or the EU Commission.",
         ],
     },
     {
@@ -192,7 +223,7 @@ export default function PrivacyPolicy() {
                 <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight text-slate-900">
                     Privacy Policy
                 </h1>
-                <p className="text-slate-500 text-sm mb-2">Last updated: March 2026</p>
+                <p className="text-slate-500 text-sm mb-2">Last updated: November 2026</p>
                 <p className="text-slate-500 text-sm mb-12">PayaGo Ltd · Registered in England & Wales</p>
 
                 <div className="p-6 rounded-2xl bg-[#C9A962]/8 border border-[#C9A962]/20 mb-12">
