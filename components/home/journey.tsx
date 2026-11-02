@@ -22,6 +22,8 @@ const RAIL: { chapter: ChapterName; label: string; live: boolean }[] = [
   { chapter: "trips", label: "Trips", live: false },
 ]
 
+let openingPlayed = false
+
 const APP_SCREENS = ["The chat", "Settle up", "Spending"]
 const TRIP_CHIPS = ["7 days in Japan for 4 friends", "Weekend in Barcelona with 6 mates", "10 days in Bali for 2 people"]
 
@@ -153,9 +155,9 @@ export function Journey() {
           setTrip(first)
         }
         paint()
-        // Once a visit, and only for someone still at the top of the page.
-        if (progressNow() < 0.004 && !sessionStorage.getItem("payago-opening-seen")) {
-          sessionStorage.setItem("payago-opening-seen", "1")
+        // On a fresh load, not when coming back from another page of the site.
+        if (progressNow() < 0.004 && !openingPlayed) {
+          openingPlayed = true
           scene.playIntro()
         }
         const resize = new ResizeObserver(() => scene.resize())
