@@ -84,9 +84,7 @@ export function PwaInstallBanner() {
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt)
     window.addEventListener("appinstalled", handleAppInstalled)
 
-    if (onHome) return null
-
-  return () => {
+    return () => {
       window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt)
       window.removeEventListener("appinstalled", handleAppInstalled)
     }
@@ -134,6 +132,8 @@ export function PwaInstallBanner() {
   if (isScanFlow || !isVisible || !deferredPrompt) {
     return null
   }
+
+  if (onHome) return null
 
   return (
     <div
