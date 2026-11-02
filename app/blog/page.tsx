@@ -1,7 +1,9 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { PayagoWordmark } from "@/components/payago-wordmark"
 import { ArrowLeft, Clock, Calendar, ArrowRight } from "lucide-react"
+import { SiteNav } from "@/components/site/site-nav"
+import { SiteFooter } from "@/components/site/site-footer"
+import { TripsNotice } from "@/components/trips-notice"
 
 export const metadata: Metadata = {
     title: "Travel Blog — Group Trip Tips, AI Travel Guides & Destination Inspiration",
@@ -40,7 +42,7 @@ const articles = [
         excerpt: "Group trips can take hours of research and coordination. AI travel tools are turning that work into faster, review-ready plans.",
         slug: "ai-travel-planning-2026",
         category: "AI & Technology",
-        categoryColor: "#7C5CFF",
+        categoryColor: "#A29CFF",
     },
     {
         title: "The 5 Best European Cities for Group Travel in 2026",
@@ -60,7 +62,7 @@ const articles = [
         excerpt: "Honest comparison of TripIt, Wanderlog, Google Trips, and PayaGo. What each does well, what it doesn't, and which one actually solves the group planning problem.",
         slug: "best-group-travel-apps-2026",
         category: "AI & Technology",
-        categoryColor: "#7C5CFF",
+        categoryColor: "#A29CFF",
     },
     {
         title: "How to Split Travel Costs in a Group (Without the Drama)",
@@ -125,23 +127,12 @@ export default function BlogIndex() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
             />
 
-            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
-                <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-3">
-                        <PayagoWordmark />
-                        
-                    </Link>
-                    <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
-                        <ArrowLeft className="w-4 h-4" />
-                        Back to Home
-                    </Link>
-                </div>
-            </header>
+            <SiteNav />
+            <TripsNotice />
 
             {/* Hero */}
             <section className="relative py-24 overflow-hidden">
                 <div className="absolute inset-0">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[#C9A962]/8 rounded-full" />
                 </div>
                 <div className="relative z-10 max-w-4xl mx-auto px-6">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C9A962]/10 border border-[#C9A962]/20 mb-8">
@@ -214,11 +205,7 @@ export default function BlogIndex() {
                 </div>
             </section>
 
-            <footer className="py-8 border-t border-slate-100">
-                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
-                    © 2026 PayaGo Ltd. Registered in England & Wales.
-                </div>
-            </footer>
+            <SiteFooter />
         </main>
     )
 }

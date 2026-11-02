@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { PayagoWordmark } from "@/components/payago-wordmark"
 import { OptimizedPicture } from "@/components/optimized-picture"
 import { ArrowLeft, ArrowRight, Check } from "lucide-react"
+import { SiteNav } from "@/components/site/site-nav"
+import { SiteFooter } from "@/components/site/site-footer"
+import { TripsNotice } from "@/components/trips-notice"
 
 export const metadata: Metadata = {
     title: "Tokyo Group Travel Guide 2026 — 7-Day Itinerary, Costs & Tips",
@@ -61,17 +63,8 @@ export default function TokyoPage() {
         <main className="min-h-screen bg-white">
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
 
-            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
-                <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-3">
-                        <PayagoWordmark />
-                        
-                    </Link>
-                    <Link href="/destinations" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
-                        <ArrowLeft className="w-4 h-4" /> Destinations
-                    </Link>
-                </div>
-            </header>
+            <SiteNav />
+            <TripsNotice />
 
             <div className="relative h-72 overflow-hidden">
                 <OptimizedPicture src="/images/travel-tokyo.webp" alt="Tokyo skyline at night" imgClassName="w-full h-full object-cover" />
@@ -107,13 +100,13 @@ export default function TokyoPage() {
                     {itinerary.map((day) => (
                         <div key={day.day} className="bg-slate-50 border border-slate-100 rounded-2xl p-6">
                             <div className="flex items-center gap-3 mb-4">
-                                <span className="text-[#7C5CFF] font-black text-sm">{day.day}</span>
+                                <span className="text-[#A29CFF] font-black text-sm">{day.day}</span>
                                 <h3 className="text-slate-900 font-bold">{day.title}</h3>
                             </div>
                             <ul className="space-y-2">
                                 {day.activities.map((a, i) => (
                                     <li key={i} className="flex items-start gap-2.5 text-slate-600 text-sm">
-                                        <ArrowRight className="w-4 h-4 text-[#7C5CFF]/50 flex-shrink-0 mt-0.5" />{a}
+                                        <ArrowRight className="w-4 h-4 text-[#A29CFF]/50 flex-shrink-0 mt-0.5" />{a}
                                     </li>
                                 ))}
                             </ul>
@@ -132,7 +125,7 @@ export default function TokyoPage() {
                         { tip: "Shinjuku for groups", detail: "Stay in Shinjuku: central, on every metro line, near Haneda express, and surrounded by food and nightlife." },
                     ].map((item, i) => (
                         <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100">
-                            <Check className="w-4 h-4 text-[#7C5CFF] flex-shrink-0 mt-0.5" />
+                            <Check className="w-4 h-4 text-[#A29CFF] flex-shrink-0 mt-0.5" />
                             <div>
                                 <div className="text-slate-900 font-semibold text-sm mb-1">{item.tip}</div>
                                 <div className="text-slate-500 text-xs leading-relaxed">{item.detail}</div>
@@ -159,9 +152,7 @@ export default function TokyoPage() {
                 </div>
             </div>
 
-            <footer className="py-8 border-t border-slate-100">
-                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">© 2026 PayaGo Ltd. Registered in England & Wales.</div>
-            </footer>
+            <SiteFooter />
         </main>
     )
 }

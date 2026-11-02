@@ -1,5 +1,7 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
+import "@fontsource-variable/sora"
+import "@fontsource-variable/hanken-grotesk"
 import "./globals.css"
 import { CookieBanner } from "@/components/cookie-banner"
 import { PwaInstallBanner } from "@/components/pwa-install-banner"
@@ -162,7 +164,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </head>
-      <body className="font-sans antialiased bg-[#FAFAF8] text-slate-900">
+      <body className="pg-site font-sans antialiased bg-[#031B1A] text-slate-900">
         <AnalyticsLoader measurementId={gaMeasurementId} />
         {children}
         <PwaInstallBanner />

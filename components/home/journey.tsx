@@ -286,7 +286,7 @@ export function Journey() {
                 placeholder="Type an expense"
                 className="min-w-0 flex-1 rounded-full border border-white/20 bg-white/10 px-5 py-3 text-[16px] text-white backdrop-blur placeholder:text-white/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#19E4CC]"
               />
-              <button type="submit" className="rounded-full bg-white px-5 py-3 font-display text-[14px] font-semibold text-[#04201E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#19E4CC]">
+              <button type="submit" className="rounded-full bg-[#fff] px-5 py-3 font-display text-[14px] font-semibold text-[#04201E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#19E4CC]">
                 Send
               </button>
             </form>
@@ -368,7 +368,7 @@ export function Journey() {
                   <Mic className="h-5 w-5" />
                 </button>
               )}
-              <button type="submit" className="rounded-full bg-white px-5 py-3 font-display text-[14px] font-semibold text-[#04201E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#19E4CC]">
+              <button type="submit" className="rounded-full bg-[#fff] px-5 py-3 font-display text-[14px] font-semibold text-[#04201E] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#19E4CC]">
                 Go
               </button>
             </form>

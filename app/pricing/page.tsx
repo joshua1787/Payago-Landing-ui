@@ -1,324 +1,68 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { PayagoWordmark } from "@/components/payago-wordmark"
-import { ArrowLeft, ArrowRight, Check, Sparkles, Building2, Star } from "lucide-react"
-import { TripsNotice } from "@/components/trips-notice"
+
+import { SiteFooter } from "@/components/site/site-footer"
+import { SiteNav } from "@/components/site/site-nav"
+import { APP_URL, Closing, PageHero, Section, Status, primaryLink, quietLink } from "@/components/site/page-parts"
+
+const title = "Pricing: PayaGo"
+const description = "PayaGo is free to start. Prices for cards, PayaGo Business and whole trips aren't set yet, and we'll publish them before any of it opens."
 
 export const metadata: Metadata = {
-    title: "PayaGo Pricing — Early Access",
-    description: "PayaGo is free to join during early access. Partner or affiliate arrangements may support the service, and final provider terms, prices, and fees should be reviewed before booking.",
-    openGraph: {
-        title: "PayaGo Pricing — Early Access",
-        description: "Free to join during early access, with provider-led handoff where available and final provider terms reviewed before booking.",
-        url: "https://payago.in/pricing",
-        type: "website",
-        images: [
-            {
-                url: "https://payago.in/og/pricing.jpg",
-                width: 1200,
-                height: 630,
-                alt: "PayaGo AI Group Travel Planning",
-            },
-        ],
-    },
-    twitter: {
-        card: "summary_large_image",
-        title: "Early-access pricing",
-        description: "Free to join while PayaGo opens its first launch waves.",
-        images: ["https://payago.in/og/pricing.jpg"],
-    },
-    alternates: {
-        canonical: "https://payago.in/pricing",
-    },
+  title,
+  description,
+  alternates: { canonical: "https://payago.in/pricing" },
+  openGraph: { title, description, url: "https://payago.in/pricing", type: "website", images: ["https://payago.in/og/home.jpg"] },
+  twitter: { card: "summary_large_image", title, description, images: ["https://payago.in/og/home.jpg"] },
 }
 
-const plans = [
-    {
-        name: "Traveller",
-        price: "Free",
-        period: "early access",
-        tagline: "Everything you need to plan and coordinate group trips",
-        description: "Core AI planning, group coordination, and provider-led booking handoff where available during early access. PayaGo may have partner or affiliate arrangements with supported travel providers.",
-        features: [
-            "AI itinerary generation (just minutes)",
-            "3 complete trip options per search",
-            "Voice-first trip creation",
-            "Group invite & voting system",
-            "Estimated share coordination",
-            "Provider-led booking handoff for hotels, flights, and activities where available",
-            "Pre-trip reminders & packing list",
-            "Weather context & suggested updates",
-            "Built-in group chat",
-            "Post-trip summary",
-        ],
-        notIncluded: [
-            "Travel DNA personalisation",
-            "Unlimited saved trips",
-        ],
-        cta: "Get Early Access",
-        popular: false,
-        gradient: "from-white/[0.03] to-transparent",
-        borderColor: "border-slate-200",
-        icon: Star,
-    },
-    {
-        name: "Explorer",
-        price: "Coming Soon",
-        period: "",
-        tagline: "For frequent travellers who want PayaGo to know them",
-        description: "Everything in Traveller, plus Travel DNA personalisation that learns your preferences across trips and gets smarter with every journey.",
-        features: [
-            "Everything in Traveller",
-            "Travel DNA (AI learns your preferences)",
-            "Unlimited saved & past trips",
-            "Priority early feature access",
-            "Early feature access",
-            "Advanced budget analytics",
-            "Multi-currency trip planning",
-            "Priority support",
-        ],
-        notIncluded: [],
-        cta: "Join Waitlist",
-        popular: true,
-        gradient: "from-[#C9A962]/10 to-transparent",
-        borderColor: "border-[#C9A962]/40",
-        icon: Sparkles,
-    },
-    {
-        name: "Business",
-        price: "Custom",
-        period: "",
-        tagline: "For travel agencies, companies, and teams",
-        description: "White-label options, API access, and dedicated support for businesses that want to offer PayaGo-powered travel planning to their clients or employees.",
-        features: [
-            "Everything in Explorer",
-            "API access",
-            "White-label options",
-            "Dedicated account manager",
-            "Custom integrations",
-            "Priority support",
-            "Team management dashboard",
-            "Commercial terms reviewed case by case",
-        ],
-        notIncluded: [],
-        cta: "Contact Us",
-        popular: false,
-        gradient: "from-[#7C5CFF]/10 to-transparent",
-        borderColor: "border-[#7C5CFF]/30",
-        icon: Building2,
-    },
-]
-
-const howWeEarn = [
-    {
-        partner: "Hotels",
-        type: "Accommodation bookings",
-        how: "We may have partner or affiliate arrangements with accommodation providers for bookings started through a supported provider-led flow. Final prices and provider terms should be reviewed before booking.",
-        color: "#C9A962",
-    },
-    {
-        partner: "Flights",
-        type: "Flight bookings",
-        how: "Flight providers may participate in partner or affiliate arrangements for bookings started through a supported handoff. Available fares, taxes, and fees are shown by the relevant provider.",
-        color: "#00D4FF",
-    },
-    {
-        partner: "Activities",
-        type: "Tours & experiences",
-        how: "Activity providers may participate in partner or affiliate arrangements. PayaGo can keep the activity inside your trip plan and hand you off to a provider-led flow where available.",
-        color: "#7C5CFF",
-    },
-]
-
-const faqs = [
-    {
-        q: "Is PayaGo really free? What's the catch?",
-        a: "PayaGo is free to join during early access. We may have partner or affiliate arrangements with travel booking providers when a booking starts through a supported provider-led flow. Final prices, provider terms, and any applicable fees should be reviewed before you commit.",
-    },
-    {
-        q: "Does PayaGo add any fees on top of bookings?",
-        a: "Any applicable booking fees, taxes, or provider charges are shown by the relevant provider before you commit. PayaGo's goal is to make the commercial model clear and partner-supported wherever possible.",
-    },
-    {
-        q: "Are there any payment processing fees?",
-        a: "Payment processing and provider charges, if applicable, are shown by the relevant provider-led checkout flow before payment.",
-    },
-    {
-        q: "When will the Explorer plan launch and what will it cost?",
-        a: "We haven't set a price yet. Explorer will launch after early-access testing progresses. Join the waitlist to be notified when pricing and availability are ready to share.",
-    },
-    {
-        q: "Can I get a refund if I need to cancel a trip?",
-        a: "Refunds follow each booking provider's cancellation policy. PayaGo surfaces provider terms before booking and helps point you to the right support path if plans change.",
-    },
+const LATER = [
+  { title: "Cards and shared wallets", body: "We'll publish any fees before cards open." },
+  { title: "PayaGo Business", body: "A plan for teams. We'll share the price when it opens." },
+  { title: "Whole trips", body: "Partners may pay us when you book through PayaGo. Final prices and terms will be shown by each provider before you commit." },
 ]
 
 export default function PricingPage() {
-    return (
-        <main className="min-h-screen bg-white">
-            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
-                <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-3">
-                        <PayagoWordmark />
-                        
-                    </Link>
-                    <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
-                        <ArrowLeft className="w-4 h-4" />
-                        Back to Home
-                    </Link>
-                </div>
-            </header>
-            <TripsNotice />
-
-            {/* Hero */}
-            <section className="relative py-32 overflow-hidden">
-                <div className="absolute inset-0">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[#C9A962]/8 rounded-full" />
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:60px_60px]" />
-                </div>
-                <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#4AD7A2]/10 border border-[#4AD7A2]/20 mb-8">
-                        <span className="w-2 h-2 bg-[#4AD7A2] rounded-full" />
-                        <span className="text-sm font-medium text-[#4AD7A2]">Free to join early access</span>
-                    </div>
-                    <h1 className="text-5xl lg:text-7xl font-bold text-slate-900 mb-6 leading-tight">
-                        Start planning in early access.
-                        <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent block">Book with clear terms.</span>
-                    </h1>
-                    <p className="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
-                        {"PayaGo may have partner or affiliate arrangements with supported travel providers. Final prices, provider terms, and any applicable fees should be reviewed before the group commits."}
-                    </p>
-                </div>
-            </section>
-
-            {/* How we earn */}
-            <section className="py-16 border-t border-slate-100">
-                <div className="max-w-5xl mx-auto px-6">
-                    <div className="text-center mb-12">
-                        <h2 className="text-2xl font-bold text-slate-900 mb-3">How the model works</h2>
-                        <p className="text-slate-500">Partner-supported where available. Provider terms reviewed before booking.</p>
-                    </div>
-                    <div className="grid md:grid-cols-3 gap-6">
-                        {howWeEarn.map((item, i) => (
-                            <div key={i} className="p-6 rounded-2xl bg-slate-50 border border-slate-100">
-                                <div className="text-lg font-bold mb-1" style={{ color: item.color }}>{item.partner}</div>
-                                <div className="text-slate-400 text-xs mb-4 uppercase tracking-wider">{item.type}</div>
-                                <p className="text-slate-500 text-sm leading-relaxed">{item.how}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Plans */}
-            <section className="py-24 border-t border-slate-100">
-                <div className="max-w-6xl mx-auto px-6">
-                    <div className="text-center mb-16">
-                        <h2 className="text-4xl font-bold text-slate-900 mb-4">Simple plans</h2>
-                        <p className="text-slate-500 text-lg">Start in early access. Core planning tools are included in the Traveller plan.</p>
-                    </div>
-
-                    <div className="grid md:grid-cols-3 gap-6">
-                        {plans.map((plan, index) => {
-                            const Icon = plan.icon
-                            return (
-                                <div key={index} className={`relative rounded-3xl p-8 border bg-gradient-to-b ${plan.gradient} ${plan.borderColor} flex flex-col`}>
-                                    {plan.popular && (
-                                        <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] text-sm font-semibold rounded-full flex items-center gap-1">
-                                            <Sparkles className="w-3.5 h-3.5" />
-                                            Coming Soon
-                                        </div>
-                                    )}
-
-                                    <div className="mb-8">
-                                        <div className="flex items-center gap-3 mb-4">
-                                            <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: plan.popular ? '#C9A962/20' : plan.name === 'Business' ? '#7C5CFF20' : 'rgba(255,255,255,0.05)' }}>
-                                                <Icon className="w-5 h-5" style={{ color: plan.popular ? '#C9A962' : plan.name === 'Business' ? '#7C5CFF' : 'rgba(255,255,255,0.4)' }} />
-                                            </div>
-                                            <h3 className="text-xl font-bold text-slate-900">{plan.name}</h3>
-                                        </div>
-                                        <p className="text-slate-500 text-sm mb-4 leading-snug">{plan.tagline}</p>
-                                        <div className="flex items-baseline gap-2 mb-2">
-                                            <span className="text-4xl font-bold text-slate-900">{plan.price}</span>
-                                            {plan.period && <span className="text-slate-400">{plan.period}</span>}
-                                        </div>
-                                        <p className="text-slate-400 text-xs leading-relaxed">{plan.description}</p>
-                                    </div>
-
-                                    <div className="space-y-3 flex-1 mb-8">
-                                        {plan.features.map((feature, i) => (
-                                            <div key={i} className="flex items-start gap-3">
-                                                <Check className="w-4 h-4 text-[#4AD7A2] flex-shrink-0 mt-0.5" />
-                                                <span className="text-slate-600 text-sm leading-snug">{feature}</span>
-                                            </div>
-                                        ))}
-                                        {plan.notIncluded.map((feature, i) => (
-                                            <div key={i} className="flex items-start gap-3 opacity-40">
-                                                <div className="w-4 h-4 flex-shrink-0 mt-0.5 flex items-center justify-center">
-                                                    <div className="w-3 h-px bg-white/40" />
-                                                </div>
-                                                <span className="text-slate-500 text-sm leading-snug">{feature}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                    <Link
-                                        href={plan.cta === "Contact Us" ? "/contact" : "/early-access/"}
-                                        className={`w-full py-4 rounded-xl font-semibold transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] text-center ${plan.popular
-                                            ? 'bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] hover:opacity-90'
-                                            : plan.name === 'Business'
-                                            ? 'bg-[#7C5CFF]/20 border border-[#7C5CFF]/30 text-[#7C5CFF] hover:bg-[#7C5CFF]/30'
-                                            : 'bg-white/10 text-slate-900 hover:bg-white/15'
-                                        }`}
-                                    >
-                                        {plan.cta}
-                                    </Link>
-                                </div>
-                            )
-                        })}
-                    </div>
-
-                    <p className="text-center text-slate-400 text-sm mt-8">
-                        No credit card required for the waitlist · Provider terms and any applicable fees should be reviewed before booking
-                    </p>
-                </div>
-            </section>
-
-            {/* FAQ */}
-            <section className="py-24 border-t border-slate-100">
-                <div className="max-w-3xl mx-auto px-6">
-                    <h2 className="text-3xl font-bold text-slate-900 text-center mb-16">Pricing FAQ</h2>
-                    <div className="space-y-0 divide-y divide-white/5">
-                        {faqs.map((faq, index) => (
-                            <div key={index} className="py-8">
-                                <h3 className="text-lg font-semibold text-slate-900 mb-3">{faq.q}</h3>
-                                <p className="text-slate-500 leading-relaxed">{faq.a}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* CTA */}
-            <section className="py-24 border-t border-slate-100">
-                <div className="max-w-4xl mx-auto px-6 text-center">
-                    <h2 className="text-4xl font-bold text-slate-900 mb-6">
-                        Start planning your next group trip.
-                        <span className="bg-gradient-to-r from-[#C9A962] to-[#E5C77D] bg-clip-text text-transparent"> With early access.</span>
-                    </h2>
-                    <p className="text-slate-500 text-lg mb-10">No credit card. No commitment. Just better group travel.</p>
-                    <Link href="/early-access/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
-                        Get Early Access
-                        <ArrowRight className="w-4 h-4" />
-                    </Link>
-                </div>
-            </section>
-
-            <footer className="py-8 border-t border-slate-100">
-                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
-                    © 2026 PayaGo Ltd. Registered in England & Wales.
-                </div>
-            </footer>
-        </main>
-    )
+  return (
+    <main className="min-h-screen">
+      <SiteNav />
+      <PageHero title="Free to start.">
+        <p>No card and no plan to choose. Open PayaGo in your browser and add your first bill.</p>
+      </PageHero>
+      <Section title="What's free today." status={{ live: true, text: "Live today" }}>
+        <div className="rounded-[28px] bg-[#0A2E2B] p-7 sm:p-10">
+          <p className="font-display text-[clamp(3rem,7vw,5rem)] font-semibold leading-none tracking-[-0.04em] text-[#19E4CC]">£0</p>
+          <ul className="mt-7 grid gap-3 text-[16px] text-white/85 sm:grid-cols-2">
+            {["Groups and shared expenses", "Settling up and Ask for me", "Your own spending and Close your day", "Budget, bills and Can I buy this?", "Your year, activity and PDF statements", "AI that reads your messages"].map((item) => (
+              <li key={item} className="flex items-start gap-3">
+                <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#19E4CC]" />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <a href={APP_URL} className={`${primaryLink} mt-8`}>Open PayaGo</a>
+        </div>
+      </Section>
+      <Section title="What we haven't priced yet." status={{ live: false, text: "Coming" }} tone="deep" intro="These aren't open, so there's nothing to pay for yet.">
+        <div className="grid gap-4 md:grid-cols-3">
+          {LATER.map((item) => (
+            <div key={item.title} className="rounded-[24px] border border-dashed border-white/20 p-6">
+              <Status live={false}>Not priced yet</Status>
+              <h3 className="mt-4 font-display text-[19px] font-semibold tracking-[-0.015em] text-white">{item.title}</h3>
+              <p className="mt-2.5 text-[15px] leading-[1.6] text-white/70">{item.body}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-8 text-[15px] text-white/60">
+          How partner payments work is set out in our{" "}
+          <Link href="/affiliate-disclosure/" className="text-[#19E4CC] underline underline-offset-2">affiliate disclosure</Link>.
+        </p>
+      </Section>
+      <Closing title="Start with your next shared bill.">
+        <a href={APP_URL} className={primaryLink}>Open PayaGo</a>
+        <Link href="/contact/" className={quietLink}>Contact Us</Link>
+      </Closing>
+      <SiteFooter />
+    </main>
+  )
 }

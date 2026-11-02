@@ -122,7 +122,7 @@ export function ItineraryBoard() {
     }
 
     return (
-        <div className="min-h-screen bg-white pt-24 px-6 pb-20 font-sans selection:bg-blue-500/30">
+        <div className="min-h-screen bg-[#0A2E2B] pt-24 px-6 pb-20 font-sans selection:bg-blue-500/30">
 
             {/* Header */}
             <header className="max-w-6xl mx-auto mb-12 flex flex-col md:flex-row justify-between items-end gap-6 border-b border-slate-100 pb-8 animate-fade-in-up">
@@ -139,7 +139,7 @@ export function ItineraryBoard() {
                 <div className="flex gap-3">
                     <button
                         onClick={() => setIsInviteOpen(true)}
-                        className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] active:scale-95"
+                        className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0A2E2B] border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] active:scale-95"
                     >
                         <Share2 className="w-4 h-4" /> Invite
                     </button>
@@ -207,7 +207,7 @@ export function ItineraryBoard() {
                                 <h3 className="text-3xl font-bold text-slate-900 mb-1">{activeDay}</h3>
                                 <p className="text-slate-400 text-sm">Drag to reorder activities</p>
                             </div>
-                            <span className="px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-500 text-xs font-mono">
+                            <span className="px-3 py-1 rounded-full bg-[#0A2E2B] border border-slate-200 text-slate-500 text-xs font-mono">
                                 {itinerary[activeDay].length} ITEMS
                             </span>
                         </div>

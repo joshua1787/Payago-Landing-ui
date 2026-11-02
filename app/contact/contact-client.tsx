@@ -1,11 +1,12 @@
 "use client"
 
 import Link from "next/link"
-import { PayagoWordmark } from "@/components/payago-wordmark"
 import { ArrowLeft, Mail, MapPin, MessageCircle, Clock, Send } from "lucide-react"
 import { useState, type FormEvent } from "react"
 
 import { captureEvent } from "@/lib/analytics"
+import { SiteNav } from "@/components/site/site-nav"
+import { SiteFooter } from "@/components/site/site-footer"
 
 const CONTACT_ENDPOINT = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT?.trim()
 const CONTACT_FALLBACK_EMAIL = "support@payago.in"
@@ -210,23 +211,11 @@ export function ContactClient() {
     return (
         <main className="min-h-screen bg-white">
             {/* Header */}
-            <header className="border-b border-slate-100">
-                <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-3">
-                        <PayagoWordmark />
-                        
-                    </Link>
-                    <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2">
-                        <ArrowLeft className="w-4 h-4" />
-                        Back to Home
-                    </Link>
-                </div>
-            </header>
+            <SiteNav />
 
             {/* Hero */}
             <section className="relative py-24 overflow-hidden">
                 <div className="absolute inset-0">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[#C9A962]/10 rounded-full" />
                 </div>
 
                 <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
@@ -431,11 +420,7 @@ export function ContactClient() {
             </section>
 
             {/* Footer */}
-            <footer className="py-8 border-t border-slate-100">
-                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
-                    © 2026 PAYAGO LTD. All rights reserved.
-                </div>
-            </footer>
+            <SiteFooter />
         </main>
     )
 }

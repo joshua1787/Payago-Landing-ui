@@ -1,14 +1,16 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 
 import { captureEvent } from "@/lib/analytics"
 
 const LINKS = [
-  { name: "What's live", href: "#chapter-type" },
-  { name: "Cards", href: "#chapter-cards" },
-  { name: "Trips", href: "#chapter-trips" },
+  { name: "How it works", href: "/how-it-works/" },
+  { name: "Features", href: "/features/" },
+  { name: "Trips", href: "/#chapter-trips" },
+  { name: "Pricing", href: "/pricing/" },
   { name: "About", href: "/about/" },
   { name: "Blog", href: "/blog/" },
 ]
@@ -16,6 +18,7 @@ const LINKS = [
 export function HomeNav({ appUrl }: { appUrl: string }) {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const onHome = usePathname() === "/"
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -27,7 +30,7 @@ export function HomeNav({ appUrl }: { appUrl: string }) {
   return (
     <nav
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-200 ${
-        scrolled || open ? "bg-[#04201E]/95 backdrop-blur" : "bg-transparent"
+        scrolled || open || !onHome ? "bg-[#04201E]/95 backdrop-blur" : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-6">
@@ -47,7 +50,7 @@ export function HomeNav({ appUrl }: { appUrl: string }) {
         <a
           href={appUrl}
           onClick={() => captureEvent("navbar_desktop_cta_click")}
-          className="hidden rounded-full bg-white px-5 py-2.5 font-display text-[14px] font-semibold text-[#04201E] transition-colors hover:bg-[#D9FBF6] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#19E4CC] lg:inline-block"
+          className="hidden rounded-full bg-[#fff] px-5 py-2.5 font-display text-[14px] font-semibold text-[#04201E] transition-colors hover:bg-[#D9FBF6] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#19E4CC] lg:inline-block"
         >
           Open PayaGo
         </a>

@@ -1,6 +1,4 @@
 import type { Metadata } from "next"
-import "@fontsource-variable/sora"
-import "@fontsource-variable/hanken-grotesk"
 
 import { HomePage } from "@/components/home/home-page"
 

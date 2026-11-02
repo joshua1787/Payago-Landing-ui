@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { PayagoWordmark } from "@/components/payago-wordmark"
 import { OptimizedPicture } from "@/components/optimized-picture"
 import { ArrowLeft, Clock, Calendar } from "lucide-react"
+import { SiteNav } from "@/components/site/site-nav"
+import { SiteFooter } from "@/components/site/site-footer"
+import { TripsNotice } from "@/components/trips-notice"
 
 export const metadata: Metadata = {
     title: "How to Split Travel Costs in a Group (Without the Drama)",
@@ -55,17 +57,8 @@ export default function BlogPost() {
         <main className="min-h-screen bg-white">
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
-                <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-3">
-                        <PayagoWordmark />
-                        
-                    </Link>
-                    <Link href="/blog" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
-                        <ArrowLeft className="w-4 h-4" /> Back to Blog
-                    </Link>
-                </div>
-            </header>
+            <SiteNav />
+            <TripsNotice />
             <div className="max-w-3xl mx-auto px-6 pt-16 pb-24">
                 <div className="mb-3">
                     <span className="text-xs font-semibold px-3 py-1 rounded-full text-[#4AD7A2] bg-[#4AD7A2]/10 border border-[#4AD7A2]/30">Group Travel Tips</span>
@@ -110,7 +103,7 @@ export default function BlogPost() {
                         {[
                             { rank: "Best", method: "Everyone sees their own share before booking", detail: "PayaGo's approach. Each person sees their estimated share before booking handoff, so the group can coordinate without one person fronting the full cost. This reduces the core dynamic that causes resentment.", color: "#4AD7A2" },
                             { rank: "Good", method: "Splitwise / Tricount app tracking", detail: "Works well for trips where costs are genuinely variable. Track everything, settle at the end. Main downside: someone still has to front the costs.", color: "#C9A962" },
-                            { rank: "OK", method: "Rotating who pays", detail: "Each person pays for one dinner, one activity etc. Works in practice if the amounts are similar, but breaks down with big-ticket items like boat charters.", color: "#7C5CFF" },
+                            { rank: "OK", method: "Rotating who pays", detail: "Each person pays for one dinner, one activity etc. Works in practice if the amounts are similar, but breaks down with big-ticket items like boat charters.", color: "#A29CFF" },
                             { rank: "Avoid", method: "One person pays everything, gets paid back", detail: "This is how most groups default — and it's the worst option. The payer takes on financial risk, the stress of chasing people, and often loses money when someone inevitably shorts them.", color: "#FF6B6B" },
                         ].map((item) => (
                             <div key={item.rank} className="flex gap-4 p-5 rounded-xl bg-slate-50 border border-slate-100">
@@ -156,9 +149,7 @@ export default function BlogPost() {
                     </div>
                 </div>
             </div>
-            <footer className="py-8 border-t border-slate-100">
-                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">© 2026 PayaGo Ltd. Registered in England & Wales.</div>
-            </footer>
+            <SiteFooter />
         </main>
     )
 }

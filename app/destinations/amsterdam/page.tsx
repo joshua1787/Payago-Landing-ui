@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { PayagoWordmark } from "@/components/payago-wordmark"
 import { OptimizedPicture } from "@/components/optimized-picture"
 import { ArrowLeft, ArrowRight } from "lucide-react"
+import { SiteNav } from "@/components/site/site-nav"
+import { SiteFooter } from "@/components/site/site-footer"
+import { TripsNotice } from "@/components/trips-notice"
 
 export const metadata: Metadata = {
     title: "Amsterdam Group Travel Guide 2026 — Itinerary, Costs & Tips",
@@ -33,17 +35,8 @@ export const metadata: Metadata = {
 export default function Page() {
     return (
         <main className="min-h-screen bg-white">
-            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
-                <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-3">
-                        <PayagoWordmark />
-                        
-                    </Link>
-                    <Link href="/destinations" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
-                        <ArrowLeft className="w-4 h-4" /> Destinations
-                    </Link>
-                </div>
-            </header>
+            <SiteNav />
+            <TripsNotice />
             <div className="relative h-64 overflow-hidden">
                 <OptimizedPicture src="/luxury-travel-destination-aerial-view-of-tropical-.webp" alt="Amsterdam travel" imgClassName="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-[#04060A]" />
@@ -68,11 +61,7 @@ export default function Page() {
                     </div>
                 </div>
             </div>
-            <footer className="py-8 border-t border-slate-100">
-                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
-                    © 2026 PayaGo Ltd. Registered in England and Wales.
-                </div>
-            </footer>
+            <SiteFooter />
         </main>
     )
 }

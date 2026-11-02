@@ -97,7 +97,7 @@ export function TypeDemo() {
             aria-pressed={message === example}
             className={`rounded-full px-3 py-1.5 text-[13px] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#19E4CC] ${
               message === example
-                ? "bg-white text-[#04201E]"
+                ? "bg-[#fff] text-[#04201E]"
                 : "bg-white/10 text-white/80 hover:bg-white/15"
             }`}
           >

@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { PayagoWordmark } from "@/components/payago-wordmark"
 import { OptimizedPicture } from "@/components/optimized-picture"
 import { ArrowLeft, Clock, Calendar, MapPin } from "lucide-react"
+import { SiteNav } from "@/components/site/site-nav"
+import { SiteFooter } from "@/components/site/site-footer"
+import { TripsNotice } from "@/components/trips-notice"
 
 export const metadata: Metadata = {
     title: "The 5 Best European Cities for Group Travel in 2026",
@@ -95,7 +97,7 @@ const cities = [
         rank: 3,
         name: "Prague, Czech Republic",
         tagline: "Medieval charm, affordable prices",
-        color: "#7C5CFF",
+        color: "#A29CFF",
         image: "/images/travel-tokyo.webp",
         imageAlt: "Prague Old Town Square and Charles Bridge",
         budget: "£50–80",
@@ -178,18 +180,8 @@ export default function BlogPost() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
             />
 
-            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
-                <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-3">
-                        <PayagoWordmark />
-                        
-                    </Link>
-                    <Link href="/blog" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
-                        <ArrowLeft className="w-4 h-4" />
-                        Back to Blog
-                    </Link>
-                </div>
-            </header>
+            <SiteNav />
+            <TripsNotice />
 
             <div className="max-w-3xl mx-auto px-6 pt-16 pb-24">
                 <div className="mb-3">
@@ -310,11 +302,7 @@ export default function BlogPost() {
                 </div>
             </div>
 
-            <footer className="py-8 border-t border-slate-100">
-                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
-                    © 2026 PayaGo Ltd. Registered in England & Wales.
-                </div>
-            </footer>
+            <SiteFooter />
         </main>
     )
 }

@@ -1,7 +1,9 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { PayagoWordmark } from "@/components/payago-wordmark"
 import { ArrowLeft, Clock, Calendar, Check, X } from "lucide-react"
+import { SiteNav } from "@/components/site/site-nav"
+import { SiteFooter } from "@/components/site/site-footer"
+import { TripsNotice } from "@/components/trips-notice"
 
 export const metadata: Metadata = {
     title: "Best Group Travel Planning Apps of 2026 — Compared",
@@ -55,7 +57,7 @@ const apps = [
         name: "TripIt",
         tagline: "Trip organiser & itinerary builder",
         category: "Itinerary organiser",
-        color: "#7C5CFF",
+        color: "#A29CFF",
         pros: ["Excellent at parsing confirmation emails", "Clean timeline view", "Offline access to plans"],
         cons: ["Manual entry required", "No AI generation", "No group coordination", "No booking capability"],
         bestFor: "Organising a trip you've already booked",
@@ -101,20 +103,11 @@ export default function BlogPost() {
         <main className="min-h-screen bg-white">
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
-                <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-3">
-                        <PayagoWordmark />
-                        
-                    </Link>
-                    <Link href="/blog" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
-                        <ArrowLeft className="w-4 h-4" /> Back to Blog
-                    </Link>
-                </div>
-            </header>
+            <SiteNav />
+            <TripsNotice />
             <div className="max-w-3xl mx-auto px-6 pt-16 pb-24">
                 <div className="mb-3">
-                    <span className="text-xs font-semibold px-3 py-1 rounded-full text-[#7C5CFF] bg-[#7C5CFF]/10 border border-[#7C5CFF]/30">AI & Technology</span>
+                    <span className="text-xs font-semibold px-3 py-1 rounded-full text-[#A29CFF] bg-[#A29CFF]/10 border border-[#A29CFF]/30">AI & Technology</span>
                 </div>
                 <div className="flex flex-wrap items-center gap-4 text-sm text-slate-400 mb-8">
                     <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" /><time dateTime="2026-03-10">March 10, 2026</time></span>
@@ -184,9 +177,7 @@ export default function BlogPost() {
                     </Link>
                 </div>
             </div>
-            <footer className="py-8 border-t border-slate-100">
-                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">© 2026 PayaGo Ltd.</div>
-            </footer>
+            <SiteFooter />
         </main>
     )
 }

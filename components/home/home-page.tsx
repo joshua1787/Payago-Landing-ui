@@ -2,6 +2,7 @@ import Link from "next/link"
 
 import { HomeNav } from "@/components/home/home-nav"
 import { Journey } from "@/components/home/journey"
+import { SiteFooter } from "@/components/site/site-footer"
 
 const APP_URL = "https://app.payago.in"
 
@@ -25,21 +26,11 @@ const TRUST: { title: string; body: string; link?: { href: string; text: string 
   },
 ]
 
-const FOOTER: { name: string; href: string }[] = [
-  { name: "About", href: "/about/" },
-  { name: "Blog", href: "/blog/" },
-  { name: "Contact", href: "/contact/" },
-  { name: "Careers", href: "/careers/" },
-  { name: "Privacy", href: "/privacy/" },
-  { name: "Terms", href: "/terms/" },
-  { name: "Cookies", href: "/cookie-policy/" },
-]
-
 export function HomePage() {
   return (
-    <div className="pg-home min-h-screen bg-[#031B1A]">
+    <div className="min-h-screen bg-[#031B1A]">
       <HomeNav appUrl={APP_URL} />
-      <main>
+      <main className="pg-flush">
         <Journey />
 
         <section className="bg-[#031B1A] px-6 py-24 lg:py-32">
@@ -73,20 +64,7 @@ export function HomePage() {
         </section>
       </main>
 
-      <footer className="border-t border-white/10 bg-[#031B1A] px-6 py-10 text-[14px] text-white/60">
-        <div className="mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <p>© 2026 PayaGo Ltd. Registered in England and Wales, company number 16971574.</p>
-          <ul className="flex flex-wrap gap-x-6 gap-y-2">
-            {FOOTER.map((link) => (
-              <li key={link.name}>
-                <Link href={link.href} className="hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#19E4CC]">
-                  {link.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

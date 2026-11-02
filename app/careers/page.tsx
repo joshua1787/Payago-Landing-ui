@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { PayagoWordmark } from "@/components/payago-wordmark"
 import { ArrowLeft, ArrowRight, MapPin, Briefcase, Clock, Coins, Heart, Zap, Globe, Users } from "lucide-react"
+import { SiteNav } from "@/components/site/site-nav"
+import { SiteFooter } from "@/components/site/site-footer"
 
 export const metadata: Metadata = {
     title: "Careers — PayaGo",
@@ -140,24 +141,11 @@ export default function CareersPage() {
     return (
         <main className="min-h-screen bg-white">
             {/* Header */}
-            <header className="border-b border-slate-100">
-                <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-3">
-                        <PayagoWordmark />
-                        
-                    </Link>
-                    <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2">
-                        <ArrowLeft className="w-4 h-4" />
-                        Back to Home
-                    </Link>
-                </div>
-            </header>
+            <SiteNav />
 
             {/* Hero */}
             <section className="relative py-32 overflow-hidden">
                 <div className="absolute inset-0">
-                    <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#C9A962]/10 rounded-full" />
-                    <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-[#7C5CFF]/10 rounded-full" />
                 </div>
 
                 <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
@@ -293,11 +281,7 @@ export default function CareersPage() {
             </section>
 
             {/* Footer */}
-            <footer className="py-8 border-t border-slate-100">
-                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
-                    © 2026 PAYAGO LTD. All rights reserved.
-                </div>
-            </footer>
+            <SiteFooter />
         </main>
     )
 }

@@ -76,21 +76,17 @@ test("universal QR route redirects to early access with campaign parameters", as
   expect(redirectedUrl.searchParams.get("utm_campaign")).toBe("universal_qr")
 })
 
-test("pricing page loads the early-access plan", async ({ page }) => {
+test("pricing page says what is free and what is not priced yet", async ({ page }) => {
   await page.goto("/pricing/")
 
-  await expect(page.getByRole("heading", { name: /start planning in early access/i })).toBeVisible()
-  await expect(page.getByText("Free to join early access")).toBeVisible()
-  await expect(page.getByRole("heading", { name: "Simple plans" })).toBeVisible()
+  await expect(page.getByRole("heading", { name: "Free to start." })).toBeVisible()
+  await expect(page.getByRole("heading", { name: "What we haven't priced yet." })).toBeVisible()
 })
 
 test("secondary page conversion CTAs target the early access page", async ({ page }) => {
   const ctas = [
-    { path: "/pricing/", name: "Get Early Access" },
-    { path: "/about/", name: "Get Early Access" },
-    { path: "/features/", name: "Get Early Access" },
-    { path: "/how-it-works/", name: "Get Early Access" },
-    { path: "/faq/", name: "Get Early Access" },
+    { path: "/features/", name: "Join the trips waitlist" },
+    { path: "/how-it-works/", name: "Join the trips waitlist" },
     { path: "/blog/", name: "Get Early Access" },
     { path: "/blog/why-we-built-payago/", name: "Get Early Access" },
     { path: "/blog/best-group-travel-apps-2026/", name: "Get Early Access" },
@@ -172,6 +168,19 @@ test("a trip gets three example plans, marked as a preview", async ({ page }) =>
 })
 
 test("pages about trips say they are not live yet", async ({ page }) => {
+  for (const path of ["/destinations/", "/destinations/tokyo/", "/blog/ai-travel-planning-2026/", "/trip/"]) {
+    await page.goto(path)
+    await expect(page.getByText("This page talks about whole trips, which are coming.")).toBeVisible()
+  }
+
   await page.goto("/features/")
-  await expect(page.getByText("This page is about whole trips, which are coming.")).toBeVisible()
+  await expect(page.getByRole("heading", { name: "What we're building." })).toBeVisible()
+})
+
+test("the nav's Open PayaGo button stays white on every kind of page", async ({ page }) => {
+  for (const path of ["/", "/features/", "/privacy/"]) {
+    await page.goto(path)
+    const button = page.getByRole("navigation").first().getByRole("link", { name: "Open PayaGo" }).first()
+    await expect(button).toHaveCSS("background-color", "rgb(255, 255, 255)")
+  }
 })

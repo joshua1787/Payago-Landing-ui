@@ -635,14 +635,115 @@
   }
 }
 
-/* The home page's type: Sora for what is read at a glance, Hanken Grotesk for
-   what is read in sentences. */
-.pg-home {
+/* The site's type: Sora for what is read at a glance, Hanken Grotesk for what is
+   read in sentences. */
+.pg-site {
   font-family: "Hanken Grotesk Variable", "Helvetica Neue", Arial, sans-serif;
+  background-color: #031B1A;
+  color: #DDE9E7;
 }
-.pg-home h1,
-.pg-home h2,
-.pg-home h3,
-.pg-home .font-display {
-  font-family: "Sora Variable", "Helvetica Neue", Arial, sans-serif;
+.pg-site h1,
+.pg-site h2,
+.pg-site h3,
+.pg-site h4,
+.pg-site .font-display {
+  font-family: "Sora Variable", "Helvetica Neue", Arial, sans-serif !important;
+  letter-spacing: -0.02em;
+}
+/* The fixed nav sits over the top of every page but the home journey. */
+.pg-site main:not(.pg-flush) {
+  padding-top: 72px;
+}
+
+/* One dark theme for every page. Pages written for a light background keep their
+   class names, and these turn the palette over underneath them, so the wording of
+   the legal pages and articles doesn't have to be touched to restyle them. */
+.pg-site {
+  --color-slate-50: #0A2E2B;
+  --color-slate-100: #12403C;
+  --color-slate-200: #1D524D;
+  --color-slate-300: #86A5A1;
+  --color-slate-400: #9DB8B4;
+  --color-slate-500: #B4CAC6;
+  --color-slate-600: #C8DAD7;
+  --color-slate-700: #DDE9E7;
+  --color-slate-800: #EEF5F4;
+  --color-slate-900: #FFFFFF;
+  --color-slate-950: #FFFFFF;
+  --color-gray-50: #0A2E2B;
+  --color-gray-100: #12403C;
+  --color-gray-200: #1D524D;
+  --color-gray-300: #86A5A1;
+  --color-gray-400: #9DB8B4;
+  --color-gray-500: #B4CAC6;
+  --color-gray-600: #C8DAD7;
+  --color-gray-700: #DDE9E7;
+  --color-gray-800: #EEF5F4;
+  --color-gray-900: #FFFFFF;
+  --color-cyan-50: rgba(25, 228, 204, 0.1);
+  --color-blue-50: rgba(96, 165, 250, 0.12);
+  --color-violet-50: rgba(140, 134, 255, 0.14);
+  --color-purple-50: rgba(140, 134, 255, 0.14);
+  --color-amber-50: rgba(255, 201, 79, 0.12);
+  --color-emerald-50: rgba(95, 224, 142, 0.12);
+  --color-rose-50: rgba(255, 142, 114, 0.12);
+  --color-pink-50: rgba(255, 142, 114, 0.12);
+  --color-red-50: rgba(255, 138, 146, 0.12);
+  --color-orange-50: rgba(255, 158, 133, 0.12);
+  --color-orange-100: rgba(255, 158, 133, 0.2);
+  --color-orange-200: rgba(255, 158, 133, 0.3);
+  --color-orange-600: #FFB199;
+  --color-orange-700: #FFB199;
+  --color-violet-200: rgba(140, 134, 255, 0.35);
+  --color-amber-200: rgba(255, 201, 79, 0.3);
+  --color-emerald-200: rgba(95, 224, 142, 0.3);
+  --color-cyan-200: rgba(25, 228, 204, 0.3);
+  --color-rose-200: rgba(255, 142, 114, 0.3);
+  --color-violet-600: #B4AFFF;
+  --color-violet-500: #A29CFF;
+  --color-amber-700: #FFC94F;
+  --color-amber-600: #FFC94F;
+  --color-emerald-600: #5FE08E;
+  --color-emerald-700: #5FE08E;
+  --color-cyan-600: #19E4CC;
+  --color-cyan-700: #19E4CC;
+  --color-blue-600: #93C5FD;
+  --color-rose-600: #FF9E85;
+  --color-red-600: #FF8A92;
+}
+.pg-site .bg-white,
+.pg-site .hover\:bg-white:hover {
+  background-color: #0A2E2B;
+}
+.pg-site .bg-white\/95 {
+  background-color: rgba(10, 46, 43, 0.95);
+}
+.pg-site .bg-white\/70,
+.pg-site .bg-white\/60 {
+  background-color: rgba(10, 46, 43, 0.7);
+}
+/* Dark buttons on a light page become the site's bright button. */
+.pg-site .bg-slate-900,
+.pg-site .bg-slate-950 {
+  background-color: #19E4CC;
+  color: #04201E;
+}
+.pg-site .bg-slate-900.text-white,
+.pg-site .bg-slate-950.text-white,
+.pg-site .bg-slate-900 .text-white,
+.pg-site .bg-slate-950 .text-white {
+  color: #04201E;
+}
+.pg-site .hover\:bg-slate-800:hover,
+.pg-site .hover\:bg-slate-700:hover {
+  background-color: #5BF0DE;
+}
+.pg-site input,
+.pg-site textarea,
+.pg-site select {
+  color: #FFFFFF;
+}
+.pg-site input::placeholder,
+.pg-site textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
 }

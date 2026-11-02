@@ -181,7 +181,7 @@ function LoginPanel({
   }
 
   return (
-    <main className="min-h-dvh overflow-hidden bg-[#07080c] text-[#fff4d2]">
+    <main className="pg-flush min-h-dvh overflow-hidden bg-[#07080c] text-[#fff4d2]">
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(246,190,74,0.22),transparent_32%),radial-gradient(circle_at_82%_22%,rgba(74,215,162,0.10),transparent_28%),linear-gradient(135deg,#07080c_0%,#11131b_52%,#3b2a0a_100%)]" />
       <div className="pointer-events-none fixed inset-0 opacity-[0.10] [background-image:linear-gradient(rgba(255,236,179,0.42)_1px,transparent_1px),linear-gradient(90deg,rgba(255,236,179,0.42)_1px,transparent_1px)] [background-size:56px_56px]" />
 
@@ -520,7 +520,7 @@ export function WaitlistAdminClient() {
   }
 
   return (
-    <main className="min-h-dvh bg-[#07080c] text-[#fff4d2]">
+    <main className="pg-flush min-h-dvh bg-[#07080c] text-[#fff4d2]">
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_10%_8%,rgba(246,190,74,0.18),transparent_28%),radial-gradient(circle_at_85%_0%,rgba(74,215,162,0.08),transparent_24%),linear-gradient(135deg,#07080c_0%,#11131b_58%,#251a06_100%)]" />
       <div className="pointer-events-none fixed inset-0 opacity-[0.075] [background-image:linear-gradient(rgba(255,236,179,0.42)_1px,transparent_1px),linear-gradient(90deg,rgba(255,236,179,0.42)_1px,transparent_1px)] [background-size:58px_58px]" />
 

@@ -1,9 +1,10 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { PayagoWordmark } from "@/components/payago-wordmark"
 import { OptimizedPicture } from "@/components/optimized-picture"
 import { ArrowRight, MapPin, Users } from "lucide-react"
 import { TripsNotice } from "@/components/trips-notice"
+import { SiteNav } from "@/components/site/site-nav"
+import { SiteFooter } from "@/components/site/site-footer"
 
 export const metadata: Metadata = {
     title: "Group Travel Destinations — AI-Planned Trips to Top Cities",
@@ -58,21 +59,11 @@ export default function DestinationsHub() {
         <main className="min-h-screen bg-white">
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(destinationSchema) }} />
 
-            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
-                <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-3">
-                        <PayagoWordmark />
-                        
-                    </Link>
-                    <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors text-sm">← Home</Link>
-                </div>
-            </header>
+            <SiteNav />
             <TripsNotice />
 
             <section className="relative py-24 overflow-hidden">
                 <div className="absolute inset-0">
-                    <div className="absolute top-1/2 left-1/4 w-[500px] h-[400px] bg-[#C9A962]/6 rounded-full" />
-                    <div className="absolute top-1/2 right-1/4 w-[400px] h-[300px] bg-[#7C5CFF]/5 rounded-full" />
                 </div>
                 <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C9A962]/10 border border-[#C9A962]/20 mb-8">
@@ -145,18 +136,14 @@ export default function DestinationsHub() {
             <section className="py-16 border-t border-slate-100">
                 <div className="max-w-4xl mx-auto px-6 text-center">
                     <h2 className="text-3xl font-bold text-slate-900 mb-4">Don't see your destination?</h2>
-                    <p className="text-slate-500 mb-8">PayaGo AI can plan group trips to any destination in the world — just describe it and the AI builds the full itinerary quickly.</p>
+                    <p className="text-slate-500 mb-8">When trips open, PayaGo AI will plan group trips to any destination in the world — just describe it and the AI will build the full itinerary quickly.</p>
                     <Link href="/early-access/" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A962] to-[#E5C77D] text-[#1a1a0e] px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity">
                         Get Early Access <ArrowRight className="w-4 h-4" />
                     </Link>
                 </div>
             </section>
 
-            <footer className="py-8 border-t border-slate-100">
-                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
-                    © 2026 PayaGo Ltd. Registered in England & Wales.
-                </div>
-            </footer>
+            <SiteFooter />
         </main>
     )
 }

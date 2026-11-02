@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
 
 import { ItineraryBoard } from "@/components/itinerary-board"
-import { Navbar } from "@/components/navbar"
+import { SiteNav } from "@/components/site/site-nav"
+import { TripsNotice } from "@/components/trips-notice"
 
 const title = "Trip Demo — PayaGo AI Group Travel Planner"
 const description =
@@ -39,9 +40,10 @@ export const metadata: Metadata = {
 
 export default function TripPage() {
     return (
-        <>
-            <Navbar />
+        <main>
+            <SiteNav />
+            <TripsNotice />
             <ItineraryBoard />
-        </>
+        </main>
     )
 }

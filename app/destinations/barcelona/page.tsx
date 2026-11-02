@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { PayagoWordmark } from "@/components/payago-wordmark"
 import { OptimizedPicture } from "@/components/optimized-picture"
 import { ArrowLeft, MapPin, Users, Calendar, ArrowRight, Check } from "lucide-react"
+import { SiteNav } from "@/components/site/site-nav"
+import { SiteFooter } from "@/components/site/site-footer"
+import { TripsNotice } from "@/components/trips-notice"
 
 export const metadata: Metadata = {
     title: "Barcelona Group Travel Guide 2026 — Itinerary, Costs & Tips",
@@ -66,17 +68,8 @@ export default function BarcelonaPage() {
         <main className="min-h-screen bg-white">
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
 
-            <header className="border-b border-slate-100 sticky top-0 z-50 bg-white/95">
-                <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-3">
-                        <PayagoWordmark />
-                        
-                    </Link>
-                    <Link href="/destinations" className="text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-2 text-sm">
-                        <ArrowLeft className="w-4 h-4" /> Destinations
-                    </Link>
-                </div>
-            </header>
+            <SiteNav />
+            <TripsNotice />
 
             {/* Hero */}
             <div className="relative h-72 overflow-hidden">
@@ -199,11 +192,7 @@ export default function BarcelonaPage() {
                 </div>
             </div>
 
-            <footer className="py-8 border-t border-slate-100">
-                <div className="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm">
-                    © 2026 PayaGo Ltd. Registered in England & Wales.
-                </div>
-            </footer>
+            <SiteFooter />
         </main>
     )
 }
