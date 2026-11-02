@@ -248,7 +248,7 @@ const WIDE_ROUTE: Key[] = [
   { at: 1, pos: [-3.05, 0.15, 8.2], look: [-3.05, 0, 0] },
 ]
 const NARROW_ROUTE: Key[] = [
-  { at: 0, pos: [0, 0.4, 11.6], look: [0, -2.3, 0] },
+  { at: 0, pos: [0, 1.2, 15], look: [0, -3.2, 0] },
   { at: CHAPTERS.type[0] + 0.03, pos: [0, 1.4, 15.5], look: [0, -3.4, 0] },
   { at: CHAPTERS.type[1] - 0.02, pos: [0, 1.6, 15.5], look: [0, -3.4, 0] },
   { at: CHAPTERS.settle[0] + 0.03, pos: [0, 0, 12.4], look: [0, -2.1, 0] },
@@ -775,9 +775,10 @@ export class MoneyUniverse {
       })
     })
 
-    // Expense cards orbit, always facing you, and only in their chapter.
+    // Expense cards orbit, always facing you, from the first screen to the end of their chapter.
+    const cardsIn = 1 - between(p, CHAPTERS.type[1] - 0.025, CHAPTERS.type[1] + 0.005)
     this.cardsGroup.position.copy(anchor)
-    this.cardsGroup.visible = typeIn > 0.01
+    this.cardsGroup.visible = cardsIn > 0.01
     this.expenses.forEach((item, i) => {
       const age = time - item.born
       const pop = this.still ? 1 : smooth(age / 0.9)
@@ -792,7 +793,7 @@ export class MoneyUniverse {
       item.sprite.scale.setScalar(depth * fade * (this.mobile ? 0.95 : 1))
       // On wide screens a card fades as it passes behind the words.
       const clear = wide ? smooth((x + 3) / 1.6) : 1
-      ;(item.sprite.material as THREE.MeshBasicMaterial).opacity = typeIn * (0.55 + 0.45 * depth) * clear
+      ;(item.sprite.material as THREE.MeshBasicMaterial).opacity = cardsIn * (0.55 + 0.45 * depth) * clear
     })
 
     // Debts: six tangled lines give way to two payments.

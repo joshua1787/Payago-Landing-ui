@@ -747,3 +747,11 @@
 .pg-site textarea::placeholder {
   color: rgba(255, 255, 255, 0.5);
 }
+
+/* animateMotion ignores the media query, so with reduced motion the moving bodies and
+   cards are hidden and the orbit's rings and coin stay. */
+@media (prefers-reduced-motion: reduce) {
+  .pg-orbit-move {
+    display: none;
+  }
+}
