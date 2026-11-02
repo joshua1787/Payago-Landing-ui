@@ -44,6 +44,9 @@ function rememberDismissedBanner() {
 }
 
 export function PwaInstallBanner() {
+  // Not on the home page: the journey is the first impression there, and the thing
+  // worth installing is the app, not the website.
+  const onHome = usePathname() === "/"
   const pathname = usePathname()
   const isScanFlow = isScanFlowPath(pathname)
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null)
@@ -81,7 +84,9 @@ export function PwaInstallBanner() {
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt)
     window.addEventListener("appinstalled", handleAppInstalled)
 
-    return () => {
+    if (onHome) return null
+
+  return () => {
       window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt)
       window.removeEventListener("appinstalled", handleAppInstalled)
     }
