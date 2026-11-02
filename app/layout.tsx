@@ -7,9 +7,9 @@ import { AnalyticsLoader } from "@/components/analytics-loader"
 
 const siteUrl = "https://payago.in"
 const siteName = "PayaGo"
-const defaultTitle = "PayaGo — Speak the trip. We'll do the rest."
+const defaultTitle = "PayaGo: from daily bills to dream trips"
 const defaultDescription =
-  "PayaGo's AI drafts group trip options quickly, then helps friends review itineraries, vote, compare costs, and move into provider-led booking handoff when ready."
+  "Split with your people and see where your own money goes. Type an expense like a message, and PayaGo does the sums. Cards and whole trips are coming next."
 const defaultOgImage = "/og/home.jpg"
 const ogImage = `${siteUrl}${defaultOgImage}`
 const appIcon = "/icon.svg"
@@ -25,13 +25,12 @@ export const metadata: Metadata = {
   },
   description: defaultDescription,
   keywords: [
-    "AI travel planning",
+    "split expenses",
+    "group expenses app",
+    "shared bills",
+    "flatmate expenses",
+    "personal spending tracker",
     "group trip planner",
-    "travel itinerary generator",
-    "group travel coordination",
-    "AI itinerary",
-    "split-cost coordination",
-    "early access travel app",
     "PayaGo",
   ],
   authors: [{ name: "PayaGo Ltd", url: siteUrl }],

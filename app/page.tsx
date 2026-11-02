@@ -1,29 +1,22 @@
 import type { Metadata } from "next"
-import { Navbar } from "@/components/navbar"
-import { HeroSection } from "@/components/hero-section"
-import { StatsBar } from "@/components/stats-bar"
-import { MarqueeStrip } from "@/components/marquee-strip"
-import { PartnersStrip } from "@/components/partners-strip"
-import { HowItWorksSection } from "@/components/how-it-works-section"
-import { TripDemoWidget } from "@/components/trip-demo-widget"
-import { DestinationsShowcase } from "@/components/destinations-showcase"
-import { BentoSection } from "@/components/bento-section"
-import { FeaturesSection } from "@/components/features-section"
-import { AppGallerySection } from "@/components/app-gallery-section"
-import { CinematicReel } from "@/components/cinematic-reel"
-import { Footer } from "@/components/footer"
+import "@fontsource-variable/sora"
+import "@fontsource-variable/hanken-grotesk"
+
+import { HomePage } from "@/components/home/home-page"
+
+const title = "PayaGo: from daily bills to dream trips"
+const description =
+  "Split with your people and see where your own money goes. Type an expense like a message, and PayaGo does the sums. Cards and whole trips are coming next."
 
 export const metadata: Metadata = {
-  title: "PayaGo — Speak the trip. We'll do the rest.",
-  description:
-    "PayaGo turns one natural-language trip idea into an AI itinerary draft, group decisions, split-cost visibility, and provider-led booking handoff where available.",
+  title,
+  description,
   alternates: {
     canonical: "https://payago.in",
   },
   openGraph: {
-    title: "PayaGo — Speak the trip. We'll do the rest.",
-    description:
-      "AI group travel planning for itinerary drafts, shared decisions, cost visibility, and provider-led booking handoff where available.",
+    title,
+    description,
     url: "https://payago.in",
     siteName: "PayaGo",
     type: "website",
@@ -32,35 +25,18 @@ export const metadata: Metadata = {
         url: "https://payago.in/og/home.jpg",
         width: 1200,
         height: 630,
-        alt: "PayaGo AI group travel planning",
+        alt: "PayaGo: a gold coin with rings of money in orbit around it",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "PayaGo — Speak the trip. We'll do the rest.",
-    description:
-      "AI group travel planning for itinerary drafts, shared decisions, cost visibility, and provider-led booking handoff where available.",
+    title,
+    description,
     images: ["https://payago.in/og/home.jpg"],
   },
 }
 
 export default function Home() {
-  return (
-    <main className="min-h-screen overflow-x-hidden bg-[#FAFAF8] relative">
-      <Navbar />
-      <HeroSection />
-      <PartnersStrip />
-      <StatsBar />
-      <MarqueeStrip />
-      <HowItWorksSection />
-      <TripDemoWidget />
-      <DestinationsShowcase />
-      <BentoSection />
-      <FeaturesSection />
-      <AppGallerySection />
-      <CinematicReel />
-      <Footer />
-    </main>
-  )
+  return <HomePage />
 }

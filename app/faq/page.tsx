@@ -4,6 +4,7 @@ import Link from "next/link"
 import { PayagoWordmark } from "@/components/payago-wordmark"
 import { ArrowLeft, ChevronDown } from "lucide-react"
 import { useState } from "react"
+import { TripsNotice } from "@/components/trips-notice"
 
 const faqs = [
     {
@@ -179,6 +180,7 @@ export default function FAQPage() {
                     </Link>
                 </div>
             </header>
+            <TripsNotice />
 
             {/* Hero */}
             <section className="relative py-24 overflow-hidden">

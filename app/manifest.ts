@@ -8,14 +8,14 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "PayaGo",
     short_name: "PayaGo",
     description:
-      "AI group travel planning for drafting itineraries, coordinating votes, and managing shared trip decisions.",
+      "Split with your people and see where your own money goes. Cards and whole trips are coming next.",
     start_url: "/",
     scope: "/",
     display: "standalone",
-    background_color: "#FAFAF8",
-    theme_color: "#0d1220",
+    background_color: "#04201E",
+    theme_color: "#04201E",
     lang: "en-GB",
-    categories: ["travel", "productivity"],
+    categories: ["finance", "travel"],
     icons: [
       {
         src: "/icon.svg",

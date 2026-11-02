@@ -634,3 +634,13 @@
     transform: translateX(200%);
   }
 }
+
+/* The home page's type: Sora for what is read at a glance, Hanken Grotesk for
+   what is read in sentences. */
+.pg-home {
+  font-family: "Hanken Grotesk Variable", "Helvetica Neue", Arial, sans-serif;
+  scroll-behavior: smooth;
+}
+.pg-home .font-display {
+  font-family: "Sora Variable", "Helvetica Neue", Arial, sans-serif;
+}

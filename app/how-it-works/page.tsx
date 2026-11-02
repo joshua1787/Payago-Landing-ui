@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { PayagoWordmark } from "@/components/payago-wordmark"
 import { ArrowLeft, ArrowRight, Mic, Sparkles, Users, CreditCard, MapPin, Plane, CheckCircle } from "lucide-react"
+import { TripsNotice } from "@/components/trips-notice"
 
 export const metadata: Metadata = {
     title: "How PayaGo Works — Voice to Coordinated Group Trip Plan",
@@ -178,6 +179,7 @@ export default function HowItWorksPage() {
                     </Link>
                 </div>
             </header>
+            <TripsNotice />
 
             {/* Hero */}
             <section className="relative py-32 overflow-hidden">

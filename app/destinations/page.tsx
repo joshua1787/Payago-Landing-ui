@@ -3,6 +3,7 @@ import Link from "next/link"
 import { PayagoWordmark } from "@/components/payago-wordmark"
 import { OptimizedPicture } from "@/components/optimized-picture"
 import { ArrowRight, MapPin, Users } from "lucide-react"
+import { TripsNotice } from "@/components/trips-notice"
 
 export const metadata: Metadata = {
     title: "Group Travel Destinations — AI-Planned Trips to Top Cities",
@@ -66,6 +67,7 @@ export default function DestinationsHub() {
                     <Link href="/" className="text-slate-500 hover:text-slate-900 transition-colors text-sm">← Home</Link>
                 </div>
             </header>
+            <TripsNotice />
 
             <section className="relative py-24 overflow-hidden">
                 <div className="absolute inset-0">

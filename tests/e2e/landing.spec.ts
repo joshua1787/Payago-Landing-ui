@@ -1,11 +1,9 @@
 import { expect, test } from "@playwright/test"
 
-test("hero CTA opens the early-access page", async ({ page }) => {
+test("the trips waitlist opens the early-access page", async ({ page }) => {
   await page.goto("/")
 
-  await page
-    .getByRole("link", { name: "Join the PayaGo early-access waitlist" })
-    .click()
+  await page.getByRole("link", { name: "Join the trips waitlist" }).click()
 
   await expect(page).toHaveURL(/\/early-access\/$/)
   await expect(
@@ -125,8 +123,9 @@ test("mobile menu opens and exposes navigation links", async ({ page }) => {
     "aria-expanded",
     "true",
   )
-  await expect(page.getByRole("link", { name: "Pricing" })).toBeVisible()
-  await expect(page.getByRole("link", { name: "Get Early Access" })).toBeVisible()
+  const menu = page.locator("#mobile-navigation")
+  await expect(menu.getByRole("link", { name: "What's coming" })).toBeVisible()
+  await expect(menu.getByRole("link", { name: "Open PayaGo" })).toHaveAttribute("href", "https://app.payago.in")
 })
 
 test("cookie banner can be dismissed and persists declined consent", async ({ page }) => {
@@ -139,4 +138,48 @@ test("cookie banner can be dismissed and persists declined consent", async ({ pa
   await expect(
     page.evaluate(() => window.localStorage.getItem("payago-cookie-consent")),
   ).resolves.toBe("declined")
+})
+
+test("the home page says what is live and sends people to the app", async ({ page }) => {
+  await page.goto("/")
+
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("From daily bills to dream trips.")
+  await expect(page.getByRole("link", { name: "Open PayaGo" }).first()).toHaveAttribute("href", "https://app.payago.in")
+  await expect(page.getByText("Everything below is what we're building, not something you can use yet.")).toBeVisible()
+})
+
+test("the demo turns an expense into a card and splits it", async ({ page }) => {
+  await page.goto("/")
+
+  await expect(page.getByTestId("demo-card")).toContainText("Dinner")
+  await expect(page.getByTestId("demo-card")).toContainText("£84.00")
+  await expect(page.getByTestId("demo-card")).toContainText("each owe you £21.00")
+
+  await page.getByRole("button", { name: "2 people" }).click()
+  await expect(page.getByTestId("demo-card")).toContainText("Sam owes you £42.00")
+
+  await page.getByLabel("Type an expense").fill("spent 1,200.50 on rent")
+  await page.getByRole("button", { name: "Send" }).click()
+  await expect(page.getByTestId("demo-card")).toContainText("£1,200.50")
+  await expect(page.getByTestId("demo-card")).toContainText("Rent")
+
+  await page.getByRole("button", { name: "60 for Sam" }).click()
+  await expect(page.getByTestId("demo-card")).toContainText("Given to Sam")
+})
+
+test("the demo leaves plain chat alone", async ({ page }) => {
+  await page.goto("/")
+
+  for (const chat of ["table for 4", "meet at 7", "2 to 3 days", "should we spend 500?", "hello"]) {
+    await page.getByLabel("Type an expense").fill(chat)
+    await page.getByRole("button", { name: "Send" }).click()
+    await expect(page.getByTestId("demo-message")).toHaveText(chat)
+    await expect(page.getByTestId("demo-card")).toHaveCount(0)
+    await expect(page.getByTestId("demo-chat")).toBeVisible()
+  }
+})
+
+test("pages about trips say they are not live yet", async ({ page }) => {
+  await page.goto("/features/")
+  await expect(page.getByText("This page is about whole trips, which are coming.")).toBeVisible()
 })
