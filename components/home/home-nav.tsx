@@ -6,9 +6,9 @@ import { Menu, X } from "lucide-react"
 import { captureEvent } from "@/lib/analytics"
 
 const LINKS = [
-  { name: "How it works", href: "#how-it-works" },
-  { name: "What's live", href: "#features" },
-  { name: "What's coming", href: "#next" },
+  { name: "What's live", href: "#chapter-type" },
+  { name: "Cards", href: "#chapter-cards" },
+  { name: "Trips", href: "#chapter-trips" },
   { name: "About", href: "/about/" },
   { name: "Blog", href: "/blog/" },
 ]
@@ -31,7 +31,8 @@ export function HomeNav({ appUrl }: { appUrl: string }) {
       }`}
     >
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-6">
-        <a href="/" className="font-display text-[22px] font-semibold tracking-[-0.03em] text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#19E4CC]">
+        <a href="/" className="flex items-center gap-2.5 font-display text-[22px] font-semibold tracking-[-0.03em] text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#19E4CC]">
+          <span aria-hidden="true" className="flex h-7 w-7 items-center justify-center rounded-full bg-[radial-gradient(circle_at_34%_30%,#FFF0B8,#FFC94F_52%,#C77F12)] text-[14px] font-bold text-[#7A4A06]">£</span>
           PayaGo
         </a>
 

@@ -639,8 +639,10 @@
    what is read in sentences. */
 .pg-home {
   font-family: "Hanken Grotesk Variable", "Helvetica Neue", Arial, sans-serif;
-  scroll-behavior: smooth;
 }
+.pg-home h1,
+.pg-home h2,
+.pg-home h3,
 .pg-home .font-display {
   font-family: "Sora Variable", "Helvetica Neue", Arial, sans-serif;
 }
