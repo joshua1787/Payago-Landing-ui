@@ -6,6 +6,8 @@ import { Mic } from "lucide-react"
 import { captureEvent } from "@/lib/analytics"
 import { formatDemoMoney, readDemoExpense } from "@/lib/demo-expense"
 import { readDemoTrip, type DemoTrip } from "@/lib/demo-trip"
+import { PLAY_URL, detectMoney } from "@/lib/local-money"
+import { useLocalMoney } from "@/lib/use-local-money"
 import { CHAPTERS, between, type ChapterName } from "@/lib/universe/chapters"
 import type { MoneyUniverse } from "@/lib/universe/scene"
 
@@ -15,11 +17,12 @@ const RAIL: { chapter: ChapterName; label: string; live: boolean }[] = [
   { chapter: "type", label: "Bills", live: true },
   { chapter: "settle", label: "Settle up", live: true },
   { chapter: "own", label: "Your money", live: true },
+  { chapter: "app", label: "The app", live: true },
   { chapter: "cards", label: "Cards", live: false },
   { chapter: "trips", label: "Trips", live: false },
 ]
 
-const EXPENSE_CHIPS = ["£84 dinner", "£420 for the flat", "taxi 18.50", "60 for Sam"]
+const APP_SCREENS = ["The chat", "Settle up", "Spending"]
 const TRIP_CHIPS = ["7 days in Japan for 4 friends", "Weekend in Barcelona with 6 mates", "10 days in Bali for 2 people"]
 
 const pill = {
@@ -46,6 +49,9 @@ export function Journey() {
   const universe = useRef<MoneyUniverse | null>(null)
   const panels = useRef<Partial<Record<ChapterName, HTMLDivElement | null>>>({})
   const rail = useRef<Partial<Record<ChapterName, HTMLAnchorElement | null>>>({})
+  const screenTabs = useRef<(HTMLLIElement | null)[]>([])
+  const money = useLocalMoney()
+  const [isAndroid, setIsAndroid] = useState(false)
   const [noScene, setNoScene] = useState(false)
 
   const [expenseDraft, setExpenseDraft] = useState("")
@@ -73,6 +79,11 @@ export function Journey() {
     const paint = () => {
       const p = progressNow()
       universe.current?.setProgress(p)
+      const along = (p - CHAPTERS.app[0]) / (CHAPTERS.app[1] - CHAPTERS.app[0])
+      const shown = along < 0.36 ? 0 : along < 0.69 ? 1 : 2
+      screenTabs.current.forEach((tab, i) => {
+        if (tab) tab.dataset.active = i === shown ? "true" : "false"
+      })
       ;(Object.keys(CHAPTERS) as ChapterName[]).forEach((name) => {
         const panel = panels.current[name]
         if (!panel) return
@@ -113,6 +124,7 @@ export function Journey() {
       (window as unknown as { SpeechRecognition?: unknown }).SpeechRecognition ??
       (window as unknown as { webkitSpeechRecognition?: unknown }).webkitSpeechRecognition
     setCanSpeak(Boolean(speech))
+    setIsAndroid(/android/i.test(navigator.userAgent))
 
     void (async () => {
       const probe = document.createElement("canvas")
@@ -132,14 +144,20 @@ export function Journey() {
           mobile: window.innerWidth < 800,
           still,
           landDots: new Float32Array(dots),
+          money: detectMoney(),
         })
         universe.current = scene
-        const first = readDemoTrip(TRIP_CHIPS[0])
+        const first = readDemoTrip(TRIP_CHIPS[0], detectMoney())
         if (first) {
           scene.flyTo(first.lat, first.lng)
           setTrip(first)
         }
         paint()
+        // Once a visit, and only for someone still at the top of the page.
+        if (progressNow() < 0.004 && !sessionStorage.getItem("payago-opening-seen")) {
+          sessionStorage.setItem("payago-opening-seen", "1")
+          scene.playIntro()
+        }
         const resize = new ResizeObserver(() => scene.resize())
         resize.observe(element.parentElement ?? element)
         // Nothing runs while it's off the screen.
@@ -174,7 +192,7 @@ export function Journey() {
     if (!message) return
     setExpenseDraft("")
     captureEvent("home_expense_demo_send")
-    const expense = readDemoExpense(message)
+    const expense = readDemoExpense(message, money.symbol)
     if (!expense) {
       setExpenseNote(`"${message}" reads as chat, so it stays chat.`)
       return
@@ -193,7 +211,7 @@ export function Journey() {
     if (!sentence) return
     setTripDraft("")
     captureEvent("home_trip_demo_send")
-    const found = readDemoTrip(sentence)
+    const found = readDemoTrip(sentence, money)
     if (!found) {
       setTripNote("Try naming a place: Japan, Bali, Paris, Goa, New York.")
       return
@@ -231,14 +249,14 @@ export function Journey() {
     "absolute inset-x-0 bottom-0 h-[64%] bg-gradient-to-t from-[#031B1A] via-[#031B1A]/88 to-transparent lg:hidden"
 
   return (
-    <div ref={track} className="relative h-[900vh]" data-testid="journey">
+    <div ref={track} className="relative h-[640vh]" data-testid="journey">
       {/* Anchors to scroll to: the page's scroll is the browser's own. */}
       {(Object.keys(CHAPTERS) as ChapterName[]).map((name) => (
         <div
           key={name}
           id={`chapter-${name}`}
           className="absolute"
-          style={{ top: `${(name === "hero" ? 0 : CHAPTERS[name][0] + 0.035) * 89}%` }}
+          style={{ top: `${(name === "hero" ? 0 : CHAPTERS[name][0] + 0.035) * 84.4}%` }}
         />
       ))}
 
@@ -250,11 +268,13 @@ export function Journey() {
 
         <div ref={setPanel("hero")} className={panelClass}>
           <div className="max-w-[35rem]">
-            <h1 className={`${headline} text-[clamp(2.9rem,6.2vw,5.5rem)] leading-[1]`}>From daily bills to dream trips.</h1>
-            <p className={body}>The money you share, the money you spend, and the trips you save it for. One app.</p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a href={APP_URL} className="rounded-full bg-[#19E4CC] px-7 py-3.5 font-display text-[15px] font-semibold text-[#04201E] transition-colors hover:bg-[#5BF0DE] focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
-                Open PayaGo
+            <h1 className={`${headline} text-[clamp(2.9rem,5.6vw,5rem)] leading-[1]`}>
+              From daily bills <span className="pg-open-late">to dream trips.</span>
+            </h1>
+            <p className={`${body} pg-open-later`}>The money you share, the money you spend, and the trips you save it for. One app.</p>
+            <div className="pg-open-later mt-8 flex flex-wrap items-center gap-3">
+              <a href={isAndroid ? PLAY_URL : APP_URL} className="rounded-full bg-[#19E4CC] px-7 py-3.5 font-display text-[15px] font-semibold text-[#04201E] transition-colors hover:bg-[#5BF0DE] focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+                {isAndroid ? "Get it on Google Play" : "Open PayaGo"}
               </a>
               <a href="#chapter-type" className="px-3 py-3.5 font-display text-[15px] font-semibold text-white underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
                 Scroll the journey
@@ -291,7 +311,7 @@ export function Journey() {
               </button>
             </form>
             <div className="mt-3 flex flex-wrap gap-2">
-              {EXPENSE_CHIPS.map((chip) => (
+              {money.expenseChips.map((chip) => (
                 <button key={chip} type="button" onClick={() => sendExpense(chip)} className="rounded-full bg-white/10 px-3 py-1.5 text-[13px] text-white/85 transition-colors hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#19E4CC]">
                   {chip}
                 </button>
@@ -317,8 +337,38 @@ export function Journey() {
             <h2 className={`${headline} mt-5 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>Your own money, a few seconds a day.</h2>
             <p className={body}>Paste a bank message, say what it was, and close your day. Ask Can I buy this? and get a straight answer. If PayaGo doesn&apos;t know yet, it says so.</p>
             <p className="mt-6 font-display text-[clamp(2rem,3.4vw,2.75rem)] font-semibold tabular-nums tracking-[-0.03em] text-[#19E4CC]">
-              £24 <span className="text-[0.55em] font-medium text-white/85">left for today</span>
+              {money.leftToday} <span className="text-[0.55em] font-medium text-white/85">left for today</span>
             </p>
+          </div>
+        </div>
+
+        <div ref={setPanel("app")} className={panelClass} style={{ opacity: 0 }}>
+          <div className="max-w-[31rem]">
+            <Status live>Live today</Status>
+            <h2 className={`${headline} mt-5 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>This is the real app.</h2>
+            <p className={body}>These are real screens from Flat 3B, the example group inside PayaGo. Look around it yourself, with no sign-up.</p>
+            <ul className="mt-5 flex flex-wrap gap-2">
+              {APP_SCREENS.map((name, i) => (
+                <li
+                  key={name}
+                  ref={(el) => {
+                    screenTabs.current[i] = el
+                  }}
+                  data-active={i === 0 ? "true" : "false"}
+                  className="rounded-full border border-white/20 px-3 py-1.5 text-[13px] text-white/70 data-[active=true]:border-[#19E4CC] data-[active=true]:text-[#19E4CC]"
+                >
+                  {name}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <a href={APP_URL} className="rounded-full bg-[#19E4CC] px-7 py-3.5 font-display text-[15px] font-semibold text-[#04201E] transition-colors hover:bg-[#5BF0DE] focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+                See an example group
+              </a>
+              <a href={PLAY_URL} className="font-display text-[15px] font-semibold text-white underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+                Get it on Google Play
+              </a>
+            </div>
           </div>
         </div>
 
@@ -383,7 +433,7 @@ export function Journey() {
             {trip && (
               <div data-testid="trip-plans" aria-live="polite" className="mt-3">
                 <p className="text-[14px] text-white/70">
-                  {trip.days} days in {trip.place} for {trip.people}, from London, per person
+                  {trip.days} days in {trip.place} for {trip.people}, from {money.home.name}, per person
                 </p>
                 <div className="mt-2 grid grid-cols-3 gap-2">
                   {trip.plans.map((plan) => (

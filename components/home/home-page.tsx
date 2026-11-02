@@ -2,6 +2,7 @@ import Link from "next/link"
 
 import { HomeNav } from "@/components/home/home-nav"
 import { Journey } from "@/components/home/journey"
+import { PLAY_URL } from "@/lib/local-money"
 import { SiteFooter } from "@/components/site/site-footer"
 
 const APP_URL = "https://app.payago.in"
@@ -60,6 +61,9 @@ export function HomePage() {
           </h2>
           <a href={APP_URL} className="mt-10 inline-block rounded-full bg-[#19E4CC] px-8 py-4 font-display text-[16px] font-semibold text-[#04201E] transition-colors hover:bg-[#5BF0DE] focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
             Open PayaGo
+          </a>
+          <a href={PLAY_URL} className="ml-3 mt-10 inline-block rounded-full border border-white/25 px-8 py-4 font-display text-[16px] font-semibold text-white transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+            Get it on Google Play
           </a>
         </section>
       </main>

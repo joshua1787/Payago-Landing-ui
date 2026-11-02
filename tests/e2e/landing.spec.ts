@@ -1,5 +1,7 @@
 import { expect, test } from "@playwright/test"
 
+test.use({ locale: "en-GB", timezoneId: "Europe/London" })
+
 test("the trips waitlist opens the early-access page", async ({ page }) => {
   await page.goto("/#chapter-trips")
 
@@ -183,4 +185,23 @@ test("the nav's Open PayaGo button stays white on every kind of page", async ({ 
     const button = page.getByRole("navigation").first().getByRole("link", { name: "Open PayaGo" }).first()
     await expect(button).toHaveCSS("background-color", "rgb(255, 255, 255)")
   }
+})
+
+test.describe("a visitor in India", () => {
+  test.use({ locale: "en-IN", timezoneId: "Asia/Kolkata" })
+
+  test("sees rupees, and trips from Delhi", async ({ page }) => {
+    await page.goto("/#chapter-type")
+    await expect(page.getByRole("button", { name: "₹840 dinner" })).toBeVisible()
+    await page.goto("/#chapter-trips")
+    await expect(page.getByTestId("trip-plans")).toContainText("from Delhi")
+    await expect(page.getByTestId("trip-plans")).toContainText("₹")
+  })
+})
+
+test("the home page shows the real app and only the store that is live", async ({ page }) => {
+  await page.goto("/#chapter-app")
+  await expect(page.getByRole("heading", { name: "This is the real app." })).toBeVisible()
+  await expect(page.getByRole("link", { name: "Get it on Google Play" }).first()).toHaveAttribute("href", /play\.google\.com.*com\.payago\.app/)
+  await expect(page.getByRole("link", { name: /app store/i })).toHaveCount(0)
 })

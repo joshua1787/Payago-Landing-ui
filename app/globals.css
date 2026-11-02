@@ -755,3 +755,23 @@
     display: none;
   }
 }
+
+/* The opening. The words need no script, so they can't get stuck hidden. */
+@media (prefers-reduced-motion: no-preference) {
+  .pg-open-late {
+    animation: pg-open 0.9s ease-out 1.1s both;
+  }
+  .pg-open-later {
+    animation: pg-open 0.9s ease-out 2.4s both;
+  }
+}
+@keyframes pg-open {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

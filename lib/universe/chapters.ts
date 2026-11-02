@@ -1,12 +1,13 @@
 // Where each chapter of the journey sits along the page's scroll, from 0 to 1.
 // The words and the 3D scene both read these, so they can't drift apart.
 export const CHAPTERS = {
-  hero: [0, 0.11],
-  type: [0.11, 0.3],
-  settle: [0.3, 0.45],
-  own: [0.45, 0.57],
-  cards: [0.57, 0.7],
-  trips: [0.7, 1],
+  hero: [0, 0.1],
+  type: [0.1, 0.27],
+  settle: [0.27, 0.4],
+  own: [0.4, 0.5],
+  app: [0.5, 0.66],
+  cards: [0.66, 0.77],
+  trips: [0.77, 1],
 } as const
 
 export type ChapterName = keyof typeof CHAPTERS

@@ -1,3 +1,5 @@
+import { POUNDS, type LocalMoney } from "@/lib/local-money"
+
 // Reads a trip out of a sentence for the preview on the home page. It runs in the
 // browser and saves nothing. Whole trips aren't open yet: this shows the idea, and
 // the plans it shows are examples, not offers.
@@ -36,11 +38,12 @@ function count(text: string, pattern: RegExp) {
   return WORD_NUMBERS[found] ?? Number(found)
 }
 
-function gbp(value: number) {
-  return `£${(Math.round(value / 10) * 10).toLocaleString("en-GB")}`
+function priced(value: number, money: LocalMoney) {
+  const amount = Math.round((value * money.tripRate) / money.tripRound) * money.tripRound
+  return `${money.symbol}${amount.toLocaleString(money.numberLocale)}`
 }
 
-export function readDemoTrip(sentence: string): DemoTrip | null {
+export function readDemoTrip(sentence: string, money: LocalMoney = POUNDS): DemoTrip | null {
   const text = sentence.toLowerCase()
   const match = PLACES.find((place) => place.words.some((word) => text.includes(word)))
   if (!match) return null
@@ -56,9 +59,9 @@ export function readDemoTrip(sentence: string): DemoTrip | null {
     days,
     people,
     plans: [
-      { name: "Basic", detail: "One stop, simple stays", price: gbp(match.base * scale * 0.8) },
-      { name: "Standard", detail: "Direct, a good hotel", price: gbp(match.base * scale) },
-      { name: "Premium", detail: "Premium cabin, top stays", price: gbp(match.base * scale * 1.3) },
+      { name: "Basic", detail: "One stop, simple stays", price: priced(match.base * scale * 0.8, money) },
+      { name: "Standard", detail: "Direct, a good hotel", price: priced(match.base * scale, money) },
+      { name: "Premium", detail: "Premium cabin, top stays", price: priced(match.base * scale * 1.3, money) },
     ],
   }
 }

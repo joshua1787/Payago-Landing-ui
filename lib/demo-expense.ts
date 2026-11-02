@@ -17,7 +17,7 @@ function titleCase(text: string) {
 }
 
 /** Reads one message, or returns null when it is just chat. */
-export function readDemoExpense(message: string): DemoExpense | null {
+export function readDemoExpense(message: string, defaultSymbol = "£"): DemoExpense | null {
   const text = message.trim()
   if (!text || text.endsWith("?")) return null
 
@@ -51,7 +51,7 @@ export function readDemoExpense(message: string): DemoExpense | null {
       : titleCase(given[1])
     : titleCase(words.replace(/\s+(?:for|on|at|to)$/i, "")) || "Expense"
 
-  return { label, amount, symbol: found[1] ?? "£" }
+  return { label, amount, symbol: found[1] ?? defaultSymbol }
 }
 
 export function formatDemoMoney(amount: number, symbol: string) {

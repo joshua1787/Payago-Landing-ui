@@ -1,6 +1,8 @@
 import * as THREE from "three"
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js"
 
+import type { LocalMoney } from "@/lib/local-money"
+
 import { CHAPTERS, between, clamp01, smooth } from "./chapters"
 
 // The PayaGo universe. A coin, a ring for what exists today, and a journey outward:
@@ -13,11 +15,10 @@ const CORAL = new THREE.Color("#FF9E85")
 const PEOPLE_COLOURS = [TEAL, GOLD, VIOLET, CORAL, new THREE.Color("#7DF0A8")]
 const DISPLAY_FONT = '"Sora Variable", "Helvetica Neue", Arial, sans-serif'
 const GLOBE_RADIUS = 2.1
-const HOME = { lat: 51.5, lng: -0.12 }
 
 export type ExpenseCard = { label: string; amount: string; detail: string }
 
-type Options = { mobile: boolean; still: boolean; landDots: Float32Array }
+type Options = { mobile: boolean; still: boolean; landDots: Float32Array; money: LocalMoney }
 
 function latLng(lat: number, lng: number, radius: number) {
   const phi = ((90 - lat) * Math.PI) / 180
@@ -55,7 +56,7 @@ function glowTexture() {
   return texture
 }
 
-function coinFace(relief: boolean) {
+function coinFace(relief: boolean, symbol: string) {
   const size = 1024
   const canvas = document.createElement("canvas")
   canvas.width = canvas.height = size
@@ -80,7 +81,7 @@ function coinFace(relief: boolean) {
   ctx.font = `700 ${size * 0.5}px ${DISPLAY_FONT}`
   ctx.textAlign = "center"
   ctx.textBaseline = "middle"
-  ctx.fillText("£", size / 2, size / 2 + size * 0.03)
+  ctx.fillText(symbol, size / 2, size / 2 + size * 0.03)
   const texture = new THREE.CanvasTexture(canvas)
   if (!relief) texture.colorSpace = THREE.SRGBColorSpace
   texture.anisotropy = 8
@@ -242,6 +243,8 @@ const WIDE_ROUTE: Key[] = [
   { at: CHAPTERS.settle[1] - 0.01, pos: [-2.75, 0.05, 6.2], look: [-2.75, 0, 0] },
   { at: CHAPTERS.own[0] + 0.03, pos: [-2.5, 0.2, 6.5], look: [-2.5, 0, 0] },
   { at: CHAPTERS.own[1] - 0.01, pos: [-2.45, 0.15, 6.2], look: [-2.45, 0, 0] },
+  { at: CHAPTERS.app[0] + 0.035, pos: [-3.05, 0, 8.6], look: [-3.05, 0, 0] },
+  { at: CHAPTERS.app[1] - 0.015, pos: [-3.05, 0, 8.2], look: [-3.05, 0, 0] },
   { at: CHAPTERS.cards[0] + 0.03, pos: [-2.85, 0.2, 7], look: [-2.85, 0, 0] },
   { at: CHAPTERS.cards[1] - 0.01, pos: [-2.8, 0, 6.6], look: [-2.8, 0, 0] },
   { at: CHAPTERS.trips[0] + 0.07, pos: [-3.05, 0.3, 8.7], look: [-3.05, 0, 0] },
@@ -255,6 +258,8 @@ const NARROW_ROUTE: Key[] = [
   { at: CHAPTERS.settle[1] - 0.01, pos: [0, 0, 12], look: [0, -2.1, 0] },
   { at: CHAPTERS.own[0] + 0.03, pos: [0, 0.2, 14], look: [0, -2.9, 0] },
   { at: CHAPTERS.own[1] - 0.01, pos: [0, 0.2, 13.6], look: [0, -2.8, 0] },
+  { at: CHAPTERS.app[0] + 0.035, pos: [0, 0, 16], look: [0, -2.45, 0] },
+  { at: CHAPTERS.app[1] - 0.015, pos: [0, 0, 16], look: [0, -2.45, 0] },
   { at: CHAPTERS.cards[0] + 0.03, pos: [0, 0.2, 14.5], look: [0, -2.9, 0] },
   { at: CHAPTERS.cards[1] - 0.01, pos: [0, 0, 14], look: [0, -2.8, 0] },
   { at: CHAPTERS.trips[0] + 0.07, pos: [0, 0.2, 19], look: [0, -4.9, 0] },
@@ -277,6 +282,7 @@ export class MoneyUniverse {
   private route: Key[] = WIDE_ROUTE
   private readonly mobile: boolean
   private readonly still: boolean
+  private readonly money: LocalMoney
   private glow = glowTexture()
 
   private coin = new THREE.Group()
@@ -307,10 +313,17 @@ export class MoneyUniverse {
   private arcCurve?: THREE.QuadraticBezierCurve3
   private globeSpin = 0
   private globeSpinTarget = 0
+  private phone = new THREE.Group()
+  private phoneBodyMaterial?: THREE.MeshStandardMaterial
+  private phoneScreens: THREE.MeshBasicMaterial[] = []
+  private phoneGlow?: THREE.Sprite
+  private introStart = -1
+  private intro = 0
 
   constructor(canvas: HTMLCanvasElement, options: Options) {
     this.mobile = options.mobile
     this.still = options.still
+    this.money = options.money
     this.renderer = new THREE.WebGLRenderer({ canvas, antialias: !options.mobile, alpha: false, powerPreference: "high-performance" })
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, options.mobile ? 1.5 : 2))
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping
@@ -357,6 +370,7 @@ export class MoneyUniverse {
     this.gaugeTrack.renderOrder = this.gauge.renderOrder = 2
     this.scene.add(this.gaugeTrack, this.gauge)
     this.buildPayCards()
+    this.buildPhone()
 
     const { points, material } = this.buildMorph(options.landDots)
     this.morph = points
@@ -395,9 +409,9 @@ export class MoneyUniverse {
 
   private buildCoin() {
     const edge = new THREE.MeshStandardMaterial({ color: 0xe8a93a, metalness: 1, roughness: 0.26, envMapIntensity: 1.2, transparent: true })
-    const relief = coinFace(true)
+    const relief = coinFace(true, this.money.symbol)
     const face = () =>
-      new THREE.MeshStandardMaterial({ map: coinFace(false), bumpMap: relief, bumpScale: 2.4, metalness: 0.92, roughness: 0.42, envMapIntensity: 1, transparent: true })
+      new THREE.MeshStandardMaterial({ map: coinFace(false, this.money.symbol), bumpMap: relief, bumpScale: 2.4, metalness: 0.92, roughness: 0.42, envMapIntensity: 1, transparent: true })
     const front = face()
     const back = face()
     this.coinMaterials = [edge, front, back]
@@ -445,9 +459,7 @@ export class MoneyUniverse {
       }
     })
     this.scene.add(this.cardsGroup)
-    this.addExpense({ label: "Dinner", amount: "£84.00", detail: "£21.00 each" }, false)
-    this.addExpense({ label: "The flat", amount: "£420.00", detail: "£105.00 each" }, false)
-    this.addExpense({ label: "Taxi", amount: "£18.50", detail: "£4.63 each" }, false)
+    this.money.orbitCards.forEach((card) => this.addExpense(card, false))
   }
 
   private addBody(radius: number, phase: number, colour: THREE.Color) {
@@ -627,9 +639,83 @@ export class MoneyUniverse {
   }
 
   /** Draws a flight from London to here, and turns the world so you can see it. */
+  /** The app itself: real screens, from the example group anyone can open in PayaGo. */
+  private buildPhone() {
+    const rounded = (w: number, h: number, r: number) => {
+      const shape = new THREE.Shape()
+      const x = -w / 2
+      const y = -h / 2
+      shape.moveTo(x + r, y)
+      shape.lineTo(x + w - r, y)
+      shape.quadraticCurveTo(x + w, y, x + w, y + r)
+      shape.lineTo(x + w, y + h - r)
+      shape.quadraticCurveTo(x + w, y + h, x + w - r, y + h)
+      shape.lineTo(x + r, y + h)
+      shape.quadraticCurveTo(x, y + h, x, y + h - r)
+      shape.lineTo(x, y + r)
+      shape.quadraticCurveTo(x, y, x + r, y)
+      return shape
+    }
+    const screenW = 2.14
+    const screenH = screenW * (844 / 390)
+    const bodyMaterial = new THREE.MeshStandardMaterial({ color: "#0C1A19", metalness: 0.92, roughness: 0.26, transparent: true, opacity: 0 })
+    this.phoneBodyMaterial = bodyMaterial
+    const body = new THREE.Mesh(
+      new THREE.ExtrudeGeometry(rounded(screenW + 0.16, screenH + 0.16, 0.34), {
+        depth: 0.12,
+        bevelEnabled: true,
+        bevelSize: 0.025,
+        bevelThickness: 0.025,
+        bevelSegments: 3,
+        curveSegments: 16,
+      }),
+      bodyMaterial,
+    )
+    body.position.z = -0.14
+    this.phone.add(body)
+
+    const screen = new THREE.ShapeGeometry(rounded(screenW, screenH, 0.27), 16)
+    const position = screen.attributes.position
+    const uv = screen.attributes.uv
+    for (let i = 0; i < position.count; i++) {
+      uv.setXY(i, (position.getX(i) + screenW / 2) / screenW, (position.getY(i) + screenH / 2) / screenH)
+    }
+    const loader = new THREE.TextureLoader()
+    ;["chat", "settle", "spending"].forEach((name, i) => {
+      const material = new THREE.MeshBasicMaterial({ color: "#F4F8F7", transparent: true, opacity: 0, toneMapped: false, depthWrite: false })
+      loader.load(`/app-screens/${name}.webp`, (texture) => {
+        texture.colorSpace = THREE.SRGBColorSpace
+        texture.anisotropy = 8
+        material.map = texture
+        material.color.set("#ffffff")
+        material.needsUpdate = true
+        this.requestDraw()
+      })
+      const mesh = new THREE.Mesh(screen, material)
+      mesh.position.z = 0.012 + i * 0.002
+      mesh.renderOrder = 5 + i
+      this.phoneScreens.push(material)
+      this.phone.add(mesh)
+    })
+
+    const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: TEAL, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }))
+    glow.scale.setScalar(8.5)
+    glow.position.z = -0.6
+    this.phoneGlow = glow
+    this.phone.add(glow)
+    this.phone.visible = false
+    this.scene.add(this.phone)
+  }
+
+  /** The opening: the coin comes apart into the Earth, then gathers back. */
+  playIntro() {
+    if (this.still) return
+    this.introStart = this.clock.getElapsedTime()
+  }
+
   flyTo(lat: number, lng: number) {
     this.flight.clear()
-    const from = latLng(HOME.lat, HOME.lng, GLOBE_RADIUS * 1.005)
+    const from = latLng(this.money.home.lat, this.money.home.lng, GLOBE_RADIUS * 1.005)
     const to = latLng(lat, lng, GLOBE_RADIUS * 1.005)
     const lift = 1 + from.angleTo(to) * 0.28
     const mid = from.clone().add(to).normalize().multiplyScalar(GLOBE_RADIUS * lift)
@@ -740,9 +826,23 @@ export class MoneyUniverse {
     const cardIn = between(p, CHAPTERS.cards[0] - 0.005, CHAPTERS.cards[0] + 0.05) * (1 - between(p, CHAPTERS.cards[1] - 0.015, CHAPTERS.cards[1] + 0.01))
     const typeIn = between(p, CHAPTERS.type[0] - 0.02, CHAPTERS.type[0] + 0.03) * (1 - between(p, CHAPTERS.type[1] - 0.025, CHAPTERS.type[1] + 0.005))
 
+    const appIn = between(p, CHAPTERS.app[0] - 0.012, CHAPTERS.app[0] + 0.02) * (1 - between(p, CHAPTERS.app[1] + 0.012, CHAPTERS.app[1] + 0.02))
+
+    // The opening plays once, and gives way at once if the visitor starts scrolling.
+    let introWant = 0
+    if (this.introStart >= 0) {
+      const t = time - this.introStart
+      introWant = between(t, 0.9, 2.3) * (1 - between(t, 3.4, 4.8))
+      if (t > 4.8 || p > 0.004) this.introStart = -1
+    }
+    this.intro += (introWant - this.intro) * (this.introStart >= 0 ? 1 : 0.12)
+    if (this.intro < 0.001) this.intro = 0
+    const intro = this.intro
+
     // Coin: at home until the journey reaches the Earth, when it gives way to its dots.
-    const coinGone = between(p, CHAPTERS.trips[0] - 0.015, CHAPTERS.trips[0] + 0.015)
-    const coinHide = Math.min(1, settleIn * 1.2 + cardIn * 1.2)
+    const coinGone = Math.max(between(p, CHAPTERS.trips[0] - 0.015, CHAPTERS.trips[0] + 0.015), between(intro, 0, 0.26))
+    const coinWithPhone = between(p, CHAPTERS.app[0] - 0.012, CHAPTERS.app[0] + 0.02) * (1 - between(p, CHAPTERS.cards[0] + 0.02, CHAPTERS.cards[0] + 0.03))
+    const coinHide = Math.min(1, settleIn * 1.2 + cardIn * 1.2 + coinWithPhone * 1.3)
     const coinScale = (1 - coinGone * 0.3) * (1 - coinHide * 0.6)
     this.coin.position.copy(anchor).setX(anchor.x)
     this.coin.scale.setScalar(coinScale * (this.still ? 1 : 1 + 0.008 * Math.sin(time * 0.9)))
@@ -755,7 +855,7 @@ export class MoneyUniverse {
 
     // Rings fade to quiet when another subject is on stage.
     this.system.position.copy(anchor)
-    const quiet = 1 - Math.max(settleIn, cardIn * 0.85, inTrips, ownIn * 0.55)
+    const quiet = (1 - Math.max(settleIn, cardIn * 0.85, inTrips, ownIn * 0.55, coinWithPhone)) * (1 - Math.min(1, intro * 2))
     this.rings.forEach((ring, i) => {
       const base = i === 0 ? 0.95 : 0.5
       ring.material.opacity = base * quiet
@@ -776,14 +876,14 @@ export class MoneyUniverse {
     })
 
     // Expense cards orbit, always facing you, from the first screen to the end of their chapter.
-    const cardsIn = 1 - between(p, CHAPTERS.type[1] - 0.025, CHAPTERS.type[1] + 0.005)
+    const cardsIn = (1 - between(p, CHAPTERS.type[1] - 0.025, CHAPTERS.type[1] + 0.005)) * (1 - Math.min(1, intro * 3))
     this.cardsGroup.position.copy(anchor)
     this.cardsGroup.visible = cardsIn > 0.01
     this.expenses.forEach((item, i) => {
       const age = time - item.born
       const pop = this.still ? 1 : smooth(age / 0.9)
       const a = item.angle + (this.still ? 0 : time * 0.12) + (i * Math.PI * 2) / Math.max(this.expenses.length, 3) * 0
-      const radius = item.radius * pop
+      const radius = item.radius * pop * (this.mobile ? 0.72 : 1)
       const x = Math.cos(a) * radius
       const z = Math.sin(a) * radius * 0.62
       item.sprite.position.set(x, item.height + Math.sin(a) * -0.55 + (this.still ? 0 : Math.sin(time + i) * 0.03), z)
@@ -838,14 +938,17 @@ export class MoneyUniverse {
     })
 
     // The coin comes apart, and its dots become the Earth.
-    const morph = between(p, CHAPTERS.trips[0] - 0.015, CHAPTERS.trips[0] + 0.1)
+    const morph = Math.max(between(p, CHAPTERS.trips[0] - 0.015, CHAPTERS.trips[0] + 0.1), intro)
     this.morph.visible = morph > 0.001
     this.morph.position.copy(anchor)
     this.morphMaterial.uniforms.uMorph.value = morph
     this.morphMaterial.uniforms.uOpacity.value = clamp01(morph * 6)
     this.morphMaterial.uniforms.uTime.value = time
     this.globeSpin += (this.globeSpinTarget - this.globeSpin) * (immediate ? 1 : 0.04)
-    const spin = this.globeSpin
+    // In the opening the Earth turns until the visitor's home faces them.
+    const homeNow = latLng(this.money.home.lat, this.money.home.lng, 1)
+    const introTurn = this.introStart >= 0 ? (time - this.introStart - 3.6) * 0.32 : 0
+    const spin = intro > 0 ? this.globeSpin * (1 - intro) + (Math.atan2(homeNow.x, homeNow.z) + introTurn) * intro : this.globeSpin
     this.morphMaterial.uniforms.uSpin.value = spin
     this.halo.position.copy(anchor)
     this.haloMaterial.uniforms.uOpacity.value = smooth((morph - 0.7) / 0.3) * 0.7
@@ -864,7 +967,24 @@ export class MoneyUniverse {
     }
 
     this.sky.uniforms.uTime.value = time
-    this.sky.uniforms.uDepth.value = inTrips
+    this.sky.uniforms.uDepth.value = Math.max(inTrips, intro)
+
+    // The phone rises as the coin goes in, then steps through the real screens.
+    this.phone.visible = appIn > 0.005
+    if (this.phone.visible) {
+      const rise = between(p, CHAPTERS.app[0] - 0.012, CHAPTERS.app[0] + 0.04)
+      const along = clamp01((p - CHAPTERS.app[0]) / (CHAPTERS.app[1] - CHAPTERS.app[0]))
+      const leave = between(p, CHAPTERS.app[1] - 0.02, CHAPTERS.app[1] + 0.02)
+      this.phone.position.set(anchor.x, (1 - rise) * -7 + leave * 8 - (wide ? 0.12 : 0) + (this.still ? 0 : Math.sin(time * 0.7) * 0.04), 0)
+      this.phone.scale.setScalar(wide ? 1.04 : 1)
+      this.phone.rotation.set(0.04, (1 - rise) * -1.1 - 0.2 + along * 0.26, (1 - rise) * 0.12)
+      const second = between(along, 0.33, 0.39)
+      const third = between(along, 0.66, 0.72)
+      const opacities = [1, second, third]
+      this.phoneScreens.forEach((material, i) => (material.opacity = appIn * opacities[i]))
+      if (this.phoneBodyMaterial) this.phoneBodyMaterial.opacity = appIn
+      if (this.phoneGlow) (this.phoneGlow.material as THREE.SpriteMaterial).opacity = 0.32 * appIn
+    }
     this.renderer.clear()
     this.renderer.render(this.skyScene, this.skyCamera)
     this.renderer.clearDepth()
