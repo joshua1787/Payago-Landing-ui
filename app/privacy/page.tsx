@@ -138,7 +138,8 @@ const sections = [
         title: "6. How long we keep your data",
         rows: [
             { type: "Waitlist email address", period: "Until you unsubscribe or request deletion" },
-            { type: "Account data", period: "For the duration of your account, plus 3 years after closure" },
+            { type: "Account data", period: "For the duration of your account. When you delete it, your details are removed, as explained on our delete your account page" },
+            { type: "Expenses and messages in shared groups", period: "Kept after you delete your account so other members' balances stay correct, shown as “Deleted User”" },
             { type: "Payments from bank messages, your own spending and merchant labels", period: "For the duration of your account; removed when you delete your account" },
             { type: "Family Map", period: "Until you delete it or remove the person named, or delete your account" },
             { type: "Backups", period: "Copies of our database, including the data above, are kept for up to 30 days" },

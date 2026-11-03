@@ -140,3 +140,10 @@ test("cookie banner can be dismissed and persists declined consent", async ({ pa
     page.evaluate(() => window.localStorage.getItem("payago-cookie-consent")),
   ).resolves.toBe("declined")
 })
+
+test("the delete account page says how, and what is kept", async ({ page }) => {
+  await page.goto("/delete-account/")
+  await expect(page.getByRole("heading", { name: "Delete your account" })).toBeVisible()
+  await expect(page.getByRole("heading", { name: "What is kept" })).toBeVisible()
+  await expect(page.getByRole("link", { name: "privacy@payago.in" })).toHaveAttribute("href", /^mailto:privacy@payago\.in/)
+})
