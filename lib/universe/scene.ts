@@ -18,6 +18,56 @@ const GLOBE_RADIUS = 2.1
 
 export type ExpenseCard = { label: string; amount: string; detail: string }
 
+export type TripStory = {
+  place: string
+  people: number
+  from: string
+  plans: { name: string; detail: string; price: string }[]
+}
+
+function tripCardTexture(draw: (ctx: CanvasRenderingContext2D, w: number, h: number) => void) {
+  const canvas = document.createElement("canvas")
+  canvas.width = 1024
+  canvas.height = 512
+  const ctx = canvas.getContext("2d")!
+  ctx.beginPath()
+  ctx.roundRect(8, 8, 1008, 496, 56)
+  ctx.fillStyle = "#FFFFFF"
+  ctx.fill()
+  ctx.lineWidth = 4
+  ctx.strokeStyle = "rgba(124,92,255,0.35)"
+  ctx.stroke()
+  ctx.textBaseline = "alphabetic"
+  draw(ctx, 1024, 512)
+  ctx.fillStyle = "#64748B"
+  ctx.font = `500 30px ${DISPLAY_FONT}`
+  ctx.textAlign = "right"
+  ctx.fillText("Example", 968, 84)
+  ctx.textAlign = "left"
+  const texture = new THREE.CanvasTexture(canvas)
+  texture.colorSpace = THREE.SRGBColorSpace
+  texture.anisotropy = 8
+  return texture
+}
+
+function cardText(ctx: CanvasRenderingContext2D, kicker: string, title: string, line: string, big: string) {
+  const brand = ctx.createLinearGradient(56, 0, 760, 0)
+  brand.addColorStop(0, "#2563EB")
+  brand.addColorStop(1, "#7C3AED")
+  ctx.fillStyle = "#6D4AE8"
+  ctx.font = `600 34px ${DISPLAY_FONT}`
+  ctx.fillText(kicker, 60, 84)
+  ctx.fillStyle = "#0F172A"
+  ctx.font = `700 70px ${DISPLAY_FONT}`
+  ctx.fillText(title, 60, 186, 904)
+  ctx.fillStyle = "#475569"
+  ctx.font = `400 40px ${DISPLAY_FONT}`
+  ctx.fillText(line, 60, 256, 904)
+  ctx.fillStyle = brand
+  ctx.font = `700 108px ${DISPLAY_FONT}`
+  ctx.fillText(big, 60, 430, 904)
+}
+
 type Options = { mobile: boolean; still: boolean; landDots: Float32Array; money: LocalMoney }
 
 function latLng(lat: number, lng: number, radius: number) {
@@ -234,7 +284,7 @@ type Key = { at: number; pos: [number, number, number]; look: [number, number, n
 
 // The camera's route. On wide screens the subject sits right of centre, so the
 // words have the left; on phones it sits above them.
-const WIDE_ROUTE: Key[] = [
+const WIDE_ROUTE = ([
   { at: 0, pos: [-2.85, 0.5, 8.3], look: [-2.85, 0.05, 0] },
   { at: CHAPTERS.app[0] + 0.035, pos: [-3.05, 0, 8.6], look: [-3.05, 0, 0] },
   { at: CHAPTERS.app[1] - 0.015, pos: [-3.05, 0, 8.2], look: [-3.05, 0, 0] },
@@ -242,14 +292,14 @@ const WIDE_ROUTE: Key[] = [
   { at: CHAPTERS.type[1] - 0.02, pos: [-3.15, 1.5, 8.1], look: [-3.15, 0, 0] },
   { at: CHAPTERS.settle[0] + 0.03, pos: [-2.75, 0.1, 6.5], look: [-2.75, 0, 0] },
   { at: CHAPTERS.settle[1] - 0.01, pos: [-2.75, 0.05, 6.2], look: [-2.75, 0, 0] },
-  { at: CHAPTERS.own[0] + 0.03, pos: [-2.5, 0.2, 6.5], look: [-2.5, 0, 0] },
-  { at: CHAPTERS.own[1] - 0.01, pos: [-2.45, 0.15, 6.2], look: [-2.45, 0, 0] },
+  { at: CHAPTERS.own[0] + 0.03, pos: [-2.75, 0.2, 7.4], look: [-2.75, 0, 0] },
+  { at: CHAPTERS.own[1] - 0.01, pos: [-2.7, 0.15, 7.1], look: [-2.7, 0, 0] },
   { at: CHAPTERS.cards[0] + 0.03, pos: [-2.85, 0.2, 7], look: [-2.85, 0, 0] },
   { at: CHAPTERS.cards[1] - 0.01, pos: [-2.8, 0, 6.6], look: [-2.8, 0, 0] },
   { at: CHAPTERS.trips[0] + 0.07, pos: [-3.05, 0.3, 8.7], look: [-3.05, 0, 0] },
   { at: 1, pos: [-3.05, 0.15, 8.2], look: [-3.05, 0, 0] },
-]
-const NARROW_ROUTE: Key[] = [
+] as Key[]).sort((a, b) => a.at - b.at)
+const NARROW_ROUTE = ([
   { at: 0, pos: [0, 1.2, 15], look: [0, -3.2, 0] },
   { at: CHAPTERS.app[0] + 0.035, pos: [0, 0, 16], look: [0, -2.45, 0] },
   { at: CHAPTERS.app[1] - 0.015, pos: [0, 0, 16], look: [0, -2.45, 0] },
@@ -261,9 +311,9 @@ const NARROW_ROUTE: Key[] = [
   { at: CHAPTERS.own[1] - 0.01, pos: [0, 0.2, 13.6], look: [0, -2.8, 0] },
   { at: CHAPTERS.cards[0] + 0.03, pos: [0, 0.2, 14.5], look: [0, -2.9, 0] },
   { at: CHAPTERS.cards[1] - 0.01, pos: [0, 0, 14], look: [0, -2.8, 0] },
-  { at: CHAPTERS.trips[0] + 0.07, pos: [0, 0.2, 19], look: [0, -4.9, 0] },
-  { at: 1, pos: [0, 0, 18], look: [0, -4.6, 0] },
-]
+  { at: CHAPTERS.trips[0] + 0.07, pos: [0, 0.2, 19], look: [0, -3.9, 0] },
+  { at: 1, pos: [0, 0, 18.5], look: [0, -3.8, 0] },
+] as Key[]).sort((a, b) => a.at - b.at)
 
 export class MoneyUniverse {
   private renderer: THREE.WebGLRenderer
@@ -316,6 +366,13 @@ export class MoneyUniverse {
   private phoneBodyMaterial?: THREE.MeshStandardMaterial
   private phoneScreens: THREE.MeshBasicMaterial[] = []
   private phoneGlow?: THREE.Sprite
+  private tripCards: { mesh: THREE.Mesh; material: THREE.MeshBasicMaterial; chapter: "plans" | "book" | "guide"; x: number; y: number; seed: number }[] = []
+  private pointer = new THREE.Vector2()
+  private pointerNow = new THREE.Vector2()
+  private onPointer = (event: PointerEvent) => {
+    if (event.pointerType !== "mouse") return
+    this.pointer.set((event.clientX / window.innerWidth) * 2 - 1, (event.clientY / window.innerHeight) * 2 - 1)
+  }
   private introStart = -1
   private intro = 0
 
@@ -370,6 +427,8 @@ export class MoneyUniverse {
     this.scene.add(this.gaugeTrack, this.gauge)
     this.buildPayCards()
     this.buildPhone()
+    this.buildTripCards()
+    window.addEventListener("pointermove", this.onPointer, { passive: true })
 
     const { points, material } = this.buildMorph(options.landDots)
     this.morph = points
@@ -706,6 +765,64 @@ export class MoneyUniverse {
     this.scene.add(this.phone)
   }
 
+  /** The trip, told in things you can see: three plans, the booking, the voice guide. */
+  private buildTripCards() {
+    const geometry = new THREE.PlaneGeometry(2.5, 1.25)
+    const add = (chapter: "plans" | "book" | "guide", x: number, y: number) => {
+      const material = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, toneMapped: false, depthTest: false, depthWrite: false })
+      const mesh = new THREE.Mesh(geometry, material)
+      mesh.visible = false
+      mesh.renderOrder = 20 + this.tripCards.length
+      this.scene.add(mesh)
+      this.tripCards.push({ mesh, material, chapter, x, y, seed: this.tripCards.length * 1.7 })
+    }
+    add("plans", 0.15, 1.08)
+    add("plans", 0.45, 0)
+    add("plans", 0.15, -1.08)
+    add("book", 0.15, 1.08)
+    add("book", 0.45, 0)
+    add("book", 0.15, -1.08)
+    add("guide", 0.95, -1.15)
+  }
+
+  /** Puts the trip someone typed onto the cards. */
+  setTripStory(story: TripStory) {
+    const paint = (i: number, draw: (ctx: CanvasRenderingContext2D, w: number, h: number) => void) => {
+      const material = this.tripCards[i].material
+      material.map?.dispose()
+      material.map = tripCardTexture(draw)
+      material.needsUpdate = true
+    }
+    story.plans.slice(0, 3).forEach((plan, i) => {
+      paint(i, (ctx) => cardText(ctx, plan.name, story.place, plan.detail, plan.price))
+    })
+    const middle = story.plans[1]
+    paint(3, (ctx) => cardText(ctx, "Boarding pass", `${story.from} to ${story.place}`, `${story.people} travellers, seats together`, "Booked"))
+    paint(4, (ctx) => cardText(ctx, "Your stay", story.place, middle.detail, "Booked"))
+    paint(5, (ctx) => cardText(ctx, "Split across the group", `${story.people} people`, "Worked out as you book", `${middle.price} each`))
+    paint(6, (ctx, w) => {
+      ctx.fillStyle = "#6D4AE8"
+      ctx.font = `600 34px ${DISPLAY_FONT}`
+      ctx.fillText("Voice guide", 60, 84)
+      ctx.fillStyle = "#0F172A"
+      ctx.font = `700 60px ${DISPLAY_FONT}`
+      ctx.fillText("Your next stop is", 60, 186)
+      ctx.fillText("10 minutes away.", 60, 262)
+      const bars = [40, 86, 54, 120, 70, 134, 92, 58, 112, 66, 94, 42, 78, 118, 60, 88, 46, 100, 62, 36]
+      bars.forEach((height, i) => {
+        const x = 60 + i * ((w - 140) / bars.length)
+        const bar = ctx.createLinearGradient(0, 380 - height / 2, 0, 380 + height / 2)
+        bar.addColorStop(0, "#2563EB")
+        bar.addColorStop(1, "#7C3AED")
+        ctx.fillStyle = bar
+        ctx.beginPath()
+        ctx.roundRect(x, 390 - height / 2, 22, height, 11)
+        ctx.fill()
+      })
+    })
+    this.requestDraw()
+  }
+
   /** The opening: the coin comes apart into the Earth, then gathers back. */
   playIntro() {
     if (this.still) return
@@ -778,6 +895,7 @@ export class MoneyUniverse {
 
   dispose() {
     this.stop()
+    window.removeEventListener("pointermove", this.onPointer)
     this.renderer.dispose()
   }
 
@@ -813,6 +931,12 @@ export class MoneyUniverse {
 
     const { pos, look } = this.cameraAt(p)
     this.camera.position.copy(pos)
+    // The whole scene leans gently toward the mouse.
+    if (!this.still && wide) {
+      this.pointerNow.lerp(this.pointer, 0.05)
+      this.camera.position.x += this.pointerNow.x * 0.42
+      this.camera.position.y -= this.pointerNow.y * 0.26
+    }
     this.lookNow.lerp(look, immediate || this.lookNow.lengthSq() === 0 ? 1 : 0.12)
     this.camera.lookAt(this.lookNow)
 
@@ -964,6 +1088,23 @@ export class MoneyUniverse {
       this.plane?.position.copy(this.arcCurve.getPoint(reveal))
       if (this.pin) this.pin.scale.setScalar(smooth((this.arcReveal - 0.85) / 0.15) * (0.42 + (this.still ? 0 : Math.sin(time * 3) * 0.05)))
     }
+
+    this.tripCards.forEach((card) => {
+      const [from, to] = CHAPTERS[card.chapter]
+      const open = between(p, from - 0.005, from + 0.03) * (card.chapter === "guide" ? 1 : 1 - between(p, to - 0.025, to - 0.002))
+      card.mesh.visible = open > 0.01
+      if (!card.mesh.visible) return
+      const float = this.still ? 0 : Math.sin(time * 0.8 + card.seed) * 0.05
+      const reach = wide ? 1 : 0
+      card.mesh.position.set(
+        anchor.x + card.x * reach,
+        (wide ? card.y : card.y * 1.3 - 0.95) + float - (1 - open) * 1.4,
+        2.6 + (wide ? 0 : 1),
+      )
+      card.mesh.quaternion.copy(this.camera.quaternion)
+      card.mesh.scale.setScalar(wide ? 0.74 : 1.05)
+      card.material.opacity = open
+    })
 
     this.sky.uniforms.uTime.value = time
     this.sky.uniforms.uDepth.value = Math.max(inTrips, intro)

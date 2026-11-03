@@ -58,9 +58,9 @@ export function Closing({ title, children }: { title: string; children: ReactNod
   )
 }
 
-export function ItemGrid({ items, coming = false }: { items: { title: string; body: string; coming?: boolean }[]; coming?: boolean }) {
+export function ItemGrid({ items, coming = false, cols = 3 }: { items: { title: string; body: string; coming?: boolean }[]; coming?: boolean; cols?: 2 | 3 }) {
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div className={`grid gap-4 md:grid-cols-2 ${cols === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"}`}>
       {items.map((item) => (
         <div key={item.title} className={`rounded-[24px] p-6 ${coming || item.coming ? "border border-dashed border-[#0F172A]/15" : "bg-white border border-[#E6E8EF]"}`}>
           <h3 className="font-display text-[19px] font-semibold tracking-[-0.015em] text-[#0F172A]">{item.title}</h3>

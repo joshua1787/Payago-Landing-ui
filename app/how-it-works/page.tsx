@@ -17,30 +17,25 @@ export const metadata: Metadata = {
 
 type Step = { title: string; body: string; example: string }
 
-const BILL: Step[] = [
+const MONEY: Step[] = [
   { title: "Make a group", body: "Name it, and invite people with a link or a QR code. A flat, a friend group, a weekend away.", example: "Flat 3B, 4 people" },
-  { title: "Type what you spent", body: "Send it like any other message. PayaGo reads it, and shows you the split to check.", example: "£84 dinner" },
-  { title: "Everyone sees the card", body: "It lands in the chat, so nobody has to ask what was spent or who paid.", example: "Sam, Priya and Tom each owe you £21.00" },
+  { title: "Type what you spent", body: "Send it like any other message. It becomes a card everyone can see, and you check the split.", example: "£84 dinner" },
   { title: "Settle up", body: "PayaGo works out the fewest payments. Pay the way you normally do, and mark who has paid.", example: "Sam owes you £48.00" },
-]
-
-const WALLET: Step[] = [
-  { title: "Add what you spend", body: "Type it into your own ledger, or paste a message from your bank.", example: "You spent £12.40 at Corner Shop" },
-  { title: "Close your day", body: "PayaGo reads the payment and asks what it was. A tap, and it joins your spending. It only counts once you've said so.", example: "Groceries for tonight" },
-  { title: "See where you stand", body: "Set a budget and add your bills. PayaGo shows what's left for today, and answers Can I buy this?", example: "£24 left for today" },
+  { title: "Close your day", body: "Paste a bank message, say what it was, and see what's left for today.", example: "£24 left for today" },
   { title: "Share a wallet, with a card each", body: "Coming next. Friends add money to one wallet and each pays with their own card, and every payment splits itself.", example: "Coming next" },
 ]
 
 const TRIP: Step[] = [
   { title: "Say the trip", body: "Tell PayaGo where, your budget and who's going, by typing or out loud.", example: "7 days in Japan for 4 friends" },
   { title: "Choose a plan", body: "AI plans it three ways: basic, standard and premium. Change anything you like.", example: "Basic, Standard, Premium" },
-  { title: "Book and split", body: "Book in the app, and the cost splits across the group as you go.", example: "Everyone's share, worked out" },
+  { title: "Book it all", body: "Flights, stays and things to do, booked in one place.", example: "Everything in one trip" },
+  { title: "Split as you go", body: "The cost divides across the group, the same way your bills do.", example: "Everyone's share, worked out" },
   { title: "Follow the guide", body: "A voice guide leads the group through the trip.", example: "Your next stop is 10 minutes away" },
 ]
 
 function Steps({ steps, coming = false }: { steps: Step[]; coming?: boolean }) {
   return (
-    <ol className="grid gap-4 md:grid-cols-2">
+    <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {steps.map((step, index) => (
         <li key={step.title} className={`rounded-[24px] p-6 sm:p-7 ${coming ? "border border-dashed border-[#0F172A]/15" : "bg-white border border-[#E6E8EF]"}`}>
           <p className="font-display text-[15px] font-semibold text-[#6D4AE8]">Step {index + 1}</p>
@@ -57,16 +52,13 @@ export default function HowItWorksPage() {
   return (
     <main className="min-h-screen">
       <SiteNav />
-      <PageHero title="Split. Wallet. Trips.">
-        <p>How each one works, step by step. You type what you&apos;d say, and PayaGo does the sums.</p>
+      <PageHero title="Your money. Your trips.">
+        <p>How each one works, step by step. You type what you&apos;d say, and PayaGo does the rest.</p>
       </PageHero>
-      <Section title="Split." status={{ live: true, text: "Live today" }}>
-        <Steps steps={BILL} />
+      <Section title="Split &amp; Wallet." status={{ live: true, text: "Live today, cards coming next" }}>
+        <Steps steps={MONEY} />
       </Section>
-      <Section title="Wallet." status={{ live: true, text: "Your own money is live. The shared wallet is coming next." }} tone="deep">
-        <Steps steps={WALLET} />
-      </Section>
-      <Section title="Trips." status={{ live: false, text: "Coming after" }} intro="This is how trips are meant to work. They aren't open yet.">
+      <Section title="End-to-end trips." status={{ live: false, text: "Coming after" }} tone="deep" intro="This is how trips are meant to work. They aren't open yet.">
         <Steps steps={TRIP} coming />
       </Section>
       <Closing title="Try it on your next bill.">

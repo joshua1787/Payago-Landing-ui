@@ -141,7 +141,7 @@ test("cookie banner can be dismissed and persists declined consent", async ({ pa
 test("the home page says what is live and sends people to the app", async ({ page }) => {
   await page.goto("/")
 
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Share the wallet")
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Book every trip")
   await expect(page.getByRole("link", { name: "Open PayaGo" }).first()).toHaveAttribute("href", "https://app.payago.in")
 })
 
@@ -176,7 +176,7 @@ test("pages about trips say they are not live yet", async ({ page }) => {
   }
 
   await page.goto("/features/")
-  await expect(page.getByRole("heading", { name: "Trips.", exact: true })).toBeVisible()
+  await expect(page.getByRole("heading", { name: "End-to-end trips.", exact: true })).toBeVisible()
   await expect(page.getByText("Coming after").first()).toBeVisible()
 })
 
@@ -214,11 +214,9 @@ test("the delete account page says how, and what is kept", async ({ page }) => {
   await expect(page.getByRole("link", { name: "privacy@payago.in" })).toHaveAttribute("href", /^mailto:privacy@payago\.in/)
 })
 
-test("split, wallet and trips get the same share of the journey", async () => {
+test("split and wallet get the same share of the journey as trips", async () => {
   const { CHAPTERS } = await import("../../lib/universe/chapters")
-  const share = (first: keyof typeof CHAPTERS, last: keyof typeof CHAPTERS) => CHAPTERS[last][1] - CHAPTERS[first][0]
-  expect(share("type", "settle")).toBeCloseTo(share("own", "cards"))
-  expect(share("own", "cards")).toBeCloseTo(share("trips", "guide"))
+  expect(CHAPTERS.cards[1] - CHAPTERS.type[0]).toBeCloseTo(CHAPTERS.guide[1] - CHAPTERS.trips[0])
 })
 
 test("a trip for 3 stays a trip for 3, with or without the word people", async ({ page }) => {

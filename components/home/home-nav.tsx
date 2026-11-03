@@ -10,8 +10,7 @@ import { captureEvent } from "@/lib/analytics"
 
 const LINKS: { name: string; href: string }[] = [
   { name: "How it works", href: "/how-it-works/" },
-  { name: "Split", href: "/#chapter-type" },
-  { name: "Wallet", href: "/#chapter-own" },
+  { name: "Split & Wallet", href: "/#chapter-type" },
   { name: "Trips", href: "/#chapter-trips" },
   { name: "Pricing", href: "/pricing/" },
   { name: "About", href: "/about/" },

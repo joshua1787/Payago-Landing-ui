@@ -19,7 +19,7 @@ const FAQS = [
     ],
   },
   {
-    category: "Split",
+    category: "Split & Wallet",
     questions: [
       { q: "How do I add an expense?", a: "Type it into the group chat the way you'd say it, like \"£84 dinner\". PayaGo reads it and turns it into a card everyone can see. You can also scan a receipt." },
       { q: "Does it have to split equally?", a: "No. You can split equally, by shares, or in exact amounts." },
@@ -28,7 +28,7 @@ const FAQS = [
     ],
   },
   {
-    category: "Wallet",
+    category: "Your own money",
     questions: [
       { q: "What is Close your day?", a: "A quick way to log your spending. Paste a message from your bank, PayaGo reads the payment, and you say what it was." },
       { q: "Do you connect to my bank?", a: "No. PayaGo only reads the messages you give it. A payment only counts towards your spending once you've said what it was." },
@@ -46,7 +46,7 @@ const FAQS = [
     ],
   },
   {
-    category: "Trips",
+    category: "End-to-end trips",
     coming: true,
     questions: [
       { q: "What will trips do?", a: "You'll say the trip, choose from three AI plans, book in the app, split as you go, and follow a voice guide." },
@@ -57,7 +57,7 @@ const FAQS = [
 ]
 
 function slug(category: string) {
-  return category.toLowerCase().replace(/\s+/g, "-")
+  return category.toLowerCase().replace(/[^a-z]+/g, "-")
 }
 
 function FaqItem({ q, a }: { q: string; a: string }) {

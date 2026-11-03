@@ -9,9 +9,9 @@ import { AnalyticsLoader } from "@/components/analytics-loader"
 
 const siteUrl = "https://payago.in"
 const siteName = "PayaGo"
-const defaultTitle = "PayaGo: split the bill, share the wallet, take the trip"
+const defaultTitle = "PayaGo: split every bill, book every trip"
 const defaultDescription =
-  "Split bills in a group chat and track your own money today. A shared wallet and AI-planned trips are coming next."
+  "Split bills in a group chat and track your own money today. Shared cards and end-to-end AI trips are coming next."
 const defaultOgImage = "/og/home.jpg"
 const ogImage = `${siteUrl}${defaultOgImage}`
 const appIcon = "/icon.svg"
