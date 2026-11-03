@@ -67,8 +67,8 @@ export default function DestinationsHub() {
                 </div>
                 <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C9A962]/10 border border-[#C9A962]/20 mb-8">
-                        <MapPin className="w-4 h-4 text-[#C9A962]" />
-                        <span className="text-sm font-medium text-[#C9A962]">AI-planned group trips</span>
+                        <MapPin className="w-4 h-4 text-[#8A6D1F]" />
+                        <span className="text-sm font-medium text-[#8A6D1F]">AI-planned group trips</span>
                     </div>
                     <h1 className="text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight">
                         Group Travel<br />Destination Guides
@@ -94,7 +94,7 @@ export default function DestinationsHub() {
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                                     <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-black/70 rounded-lg px-2 py-1">
-                                        <MapPin className="w-3 h-3 text-[#C9A962]" />
+                                        <MapPin className="w-3 h-3 text-[#8A6D1F]" />
                                         <span className="text-white text-xs font-bold">{dest.signal}</span>
                                     </div>
                                     <div className="absolute top-3 right-3 text-2xl">{dest.emoji}</div>
@@ -102,7 +102,7 @@ export default function DestinationsHub() {
                                 <div className="p-5">
                                     <div className="flex items-start justify-between mb-2">
                                         <div>
-                                            <h2 className="text-xl font-bold text-slate-900 group-hover:text-[#C9A962] transition-colors">{dest.name}</h2>
+                                            <h2 className="text-xl font-bold text-slate-900 group-hover:text-[#8A6D1F] transition-colors">{dest.name}</h2>
                                             <p className="text-slate-500 text-sm">{dest.country}</p>
                                         </div>
                                     </div>
@@ -122,7 +122,7 @@ export default function DestinationsHub() {
                                             <Users className="w-3.5 h-3.5" />
                                             {dest.bestFor}
                                         </div>
-                                        <div className="flex items-center gap-1 text-[#C9A962] text-sm font-medium group-hover:gap-2 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left]">
+                                        <div className="flex items-center gap-1 text-[#8A6D1F] text-sm font-medium group-hover:gap-2 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left]">
                                             Plan this trip <ArrowRight className="w-4 h-4" />
                                         </div>
                                     </div>

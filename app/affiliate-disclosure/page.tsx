@@ -87,8 +87,8 @@ export default function AffiliateDisclosure() {
                         <h2 className="text-2xl font-bold text-slate-900 mb-4">5. Contact</h2>
                         <p>
                             For questions about our affiliate relationships, commercial partnerships, or this disclosure, contact us at{" "}
-                            <a href="mailto:partnerships@payago.in" className="text-[#C9A962] hover:underline">partnerships@payago.in</a>{" "}
-                            or via our <Link href="/contact" className="text-[#C9A962] hover:underline">contact page</Link>.
+                            <a href="mailto:partnerships@payago.in" className="text-[#8A6D1F] hover:underline">partnerships@payago.in</a>{" "}
+                            or via our <Link href="/contact" className="text-[#8A6D1F] hover:underline">contact page</Link>.
                         </p>
                     </section>
                 </div>

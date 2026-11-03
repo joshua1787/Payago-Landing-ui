@@ -29,23 +29,23 @@ const TRUST: { title: string; body: string; link?: { href: string; text: string 
 
 export function HomePage() {
   return (
-    <div className="min-h-screen bg-[#031B1A]">
+    <div className="min-h-screen bg-[#FAFAF8]">
       <HomeNav appUrl={APP_URL} />
       <main className="pg-flush">
         <Journey />
 
-        <section className="bg-[#031B1A] px-6 py-24 lg:py-32">
+        <section className="bg-[#FAFAF8] px-6 py-24 lg:py-32">
           <div className="mx-auto max-w-7xl">
-            <h2 className="max-w-[40rem] font-display text-[clamp(2.1rem,4.4vw,3.5rem)] font-semibold leading-[1.06] tracking-[-0.03em] text-white">
+            <h2 className="max-w-[40rem] font-display text-[clamp(2.1rem,4.4vw,3.5rem)] font-semibold leading-[1.06] tracking-[-0.03em] text-[#0F172A]">
               It&apos;s your money. Here&apos;s how we treat it.
             </h2>
             <div className="mt-14 grid gap-x-16 gap-y-10 md:grid-cols-2">
               {TRUST.map((point) => (
                 <div key={point.title}>
-                  <h3 className="font-display text-[20px] font-semibold tracking-[-0.015em] text-white">{point.title}</h3>
-                  <p className="mt-2 max-w-[32rem] text-[16px] leading-[1.6] text-white/70">{point.body}</p>
+                  <h3 className="font-display text-[20px] font-semibold tracking-[-0.015em] text-[#0F172A]">{point.title}</h3>
+                  <p className="mt-2 max-w-[32rem] text-[16px] leading-[1.6] text-[#475569]">{point.body}</p>
                   {point.link && (
-                    <Link href={point.link.href} className="mt-2 inline-block text-[16px] font-medium text-[#19E4CC] underline underline-offset-4">
+                    <Link href={point.link.href} className="mt-2 inline-block text-[16px] font-medium text-[#6D4AE8] underline underline-offset-4">
                       {point.link.text}
                     </Link>
                   )}
@@ -55,14 +55,14 @@ export function HomePage() {
           </div>
         </section>
 
-        <section className="bg-[linear-gradient(135deg,#031B1A_0%,#07302D_62%,#0B3F3A_100%)] px-6 py-24 text-center lg:py-36">
-          <h2 className="mx-auto max-w-3xl font-display text-[clamp(2.4rem,6vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.035em] text-white">
+        <section className="bg-[linear-gradient(135deg,#EEFAFE_0%,#F4F1FF_58%,#FAFAF8_100%)] px-6 py-24 text-center lg:py-36">
+          <h2 className="mx-auto max-w-3xl font-display text-[clamp(2.4rem,6vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.035em] text-[#0F172A]">
             Start with your next shared bill.
           </h2>
-          <a href={APP_URL} className="mt-10 inline-block rounded-full bg-[#19E4CC] px-8 py-4 font-display text-[16px] font-semibold text-[#04201E] transition-colors hover:bg-[#5BF0DE] focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+          <a href={APP_URL} className="mt-10 inline-block rounded-full bg-gradient-to-r from-[#2563EB] to-[#7C3AED] text-white transition-opacity hover:opacity-90 px-8 py-4 font-display text-[16px] font-semibold    focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
             Open PayaGo
           </a>
-          <a href={PLAY_URL} className="ml-3 mt-10 inline-block rounded-full border border-white/25 px-8 py-4 font-display text-[16px] font-semibold text-white transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+          <a href={PLAY_URL} className="ml-3 mt-10 inline-block rounded-full border border-[#0F172A]/15 px-8 py-4 font-display text-[16px] font-semibold text-[#0F172A] transition-colors hover:bg-[#EEF1F7] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
             Get it on Google Play
           </a>
         </section>

@@ -42,7 +42,7 @@ const articles = [
         excerpt: "Group trips can take hours of research and coordination. AI travel tools are turning that work into faster, review-ready plans.",
         slug: "ai-travel-planning-2026",
         category: "AI & Technology",
-        categoryColor: "#A29CFF",
+        categoryColor: "#7C5CFF",
     },
     {
         title: "The 5 Best European Cities for Group Travel in 2026",
@@ -62,7 +62,7 @@ const articles = [
         excerpt: "Honest comparison of TripIt, Wanderlog, Google Trips, and PayaGo. What each does well, what it doesn't, and which one actually solves the group planning problem.",
         slug: "best-group-travel-apps-2026",
         category: "AI & Technology",
-        categoryColor: "#A29CFF",
+        categoryColor: "#7C5CFF",
     },
     {
         title: "How to Split Travel Costs in a Group (Without the Drama)",
@@ -137,7 +137,7 @@ export default function BlogIndex() {
                 <div className="relative z-10 max-w-4xl mx-auto px-6">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C9A962]/10 border border-[#C9A962]/20 mb-8">
                         <span className="w-2 h-2 bg-[#C9A962] rounded-full" />
-                        <span className="text-sm font-medium text-[#C9A962]">Travel insights from the PayaGo team</span>
+                        <span className="text-sm font-medium text-[#8A6D1F]">Travel insights from the PayaGo team</span>
                     </div>
                     <h1 className="text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight">
                         The Travel Blog
@@ -177,11 +177,11 @@ export default function BlogIndex() {
                                         </span>
                                     </div>
                                 </div>
-                                <h2 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-[#C9A962] transition-colors leading-snug">
+                                <h2 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-[#8A6D1F] transition-colors leading-snug">
                                     {article.title}
                                 </h2>
                                 <p className="text-slate-500 leading-relaxed max-w-2xl">{article.excerpt}</p>
-                                <div className="mt-6 font-medium text-[#C9A962] flex items-center gap-2 group-hover:gap-3 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] text-sm">
+                                <div className="mt-6 font-medium text-[#8A6D1F] flex items-center gap-2 group-hover:gap-3 transition-[background-color,border-color,box-shadow,color,max-height,opacity,transform,width,left] text-sm">
                                     Read Article <ArrowRight className="w-4 h-4" />
                                 </div>
                             </Link>

@@ -78,7 +78,7 @@ export default function BlogPost() {
 
             <div className="max-w-3xl mx-auto px-6 pt-16 pb-24">
                 <div className="mb-3">
-                    <span className="text-xs font-semibold px-3 py-1 rounded-full text-[#A29CFF] bg-[#A29CFF]/10 border border-[#A29CFF]/30">
+                    <span className="text-xs font-semibold px-3 py-1 rounded-full text-[#6D4AE8] bg-[#7C5CFF]/10 border border-[#7C5CFF]/30">
                         AI & Technology
                     </span>
                 </div>
@@ -127,7 +127,7 @@ export default function BlogPost() {
                             "PayaGo AI assembles everything into three coherent itinerary options (Budget, Balanced, Premium)",
                         ].map((item, i) => (
                             <li key={i} className="flex items-start gap-3">
-                                <span className="w-5 h-5 rounded-full bg-[#A29CFF]/20 border border-[#A29CFF]/40 flex items-center justify-center flex-shrink-0 mt-0.5 text-[#A29CFF] text-xs font-bold">{i + 1}</span>
+                                <span className="w-5 h-5 rounded-full bg-[#7C5CFF]/20 border border-[#7C5CFF]/40 flex items-center justify-center flex-shrink-0 mt-0.5 text-[#6D4AE8] text-xs font-bold">{i + 1}</span>
                                 <span>{item}</span>
                             </li>
                         ))}
@@ -165,7 +165,7 @@ export default function BlogPost() {
                                 <tr className="border-b border-slate-100 bg-slate-50">
                                     <th className="text-left px-5 py-3 text-slate-500 font-medium">Task</th>
                                     <th className="text-left px-5 py-3 text-slate-500 font-medium">Manual</th>
-                                    <th className="text-left px-5 py-3 text-[#A29CFF]/80 font-medium">PayaGo AI</th>
+                                    <th className="text-left px-5 py-3 text-[#6D4AE8]/80 font-medium">PayaGo AI</th>
                                 </tr>
                             </thead>
                             <tbody className="text-slate-600">
@@ -180,7 +180,7 @@ export default function BlogPost() {
                                     <tr key={i} className="border-b border-slate-100 last:border-0">
                                         <td className="px-5 py-3 text-slate-600">{task}</td>
                                         <td className="px-5 py-3">{manual}</td>
-                                        <td className="px-5 py-3 text-[#A29CFF]/80">{ai}</td>
+                                        <td className="px-5 py-3 text-[#6D4AE8]/80">{ai}</td>
                                     </tr>
                                 ))}
                             </tbody>

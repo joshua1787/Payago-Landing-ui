@@ -100,13 +100,13 @@ export default function TokyoPage() {
                     {itinerary.map((day) => (
                         <div key={day.day} className="bg-slate-50 border border-slate-100 rounded-2xl p-6">
                             <div className="flex items-center gap-3 mb-4">
-                                <span className="text-[#A29CFF] font-black text-sm">{day.day}</span>
+                                <span className="text-[#6D4AE8] font-black text-sm">{day.day}</span>
                                 <h3 className="text-slate-900 font-bold">{day.title}</h3>
                             </div>
                             <ul className="space-y-2">
                                 {day.activities.map((a, i) => (
                                     <li key={i} className="flex items-start gap-2.5 text-slate-600 text-sm">
-                                        <ArrowRight className="w-4 h-4 text-[#A29CFF]/50 flex-shrink-0 mt-0.5" />{a}
+                                        <ArrowRight className="w-4 h-4 text-[#6D4AE8]/50 flex-shrink-0 mt-0.5" />{a}
                                     </li>
                                 ))}
                             </ul>
@@ -125,7 +125,7 @@ export default function TokyoPage() {
                         { tip: "Shinjuku for groups", detail: "Stay in Shinjuku: central, on every metro line, near Haneda express, and surrounded by food and nightlife." },
                     ].map((item, i) => (
                         <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100">
-                            <Check className="w-4 h-4 text-[#A29CFF] flex-shrink-0 mt-0.5" />
+                            <Check className="w-4 h-4 text-[#6D4AE8] flex-shrink-0 mt-0.5" />
                             <div>
                                 <div className="text-slate-900 font-semibold text-sm mb-1">{item.tip}</div>
                                 <div className="text-slate-500 text-xs leading-relaxed">{item.detail}</div>

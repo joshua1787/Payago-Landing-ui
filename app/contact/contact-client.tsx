@@ -260,7 +260,7 @@ export function ContactClient() {
                                     </div>
                                     <h3 className="text-lg font-bold text-slate-900 mb-1">{method.title}</h3>
                                     <p className="text-slate-500 text-sm mb-3">{method.description}</p>
-                                    <p className="text-slate-600 font-medium group-hover:text-[#C9A962] transition-colors">
+                                    <p className="text-slate-600 font-medium group-hover:text-[#8A6D1F] transition-colors">
                                         {method.value}
                                     </p>
                                 </a>
@@ -383,7 +383,7 @@ export function ContactClient() {
                         ) : (
                             <div className="text-center py-12">
                                 <div className="w-16 h-16 rounded-full bg-[#4AD7A2]/20 flex items-center justify-center mx-auto mb-6">
-                                    <svg className="w-8 h-8 text-[#4AD7A2]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg className="w-8 h-8 text-[#0F8F6E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                     </svg>
                                 </div>
@@ -394,7 +394,7 @@ export function ContactClient() {
                                         setStatus("idle")
                                         setFeedback("")
                                     }}
-                                    className="text-[#C9A962] font-medium hover:underline"
+                                    className="text-[#8A6D1F] font-medium hover:underline"
                                 >
                                     Send another message
                                 </button>
@@ -407,7 +407,7 @@ export function ContactClient() {
             {/* FAQ Teaser */}
             <section className="py-24 border-t border-slate-100">
                 <div className="max-w-4xl mx-auto px-6 text-center">
-                    <Clock className="w-12 h-12 text-[#C9A962] mx-auto mb-6" />
+                    <Clock className="w-12 h-12 text-[#8A6D1F] mx-auto mb-6" />
                     <h2 className="text-3xl font-bold text-slate-900 mb-4">Need an answer now?</h2>
                     <p className="text-slate-600 mb-8">Check our FAQ for instant answers to common questions.</p>
                     <Link

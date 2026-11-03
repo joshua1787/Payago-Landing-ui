@@ -97,7 +97,7 @@ const cities = [
         rank: 3,
         name: "Prague, Czech Republic",
         tagline: "Medieval charm, affordable prices",
-        color: "#A29CFF",
+        color: "#7C5CFF",
         image: "/images/travel-tokyo.webp",
         imageAlt: "Prague Old Town Square and Charles Bridge",
         budget: "£50–80",
@@ -185,7 +185,7 @@ export default function BlogPost() {
 
             <div className="max-w-3xl mx-auto px-6 pt-16 pb-24">
                 <div className="mb-3">
-                    <span className="text-xs font-semibold px-3 py-1 rounded-full text-[#C9A962] bg-[#C9A962]/10 border border-[#C9A962]/30">
+                    <span className="text-xs font-semibold px-3 py-1 rounded-full text-[#8A6D1F] bg-[#C9A962]/10 border border-[#C9A962]/30">
                         Destination Guides
                     </span>
                 </div>
@@ -268,7 +268,7 @@ export default function BlogPost() {
                             {/* Tips */}
                             <div className="grid sm:grid-cols-2 gap-4">
                                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                                    <div className="text-xs font-semibold text-[#4AD7A2] uppercase tracking-wider mb-2">Group tip</div>
+                                    <div className="text-xs font-semibold text-[#0F8F6E] uppercase tracking-wider mb-2">Group tip</div>
                                     <p className="text-slate-600 text-sm leading-relaxed">{city.groupTip}</p>
                                 </div>
                                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">

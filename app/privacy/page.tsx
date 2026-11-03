@@ -230,7 +230,7 @@ export default function PrivacyPolicy() {
                     <ol className="space-y-2">
                         {sections.map((s) => (
                             <li key={s.id}>
-                                <a href={`#${s.id}`} className="text-slate-500 hover:text-[#C9A962] transition-colors text-sm">
+                                <a href={`#${s.id}`} className="text-slate-500 hover:text-[#8A6D1F] transition-colors text-sm">
                                     {s.title}
                                 </a>
                             </li>
@@ -315,7 +315,7 @@ export default function PrivacyPolicy() {
                     <Link href="/affiliate-disclosure" className="text-slate-500 hover:text-slate-900 transition-colors text-sm">
                         Affiliate Disclosure →
                     </Link>
-                    <a href="mailto:privacy@payago.in" className="text-[#C9A962] hover:underline text-sm">
+                    <a href="mailto:privacy@payago.in" className="text-[#8A6D1F] hover:underline text-sm">
                         privacy@payago.in
                     </a>
                 </div>

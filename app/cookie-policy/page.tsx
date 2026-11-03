@@ -40,7 +40,7 @@ const cookieTypes = [
     {
         name: "Analytics cookies",
         required: false,
-        color: "#A29CFF",
+        color: "#7C5CFF",
         description: "These cookies help us understand how visitors interact with our website. All data is anonymised.",
         examples: [
             { name: "_ga", purpose: "Google Analytics — distinguishes users", duration: "2 years", provider: "Google" },
@@ -140,7 +140,7 @@ export default function CookiePolicy() {
                                 href="https://tools.google.com/dlpage/gaoptout"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-[#C9A962] hover:underline"
+                                className="text-[#8A6D1F] hover:underline"
                             >
                                 Google Analytics opt-out browser add-on
                             </a>.
@@ -161,7 +161,7 @@ export default function CookiePolicy() {
                         <h2 className="text-2xl font-bold text-slate-900 mb-4">Contact</h2>
                         <p>
                             For questions about our use of cookies, contact{" "}
-                            <a href="mailto:privacy@payago.in" className="text-[#C9A962] hover:underline">privacy@payago.in</a>.
+                            <a href="mailto:privacy@payago.in" className="text-[#8A6D1F] hover:underline">privacy@payago.in</a>.
                         </p>
                     </section>
                 </div>

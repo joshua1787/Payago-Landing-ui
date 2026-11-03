@@ -112,13 +112,13 @@ export default function BarcelonaPage() {
                     {itinerary.map((day) => (
                         <div key={day.day} className="bg-slate-50 border border-slate-100 rounded-2xl p-6">
                             <div className="flex items-center gap-3 mb-4">
-                                <span className="text-[#C9A962] font-black text-sm">{day.day}</span>
+                                <span className="text-[#8A6D1F] font-black text-sm">{day.day}</span>
                                 <h3 className="text-slate-900 font-bold">{day.title}</h3>
                             </div>
                             <ul className="space-y-2">
                                 {day.activities.map((a, i) => (
                                     <li key={i} className="flex items-start gap-2.5 text-slate-600 text-sm">
-                                        <ArrowRight className="w-4 h-4 text-[#C9A962]/50 flex-shrink-0 mt-0.5" />
+                                        <ArrowRight className="w-4 h-4 text-[#8A6D1F]/50 flex-shrink-0 mt-0.5" />
                                         {a}
                                     </li>
                                 ))}
@@ -138,7 +138,7 @@ export default function BarcelonaPage() {
                                     <div className="text-slate-500 text-xs mt-0.5">{h.signal}</div>
                                 </div>
                                 <div className="text-right">
-                                    <div className="text-[#C9A962] font-semibold text-sm">{h.price}</div>
+                                    <div className="text-[#8A6D1F] font-semibold text-sm">{h.price}</div>
                                 </div>
                             </div>
                             <div className="flex items-center gap-1.5 text-slate-400 text-xs mb-2">
@@ -161,7 +161,7 @@ export default function BarcelonaPage() {
                         { tip: "T-10 metro pass for groups", detail: "Buy a 10-trip card each to save 40% on metro fares vs. single tickets. Transfers are included within 75 minutes." },
                     ].map((item, i) => (
                         <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100">
-                            <Check className="w-4 h-4 text-[#4AD7A2] flex-shrink-0 mt-0.5" />
+                            <Check className="w-4 h-4 text-[#0F8F6E] flex-shrink-0 mt-0.5" />
                             <div>
                                 <div className="text-slate-900 font-semibold text-sm mb-1">{item.tip}</div>
                                 <div className="text-slate-500 text-xs leading-relaxed">{item.detail}</div>

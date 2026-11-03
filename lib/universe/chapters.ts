@@ -1,13 +1,15 @@
 // Where each chapter of the journey sits along the page's scroll, from 0 to 1.
 // The words and the 3D scene both read these, so they can't drift apart.
 export const CHAPTERS = {
-  hero: [0, 0.1],
-  type: [0.1, 0.27],
-  settle: [0.27, 0.4],
-  own: [0.4, 0.5],
-  app: [0.5, 0.66],
-  cards: [0.66, 0.77],
-  trips: [0.77, 1],
+  hero: [0, 0.09],
+  app: [0.09, 0.22],
+  // The three things PayaGo is for get the same share of the journey.
+  type: [0.22, 0.35],
+  settle: [0.35, 0.48],
+  own: [0.48, 0.61],
+  cards: [0.61, 0.74],
+  trips: [0.74, 0.87],
+  guide: [0.87, 1],
 } as const
 
 export type ChapterName = keyof typeof CHAPTERS

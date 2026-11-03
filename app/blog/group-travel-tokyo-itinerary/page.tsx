@@ -61,7 +61,7 @@ export default function BlogPost() {
             <TripsNotice />
             <div className="max-w-3xl mx-auto px-6 pt-16 pb-24">
                 <div className="mb-3">
-                    <span className="text-xs font-semibold px-3 py-1 rounded-full text-[#C9A962] bg-[#C9A962]/10 border border-[#C9A962]/30">Destination Guides</span>
+                    <span className="text-xs font-semibold px-3 py-1 rounded-full text-[#8A6D1F] bg-[#C9A962]/10 border border-[#C9A962]/30">Destination Guides</span>
                 </div>
                 <div className="flex flex-wrap items-center gap-4 text-sm text-slate-400 mb-8">
                     <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" /><time dateTime="2026-03-08">2026-03-08</time></span>
@@ -89,11 +89,11 @@ export default function BlogPost() {
                                 </tr>
                             </thead>
                             <tbody className="text-slate-600">
-                                <tr key="0" className="border-b border-slate-100 last:border-0"><td className="px-4 py-3 text-slate-600 text-sm">Return flights (London–Tokyo)</td><td className="px-4 py-3 text-[#C9A962] font-semibold text-sm">£380–580</td><td className="px-4 py-3 text-slate-500 text-xs">ANA or JAL direct 11h45m</td></tr>
-                        <tr key="1" className="border-b border-slate-100 last:border-0"><td className="px-4 py-3 text-slate-600 text-sm">Hotel 7 nights (per person, shared twin)</td><td className="px-4 py-3 text-[#C9A962] font-semibold text-sm">£180–420</td><td className="px-4 py-3 text-slate-500 text-xs">Boutique city stay to premium hotel</td></tr>
-                        <tr key="2" className="border-b border-slate-100 last:border-0"><td className="px-4 py-3 text-slate-600 text-sm">Food (7 days)</td><td className="px-4 py-3 text-[#C9A962] font-semibold text-sm">£120–350</td><td className="px-4 py-3 text-slate-500 text-xs">Ramen & konbini to kaiseki dinners</td></tr>
-                        <tr key="3" className="border-b border-slate-100 last:border-0"><td className="px-4 py-3 text-slate-600 text-sm">Transport (Suica)</td><td className="px-4 py-3 text-[#C9A962] font-semibold text-sm">£35</td><td className="px-4 py-3 text-slate-500 text-xs">All trains and subways</td></tr>
-                        <tr key="4" className="border-b border-slate-100 last:border-0"><td className="px-4 py-3 text-slate-600 text-sm">Activities & entrance fees</td><td className="px-4 py-3 text-[#C9A962] font-semibold text-sm">£80–200</td><td className="px-4 py-3 text-slate-500 text-xs">TeamLab, shrines, castle, day trip</td></tr>
+                                <tr key="0" className="border-b border-slate-100 last:border-0"><td className="px-4 py-3 text-slate-600 text-sm">Return flights (London–Tokyo)</td><td className="px-4 py-3 text-[#8A6D1F] font-semibold text-sm">£380–580</td><td className="px-4 py-3 text-slate-500 text-xs">ANA or JAL direct 11h45m</td></tr>
+                        <tr key="1" className="border-b border-slate-100 last:border-0"><td className="px-4 py-3 text-slate-600 text-sm">Hotel 7 nights (per person, shared twin)</td><td className="px-4 py-3 text-[#8A6D1F] font-semibold text-sm">£180–420</td><td className="px-4 py-3 text-slate-500 text-xs">Boutique city stay to premium hotel</td></tr>
+                        <tr key="2" className="border-b border-slate-100 last:border-0"><td className="px-4 py-3 text-slate-600 text-sm">Food (7 days)</td><td className="px-4 py-3 text-[#8A6D1F] font-semibold text-sm">£120–350</td><td className="px-4 py-3 text-slate-500 text-xs">Ramen & konbini to kaiseki dinners</td></tr>
+                        <tr key="3" className="border-b border-slate-100 last:border-0"><td className="px-4 py-3 text-slate-600 text-sm">Transport (Suica)</td><td className="px-4 py-3 text-[#8A6D1F] font-semibold text-sm">£35</td><td className="px-4 py-3 text-slate-500 text-xs">All trains and subways</td></tr>
+                        <tr key="4" className="border-b border-slate-100 last:border-0"><td className="px-4 py-3 text-slate-600 text-sm">Activities & entrance fees</td><td className="px-4 py-3 text-[#8A6D1F] font-semibold text-sm">£80–200</td><td className="px-4 py-3 text-slate-500 text-xs">TeamLab, shrines, castle, day trip</td></tr>
                             </tbody>
                         </table>
                     </div>

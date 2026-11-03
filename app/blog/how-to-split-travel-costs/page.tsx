@@ -61,7 +61,7 @@ export default function BlogPost() {
             <TripsNotice />
             <div className="max-w-3xl mx-auto px-6 pt-16 pb-24">
                 <div className="mb-3">
-                    <span className="text-xs font-semibold px-3 py-1 rounded-full text-[#4AD7A2] bg-[#4AD7A2]/10 border border-[#4AD7A2]/30">Group Travel Tips</span>
+                    <span className="text-xs font-semibold px-3 py-1 rounded-full text-[#0F8F6E] bg-[#4AD7A2]/10 border border-[#4AD7A2]/30">Group Travel Tips</span>
                 </div>
                 <div className="flex flex-wrap items-center gap-4 text-sm text-slate-400 mb-8">
                     <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" /><time dateTime="2026-03-05">March 5, 2026</time></span>
@@ -103,7 +103,7 @@ export default function BlogPost() {
                         {[
                             { rank: "Best", method: "Everyone sees their own share before booking", detail: "PayaGo's approach. Each person sees their estimated share before booking handoff, so the group can coordinate without one person fronting the full cost. This reduces the core dynamic that causes resentment.", color: "#4AD7A2" },
                             { rank: "Good", method: "Splitwise / Tricount app tracking", detail: "Works well for trips where costs are genuinely variable. Track everything, settle at the end. Main downside: someone still has to front the costs.", color: "#C9A962" },
-                            { rank: "OK", method: "Rotating who pays", detail: "Each person pays for one dinner, one activity etc. Works in practice if the amounts are similar, but breaks down with big-ticket items like boat charters.", color: "#A29CFF" },
+                            { rank: "OK", method: "Rotating who pays", detail: "Each person pays for one dinner, one activity etc. Works in practice if the amounts are similar, but breaks down with big-ticket items like boat charters.", color: "#7C5CFF" },
                             { rank: "Avoid", method: "One person pays everything, gets paid back", detail: "This is how most groups default — and it's the worst option. The payer takes on financial risk, the stress of chasing people, and often loses money when someone inevitably shorts them.", color: "#FF6B6B" },
                         ].map((item) => (
                             <div key={item.rank} className="flex gap-4 p-5 rounded-xl bg-slate-50 border border-slate-100">
@@ -126,7 +126,7 @@ export default function BlogPost() {
                             "What happens if someone needs to drop out after booking?",
                         ].map((q, i) => (
                             <div key={i} className="flex items-start gap-3 text-slate-600 text-sm">
-                                <span className="w-5 h-5 rounded-full bg-[#C9A962]/20 flex items-center justify-center flex-shrink-0 text-[#C9A962] text-xs font-bold mt-0.5">{i + 1}</span>
+                                <span className="w-5 h-5 rounded-full bg-[#C9A962]/20 flex items-center justify-center flex-shrink-0 text-[#8A6D1F] text-xs font-bold mt-0.5">{i + 1}</span>
                                 {q}
                             </div>
                         ))}

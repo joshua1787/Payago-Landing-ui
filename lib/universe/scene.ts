@@ -8,12 +8,12 @@ import { CHAPTERS, between, clamp01, smooth } from "./chapters"
 // The PayaGo universe. A coin, a ring for what exists today, and a journey outward:
 // bills, debts, your own money, cards, and at the far end the Earth.
 
-const TEAL = new THREE.Color("#19E4CC")
-const GOLD = new THREE.Color("#FFC94F")
-const VIOLET = new THREE.Color("#8C86FF")
-const CORAL = new THREE.Color("#FF9E85")
-const PEOPLE_COLOURS = [TEAL, GOLD, VIOLET, CORAL, new THREE.Color("#7DF0A8")]
-const DISPLAY_FONT = '"Sora Variable", "Helvetica Neue", Arial, sans-serif'
+const TEAL = new THREE.Color("#3B6BF0")
+const GOLD = new THREE.Color("#D9A73A")
+const VIOLET = new THREE.Color("#7C5CFF")
+const CORAL = new THREE.Color("#F0755A")
+const PEOPLE_COLOURS = [TEAL, GOLD, VIOLET, CORAL, new THREE.Color("#2CBF8E")]
+const DISPLAY_FONT = '"Outfit Variable", "Helvetica Neue", Arial, sans-serif'
 const GLOBE_RADIUS = 2.1
 
 export type ExpenseCard = { label: string; amount: string; detail: string }
@@ -96,12 +96,12 @@ function expenseTexture(card: ExpenseCard, fresh: boolean) {
   canvas.height = h
   const ctx = canvas.getContext("2d")!
   roundedRect(ctx, 6, 6, w - 12, h - 12, 44)
-  ctx.fillStyle = "rgba(7,44,41,0.94)"
+  ctx.fillStyle = "rgba(255,255,255,0.98)"
   ctx.fill()
   ctx.lineWidth = fresh ? 6 : 3
-  ctx.strokeStyle = fresh ? "#19E4CC" : "rgba(25,228,204,0.45)"
+  ctx.strokeStyle = fresh ? "#7C5CFF" : "rgba(124,92,255,0.4)"
   ctx.stroke()
-  ctx.fillStyle = "#FFFFFF"
+  ctx.fillStyle = "#0F172A"
   ctx.textBaseline = "alphabetic"
   ctx.font = `600 52px ${DISPLAY_FONT}`
   ctx.textAlign = "left"
@@ -112,7 +112,7 @@ function expenseTexture(card: ExpenseCard, fresh: boolean) {
   ctx.fillText(card.amount, w - 44, 104)
   ctx.textAlign = "left"
   ctx.font = `500 34px ${DISPLAY_FONT}`
-  ctx.fillStyle = "#19E4CC"
+  ctx.fillStyle = "#6D4AE8"
   ctx.fillText(card.detail, 44, 214)
   const texture = new THREE.CanvasTexture(canvas)
   texture.colorSpace = THREE.SRGBColorSpace
@@ -129,7 +129,7 @@ function avatarTexture(letter: string, colour: THREE.Color) {
   ctx.arc(size / 2, size / 2, size / 2 - 8, 0, Math.PI * 2)
   ctx.fillStyle = `#${colour.getHexString()}`
   ctx.fill()
-  ctx.fillStyle = "#04201E"
+  ctx.fillStyle = "#FFFFFF"
   ctx.font = `700 118px ${DISPLAY_FONT}`
   ctx.textAlign = "center"
   ctx.textBaseline = "middle"
@@ -187,12 +187,11 @@ uniform float uTime; uniform float uDepth; uniform float uAspect;
 float blob(vec2 p, vec2 c, float r){ float d = length((p-c)*vec2(uAspect,1.0)); return smoothstep(r, 0.0, d); }
 void main(){
   vec2 p = vUv;
-  vec3 ink = mix(vec3(0.012,0.09,0.085), vec3(0.018,0.05,0.09), uDepth);
-  vec3 c = ink;
+  vec3 c = vec3(0.98,0.98,0.973);
   float t = uTime*0.05;
-  c += vec3(0.05,0.42,0.38) * blob(p, vec2(0.74+0.05*sin(t), 0.56+0.05*cos(t*0.8)), 0.86) * (0.52-0.2*uDepth);
-  c += vec3(0.22,0.17,0.52) * blob(p, vec2(0.08+0.06*cos(t*0.7), 0.12+0.04*sin(t)), 0.8) * (0.4+0.3*uDepth);
-  c += vec3(0.02,0.24,0.34) * blob(p, vec2(0.45+0.1*sin(t*0.5), 1.02), 0.7) * 0.38;
+  c = mix(c, vec3(0.86,0.96,1.0), blob(p, vec2(0.78+0.05*sin(t), 0.58+0.05*cos(t*0.8)), 0.9) * (0.85+0.1*uDepth));
+  c = mix(c, vec3(0.93,0.90,1.0), blob(p, vec2(0.10+0.06*cos(t*0.7), 0.14+0.04*sin(t)), 0.85) * 0.8);
+  c = mix(c, vec3(0.90,0.98,0.95), blob(p, vec2(0.45+0.1*sin(t*0.5), 1.02), 0.7) * 0.6);
   gl_FragColor = vec4(c, 1.0);
 }`
 
@@ -224,12 +223,12 @@ varying float vFacing; varying float vArrive;
 void main(){
   float d = length(gl_PointCoord-0.5);
   if(d>0.5) discard;
-  vec3 gold = vec3(1.0,0.79,0.31); vec3 teal = vec3(0.26,0.95,0.86);
+  vec3 gold = vec3(0.85,0.65,0.2); vec3 teal = vec3(0.23,0.42,0.94);
   vec3 c = mix(gold, teal, vArrive);
   gl_FragColor = vec4(c, smoothstep(0.5,0.22,d) * vFacing * uOpacity);
 }`
 const HALO_VERTEX = `varying vec3 vN; varying vec3 vV; void main(){ vec4 mv = modelViewMatrix*vec4(position,1.0); vN = normalize(normalMatrix*normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix*mv; }`
-const HALO_FRAGMENT = `precision mediump float; varying vec3 vN; varying vec3 vV; uniform float uOpacity; void main(){ float f = pow(1.0-abs(dot(vN,vV)), 4.2); gl_FragColor = vec4(vec3(0.1,0.9,0.8), f*uOpacity); }`
+const HALO_FRAGMENT = `precision mediump float; varying vec3 vN; varying vec3 vV; uniform float uOpacity; void main(){ float f = pow(1.0-abs(dot(vN,vV)), 4.2); gl_FragColor = vec4(vec3(0.23,0.42,0.94), f*uOpacity); }`
 
 type Key = { at: number; pos: [number, number, number]; look: [number, number, number] }
 
@@ -237,14 +236,14 @@ type Key = { at: number; pos: [number, number, number]; look: [number, number, n
 // words have the left; on phones it sits above them.
 const WIDE_ROUTE: Key[] = [
   { at: 0, pos: [-2.85, 0.5, 8.3], look: [-2.85, 0.05, 0] },
+  { at: CHAPTERS.app[0] + 0.035, pos: [-3.05, 0, 8.6], look: [-3.05, 0, 0] },
+  { at: CHAPTERS.app[1] - 0.015, pos: [-3.05, 0, 8.2], look: [-3.05, 0, 0] },
   { at: CHAPTERS.type[0] + 0.03, pos: [-3.05, 1.3, 8.4], look: [-3.05, 0, 0] },
   { at: CHAPTERS.type[1] - 0.02, pos: [-3.15, 1.5, 8.1], look: [-3.15, 0, 0] },
   { at: CHAPTERS.settle[0] + 0.03, pos: [-2.75, 0.1, 6.5], look: [-2.75, 0, 0] },
   { at: CHAPTERS.settle[1] - 0.01, pos: [-2.75, 0.05, 6.2], look: [-2.75, 0, 0] },
   { at: CHAPTERS.own[0] + 0.03, pos: [-2.5, 0.2, 6.5], look: [-2.5, 0, 0] },
   { at: CHAPTERS.own[1] - 0.01, pos: [-2.45, 0.15, 6.2], look: [-2.45, 0, 0] },
-  { at: CHAPTERS.app[0] + 0.035, pos: [-3.05, 0, 8.6], look: [-3.05, 0, 0] },
-  { at: CHAPTERS.app[1] - 0.015, pos: [-3.05, 0, 8.2], look: [-3.05, 0, 0] },
   { at: CHAPTERS.cards[0] + 0.03, pos: [-2.85, 0.2, 7], look: [-2.85, 0, 0] },
   { at: CHAPTERS.cards[1] - 0.01, pos: [-2.8, 0, 6.6], look: [-2.8, 0, 0] },
   { at: CHAPTERS.trips[0] + 0.07, pos: [-3.05, 0.3, 8.7], look: [-3.05, 0, 0] },
@@ -252,14 +251,14 @@ const WIDE_ROUTE: Key[] = [
 ]
 const NARROW_ROUTE: Key[] = [
   { at: 0, pos: [0, 1.2, 15], look: [0, -3.2, 0] },
+  { at: CHAPTERS.app[0] + 0.035, pos: [0, 0, 16], look: [0, -2.45, 0] },
+  { at: CHAPTERS.app[1] - 0.015, pos: [0, 0, 16], look: [0, -2.45, 0] },
   { at: CHAPTERS.type[0] + 0.03, pos: [0, 1.4, 15.5], look: [0, -3.4, 0] },
   { at: CHAPTERS.type[1] - 0.02, pos: [0, 1.6, 15.5], look: [0, -3.4, 0] },
   { at: CHAPTERS.settle[0] + 0.03, pos: [0, 0, 12.4], look: [0, -2.1, 0] },
   { at: CHAPTERS.settle[1] - 0.01, pos: [0, 0, 12], look: [0, -2.1, 0] },
   { at: CHAPTERS.own[0] + 0.03, pos: [0, 0.2, 14], look: [0, -2.9, 0] },
   { at: CHAPTERS.own[1] - 0.01, pos: [0, 0.2, 13.6], look: [0, -2.8, 0] },
-  { at: CHAPTERS.app[0] + 0.035, pos: [0, 0, 16], look: [0, -2.45, 0] },
-  { at: CHAPTERS.app[1] - 0.015, pos: [0, 0, 16], look: [0, -2.45, 0] },
   { at: CHAPTERS.cards[0] + 0.03, pos: [0, 0.2, 14.5], look: [0, -2.9, 0] },
   { at: CHAPTERS.cards[1] - 0.01, pos: [0, 0, 14], look: [0, -2.8, 0] },
   { at: CHAPTERS.trips[0] + 0.07, pos: [0, 0.2, 19], look: [0, -4.9, 0] },
@@ -361,11 +360,11 @@ export class MoneyUniverse {
     )
     this.gaugeTrack = new THREE.Mesh(
       new THREE.TubeGeometry(gaugePath, 240, 0.012, 8),
-      new THREE.MeshBasicMaterial({ color: 0x19e4cc, transparent: true, opacity: 0, toneMapped: false, depthTest: false }),
+      new THREE.MeshBasicMaterial({ color: 0x7c5cff, transparent: true, opacity: 0, toneMapped: false, depthTest: false }),
     )
     this.gauge = new THREE.Mesh(
       new THREE.TubeGeometry(gaugePath, 240, 0.034, 10),
-      new THREE.MeshBasicMaterial({ color: 0x19e4cc, transparent: true, opacity: 0, toneMapped: false, depthTest: false }),
+      new THREE.MeshBasicMaterial({ color: 0x7c5cff, transparent: true, opacity: 0, toneMapped: false, depthTest: false }),
     )
     this.gaugeTrack.renderOrder = this.gauge.renderOrder = 2
     this.scene.add(this.gaugeTrack, this.gauge)
@@ -380,7 +379,7 @@ export class MoneyUniverse {
       fragmentShader: HALO_FRAGMENT,
       transparent: true,
       depthWrite: false,
-      blending: THREE.AdditiveBlending,
+      blending: THREE.NormalBlending,
       side: THREE.BackSide,
       uniforms: { uOpacity: { value: 0 } },
     })
@@ -402,7 +401,7 @@ export class MoneyUniverse {
     this.scene.add(
       new THREE.Points(
         geometry,
-        new THREE.PointsMaterial({ color: 0xffffff, size: 0.13, map: this.glow, transparent: true, opacity: 0.75, depthWrite: false, blending: THREE.AdditiveBlending }),
+        new THREE.PointsMaterial({ color: 0x7c5cff, size: 0.11, map: this.glow, transparent: true, opacity: 0.22, depthWrite: false, blending: THREE.NormalBlending }),
       ),
     )
   }
@@ -426,7 +425,7 @@ export class MoneyUniverse {
     body.add(barrel, frontDisc, backDisc)
     const rim = new THREE.Mesh(new THREE.TorusGeometry(1, 0.05, 20, 128), edge)
     this.coin.add(body, rim)
-    const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: GOLD, transparent: true, opacity: 0.22, depthWrite: false, blending: THREE.AdditiveBlending }))
+    const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: GOLD, transparent: true, opacity: 0.22, depthWrite: false, blending: THREE.NormalBlending }))
     halo.scale.setScalar(4.6)
     halo.name = "coin-halo"
     this.coin.add(halo)
@@ -468,7 +467,7 @@ export class MoneyUniverse {
     const sprites: THREE.Sprite[] = []
     for (let i = 0; i < 12; i++) {
       const sprite = new THREE.Sprite(
-        new THREE.SpriteMaterial({ map: this.glow, color: colour, transparent: true, opacity: i === 0 ? 0.8 : 0.34 * (1 - i / 12), depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false }),
+        new THREE.SpriteMaterial({ map: this.glow, color: colour, transparent: true, opacity: i === 0 ? 0.8 : 0.34 * (1 - i / 12), depthWrite: false, blending: THREE.NormalBlending, toneMapped: false }),
       )
       sprite.scale.setScalar(i === 0 ? 0.5 : 0.17 * (1 - i / 16))
       this.system.add(sprite)
@@ -551,7 +550,7 @@ export class MoneyUniverse {
     payments.forEach(([a, b]) => {
       const tube = new THREE.TubeGeometry(curve(places[a], places[b], 0.12), 40, 0.016, 8)
       const line = new THREE.Mesh(tube, new THREE.MeshBasicMaterial({ color: TEAL, transparent: true, opacity: 0, toneMapped: false })) as unknown as THREE.Line
-      const pulse = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: 0xffffff, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }))
+      const pulse = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: 0x7c5cff, transparent: true, opacity: 0, depthWrite: false, blending: THREE.NormalBlending }))
       pulse.scale.setScalar(0.42)
       pulse.renderOrder = 5
       this.clean.push({ line, pulse, from: places[a], to: places[b] })
@@ -698,7 +697,7 @@ export class MoneyUniverse {
       this.phone.add(mesh)
     })
 
-    const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: TEAL, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }))
+    const glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: TEAL, transparent: true, opacity: 0, depthWrite: false, blending: THREE.NormalBlending }))
     glow.scale.setScalar(8.5)
     glow.position.z = -0.6
     this.phoneGlow = glow
@@ -728,7 +727,7 @@ export class MoneyUniverse {
     this.arcReveal = 0
     this.arcTarget = to
     const dot = (position: THREE.Vector3, colour: THREE.Color, size: number) => {
-      const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: colour, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }))
+      const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.glow, color: colour, transparent: true, depthWrite: false, blending: THREE.NormalBlending }))
       sprite.position.copy(position)
       sprite.scale.setScalar(size)
       sprite.renderOrder = 9
@@ -841,7 +840,7 @@ export class MoneyUniverse {
 
     // Coin: at home until the journey reaches the Earth, when it gives way to its dots.
     const coinGone = Math.max(between(p, CHAPTERS.trips[0] - 0.015, CHAPTERS.trips[0] + 0.015), between(intro, 0, 0.26))
-    const coinWithPhone = between(p, CHAPTERS.app[0] - 0.012, CHAPTERS.app[0] + 0.02) * (1 - between(p, CHAPTERS.cards[0] + 0.02, CHAPTERS.cards[0] + 0.03))
+    const coinWithPhone = between(p, CHAPTERS.app[0] - 0.012, CHAPTERS.app[0] + 0.02) * (1 - between(p, CHAPTERS.app[1], CHAPTERS.app[1] + 0.015))
     const coinHide = Math.min(1, settleIn * 1.2 + cardIn * 1.2 + coinWithPhone * 1.3)
     const coinScale = (1 - coinGone * 0.3) * (1 - coinHide * 0.6)
     this.coin.position.copy(anchor).setX(anchor.x)
@@ -876,14 +875,14 @@ export class MoneyUniverse {
     })
 
     // Expense cards orbit, always facing you, from the first screen to the end of their chapter.
-    const cardsIn = (1 - between(p, CHAPTERS.type[1] - 0.025, CHAPTERS.type[1] + 0.005)) * (1 - Math.min(1, intro * 3))
+    const cardsIn = (1 - between(p, CHAPTERS.type[1] - 0.025, CHAPTERS.type[1] + 0.005)) * (1 - Math.min(1, intro * 3)) * (1 - coinWithPhone)
     this.cardsGroup.position.copy(anchor)
     this.cardsGroup.visible = cardsIn > 0.01
     this.expenses.forEach((item, i) => {
       const age = time - item.born
       const pop = this.still ? 1 : smooth(age / 0.9)
       const a = item.angle + (this.still ? 0 : time * 0.12) + (i * Math.PI * 2) / Math.max(this.expenses.length, 3) * 0
-      const radius = item.radius * pop * (this.mobile ? 0.72 : 1)
+      const radius = item.radius * pop * (this.mobile ? 0.72 : 0.84)
       const x = Math.cos(a) * radius
       const z = Math.sin(a) * radius * 0.62
       item.sprite.position.set(x, item.height + Math.sin(a) * -0.55 + (this.still ? 0 : Math.sin(time + i) * 0.03), z)

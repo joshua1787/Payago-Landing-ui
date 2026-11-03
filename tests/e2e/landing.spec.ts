@@ -3,9 +3,9 @@ import { expect, test } from "@playwright/test"
 test.use({ locale: "en-GB", timezoneId: "Europe/London" })
 
 test("the trips waitlist opens the early-access page", async ({ page }) => {
-  await page.goto("/#chapter-trips")
+  await page.goto("/#chapter-guide")
 
-  await page.getByRole("link", { name: "Join the trips waitlist" }).click()
+  await page.getByRole("link", { name: "Join the trips waitlist" }).last().click()
 
   await expect(page).toHaveURL(/\/early-access\/$/)
   await expect(
@@ -141,7 +141,7 @@ test("cookie banner can be dismissed and persists declined consent", async ({ pa
 test("the home page says what is live and sends people to the app", async ({ page }) => {
   await page.goto("/")
 
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("From daily bills to dream trips.")
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Share the wallet")
   await expect(page.getByRole("link", { name: "Open PayaGo" }).first()).toHaveAttribute("href", "https://app.payago.in")
 })
 
@@ -176,14 +176,15 @@ test("pages about trips say they are not live yet", async ({ page }) => {
   }
 
   await page.goto("/features/")
-  await expect(page.getByRole("heading", { name: "What we're building." })).toBeVisible()
+  await expect(page.getByRole("heading", { name: "Trips.", exact: true })).toBeVisible()
+  await expect(page.getByText("Coming after").first()).toBeVisible()
 })
 
-test("the nav's Open PayaGo button stays white on every kind of page", async ({ page }) => {
+test("the nav's Open PayaGo button stays navy on every kind of page", async ({ page }) => {
   for (const path of ["/", "/features/", "/privacy/"]) {
     await page.goto(path)
     const button = page.getByRole("navigation").first().getByRole("link", { name: "Open PayaGo" }).first()
-    await expect(button).toHaveCSS("background-color", "rgb(255, 255, 255)")
+    await expect(button).toHaveCSS("background-color", "rgb(15, 23, 42)")
   }
 })
 
@@ -204,9 +205,18 @@ test("the home page shows the real app and only the store that is live", async (
   await expect(page.getByRole("heading", { name: "This is the real app." })).toBeVisible()
   await expect(page.getByRole("link", { name: "Get it on Google Play" }).first()).toHaveAttribute("href", /play\.google\.com.*com\.payago\.app/)
   await expect(page.getByRole("link", { name: /app store/i })).toHaveCount(0)
+})
+
 test("the delete account page says how, and what is kept", async ({ page }) => {
   await page.goto("/delete-account/")
   await expect(page.getByRole("heading", { name: "Delete your account" })).toBeVisible()
   await expect(page.getByRole("heading", { name: "What is kept" })).toBeVisible()
   await expect(page.getByRole("link", { name: "privacy@payago.in" })).toHaveAttribute("href", /^mailto:privacy@payago\.in/)
+})
+
+test("split, wallet and trips get the same share of the journey", async () => {
+  const { CHAPTERS } = await import("../../lib/universe/chapters")
+  const share = (first: keyof typeof CHAPTERS, last: keyof typeof CHAPTERS) => CHAPTERS[last][1] - CHAPTERS[first][0]
+  expect(share("type", "settle")).toBeCloseTo(share("own", "cards"))
+  expect(share("own", "cards")).toBeCloseTo(share("trips", "guide"))
 })

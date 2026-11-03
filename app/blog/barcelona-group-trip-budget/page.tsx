@@ -61,7 +61,7 @@ export default function BlogPost() {
             <TripsNotice />
             <div className="max-w-3xl mx-auto px-6 pt-16 pb-24">
                 <div className="mb-3">
-                    <span className="text-xs font-semibold px-3 py-1 rounded-full text-[#C9A962] bg-[#C9A962]/10 border border-[#C9A962]/30">Destination Guides</span>
+                    <span className="text-xs font-semibold px-3 py-1 rounded-full text-[#8A6D1F] bg-[#C9A962]/10 border border-[#C9A962]/30">Destination Guides</span>
                 </div>
                 <div className="flex flex-wrap items-center gap-4 text-sm text-slate-400 mb-8">
                     <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" /><time dateTime="2026-03-12">2026-03-12</time></span>
@@ -89,11 +89,11 @@ export default function BlogPost() {
                                 </tr>
                             </thead>
                             <tbody className="text-slate-600">
-                                <tr key="0" className="border-b border-slate-100 last:border-0"><td className="px-4 py-3 text-slate-600 text-sm">Return flights (EasyJet, 8 weeks ahead)</td><td className="px-4 py-3 text-[#C9A962] font-semibold text-sm">£75 pp</td><td className="px-4 py-3 text-slate-500 text-xs">Total: £450</td></tr>
-                        <tr key="1" className="border-b border-slate-100 last:border-0"><td className="px-4 py-3 text-slate-600 text-sm">Hotel 5 nights (Eixample, mid-range)</td><td className="px-4 py-3 text-[#C9A962] font-semibold text-sm">£90/room/night</td><td className="px-4 py-3 text-slate-500 text-xs">Total: £1,350 (3 twin rooms)</td></tr>
-                        <tr key="2" className="border-b border-slate-100 last:border-0"><td className="px-4 py-3 text-slate-600 text-sm">Food & drink (5 days)</td><td className="px-4 py-3 text-[#C9A962] font-semibold text-sm">£50–80/day/person</td><td className="px-4 py-3 text-slate-500 text-xs">Total: £1,500–2,400</td></tr>
-                        <tr key="3" className="border-b border-slate-100 last:border-0"><td className="px-4 py-3 text-slate-600 text-sm">Activities (Sagrada, Güell, museums)</td><td className="px-4 py-3 text-[#C9A962] font-semibold text-sm">£30–50 pp</td><td className="px-4 py-3 text-slate-500 text-xs">Total: £180–300</td></tr>
-                        <tr key="4" className="border-b border-slate-100 last:border-0"><td className="px-4 py-3 text-slate-600 text-sm">Transport (T-10 cards + airport)</td><td className="px-4 py-3 text-[#C9A962] font-semibold text-sm">£20 pp</td><td className="px-4 py-3 text-slate-500 text-xs">Total: £120</td></tr>
+                                <tr key="0" className="border-b border-slate-100 last:border-0"><td className="px-4 py-3 text-slate-600 text-sm">Return flights (EasyJet, 8 weeks ahead)</td><td className="px-4 py-3 text-[#8A6D1F] font-semibold text-sm">£75 pp</td><td className="px-4 py-3 text-slate-500 text-xs">Total: £450</td></tr>
+                        <tr key="1" className="border-b border-slate-100 last:border-0"><td className="px-4 py-3 text-slate-600 text-sm">Hotel 5 nights (Eixample, mid-range)</td><td className="px-4 py-3 text-[#8A6D1F] font-semibold text-sm">£90/room/night</td><td className="px-4 py-3 text-slate-500 text-xs">Total: £1,350 (3 twin rooms)</td></tr>
+                        <tr key="2" className="border-b border-slate-100 last:border-0"><td className="px-4 py-3 text-slate-600 text-sm">Food & drink (5 days)</td><td className="px-4 py-3 text-[#8A6D1F] font-semibold text-sm">£50–80/day/person</td><td className="px-4 py-3 text-slate-500 text-xs">Total: £1,500–2,400</td></tr>
+                        <tr key="3" className="border-b border-slate-100 last:border-0"><td className="px-4 py-3 text-slate-600 text-sm">Activities (Sagrada, Güell, museums)</td><td className="px-4 py-3 text-[#8A6D1F] font-semibold text-sm">£30–50 pp</td><td className="px-4 py-3 text-slate-500 text-xs">Total: £180–300</td></tr>
+                        <tr key="4" className="border-b border-slate-100 last:border-0"><td className="px-4 py-3 text-slate-600 text-sm">Transport (T-10 cards + airport)</td><td className="px-4 py-3 text-[#8A6D1F] font-semibold text-sm">£20 pp</td><td className="px-4 py-3 text-slate-500 text-xs">Total: £120</td></tr>
                             </tbody>
                         </table>
                     </div>

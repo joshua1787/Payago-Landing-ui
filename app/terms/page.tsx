@@ -38,7 +38,7 @@ export default function TermsOfService() {
                 <p className="text-slate-500 text-sm mb-2">Last updated: March 2026</p>
                 <p className="text-slate-500 text-sm mb-12">PayaGo Ltd · Registered in England & Wales</p>
 
-                <div className="p-6 rounded-2xl bg-[#A29CFF]/8 border border-[#A29CFF]/20 mb-12">
+                <div className="p-6 rounded-2xl bg-[#7C5CFF]/8 border border-[#7C5CFF]/20 mb-12">
                     <p className="text-slate-900 font-semibold mb-2">Please read these terms carefully</p>
                     <p className="text-slate-600 text-base leading-relaxed">
                         By joining our waitlist, accessing our website, or using the PayaGo app, you agree to these Terms of Service. If you do not agree, please do not use our services. These terms are governed by English law.
@@ -66,7 +66,7 @@ export default function TermsOfService() {
                             ["#contact", "14. Contact"],
                         ].map(([href, label]) => (
                             <li key={href}>
-                                <a href={href} className="hover:text-[#A29CFF] transition-colors">{label}</a>
+                                <a href={href} className="hover:text-[#6D4AE8] transition-colors">{label}</a>
                             </li>
                         ))}
                     </ol>
@@ -90,7 +90,7 @@ export default function TermsOfService() {
                                 "Provide accurate information when creating an account or joining the waitlist",
                             ].map((item, i) => (
                                 <li key={i} className="flex items-start gap-2 text-sm">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-[#A29CFF]/60 flex-shrink-0 mt-2" />
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[#7C5CFF]/60 flex-shrink-0 mt-2" />
                                     {item}
                                 </li>
                             ))}
@@ -109,7 +109,7 @@ export default function TermsOfService() {
                                 "Provides pre-trip and in-trip travel assistance",
                             ].map((item, i) => (
                                 <li key={i} className="flex items-start gap-2 text-sm">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-[#A29CFF]/60 flex-shrink-0 mt-2" />
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[#7C5CFF]/60 flex-shrink-0 mt-2" />
                                     {item}
                                 </li>
                             ))}
@@ -128,7 +128,7 @@ export default function TermsOfService() {
                                 "Joining the waitlist does not create a contractual obligation on either party",
                             ].map((item, i) => (
                                 <li key={i} className="flex items-start gap-2 text-sm">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-[#A29CFF]/60 flex-shrink-0 mt-2" />
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[#7C5CFF]/60 flex-shrink-0 mt-2" />
                                     {item}
                                 </li>
                             ))}
@@ -147,7 +147,7 @@ export default function TermsOfService() {
                                 "Ensuring the information in your account is accurate and up to date",
                             ].map((item, i) => (
                                 <li key={i} className="flex items-start gap-2 text-sm">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-[#A29CFF]/60 flex-shrink-0 mt-2" />
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[#7C5CFF]/60 flex-shrink-0 mt-2" />
                                     {item}
                                 </li>
                             ))}
@@ -167,7 +167,7 @@ export default function TermsOfService() {
                                 "PayaGo is not liable for decisions made based on AI-generated content",
                             ].map((item, i) => (
                                 <li key={i} className="flex items-start gap-2 text-sm">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-[#A29CFF]/60 flex-shrink-0 mt-2" />
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[#7C5CFF]/60 flex-shrink-0 mt-2" />
                                     {item}
                                 </li>
                             ))}
@@ -257,7 +257,7 @@ export default function TermsOfService() {
 
                     <section id="contact" className="scroll-mt-24">
                         <h2 className="text-2xl font-bold text-slate-900 mb-5">14. Contact</h2>
-                        <p>For questions about these terms, contact us at <a href="mailto:support@payago.in" className="text-[#A29CFF] hover:underline">support@payago.in</a>. For legal notices, please use our <Link href="/contact" className="text-[#A29CFF] hover:underline">contact page</Link>.</p>
+                        <p>For questions about these terms, contact us at <a href="mailto:support@payago.in" className="text-[#6D4AE8] hover:underline">support@payago.in</a>. For legal notices, please use our <Link href="/contact" className="text-[#6D4AE8] hover:underline">contact page</Link>.</p>
                     </section>
                 </div>
 
@@ -268,7 +268,7 @@ export default function TermsOfService() {
                     <Link href="/affiliate-disclosure" className="text-slate-500 hover:text-slate-900 transition-colors text-sm">
                         Affiliate Disclosure →
                     </Link>
-                    <a href="mailto:support@payago.in" className="text-[#A29CFF] hover:underline text-sm">
+                    <a href="mailto:support@payago.in" className="text-[#6D4AE8] hover:underline text-sm">
                         support@payago.in
                     </a>
                 </div>

@@ -77,7 +77,7 @@ export default function BlogPost() {
 
             <div className="max-w-3xl mx-auto px-6 pt-16 pb-24">
                 <div className="mb-3">
-                    <span className="text-xs font-semibold px-3 py-1 rounded-full text-[#4AD7A2] bg-[#4AD7A2]/10 border border-[#4AD7A2]/30">
+                    <span className="text-xs font-semibold px-3 py-1 rounded-full text-[#0F8F6E] bg-[#4AD7A2]/10 border border-[#4AD7A2]/30">
                         Company
                     </span>
                 </div>
@@ -133,7 +133,7 @@ export default function BlogPost() {
                                 { time: "Week 6", event: "Everyone finally booked. Trip is in 3 days." },
                             ].map((item, i) => (
                                 <div key={i} className="flex items-start gap-4 text-sm">
-                                    <span className="text-[#C9A962] font-semibold flex-shrink-0 w-14">{item.time}</span>
+                                    <span className="text-[#8A6D1F] font-semibold flex-shrink-0 w-14">{item.time}</span>
                                     <span className="text-slate-600">{item.event}</span>
                                 </div>
                             ))}
@@ -168,7 +168,7 @@ export default function BlogPost() {
                             { step: "04", title: "Everyone coordinates", desc: "Each person can see their share and move through supported payment or booking flows without one friend carrying the full amount." },
                         ].map((item) => (
                             <div key={item.step} className="p-5 rounded-xl bg-slate-50 border border-slate-100">
-                                <div className="text-[#C9A962] font-black text-2xl mb-2">{item.step}</div>
+                                <div className="text-[#8A6D1F] font-black text-2xl mb-2">{item.step}</div>
                                 <div className="text-slate-900 font-semibold mb-1">{item.title}</div>
                                 <div className="text-slate-500 text-sm leading-relaxed">{item.desc}</div>
                             </div>

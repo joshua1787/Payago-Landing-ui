@@ -154,7 +154,7 @@ export default function CareersPage() {
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4AD7A2] opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#4AD7A2]"></span>
                         </span>
-                        <span className="text-sm font-medium text-[#4AD7A2]">Building the early team</span>
+                        <span className="text-sm font-medium text-[#0F8F6E]">Building the early team</span>
                     </div>
                     <h1 className="text-5xl lg:text-7xl font-bold text-slate-900 mb-8">
                         Build the launch-stage product for
@@ -181,7 +181,7 @@ export default function CareersPage() {
                         {values.map((value, index) => (
                             <div key={index} className="text-center">
                                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#C9A962]/20 to-[#C9A962]/5 flex items-center justify-center mx-auto mb-4">
-                                    <span className="text-2xl font-bold text-[#C9A962]">{index + 1}</span>
+                                    <span className="text-2xl font-bold text-[#8A6D1F]">{index + 1}</span>
                                 </div>
                                 <h3 className="text-xl font-bold text-slate-900 mb-2">{value.title}</h3>
                                 <p className="text-slate-500 text-sm leading-relaxed">{value.description}</p>
@@ -208,7 +208,7 @@ export default function CareersPage() {
                                     className="p-8 rounded-2xl bg-slate-50 border border-slate-100"
                                 >
                                     <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#C9A962]/10 mb-6">
-                                        <Icon className="w-6 h-6 text-[#C9A962]" />
+                                        <Icon className="w-6 h-6 text-[#8A6D1F]" />
                                     </div>
                                     <h3 className="text-xl font-bold text-slate-900 mb-2">{benefit.title}</h3>
                                     <p className="text-slate-500 leading-relaxed">{benefit.description}</p>
@@ -236,7 +236,7 @@ export default function CareersPage() {
                                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                                     <div className="flex-1">
                                         <div className="flex flex-wrap items-center gap-3 mb-2">
-                                            <h3 className="text-xl font-bold text-slate-900 group-hover:text-[#C9A962] transition-colors">
+                                            <h3 className="text-xl font-bold text-slate-900 group-hover:text-[#8A6D1F] transition-colors">
                                                 {job.title}
                                             </h3>
                                             <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs">
@@ -255,7 +255,7 @@ export default function CareersPage() {
                                             </span>
                                         </div>
                                     </div>
-                                    <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-[#C9A962] transition-colors flex-shrink-0" />
+                                    <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-[#8A6D1F] transition-colors flex-shrink-0" />
                                 </div>
                             </div>
                         ))}

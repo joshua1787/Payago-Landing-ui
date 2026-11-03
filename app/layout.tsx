@@ -1,7 +1,7 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import "@fontsource-variable/sora"
-import "@fontsource-variable/hanken-grotesk"
+import "@fontsource-variable/outfit"
+import "@fontsource-variable/inter"
 import "./globals.css"
 import { CookieBanner } from "@/components/cookie-banner"
 import { PwaInstallBanner } from "@/components/pwa-install-banner"
@@ -9,9 +9,9 @@ import { AnalyticsLoader } from "@/components/analytics-loader"
 
 const siteUrl = "https://payago.in"
 const siteName = "PayaGo"
-const defaultTitle = "PayaGo: from daily bills to dream trips"
+const defaultTitle = "PayaGo: split the bill, share the wallet, take the trip"
 const defaultDescription =
-  "Split with your people and see where your own money goes. Type an expense like a message, and PayaGo does the sums. Cards and whole trips are coming next."
+  "Split bills in a group chat and track your own money today. A shared wallet and AI-planned trips are coming next."
 const defaultOgImage = "/og/home.jpg"
 const ogImage = `${siteUrl}${defaultOgImage}`
 const appIcon = "/icon.svg"
@@ -164,7 +164,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </head>
-      <body className="pg-site font-sans antialiased bg-[#031B1A] text-slate-900">
+      <body className="pg-site font-sans antialiased bg-[#FAFAF8] text-slate-900">
         <AnalyticsLoader measurementId={gaMeasurementId} />
         {children}
         <PwaInstallBanner />

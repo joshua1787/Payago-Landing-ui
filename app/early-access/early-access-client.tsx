@@ -18,8 +18,7 @@ import {
   Trophy,
   UsersRound,
 } from "lucide-react"
-import { SiteNav } from "@/components/site/site-nav"
-import { SiteFooter } from "@/components/site/site-footer"
+import { PayagoWordmark } from "@/components/payago-wordmark"
 import { captureEvent } from "@/lib/analytics"
 import { WAITLIST_EMAIL_ERROR, WAITLIST_EMAIL_INPUT_PATTERN, isValidWaitlistEmail } from "@/lib/waitlist-email"
 
@@ -219,7 +218,7 @@ async function readWaitlistResult(response: Response): Promise<WaitlistSubmitRes
 function GoldenPassportPreview({ compact = false }: { compact?: boolean }) {
   return (
     <div className={`relative mx-auto w-full ${compact ? "max-w-[19rem]" : "max-w-[25rem]"}`} aria-hidden="true">
-      <div className="absolute -right-3 top-5 h-full w-full rotate-3 rounded-[2rem] border border-[#c99b34]/20 bg-[#19E4CC]" />
+      <div className="absolute -right-3 top-5 h-full w-full rotate-3 rounded-[2rem] border border-[#c99b34]/20 bg-[#151006]" />
       <div className="relative overflow-hidden rounded-[2rem] border border-[#f4c35d]/45 bg-[#080a10] p-4 shadow-[0_30px_70px_rgba(0,0,0,0.32)]">
         <div className="absolute inset-0 bg-[linear-gradient(130deg,rgba(255,226,147,0.16),transparent_34%),radial-gradient(circle_at_88%_12%,rgba(74,215,162,0.13),transparent_26%)]" />
         <div className="absolute inset-x-7 top-5 h-px bg-gradient-to-r from-transparent via-[#f6be4a] to-transparent" />
@@ -303,7 +302,7 @@ function ClaimForm({
             onChange={(event) => onEmailChange(event.target.value)}
             required
             disabled={status === "loading"}
-            className="min-w-0 rounded-[0.95rem] border border-white/10 bg-[#0A2E2B] px-4 py-4 text-base font-bold text-slate-950 outline-none placeholder:text-slate-400 focus:shadow-[0_0_0_3px_rgba(246,190,74,0.30)] sm:px-5"
+            className="min-w-0 rounded-[0.95rem] border border-white/10 bg-[#fff8e8] px-4 py-4 text-base font-bold text-slate-950 outline-none placeholder:text-slate-400 focus:shadow-[0_0_0_3px_rgba(246,190,74,0.30)] sm:px-5"
           />
         </div>
         <div className="mt-3 grid gap-2">
@@ -322,7 +321,7 @@ function ClaimForm({
             onChange={(event) => onReferralChange(event.target.value)}
             disabled={status === "loading"}
             aria-describedby="early-access-referral-help"
-            className="min-w-0 rounded-[0.95rem] border border-white/10 bg-[#0A2E2B] px-4 py-4 text-base font-bold text-slate-950 outline-none placeholder:text-slate-400 focus:shadow-[0_0_0_3px_rgba(246,190,74,0.30)] sm:px-5"
+            className="min-w-0 rounded-[0.95rem] border border-white/10 bg-[#fff8e8] px-4 py-4 text-base font-bold text-slate-950 outline-none placeholder:text-slate-400 focus:shadow-[0_0_0_3px_rgba(246,190,74,0.30)] sm:px-5"
           />
           <p id="early-access-referral-help" className="text-xs font-semibold leading-5 text-white/58">
             Enter your reference code from the PayaGo welcome email. If someone referred you, enter the email ID of the person who invited you.
@@ -331,7 +330,7 @@ function ClaimForm({
         <button
           type="submit"
           disabled={status === "loading"}
-          className="mt-3 inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-[0.95rem] bg-[#f6be4a] px-5 py-4 text-sm font-black text-[#04201E] shadow-[0_14px_30px_rgba(246,190,74,0.20)] transition hover:bg-[#ffd879] disabled:cursor-progress disabled:opacity-70"
+          className="mt-3 inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-[0.95rem] bg-[#f6be4a] px-5 py-4 text-sm font-black text-[#151006] shadow-[0_14px_30px_rgba(246,190,74,0.20)] transition hover:bg-[#ffd879] disabled:cursor-progress disabled:opacity-70"
         >
           {status === "loading" ? "Claiming..." : "Claim founding place"}
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -339,7 +338,7 @@ function ClaimForm({
         <p className="mt-3 text-xs font-semibold leading-5 text-white/64">
           Free founding claim. Trip and passport delivery details are requested later before fulfillment.
         </p>
-        <div className="mt-3 flex items-start gap-2 rounded-2xl border border-[#45d19d]/20 bg-[#0A2E2B]/10 px-3 py-3 text-xs font-semibold leading-5 text-[#ccffe9]">
+        <div className="mt-3 flex items-start gap-2 rounded-2xl border border-[#45d19d]/20 bg-[#45d19d]/10 px-3 py-3 text-xs font-semibold leading-5 text-[#ccffe9]">
           <Gift className="mt-0.5 h-4 w-4 shrink-0 text-[#45d19d]" aria-hidden="true" />
           <p>{REFERRAL_CASHBACK_COPY} {REFERRAL_SUCCESS_COPY}</p>
         </div>
@@ -473,69 +472,71 @@ export function EarlyAccessClient() {
   }
 
   return (
-    <main className="min-h-dvh overflow-x-clip bg-[#031B1A] text-white">
-      <SiteNav />
+    <main className="pg-flush min-h-dvh overflow-x-clip bg-[#f4ead7] text-[#151006]">
       <section className="relative isolate px-4 py-4 sm:px-6 lg:px-8">
-        <div className="pointer-events-none absolute inset-0 -z-30 bg-[linear-gradient(135deg,#031B1A_0%,#07302D_62%,#0B3F3A_100%)]" />
+        <div className="pointer-events-none absolute inset-0 -z-30 bg-[linear-gradient(135deg,#fff8e9_0%,#f2dfb9_45%,#10131b_100%)]" />
         <div className="pointer-events-none absolute inset-0 -z-20 opacity-[0.13] [background-image:linear-gradient(rgba(21,16,6,0.32)_1px,transparent_1px),linear-gradient(90deg,rgba(21,16,6,0.32)_1px,transparent_1px)] [background-size:44px_44px]" />
 
-        <div className="mx-auto flex w-full max-w-6xl justify-end py-2">
-          <div className="inline-flex min-w-0 items-center gap-2 rounded-full border border-white/12 bg-[#0A2E2B] px-3 py-2 text-[0.62rem] font-black uppercase tracking-[0.16em] text-[#FFC94F] shadow-sm">
+        <header className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 py-2">
+          <Link href="/" aria-label="PayaGo home" className="rounded-full focus:outline-none focus:ring-2 focus:ring-[#f6be4a]/40">
+            <PayagoWordmark className="text-[1.35rem] text-[#151006] [&>span:first-child]:text-[#151006]" />
+          </Link>
+          <div className="inline-flex min-w-0 items-center gap-2 rounded-full border border-[#151006]/12 bg-[#fff8e9] px-3 py-2 text-[0.62rem] font-black uppercase tracking-[0.16em] text-[#6d4a10] shadow-sm">
             <ShieldCheck className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
             <span className="max-w-[46vw] truncate sm:max-w-none">{campaignLabel}</span>
           </div>
-        </div>
+        </header>
 
         <div className="mx-auto grid w-full max-w-6xl items-center gap-8 py-8 sm:py-12 lg:min-h-[calc(100dvh-6rem)] lg:grid-cols-[minmax(0,1fr)_minmax(340px,0.72fr)] lg:gap-14">
           <section className="max-w-3xl">
             {status === "success" || status === "duplicate" ? (
-              <div className="rounded-[2rem] border border-white/12 bg-[#0A2E2B] p-5 shadow-[0_24px_70px_rgba(18,15,10,0.18)] sm:p-8" aria-live="polite">
-                <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#19E4CC]/20 bg-[#07302D] px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#19E4CC]">
+              <div className="rounded-[2rem] border border-[#151006]/12 bg-[#fff8e9] p-5 shadow-[0_24px_70px_rgba(18,15,10,0.18)] sm:p-8" aria-live="polite">
+                <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#0d6b50]/20 bg-[#dff8ed] px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#0d6b50]">
                   <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
                   {status === "duplicate" ? "Already on the list" : "Founding request saved"}
                 </div>
                 <h1
-                  className="text-balance text-5xl font-black leading-[0.9] tracking-[-0.075em] text-white sm:text-6xl lg:text-7xl"
+                  className="text-balance text-5xl font-black leading-[0.9] tracking-[-0.075em] text-[#151006] sm:text-6xl lg:text-7xl"
                   style={{ fontFamily: "var(--font-outfit)" }}
                 >
                   {status === "duplicate" ? "This email is already on the Golden Passport list." : "You are on the Golden Passport list."}
                 </h1>
-                <p className="mt-5 max-w-xl text-base leading-7 text-[#B4CAC6] sm:text-lg sm:leading-8">
+                <p className="mt-5 max-w-xl text-base leading-7 text-[#4c412f] sm:text-lg sm:leading-8">
                   {status === "duplicate" ? (
-                    <>We found an existing request from the <strong className="text-white">{campaignLabel}</strong>. No new duplicate row was created.</>
+                    <>We found an existing request from the <strong className="text-[#151006]">{campaignLabel}</strong>. No new duplicate row was created.</>
                   ) : (
-                    <>We saved your request from the <strong className="text-white">{campaignLabel}</strong>. Watch your inbox for your private reference and founder launch updates.</>
+                    <>We saved your request from the <strong className="text-[#151006]">{campaignLabel}</strong>. Watch your inbox for your private reference and founder launch updates.</>
                   )}
                 </p>
-                <div className="mt-5 max-w-xl rounded-2xl border border-[#19E4CC]/15 bg-[#07302D] px-4 py-4 text-sm font-bold leading-6 text-[#19E4CC]">
+                <div className="mt-5 max-w-xl rounded-2xl border border-[#0d6b50]/15 bg-[#e7f8ef] px-4 py-4 text-sm font-bold leading-6 text-[#164b38]">
                   Share your claim reference from the welcome email, or ask friends to enter {submittedEmail ? <strong>{submittedEmail}</strong> : "your submitted email"} when they join. {REFERRAL_CASHBACK_COPY} {PASSPORT_FULFILLMENT_COPY}
                 </div>
                 <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                  <Link href="/" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#19E4CC] px-5 py-4 text-sm font-black text-[#04201E] shadow-[0_14px_30px_rgba(18,15,10,0.20)] transition hover:bg-[#2a2113]">
+                  <Link href="/" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#151006] px-5 py-4 text-sm font-black text-white shadow-[0_14px_30px_rgba(18,15,10,0.20)] transition hover:bg-[#2a2113]">
                     Continue to website
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
-                  <Link href="/privacy" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/12 bg-[#04201E] px-5 py-4 text-sm font-black text-white transition hover:bg-[#0A2E2B]">
+                  <Link href="/privacy" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-[#151006]/12 bg-white px-5 py-4 text-sm font-black text-[#151006] transition hover:bg-[#fff8e9]">
                     Privacy
                   </Link>
                 </div>
               </div>
             ) : (
               <>
-                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/12 bg-[#0A2E2B] px-4 py-2 text-[0.64rem] font-black uppercase tracking-[0.15em] text-[#FFC94F] shadow-sm sm:text-[0.68rem]">
+                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#151006]/12 bg-[#fff8e9] px-4 py-2 text-[0.64rem] font-black uppercase tracking-[0.15em] text-[#6d4a10] shadow-sm sm:text-[0.68rem]">
                   <Crown className="h-4 w-4" aria-hidden="true" />
                   First {FOUNDING_MEMBER_LIMIT} lifetime members only
                 </div>
                 <h1
-                  className="text-balance text-[2.85rem] font-black leading-[0.86] tracking-[-0.08em] text-white sm:text-7xl lg:text-[5.8rem] lg:leading-[0.84]"
+                  className="text-balance text-[2.85rem] font-black leading-[0.86] tracking-[-0.08em] text-[#151006] sm:text-7xl lg:text-[5.8rem] lg:leading-[0.84]"
                   style={{ fontFamily: "var(--font-outfit)" }}
                 >
                   Welcome to the Payago Golden Passport Club<span className="align-super text-[0.24em] tracking-normal">&trade;</span>
                 </h1>
-                <div className="mt-5 max-w-2xl space-y-3 text-pretty text-[1.02rem] leading-7 text-[#B4CAC6] sm:text-xl sm:leading-9">
+                <div className="mt-5 max-w-2xl space-y-3 text-pretty text-[1.02rem] leading-7 text-[#4c412f] sm:text-xl sm:leading-9">
                   <p>Travel is not just about destinations anymore.</p>
                   <p>It is about collecting memories, stamps, rewards, and experiences that stay with you for life.</p>
-                  <p className="font-black text-white">Become one of the first {FOUNDING_MEMBER_LIMIT} lifetime members and unlock your exclusive Payago Golden Passport after your first eligible trip.</p>
+                  <p className="font-black text-[#151006]">Become one of the first {FOUNDING_MEMBER_LIMIT} lifetime members and unlock your exclusive Payago Golden Passport after your first eligible trip.</p>
                 </div>
 
                 <div className="mt-6 max-w-2xl sm:mt-8">
@@ -550,17 +551,17 @@ export function EarlyAccessClient() {
                   />
                 </div>
 
-                <div className="mt-4 grid gap-2 text-sm text-[#B4CAC6] sm:grid-cols-3">
+                <div className="mt-4 grid gap-2 text-sm text-[#5b4b33] sm:grid-cols-3">
                   <span className="inline-flex items-center gap-2 font-bold">
-                    <PackageCheck className="h-4 w-4 text-[#FFC94F]" aria-hidden="true" />
+                    <PackageCheck className="h-4 w-4 text-[#8a5a06]" aria-hidden="true" />
                     Physical collectible.
                   </span>
                   <span className="inline-flex items-center gap-2 font-bold">
-                    <Stamp className="h-4 w-4 text-[#FFC94F]" aria-hidden="true" />
+                    <Stamp className="h-4 w-4 text-[#8a5a06]" aria-hidden="true" />
                     Real stamp ritual.
                   </span>
                   <span className="inline-flex items-center gap-2 font-bold">
-                    <ShieldCheck className="h-4 w-4 text-[#FFC94F]" aria-hidden="true" />
+                    <ShieldCheck className="h-4 w-4 text-[#8a5a06]" aria-hidden="true" />
                     Lifetime access.
                   </span>
                 </div>
@@ -574,31 +575,31 @@ export function EarlyAccessClient() {
 
           <aside className="hidden lg:block lg:justify-self-end">
             <GoldenPassportPreview />
-            <div className="mx-auto mt-4 grid w-full max-w-[25rem] grid-cols-3 gap-2 rounded-[1.35rem] border border-white/12 bg-[#0A2E2B] p-2 text-center text-xs shadow-sm">
-              <span className="rounded-2xl bg-[#19E4CC] px-3 py-3 font-black text-[#04201E]">Lifetime</span>
-              <span className="rounded-2xl bg-[#ffe8a8] px-3 py-3 font-black text-[#04201E]">Rewards</span>
-              <span className="rounded-2xl bg-[#04201E] px-3 py-3 font-black text-white">Stamps</span>
+            <div className="mx-auto mt-4 grid w-full max-w-[25rem] grid-cols-3 gap-2 rounded-[1.35rem] border border-[#151006]/12 bg-[#fff8e9] p-2 text-center text-xs shadow-sm">
+              <span className="rounded-2xl bg-[#151006] px-3 py-3 font-black text-white">Lifetime</span>
+              <span className="rounded-2xl bg-[#ffe8a8] px-3 py-3 font-black text-[#6d4a10]">Rewards</span>
+              <span className="rounded-2xl bg-white px-3 py-3 font-black text-[#151006]">Stamps</span>
             </div>
           </aside>
         </div>
       </section>
 
-      <section className="relative bg-[#0A2E2B] px-4 py-12 text-white sm:px-6 lg:px-8">
+      <section className="relative bg-[#fbf5e8] px-4 py-12 text-[#151006] sm:px-6 lg:px-8">
         <div className="mx-auto grid w-full max-w-6xl gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#FFC94F]">What you get</p>
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#8a5a06]">What you get</p>
             <h2
-              className="mt-2 max-w-3xl text-4xl font-black leading-[0.9] tracking-[-0.065em] text-white sm:text-6xl"
+              className="mt-2 max-w-3xl text-4xl font-black leading-[0.9] tracking-[-0.065em] text-[#151006] sm:text-6xl"
               style={{ fontFamily: "var(--font-outfit)" }}
             >
               This is not another digital badge.
             </h2>
           </div>
-          <div className="max-w-2xl space-y-3 text-base leading-7 text-[#B4CAC6] lg:text-lg lg:leading-8">
+          <div className="max-w-2xl space-y-3 text-base leading-7 text-[#5b4b33] lg:text-lg lg:leading-8">
             <p>
               This is a premium physical collectible issued after your first eligible PayaGo trip. It is built to make your Payago travel history collectible.
             </p>
-            <p className="rounded-2xl border border-white/10 bg-[#04201E] px-4 py-3 text-sm font-bold leading-6 text-[#FFC94F] lg:text-base lg:leading-7">
+            <p className="rounded-2xl border border-[#151006]/10 bg-white px-4 py-3 text-sm font-bold leading-6 text-[#6d4a10] lg:text-base lg:leading-7">
               {GOLDEN_PASSPORT_DISCLAIMER}
             </p>
           </div>
@@ -608,12 +609,12 @@ export function EarlyAccessClient() {
           {PASSPORT_BENEFITS.map((benefit) => {
             const Icon = benefit.icon
             return (
-              <article key={benefit.title} className="rounded-[1.55rem] border border-white/10 bg-[#04201E] p-5 shadow-[0_14px_38px_rgba(18,15,10,0.07)]">
-                <span className="grid h-11 w-11 place-items-center rounded-2xl bg-[#0A2E2B] text-[#FFC94F]">
+              <article key={benefit.title} className="rounded-[1.55rem] border border-[#151006]/10 bg-white p-5 shadow-[0_14px_38px_rgba(18,15,10,0.07)]">
+                <span className="grid h-11 w-11 place-items-center rounded-2xl bg-[#fff0bd] text-[#8a5a06]">
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </span>
-                <h3 className="mt-4 text-lg font-black leading-6 tracking-[-0.04em] text-white">{benefit.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-[#B4CAC6]">{benefit.body}</p>
+                <h3 className="mt-4 text-lg font-black leading-6 tracking-[-0.04em] text-[#151006]">{benefit.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-[#5b4b33]">{benefit.body}</p>
               </article>
             )
           })}
@@ -636,25 +637,25 @@ export function EarlyAccessClient() {
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
               {STAMP_DESTINATIONS.map((destination) => (
-                <span key={destination} className="rounded-full border border-[#f6be4a]/20 bg-[#04201E]/7 px-3 py-2 text-xs font-black uppercase tracking-[0.12em] text-[#ffe3a1]">
+                <span key={destination} className="rounded-full border border-[#f6be4a]/20 bg-white/7 px-3 py-2 text-xs font-black uppercase tracking-[0.12em] text-[#ffe3a1]">
                   {destination}
                 </span>
               ))}
             </div>
           </section>
 
-          <section className="rounded-[2rem] border border-white/10 bg-[#07302D] p-5 sm:p-7" aria-label="Surprise travel rewards">
+          <section className="rounded-[2rem] border border-[#151006]/10 bg-[#f2e5ca] p-5 sm:p-7" aria-label="Surprise travel rewards">
             <div className="flex items-start justify-between gap-5">
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.18em] text-[#FFC94F]">Surprise travel rewards</p>
-                <h2 className="mt-2 text-3xl font-black leading-[0.95] tracking-[-0.055em] text-white sm:text-4xl">The more you travel, the bigger the rewards.</h2>
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-[#8a5a06]">Surprise travel rewards</p>
+                <h2 className="mt-2 text-3xl font-black leading-[0.95] tracking-[-0.055em] text-[#151006] sm:text-4xl">The more you travel, the bigger the rewards.</h2>
               </div>
-              <Gift className="h-9 w-9 shrink-0 text-[#FFC94F]" aria-hidden="true" />
+              <Gift className="h-9 w-9 shrink-0 text-[#8a5a06]" aria-hidden="true" />
             </div>
             <div className="mt-6 grid gap-2 sm:grid-cols-2">
               {REWARD_ITEMS.map((reward) => (
-                <div key={reward} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-[#04201E] px-4 py-4 text-sm font-black text-[#DDE9E7] shadow-sm">
-                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#19E4CC]" aria-hidden="true" />
+                <div key={reward} className="flex items-center gap-3 rounded-2xl border border-[#151006]/10 bg-white px-4 py-4 text-sm font-black text-[#302618] shadow-sm">
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#0d6b50]" aria-hidden="true" />
                   {reward}
                 </div>
               ))}
@@ -665,15 +666,15 @@ export function EarlyAccessClient() {
         <section className="mx-auto w-full max-w-6xl py-2" aria-label="Membership levels">
           <div className="mb-6 grid gap-4 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.18em] text-[#FFC94F]">Upgrade your status through referrals</p>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-[#8a5a06]">Upgrade your status through referrals</p>
               <h2
-                className="mt-2 text-4xl font-black leading-[0.9] tracking-[-0.065em] text-white sm:text-6xl"
+                className="mt-2 text-4xl font-black leading-[0.9] tracking-[-0.065em] text-[#151006] sm:text-6xl"
                 style={{ fontFamily: "var(--font-outfit)" }}
               >
                 Membership hierarchy
               </h2>
             </div>
-            <p className="max-w-2xl text-base leading-7 text-[#B4CAC6] lg:text-lg lg:leading-8">
+            <p className="max-w-2xl text-base leading-7 text-[#5b4b33] lg:text-lg lg:leading-8">
               At Payago, travel is not just personal. Invite friends into the Golden Passport Club and unlock higher membership tiers with exclusive rewards.
             </p>
           </div>
@@ -682,19 +683,19 @@ export function EarlyAccessClient() {
             {MEMBERSHIP_TIERS.map((tier) => {
               const Icon = tier.icon
               return (
-                <article key={tier.name} className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#04201E] shadow-[0_16px_42px_rgba(18,15,10,0.08)]">
+                <article key={tier.name} className="overflow-hidden rounded-[1.75rem] border border-[#151006]/10 bg-white shadow-[0_16px_42px_rgba(18,15,10,0.08)]">
                   <div className="h-2" style={{ backgroundColor: tier.accent }} />
                   <div className="p-5">
-                    <span className="grid h-11 w-11 place-items-center rounded-2xl bg-[#19E4CC] text-[#04201E]">
+                    <span className="grid h-11 w-11 place-items-center rounded-2xl bg-[#151006] text-white">
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </span>
-                    <p className="mt-4 text-[0.68rem] font-black uppercase tracking-[0.16em] text-[#FFC94F]">{tier.label}</p>
-                    <h3 className="mt-2 text-2xl font-black tracking-[-0.05em] text-white">{tier.name}</h3>
-                    <p className="mt-2 text-sm font-bold leading-6 text-[#B4CAC6]">{tier.threshold}</p>
-                    <ul className="mt-4 grid gap-2 text-sm leading-6 text-[#B4CAC6]">
+                    <p className="mt-4 text-[0.68rem] font-black uppercase tracking-[0.16em] text-[#8a5a06]">{tier.label}</p>
+                    <h3 className="mt-2 text-2xl font-black tracking-[-0.05em] text-[#151006]">{tier.name}</h3>
+                    <p className="mt-2 text-sm font-bold leading-6 text-[#5b4b33]">{tier.threshold}</p>
+                    <ul className="mt-4 grid gap-2 text-sm leading-6 text-[#4c412f]">
                       {tier.benefits.map((benefit) => (
                         <li key={benefit} className="flex items-start gap-2">
-                          <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-[#19E4CC]" aria-hidden="true" />
+                          <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-[#0d6b50]" aria-hidden="true" />
                           <span>{benefit}</span>
                         </li>
                       ))}
@@ -707,28 +708,28 @@ export function EarlyAccessClient() {
         </section>
 
         <section className="mx-auto grid w-full max-w-6xl gap-5 py-12 lg:grid-cols-[1fr_1fr]" aria-label="Referral rewards">
-          <div className="rounded-[2rem] border border-white/10 bg-[#04201E] p-5 shadow-[0_16px_42px_rgba(18,15,10,0.08)] sm:p-7">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#07302D] px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#FFC94F]">
+          <div className="rounded-[2rem] border border-[#151006]/10 bg-white p-5 shadow-[0_16px_42px_rgba(18,15,10,0.08)] sm:p-7">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#151006]/10 bg-[#f2e5ca] px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#6d4a10]">
               <UsersRound className="h-4 w-4" aria-hidden="true" />
               Travel is shared
             </div>
             <h2
-              className="mt-5 text-4xl font-black leading-[0.9] tracking-[-0.06em] text-white sm:text-5xl"
+              className="mt-5 text-4xl font-black leading-[0.9] tracking-[-0.06em] text-[#151006] sm:text-5xl"
               style={{ fontFamily: "var(--font-outfit)" }}
             >
               The more travelers you bring in, the more premium your status becomes.
             </h2>
-            <p className="mt-4 text-base leading-7 text-[#B4CAC6]">
+            <p className="mt-4 text-base leading-7 text-[#5b4b33]">
               Golden Passport begins your journey. Successful referrals and active travel participation can move members toward Platinum Voyager and the rare Black Horizon tier. Some journeys may even be partially funded by us.
             </p>
-            <p className="mt-4 rounded-2xl border border-[#19E4CC]/15 bg-[#07302D] px-4 py-3 text-sm font-black leading-6 text-[#19E4CC]">
+            <p className="mt-4 rounded-2xl border border-[#0d6b50]/15 bg-[#e7f8ef] px-4 py-3 text-sm font-black leading-6 text-[#164b38]">
               {REFERRAL_CASHBACK_COPY} {REFERRAL_SUCCESS_COPY} {PASSPORT_FULFILLMENT_COPY}
             </p>
           </div>
           <div className="grid gap-2 sm:grid-cols-2">
             {REFERRAL_REWARDS.map((reward) => (
-              <div key={reward} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-[#0A2E2B] px-4 py-4 text-sm font-black text-[#DDE9E7] shadow-sm">
-                <Trophy className="h-4 w-4 shrink-0 text-[#FFC94F]" aria-hidden="true" />
+              <div key={reward} className="flex items-center gap-3 rounded-2xl border border-[#151006]/10 bg-[#fff8e9] px-4 py-4 text-sm font-black text-[#302618] shadow-sm">
+                <Trophy className="h-4 w-4 shrink-0 text-[#8a5a06]" aria-hidden="true" />
                 {reward}
               </div>
             ))}
@@ -738,7 +739,7 @@ export function EarlyAccessClient() {
         <section className="mx-auto my-2 w-full max-w-6xl overflow-hidden rounded-[2rem] bg-[#10131b] p-5 text-white shadow-[0_24px_60px_rgba(18,15,10,0.18)] sm:p-7" aria-label="Limited founding membership">
           <div className="grid gap-6 lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
             <div className="flex items-center gap-4">
-              <div className="grid h-16 w-16 shrink-0 place-items-center rounded-3xl bg-[#f6be4a] text-[#04201E]">
+              <div className="grid h-16 w-16 shrink-0 place-items-center rounded-3xl bg-[#f6be4a] text-[#151006]">
                 <Globe2 className="h-8 w-8" aria-hidden="true" />
               </div>
               <div>
@@ -750,7 +751,7 @@ export function EarlyAccessClient() {
               <p className="text-base leading-7 text-white/72">
                 Only the first {FOUNDING_MEMBER_LIMIT} members worldwide will ever receive the official Payago Golden Passport. Once all memberships are claimed, this experience will be permanently closed.
               </p>
-              <a href="#golden-passport-claim" className="mt-5 inline-flex items-center justify-center gap-2 rounded-2xl bg-[#f6be4a] px-5 py-4 text-sm font-black text-[#04201E] transition hover:bg-[#ffd879]">
+              <a href="#golden-passport-claim" className="mt-5 inline-flex items-center justify-center gap-2 rounded-2xl bg-[#f6be4a] px-5 py-4 text-sm font-black text-[#151006] transition hover:bg-[#ffd879]">
                 Claim before it closes
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </a>
@@ -758,14 +759,14 @@ export function EarlyAccessClient() {
           </div>
         </section>
 
-        <footer className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-center gap-x-5 gap-y-2 pt-8 text-center text-xs font-semibold  sm:justify-between text-[#B4CAC6]">
+        <footer className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-center gap-x-5 gap-y-2 pt-8 text-center text-xs font-semibold text-[#6e624f] sm:justify-between">
           <span>Payago Ltd, London</span>
           <span className="flex items-center gap-4">
-            <Link href="/" onClick={() => captureEvent("golden_passport_continue_to_site_click", { campaign: source, target: "home" })} className="hover:text-white">
+            <Link href="/" onClick={() => captureEvent("golden_passport_continue_to_site_click", { campaign: source, target: "home" })} className="hover:text-[#151006]">
               Website
             </Link>
-            <Link href="/terms" className="hover:text-white">Terms</Link>
-            <Link href="/privacy" className="hover:text-white">Privacy</Link>
+            <Link href="/terms" className="hover:text-[#151006]">Terms</Link>
+            <Link href="/privacy" className="hover:text-[#151006]">Privacy</Link>
           </span>
         </footer>
       </section>

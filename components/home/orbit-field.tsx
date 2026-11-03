@@ -13,7 +13,7 @@ const RINGS = [
   { scale: 1.62, live: false },
   { scale: 2.16, live: false },
 ]
-const BODIES = ["#19E4CC", "#FFC65C", "#A29CFF", "#FF9E85"]
+const BODIES = ["#19E4CC", "#FFC65C", "#7C5CFF", "#FF9E85"]
 const STARS = 70
 // Front of the inner ring, top right of the middle, top left of the outer.
 const LABEL_ANGLES = [1.72, -0.92, -2.02]
@@ -253,11 +253,11 @@ export function OrbitField({ labels }: { labels: { text: string; status: string 
           className={`absolute -translate-x-1/2 text-center ${label.below ? "pt-2.5" : "-translate-y-full pb-2.5"}`}
           style={{ left: label.x, top: label.y }}
         >
-          <div className="rounded-xl bg-[#07302D]/80 px-3 py-1.5">
-          <div className={`whitespace-nowrap font-display text-[15px] font-semibold ${label.live ? "text-white" : "text-white/85"}`}>
+          <div className="rounded-xl bg-[#F4F1FF]/80 px-3 py-1.5">
+          <div className={`whitespace-nowrap font-display text-[15px] font-semibold ${label.live ? "text-[#0F172A]" : "text-[#334155]"}`}>
             {label.text}
           </div>
-          <div className={`whitespace-nowrap text-[13px] ${label.live ? "text-[#19E4CC]" : "text-white/60"}`}>{label.status}</div>
+          <div className={`whitespace-nowrap text-[13px] ${label.live ? "text-[#6D4AE8]" : "text-[#64748B]"}`}>{label.status}</div>
           </div>
         </div>
       ))}

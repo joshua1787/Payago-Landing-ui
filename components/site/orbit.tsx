@@ -7,8 +7,8 @@ const ORBIT_CARDS = "M 120 250 a 280 104 0 1 0 560 0 a 280 104 0 1 0 -560 0"
 
 const BODIES = [
   { color: "#FFC65C", r: 7, begin: "0s" },
-  { color: "#19E4CC", r: 6, begin: "-6s" },
-  { color: "#A29CFF", r: 6, begin: "-12s" },
+  { color: "#2563EB", r: 6, begin: "-6s" },
+  { color: "#7C5CFF", r: 6, begin: "-12s" },
   { color: "#FF9E85", r: 5, begin: "-18s" },
 ]
 
@@ -44,8 +44,8 @@ export function Orbit() {
         </clipPath>
       </defs>
       <g transform="rotate(-12 400 250)">
-        <path d={ORBIT_CARDS} stroke="#19E4CC" strokeOpacity="0.4" strokeDasharray="6 9" />
-        <path d={ORBIT_INNER} stroke="#19E4CC" strokeWidth="1.5" />
+        <path d={ORBIT_CARDS} stroke="#7C5CFF" strokeOpacity="0.4" strokeDasharray="6 9" />
+        <path d={ORBIT_INNER} stroke="#7C5CFF" strokeWidth="1.5" />
         <g className="pg-orbit-move">
           <Bodies />
         </g>
@@ -55,7 +55,7 @@ export function Orbit() {
       <text x="400" y="278" textAnchor="middle" fontSize="80" fontWeight="700" fill="#8A5206" className="font-display">{money.symbol}</text>
       <g transform="rotate(-12 400 250)">
         <g clipPath="url(#pg-orbit-front)">
-          <path d={ORBIT_INNER} stroke="#19E4CC" strokeWidth="1.5" />
+          <path d={ORBIT_INNER} stroke="#7C5CFF" strokeWidth="1.5" />
           <g className="pg-orbit-move">
             <Bodies />
           </g>
@@ -65,10 +65,10 @@ export function Orbit() {
             <g key={card.label}>
               <animateMotion dur="48s" begin={CARD_STARTS[i]} repeatCount="indefinite" path={ORBIT_CARDS} />
               <g transform="rotate(12)">
-                <rect x="-66" y="-29" width="132" height="58" rx="12" fill="#04201E" stroke="#19E4CC" strokeOpacity="0.55" />
-                <text x="-54" y="-5" fontSize="13" fontWeight="600" fill="#FFFFFF" className="font-display">{card.label}</text>
-                <text x="54" y="-5" fontSize="13" fontWeight="600" fill="#FFFFFF" textAnchor="end" className="font-display">{card.amount}</text>
-                <text x="-54" y="16" fontSize="12" fill="#19E4CC">{card.detail}</text>
+                <rect x="-66" y="-29" width="132" height="58" rx="12" fill="#FFFFFF" stroke="#7C5CFF" strokeOpacity="0.45" />
+                <text x="-54" y="-5" fontSize="13" fontWeight="600" fill="#0F172A" className="font-display">{card.label}</text>
+                <text x="54" y="-5" fontSize="13" fontWeight="600" fill="#0F172A" textAnchor="end" className="font-display">{card.amount}</text>
+                <text x="-54" y="16" fontSize="12" fill="#6D4AE8">{card.detail}</text>
               </g>
             </g>
           ))}

@@ -46,10 +46,10 @@ export default function AboutPage() {
       <Section title="How we got here.">
         <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {STORY.map((step) => (
-            <li key={step.title} className="rounded-[24px] bg-[#0A2E2B] p-6">
-              <p className="font-display text-[15px] font-semibold text-[#FFC94F]">{step.when}</p>
-              <h3 className="mt-2 font-display text-[19px] font-semibold tracking-[-0.015em] text-white">{step.title}</h3>
-              <p className="mt-2.5 text-[15px] leading-[1.6] text-white/70">{step.body}</p>
+            <li key={step.title} className="rounded-[24px] bg-white border border-[#E6E8EF] p-6">
+              <p className="font-display text-[15px] font-semibold text-[#8A6D1F]">{step.when}</p>
+              <h3 className="mt-2 font-display text-[19px] font-semibold tracking-[-0.015em] text-[#0F172A]">{step.title}</h3>
+              <p className="mt-2.5 text-[15px] leading-[1.6] text-[#475569]">{step.body}</p>
             </li>
           ))}
         </ol>
@@ -60,11 +60,11 @@ export default function AboutPage() {
       <Section title="The founding team.">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {TEAM.map((member) => (
-            <div key={member.name} className="rounded-[24px] bg-[#0A2E2B] p-6">
+            <div key={member.name} className="rounded-[24px] bg-white border border-[#E6E8EF] p-6">
               <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[radial-gradient(circle_at_34%_30%,#FFF0B8,#FFC94F_52%,#C77F12)] font-display text-[17px] font-semibold text-[#5F3B05]">{member.avatar}</div>
-              <h3 className="mt-5 font-display text-[19px] font-semibold tracking-[-0.015em] text-white">{member.name}</h3>
-              <p className="mt-1 text-[14px] text-[#19E4CC]">{member.role}</p>
-              <p className="mt-3 text-[15px] leading-[1.6] text-white/70">{member.bio}</p>
+              <h3 className="mt-5 font-display text-[19px] font-semibold tracking-[-0.015em] text-[#0F172A]">{member.name}</h3>
+              <p className="mt-1 text-[14px] text-[#6D4AE8]">{member.role}</p>
+              <p className="mt-3 text-[15px] leading-[1.6] text-[#475569]">{member.bio}</p>
             </div>
           ))}
         </div>

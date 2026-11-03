@@ -17,12 +17,12 @@ const LINKS: { name: string; href: string }[] = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-white/10 bg-[#031B1A] px-6 py-10 text-[14px] text-white/60">
+    <footer className="border-t border-[#0F172A]/15 bg-[#FAFAF8] px-6 py-10 text-[14px] text-[#64748B]">
       <div className="mx-auto flex max-w-7xl flex-col gap-6">
         <ul className="flex flex-wrap gap-x-6 gap-y-2">
           {LINKS.map((link) => (
             <li key={link.name}>
-              <Link href={link.href} className="hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#19E4CC]">
+              <Link href={link.href} className="hover:text-[#0F172A] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
                 {link.name}
               </Link>
             </li>
