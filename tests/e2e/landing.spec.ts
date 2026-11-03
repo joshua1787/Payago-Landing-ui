@@ -220,3 +220,10 @@ test("split, wallet and trips get the same share of the journey", async () => {
   expect(share("type", "settle")).toBeCloseTo(share("own", "cards"))
   expect(share("own", "cards")).toBeCloseTo(share("trips", "guide"))
 })
+
+test("a trip for 3 stays a trip for 3, with or without the word people", async ({ page }) => {
+  await page.goto("/#chapter-trips")
+  await page.getByLabel("Describe a trip").fill("5 days in New York for 3")
+  await page.keyboard.press("Enter")
+  await expect(page.getByTestId("trip-plans")).toContainText("for 3")
+})

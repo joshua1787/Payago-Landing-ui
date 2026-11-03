@@ -50,7 +50,7 @@ export function readDemoTrip(sentence: string, money: LocalMoney = POUNDS): Demo
   const unit = "(\\d+|two|three|four|five|six|seven|eight|nine|ten)"
   const weekend = text.includes("weekend")
   const days = Math.min(count(text, new RegExp(`${unit}[ -]*(?:days?|nights?)`)) ?? (weekend ? 3 : 7), 30)
-  const people = Math.min(count(text, new RegExp(`(?:for |with )?${unit}\\s*(?:people|friends|of us|adults|mates)`)) ?? 4, 20)
+  const people = Math.min(count(text, new RegExp(`(?:for |with )?${unit}\\s*(?:people|friends|of us|adults|mates)`)) ?? count(text, new RegExp(`\\bfor ${unit}\\s*$`)) ?? 4, 20)
   const scale = 0.6 + days * 0.06
   return {
     place: match.place,
