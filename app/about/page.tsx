@@ -30,10 +30,10 @@ const STORY = [
 ]
 
 const TEAM = [
-  { name: "Joshua", role: "Co-Founder & CTO", bio: "Architected and built PayaGo end-to-end, solo — the AI agent, the ledger, payments, and the iOS, Android, and web apps that ship it. Turns an ambitious product vision into production code at startup speed, and doesn't stop at 'good enough.'", avatar: "J" },
   { name: "Dickson Patrick", role: "Founder & CEO", bio: "Leads company vision, product direction, and strategic partnerships. The one who had to plan that disastrous Lisbon trip and swore there had to be a better way.", avatar: "DP" },
   { name: "Kishore Dayanithi", role: "Co-Founder & CFO", bio: "Owns financial strategy and partner relationships, including the partner-supported model behind early access planning and provider-led handoff where supported.", avatar: "KD" },
   { name: "Aravinthan", role: "Co-Founder & COO", bio: "Runs day-to-day operations and drives execution across engineering, product, and growth. Keeps the team focused on fast, useful trip planning.", avatar: "AR" },
+  { name: "Joshua Veeraiah", role: "Co-Founder & CTO", bio: "Architected and built PayaGo end-to-end, solo — the AI agent, the ledger, payments, and the iOS, Android, and web apps that ship it. Turns an ambitious product vision into production code at startup speed, and doesn't stop at 'good enough.'", avatar: "JV" },
 ]
 
 export default function AboutPage() {
