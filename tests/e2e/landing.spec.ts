@@ -204,4 +204,9 @@ test("the home page shows the real app and only the store that is live", async (
   await expect(page.getByRole("heading", { name: "This is the real app." })).toBeVisible()
   await expect(page.getByRole("link", { name: "Get it on Google Play" }).first()).toHaveAttribute("href", /play\.google\.com.*com\.payago\.app/)
   await expect(page.getByRole("link", { name: /app store/i })).toHaveCount(0)
+test("the delete account page says how, and what is kept", async ({ page }) => {
+  await page.goto("/delete-account/")
+  await expect(page.getByRole("heading", { name: "Delete your account" })).toBeVisible()
+  await expect(page.getByRole("heading", { name: "What is kept" })).toBeVisible()
+  await expect(page.getByRole("link", { name: "privacy@payago.in" })).toHaveAttribute("href", /^mailto:privacy@payago\.in/)
 })
