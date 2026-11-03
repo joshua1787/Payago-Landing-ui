@@ -35,7 +35,7 @@ export default function TermsOfService() {
                 <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight text-slate-900">
                     Terms of Service
                 </h1>
-                <p className="text-slate-500 text-sm mb-2">Last updated: March 2026</p>
+                <p className="text-slate-500 text-sm mb-2">Last updated: November 2026</p>
                 <p className="text-slate-500 text-sm mb-12">PayaGo Ltd · Registered in England & Wales</p>
 
                 <div className="p-6 rounded-2xl bg-[#7C5CFF]/8 border border-[#7C5CFF]/20 mb-12">
@@ -211,6 +211,11 @@ export default function TermsOfService() {
                                 </li>
                             ))}
                         </ul>
+                        <p className="mt-4">
+                            We do not tolerate objectionable content or abusive behaviour. You can report a message or block
+                            someone from inside the app. We review reports within 24 hours and may remove content or close
+                            the account of anyone responsible.
+                        </p>
                     </section>
 
                     <section id="ip" className="scroll-mt-24">

@@ -131,6 +131,7 @@ const sections = [
             "The person you name in your Family Map — they receive an email when you name them, and can read your map if they ask for access and you do not cancel during the waiting period.",
             "Analytics providers (Google Analytics 4) — anonymised usage data to understand product performance.",
             "Cloud infrastructure providers — to host and operate our service, under data processing agreements.",
+            "Our support team — when you report a message or block someone, we receive the message and the accounts involved, so we can review it.",
             "Legal authorities — where required by law, court order, or to protect safety.",
         ],
     },
