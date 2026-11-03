@@ -272,7 +272,7 @@ export function Journey() {
           <div className="max-w-[35rem]">
             <h1 className={`${headline} text-[clamp(2.6rem,4.7vw,4.3rem)] leading-[1.05]`}>
               <span className="block">Split every bill.</span>
-              <span className="pg-open-late block w-fit bg-gradient-to-r from-[#00B8E6] via-[#7C5CFF] to-[#2CBF8E] bg-clip-text text-transparent">Book every trip.</span>
+              <span className="pg-open-late block w-fit bg-gradient-to-r from-[#00B8E6] via-[#7C5CFF] to-[#2CBF8E] bg-clip-text text-transparent">Plan every trip.</span>
             </h1>
             <p className={`${body} pg-open-later lg:max-w-[25rem]`}>One app for the money you share and the trips you take together, from today&apos;s dinner to the holiday you keep talking about.</p>
             <div className="pg-open-later mt-8 flex flex-wrap items-center gap-3">

@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 
 import { HomePage } from "@/components/home/home-page"
 
-const title = "PayaGo: split every bill, book every trip"
+const title = "PayaGo: split every bill, plan every trip"
 const description =
   "Split bills in a group chat and track your own money today. Shared cards and end-to-end AI trips are coming next."
 

@@ -741,7 +741,7 @@ export class MoneyUniverse {
     const loader = new THREE.TextureLoader()
     ;["chat", "settle", "spending"].forEach((name, i) => {
       const material = new THREE.MeshBasicMaterial({ color: "#F4F8F7", transparent: true, opacity: 0, toneMapped: false, depthWrite: false })
-      loader.load(`/app-screens/${name}.webp`, (texture) => {
+      loader.load(`/app-screens/${name}${this.money.symbol === "₹" ? "" : "-uk"}.webp`, (texture) => {
         texture.colorSpace = THREE.SRGBColorSpace
         texture.anisotropy = 8
         material.map = texture

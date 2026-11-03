@@ -141,7 +141,7 @@ test("cookie banner can be dismissed and persists declined consent", async ({ pa
 test("the home page says what is live and sends people to the app", async ({ page }) => {
   await page.goto("/")
 
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Book every trip")
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Plan every trip")
   await expect(page.getByRole("link", { name: "Open PayaGo" }).first()).toHaveAttribute("href", "https://app.payago.in")
 })
 
