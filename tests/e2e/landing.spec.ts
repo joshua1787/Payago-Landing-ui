@@ -260,7 +260,7 @@ test("an admin can sign in with a code and act on a report", async ({ page }) =>
   page.on("dialog", (dialog) => dialog.accept())
 
   await page.goto("/admin/moderation/")
-  await page.getByLabel("Admin email").fill("admin@payago.in")
+  await expect(page.getByLabel("Admin email")).toHaveValue("joshuacto@payago.in")
   await page.getByRole("button", { name: "Email me a code" }).click()
   await page.getByLabel("Code from your email").fill("123456")
   await page.getByRole("button", { name: "Sign in" }).click()
@@ -271,5 +271,33 @@ test("an admin can sign in with a code and act on a report", async ({ page }) =>
 
   await expect(page.getByText("Nothing to review.")).toBeVisible()
   expect(acted).toEqual(["reports/7/remove-message"])
+})
+
+test("the waitlist admin signs in with an emailed code, not a password", async ({ page }) => {
+  const sent: string[] = []
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "*",
+    "Access-Control-Allow-Methods": "*",
+  }
+  await page.route("**/api/v1/**", async (route) => {
+    const url = route.request().url()
+    if (route.request().method() === "OPTIONS") return route.fulfill({ status: 204, headers })
+    if (url.includes("/auth/email-otp/")) sent.push(`${url.split("/").pop()} ${route.request().postData()}`)
+    if (url.endsWith("/auth/email-otp/verify")) return route.fulfill({ json: { access_token: "t" }, headers })
+    if (url.includes("/admin/waitlist")) return route.fulfill({ status: 403, json: {}, headers })
+    return route.fulfill({ json: {}, headers })
+  })
+
+  await page.goto("/admin/waitlist/")
+  await expect(page.getByLabel("Email")).toHaveValue("joshuacto@payago.in")
+  await expect(page.getByLabel("Password")).toHaveCount(0)
+  await page.getByRole("button", { name: "Email me a code" }).click()
+  await page.getByLabel("Code from your email").fill("123456")
+  await page.getByRole("button", { name: "Open dashboard" }).click()
+
+  await expect.poll(() => sent.length).toBe(2)
+  expect(sent[0]).toContain("joshuacto@payago.in")
+  expect(sent[1]).toContain('"code":"123456"')
 })
 

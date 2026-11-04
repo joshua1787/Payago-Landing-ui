@@ -58,7 +58,7 @@ const field = "w-full rounded-xl border border-[#0F172A]/15 bg-white px-4 py-3 t
 const primary = "rounded-full bg-[#0F172A] px-5 py-2.5 font-display text-[14px] font-semibold text-white disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]"
 
 function SignIn({ onToken }: { onToken: (token: string) => void }) {
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState("joshuacto@payago.in")
   const [code, setCode] = useState("")
   const [sent, setSent] = useState(false)
   const [busy, setBusy] = useState(false)

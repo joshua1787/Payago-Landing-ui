@@ -21,8 +21,9 @@ import {
 import { PayagoWordmark } from "@/components/payago-wordmark"
 import { WAITLIST_EMAIL_ERROR, WAITLIST_EMAIL_INPUT_PATTERN, isValidWaitlistEmail } from "@/lib/waitlist-email"
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL?.trim()
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL?.trim() || "https://api.payago.in"
 const TOKEN_STORAGE_KEY = "payago_admin_waitlist_token"
+const DEFAULT_ADMIN_EMAIL = "joshuacto@payago.in"
 const DEFAULT_LIMIT = 25
 const MAX_SEARCH_LENGTH = 120
 
@@ -163,21 +164,28 @@ function downloadBlob(blob: Blob, filename: string) {
 }
 
 function LoginPanel({
+  onSendCode,
   onLogin,
   status,
   error,
 }: {
-  onLogin: (email: string, password: string) => Promise<void>
+  onSendCode: (email: string) => Promise<boolean>
+  onLogin: (email: string, code: string) => Promise<void>
   status: LoginState
   error: string
 }) {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState(DEFAULT_ADMIN_EMAIL)
+  const [code, setCode] = useState("")
+  const [codeSent, setCodeSent] = useState(false)
   const disabled = status === "loading"
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    await onLogin(email, password)
+    if (codeSent) {
+      await onLogin(email, code)
+      return
+    }
+    setCodeSent(await onSendCode(email))
   }
 
   return (
@@ -227,25 +235,26 @@ function LoginPanel({
                   title={WAITLIST_EMAIL_ERROR}
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
-                  disabled={disabled}
+                  disabled={disabled || codeSent}
                   className="min-h-13 rounded-2xl border border-white/10 bg-[#fff7df] px-4 py-3 text-base font-bold text-[#151006] outline-none placeholder:text-slate-400 focus:shadow-[0_0_0_3px_rgba(246,190,74,0.30)] disabled:opacity-70"
                   placeholder="joshuacto@payago.in"
                 />
               </label>
-              <label className="grid gap-2 text-sm font-bold text-[#ffe7a9]">
-                Password
-                <input
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  minLength={8}
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                  disabled={disabled}
-                  className="min-h-13 rounded-2xl border border-white/10 bg-[#fff7df] px-4 py-3 text-base font-bold text-[#151006] outline-none placeholder:text-slate-400 focus:shadow-[0_0_0_3px_rgba(246,190,74,0.30)] disabled:opacity-70"
-                  placeholder="••••••••"
-                />
-              </label>
+              {codeSent ? (
+                <label className="grid gap-2 text-sm font-bold text-[#ffe7a9]">
+                  Code from your email
+                  <input
+                    inputMode="numeric"
+                    autoComplete="one-time-code"
+                    required
+                    value={code}
+                    onChange={(event) => setCode(event.target.value)}
+                    disabled={disabled}
+                    className="min-h-13 rounded-2xl border border-white/10 bg-[#fff7df] px-4 py-3 text-base font-bold text-[#151006] outline-none placeholder:text-slate-400 focus:shadow-[0_0_0_3px_rgba(246,190,74,0.30)] disabled:opacity-70"
+                    placeholder="123456"
+                  />
+                </label>
+              ) : null}
             </div>
 
             {error ? (
@@ -261,7 +270,7 @@ function LoginPanel({
               className="mt-6 inline-flex min-h-13 w-full items-center justify-center gap-2 rounded-2xl bg-[#f6be4a] px-5 py-3 text-sm font-black uppercase tracking-[0.08em] text-[#151006] shadow-[0_18px_36px_rgba(246,190,74,0.20)] transition hover:bg-[#ffd879] disabled:cursor-progress disabled:opacity-70"
             >
               {disabled ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <ShieldCheck className="h-4 w-4" aria-hidden="true" />}
-              {disabled ? "Signing in" : "Open dashboard"}
+              {disabled ? "One moment" : codeSent ? "Open dashboard" : "Email me a code"}
             </button>
           </div>
         </form>
@@ -404,20 +413,43 @@ export function WaitlistAdminClient() {
     return () => window.clearTimeout(timeout)
   }, [searchDraft])
 
-  async function handleLogin(email: string, password: string) {
+  async function handleSendCode(email: string) {
     setLoginError("")
     const normalizedEmail = email.trim().toLowerCase()
 
     if (!isValidWaitlistEmail(normalizedEmail)) {
       setLoginError(WAITLIST_EMAIL_ERROR)
-      return
-    }
-    if (!password.trim()) {
-      setLoginError("Enter your password.")
-      return
+      return false
     }
 
-    const endpoint = apiURL("/api/v1/auth/login")
+    const endpoint = apiURL("/api/v1/auth/email-otp/request")
+    if (!endpoint) {
+      setLoginError("Admin API is not configured for this build.")
+      return false
+    }
+
+    setLoginStatus("loading")
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: normalizedEmail }),
+      })
+      if (!response.ok) {
+        throw new Error("Couldn't send a code. Try again.")
+      }
+      return true
+    } catch (nextError) {
+      setLoginError(getErrorMessage(nextError))
+      return false
+    } finally {
+      setLoginStatus("idle")
+    }
+  }
+
+  async function handleLogin(email: string, code: string) {
+    setLoginError("")
+    const endpoint = apiURL("/api/v1/auth/email-otp/verify")
     if (!endpoint) {
       setLoginError("Admin API is not configured for this build.")
       return
@@ -428,11 +460,11 @@ export function WaitlistAdminClient() {
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: normalizedEmail, password }),
+        body: JSON.stringify({ email: email.trim().toLowerCase(), code: code.trim() }),
       })
 
       if (response.status === 401) {
-        throw new Error("Invalid email or password.")
+        throw new Error("That code is wrong or has expired.")
       }
       if (!response.ok) {
         throw new Error(`Login failed with HTTP ${response.status}.`)
@@ -516,7 +548,7 @@ export function WaitlistAdminClient() {
   }
 
   if (!token) {
-    return <LoginPanel onLogin={handleLogin} status={loginStatus} error={loginError} />
+    return <LoginPanel onSendCode={handleSendCode} onLogin={handleLogin} status={loginStatus} error={loginError} />
   }
 
   return (
