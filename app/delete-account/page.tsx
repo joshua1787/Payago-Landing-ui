@@ -27,12 +27,12 @@ const DELETED = [
     "Your own spending ledger, budget, bills and notifications",
     "Payments read from bank messages, your merchant labels and your private Shortcut link",
     "Your Family Map and the person you named, who can no longer ask for access",
+    "Photos and voice notes you shared, including in groups, along with their messages",
 ]
 
 const KEPT = [
     "Expenses and messages you posted in groups with other people, so their balances stay correct. Your name on them is replaced with “Deleted User”",
     "Groups you created with other people in them",
-    "Photos and voice notes you shared, which can remain in our storage",
     "Payment and reward records we must keep for accounting, tax or legal reasons, and a record that the account was deleted",
 ]
 
