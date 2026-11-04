@@ -225,3 +225,51 @@ test("a trip for 3 stays a trip for 3, with or without the word people", async (
   await page.keyboard.press("Enter")
   await expect(page.getByTestId("trip-plans")).toContainText("for 3")
 })
+
+test("an admin can sign in with a code and act on a report", async ({ page }) => {
+  let reports = [
+    {
+      id: 7,
+      reported_at: "2026-11-04T10:00:00Z",
+      body: '[payago-card]{"title":"Rent","amount":"£100.00"}',
+      message_removed: false,
+      group: "Flat 3B",
+      reporter: "Asha",
+      author_id: "a1",
+      author: "Rude Rob",
+      author_email: "rob@example.com",
+      author_suspended: false,
+    },
+  ]
+  const acted: string[] = []
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "*",
+    "Access-Control-Allow-Methods": "*",
+  }
+  await page.route("**/api/v1/**", async (route) => {
+    const url = route.request().url()
+    if (route.request().method() === "OPTIONS") return route.fulfill({ status: 204, headers })
+    if (url.endsWith("/auth/email-otp/request")) return route.fulfill({ json: {}, headers })
+    if (url.endsWith("/auth/email-otp/verify")) return route.fulfill({ json: { access_token: "t" }, headers })
+    if (url.endsWith("/admin/moderation/reports")) return route.fulfill({ json: { reports, blocks_total: 2 }, headers })
+    acted.push(url.split("/admin/moderation/")[1])
+    reports = []
+    return route.fulfill({ json: {}, headers })
+  })
+  page.on("dialog", (dialog) => dialog.accept())
+
+  await page.goto("/admin/moderation/")
+  await page.getByLabel("Admin email").fill("admin@payago.in")
+  await page.getByRole("button", { name: "Email me a code" }).click()
+  await page.getByLabel("Code from your email").fill("123456")
+  await page.getByRole("button", { name: "Sign in" }).click()
+
+  await expect(page.getByTestId("report")).toContainText("Expense card: Rent £100.00")
+  await expect(page.getByTestId("report")).toContainText("Rude Rob")
+  await page.getByRole("button", { name: "Remove message" }).click()
+
+  await expect(page.getByText("Nothing to review.")).toBeVisible()
+  expect(acted).toEqual(["reports/7/remove-message"])
+})
+
