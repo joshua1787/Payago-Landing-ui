@@ -12,34 +12,29 @@ const PLAY_URL = "https://play.google.com/store/apps/details?id=com.payago.app"
 // wide for big screens, tall cut to fit a phone, and a lighter version of each for poor connections.
 type FilmName = "wide" | "lite" | "tall" | "slow"
 const LIGHTER: Partial<Record<FilmName, FilmName>> = { wide: "lite", tall: "slow" }
-const FILM_LENGTH = 1120 / 15
-const FILM_ZERO = 89 / 15
-const FILM_END = 68.7
 const STALL_LIMIT_MS = 1500
 const FADE_MS = 380
 // A scroll has to settle on a scene this long, so a fling past it or a bounce doesn't start a fade.
 const SETTLE_MS = 120
 
+// After the opening, the film runs from 0 to 1 along the scroll. "open" and "live" are shares of the whole page.
 const SCENES = [
   { id: "open", from: 0, to: LIVE_FROM - 0.004 },
   { id: "live", from: LIVE_FROM, to: ZOOM_FROM },
-  { id: "flight", from: 0.107, to: 0.181 },
-  { id: "land", from: 0.208, to: 0.281 },
-  { id: "cab", from: 0.308, to: 0.383 },
-  { id: "hotel", from: 0.429, to: 0.563 },
-  { id: "train", from: 0.589, to: 0.67 },
-  { id: "places", from: 0.71, to: 0.777 },
-  { id: "split", from: 0.847, to: 0.896 },
-  { id: "all", from: 0.938, to: 1.0 },
+  { id: "flight", from: 0, to: 0.24 },
+  { id: "hotel", from: 0.27, to: 0.5 },
+  { id: "split", from: 0.53, to: 0.73 },
+  { id: "all", from: 0.78, to: 1 },
 ] as const
 
-// Each scene plays through once and rests on its last frame until the scroll moves on: scene start, in
-// film progress, then where it starts and stops in the video, in seconds. One scene runs into the next.
-const STOPS = SCENES.filter(({ id }) => id !== "open" && id !== "live").map(({ from }, i, scenes) => ({
-  from,
-  start: from * FILM_LENGTH - FILM_ZERO,
-  end: scenes[i + 1] ? scenes[i + 1].from * FILM_LENGTH - FILM_ZERO : FILM_END,
-}))
+// Each scene plays through once and rests on its last frame until the scroll moves on: where it starts
+// along the scroll, then where it starts and stops in the video, in seconds.
+const STOPS = [
+  { from: 0, start: 2.08, end: 7.6 },
+  { from: 0.27, start: 7.6, end: 14.6 },
+  { from: 0.53, start: 14.6, end: 17 },
+  { from: 0.78, start: 17, end: 24.2 },
+]
 
 // The whole film as the page plays it: at rest in the sky, rolling into the flight, then each scene.
 const PLAN = [{ start: 0, end: 0 }, { start: 0, end: STOPS[0].start }, ...STOPS.map(({ start, end }) => ({ start, end }))]
@@ -47,14 +42,8 @@ const PLAN = [{ start: 0, end: 0 }, { start: 0, end: STOPS[0].start }, ...STOPS.
 const headline = "font-display font-semibold tracking-[-0.035em] text-white [text-shadow:0_2px_30px_rgba(10,16,40,0.55)]"
 const body = "mt-3 max-w-[27rem] text-[17px] leading-[1.5] text-white/95 [text-shadow:0_1px_18px_rgba(10,16,40,0.7)] sm:text-[19px]"
 
-// The page opens in the film's golden sky, and the film drifts on through the clouds while the opening
-// plays: scroll share, then film progress.
-const FILM_START = 0.08
-const FILM_AT_ZOOM_END = 0.0955
-function filmAt(scroll: number) {
-  if (scroll < ZOOM_TO) return FILM_START + (FILM_AT_ZOOM_END - FILM_START) * (scroll / ZOOM_TO)
-  return FILM_AT_ZOOM_END + (1 - FILM_AT_ZOOM_END) * ((scroll - ZOOM_TO) / (1 - ZOOM_TO))
-}
+// Below zero during the opening, so the first scene waits for the camera to come through the "o".
+const filmAt = (scroll: number) => (scroll - ZOOM_TO) / (1 - ZOOM_TO)
 
 function isSlowConnection() {
   const connection = (navigator as unknown as { connection?: { saveData?: boolean; effectiveType?: string } }).connection
@@ -174,8 +163,8 @@ export function Film() {
       if (phase !== "fading" && wanted !== scene && now - wantedSince >= SETTLE_MS) {
         const next = PLAN[wanted]
         const at = showing.currentTime
-        // Already about to reach it, so the film simply runs on into it with no fade.
-        const runsOn = phase === "idle" && wanted > scene && at >= next.start - 0.6 && at <= next.start + 0.05
+        // Coming out of the opening, the film simply runs on into the flight with no fade.
+        const runsOn = phase === "idle" && scene <= 1 && wanted > scene && at >= next.start - 0.6 && at <= next.start + 0.05
         scene = wanted
         if (!runsOn) fadeTo(scene, next.start)
       }
@@ -280,7 +269,7 @@ export function Film() {
   const panelClass = "absolute inset-x-0 bottom-0 top-0 mx-auto flex max-w-7xl flex-col justify-end px-6 pb-12 will-change-transform lg:justify-center lg:pb-0"
 
   return (
-    <div ref={track} className="relative h-[1300vh]" data-testid="film">
+    <div ref={track} className="relative h-[900vh]" data-testid="film">
       <div className="sticky top-0 h-[100svh] overflow-hidden bg-[#E8C98F]">
         <div ref={stageRef} aria-hidden="true" className="absolute inset-0 isolate overflow-hidden">
           <video ref={videoA} muted playsInline preload="auto" disablePictureInPicture style={{ transition: `opacity ${FADE_MS}ms ease-in-out` }} className="absolute inset-0 h-full w-full object-cover" />
@@ -323,21 +312,7 @@ export function Film() {
           <div className="max-w-[30rem]">
             <Coming />
             <h2 className={`${headline} mt-4 text-[clamp(2.4rem,5vw,4.5rem)] leading-[1.03]`}>Every trip starts with the flight.</h2>
-            <p className={body}>Tell PayaGo where you&apos;re going. AI finds the route and books the whole group together.</p>
-          </div>
-        </div>
-        <div ref={setPanel("land")} className={panelClass} style={{ opacity: 0 }}>
-          <div className="max-w-[30rem]">
-            <Coming />
-            <h2 className={`${headline} mt-4 text-[clamp(2.4rem,5vw,4.5rem)] leading-[1.03]`}>Land where you meant to be.</h2>
-            <p className={body}>Your eSIM is on before the wheels stop, and your cab is already waiting.</p>
-          </div>
-        </div>
-        <div ref={setPanel("cab")} className={panelClass} style={{ opacity: 0 }}>
-          <div className="max-w-[30rem]">
-            <Coming />
-            <h2 className={`${headline} mt-4 text-[clamp(2.4rem,5vw,4.5rem)] leading-[1.03]`}>Your ride is in the plan.</h2>
-            <p className={body}>Airport transfers, cabs and car hire, all booked with the trip.</p>
+            <p className={body}>Tell PayaGo where you&apos;re going. AI plans it, and books the flights, trains, cabs and eSIM for the whole group together.</p>
           </div>
         </div>
         <div ref={setPanel("hotel")} className={panelClass} style={{ opacity: 0 }}>
@@ -345,20 +320,6 @@ export function Film() {
             <Coming />
             <h2 className={`${headline} mt-4 text-[clamp(2.4rem,5vw,4.5rem)] leading-[1.03]`}>Walk straight into your hotel.</h2>
             <p className={body}>Pick basic, standard or premium. The rooms sit in the same plan as the flights.</p>
-          </div>
-        </div>
-        <div ref={setPanel("train")} className={panelClass} style={{ opacity: 0 }}>
-          <div className="max-w-[30rem]">
-            <Coming />
-            <h2 className={`${headline} mt-4 text-[clamp(2.4rem,5vw,4.5rem)] leading-[1.03]`}>Then take the scenic way.</h2>
-            <p className={body}>Trains are part of the plan too, and so is your share of them.</p>
-          </div>
-        </div>
-        <div ref={setPanel("places")} className={panelClass} style={{ opacity: 0 }}>
-          <div className="max-w-[30rem]">
-            <Coming />
-            <h2 className={`${headline} mt-4 text-[clamp(2.4rem,5vw,4.5rem)] leading-[1.03]`}>Find the places worth going to.</h2>
-            <p className={body}>Streets, food and events near you, added to the plan as you go.</p>
           </div>
         </div>
         <div ref={setPanel("split")} className={panelClass} style={{ opacity: 0 }}>
@@ -372,10 +333,13 @@ export function Film() {
           <div className="max-w-[32rem]">
             <Coming />
             <h2 className={`${headline} mt-4 text-[clamp(2.4rem,5vw,4.5rem)] leading-[1.03]`}>One trip. One app. One plan.</h2>
-            <p className={body}>Everything you just flew through, planned by AI and booked in one place.</p>
+            <p className={body}>Whole trips, planned by AI and booked in one place, are coming. Splitting the bill works today.</p>
             <div className="mt-7 flex flex-wrap items-center gap-3">
               <a href="/early-access/" className="rounded-full bg-white px-7 py-3.5 font-display text-[15px] font-semibold text-[#0F172A] transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2">
                 Join the trips waitlist
+              </a>
+              <a href={isAndroid ? PLAY_URL : APP_URL} className="rounded-full border border-white/70 bg-[#0F172A]/35 px-6 py-3.5 font-display text-[15px] font-semibold text-white hover:bg-[#0F172A]/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+                Split a bill today
               </a>
             </div>
           </div>

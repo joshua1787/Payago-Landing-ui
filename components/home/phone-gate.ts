@@ -4,9 +4,9 @@ import { between } from "@/lib/universe/chapters"
 // lettering and a purple sweep. The hole in the "o" of PayaGo is cut through to the film, and flying
 // through the letter is the way in.
 
-export const LIVE_FROM = 0.04
-export const ZOOM_FROM = 0.13
-export const ZOOM_TO = 0.21
+export const LIVE_FROM = 0.07
+export const ZOOM_FROM = 0.21
+export const ZOOM_TO = 0.33
 
 export type GateExample = { message: string; label: string; amount: string; share: string }
 

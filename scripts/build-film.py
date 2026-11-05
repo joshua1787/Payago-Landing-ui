@@ -13,8 +13,9 @@ OUT = "public/film"
 
 FILM_LENGTH = 1120 / 15
 START = 89 / 15  # The film before this is the phone, which the page now draws itself.
-# Film progress at which each scene starts: keep in step with SCENES in components/home/film.tsx.
-SCENES = [0.107, 0.208, 0.308, 0.429, 0.589, 0.71, 0.847, 0.938]
+# The parts of the long film the page uses, in seconds from START: the sky and flight, the hotel, the
+# dinner table and the Earth. The times they land on are in STOPS in components/home/film.tsx.
+PARTS = [(0, 7.6), (30, 37), (59.07, 64.07), (64.07, 68.7)]
 
 # Film progress, then how far across the picture a tall screen looks, in percent.
 PAN = [(0, 50), (0.096, 50), (0.11, 72), (0.2, 70), (0.29, 48), (0.42, 50), (0.86, 50), (0.885, 76), (0.895, 78), (0.905, 50), (0.96, 60), (1, 72)]
@@ -45,24 +46,30 @@ def main():
     ):
         inputs += [CLIPS + a if a.startswith("shot-") else a for a in part]
 
+    keep = "select='" + "+".join(f"between(t,{a},{b - 0.001})" for a, b in PARTS) + "',setpts=N/24/TB"
     tall_crop = f"crop={TALL_W}:{SOURCE_H}:x='{pan_expression()}':y=0"
     graph = ";".join(f"[{k}:v]{normal}[{c}]" for k, c in enumerate("abcdefghijk")) + (
         ";[a][b]xfade=transition=fade:duration=0.6:offset=6.7[ab];[ab][c]concat=n=2:v=1[abc]"
         ";[abc][d]xfade=transition=fade:duration=0.6:offset=21.8[abcd];[abcd][e]xfade=transition=fade:duration=0.6:offset=29.05[abcde]"
         ";[abcde][f][g][h][i]concat=n=5:v=1[toi];[toi][j]xfade=transition=fade:duration=0.6:offset=65.8[toj]"
         f";[toj][k]concat=n=2:v=1,trim=start={START:.4f},setpts=PTS-STARTPTS,split=5[w][l][t1][t2][p]"
-        ";[w]scale=1600:900:flags=lanczos[wide];[l]scale=1280:720:flags=lanczos[lite]"
-        f";[t1]{tall_crop}[tall];[t2]{tall_crop},scale=440:720:flags=lanczos[slow]"
+        f";[w]{keep},scale=1600:900:flags=lanczos[wide];[l]{keep},scale=1280:720:flags=lanczos[lite]"
+        f";[t1]{tall_crop},{keep}[tall];[t2]{tall_crop},{keep},scale=440:720:flags=lanczos[slow]"
         ";[p]select='eq(n,0)',split=2[p1][p2];[p1]scale=1600:900[pwide];[p2]crop=660:1080:630:0[ptall]"
     )
 
-    scene_starts = [q * FILM_LENGTH - START for q in SCENES]
-    every_two_seconds = [float(t) for t in range(0, int(FILM_LENGTH - START) + 1, 2)]
-    cuts = ",".join(f"{t:.3f}" for t in sorted(scene_starts + every_two_seconds))
+    starts = [2.08]
+    at = 0.0
+    for a, b in PARTS[:-1]:
+        at += b - a
+        starts.append(at)
+    starts.append(17.0)  # The camera leaves the dinner table.
+    every_two_seconds = [float(t) for t in range(0, 26, 2)]
+    cuts = ",".join(f"{t:.3f}" for t in sorted(starts + every_two_seconds))
     shutil.rmtree(OUT, ignore_errors=True)
     os.makedirs(OUT)
     outputs = []
-    for name, crf, ceiling in (("wide", 25, "3500k"), ("lite", 27, "1800k"), ("tall", 25, "2200k"), ("slow", 28, "800k")):
+    for name, crf, ceiling in (("wide", 21, "5M"), ("lite", 25, "2200k"), ("tall", 22, "3200k"), ("slow", 27, "900k")):
         outputs += [
             "-map", f"[{name}]", "-c:v", "libx264", "-preset", "slow", "-crf", str(crf), "-maxrate", ceiling, "-bufsize", "6M",
             "-profile:v", "high", "-pix_fmt", "yuv420p", "-force_key_frames", cuts,
