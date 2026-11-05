@@ -12,14 +12,18 @@ const PLAY_URL = "https://play.google.com/store/apps/details?id=com.payago.app"
 // hundreds: wide for big screens, tall cut to fit a phone, and a lighter set of each for slow connections.
 const BUNDLE = 16
 type SetName = "wide" | "tall" | "lite" | "slow"
-const SETS: Record<SetName, { frames: number; ahead: number; lighter?: SetName; needsMbps?: number }> = {
-  wide: { frames: 516, ahead: 18, lighter: "lite", needsMbps: 12 },
-  tall: { frames: 516, ahead: 10, lighter: "slow", needsMbps: 7 },
+const SETS: Record<SetName, { frames: number; ahead: number; lighter?: SetName; bundleBytes?: number }> = {
+  wide: { frames: 516, ahead: 18, lighter: "lite", bundleBytes: 900_000 },
+  tall: { frames: 516, ahead: 10, lighter: "slow", bundleBytes: 545_000 },
   lite: { frames: 258, ahead: 9 },
   slow: { frames: 258, ahead: 5 },
 }
 // How many bundles to time before deciding whether this connection can keep up.
 const SPEED_SAMPLE = 6
+// A brisk scroll gets through about this many bundles a second, and the download keeps a lead on it.
+const BUNDLES_PER_SECOND = 1.6
+const AT_ONCE = 3
+const STALL_LIMIT_MS = 1000
 const BEHIND = 2
 
 const SCENES = [
@@ -124,20 +128,40 @@ export function Film() {
     const requested = new Set<number>()
     const timed: PerformanceResourceTiming[] = []
     let speedChecked = false
-    // Times the bundles themselves, leaving out the wait for the first byte. Most browsers report it;
-    // a bundle from the cache is near instant, so a repeat visit keeps the sharp set.
+    // Works out how many full-size bundles a second this connection can bring: the wait for each one's
+    // first byte, plus its transfer at the speed seen. A bundle from the cache is near instant, so a
+    // repeat visit keeps the sharp set.
     const checkSpeed = (url: string) => {
-      const { lighter, needsMbps } = SETS[setName]
-      if (speedChecked || !lighter || !needsMbps) return
+      const { lighter, bundleBytes } = SETS[setName]
+      if (speedChecked || !lighter || !bundleBytes) return
       const entry = performance.getEntriesByName(new URL(url, location.href).href).pop() as PerformanceResourceTiming | undefined
       if (entry) timed.push(entry)
       if (timed.length < SPEED_SAMPLE) return
       speedChecked = true
       const bytes = timed.reduce((sum, { encodedBodySize }) => sum + encodedBodySize, 0)
-      const seconds = (Math.max(...timed.map((t) => t.responseEnd)) - Math.min(...timed.map((t) => t.responseStart))) / 1000
-      if (bytes === 0 || seconds <= 0 || (bytes * 8) / seconds / 1e6 >= needsMbps) return
-      // Too slow for this set. The picture on screen stays until the lighter set's frames arrive.
+      const transfer = timed.reduce((sum, t) => sum + (t.responseEnd - t.responseStart), 0) / 1000
+      const wait = timed.reduce((sum, t) => sum + (t.responseStart - t.startTime), 0) / 1000 / timed.length
+      if (bytes === 0 || transfer <= 0) return
+      // Bundles that overlapped shared the line, so the line's speed counts only the time something was arriving.
+      let busy = 0
+      let until = 0
+      ;[...timed].sort((a, b) => a.responseStart - b.responseStart).forEach(({ responseStart, responseEnd }) => {
+        busy += Math.max(0, responseEnd - Math.max(responseStart, until))
+        until = Math.max(until, responseEnd)
+      })
+      const lineSpeed = bytes / (busy / 1000)
+      const canBring = Math.min(AT_ONCE / (wait + bundleBytes / (bytes / transfer)), lineSpeed / bundleBytes)
+      if (busy > 0 && canBring >= BUNDLES_PER_SECOND) return
+      lighten()
+    }
+    // Too slow for this set. The picture on screen stays until the lighter set's frames arrive.
+    const lighten = () => {
+      const { lighter } = SETS[setName]
+      if (!lighter) return
+      speedChecked = true
       const share = SETS[lighter].frames / frameCount()
+      inFlight.forEach((download) => download.abort())
+      inFlight.clear()
       setName = lighter
       shown *= share
       blobs = []
@@ -148,12 +172,21 @@ export function Film() {
       drawn = -1
     }
     const failures = new Map<number, number>()
+    // Downloads the viewer has already passed are dropped, so they don't hold up the ones needed now.
+    const inFlight = new Map<number, AbortController>()
     let active = 0
     const fetchNext = () => {
-      while (active < 3 && !disposed) {
+      while (active < AT_ONCE && !disposed) {
         const { frames, ahead } = SETS[setName]
         const bundleCount = Math.ceil(frames / BUNDLE)
         const here = Math.floor(shown / BUNDLE)
+        inFlight.forEach((download, bundle) => {
+          if (bundle < here - BEHIND) {
+            download.abort()
+            inFlight.delete(bundle)
+            requested.delete(bundle)
+          }
+        })
         let next = -1
         for (let d = 0; d <= ahead && next < 0; d++) {
           if (here + d < bundleCount && !requested.has(here + d)) next = here + d
@@ -167,7 +200,9 @@ export function Film() {
         const bundle = next
         const fromSet = setName
         const url = `/film/${fromSet}/b${String(bundle).padStart(3, "0")}.bin`
-        void fetch(url)
+        const download = new AbortController()
+        inFlight.set(bundle, download)
+        void fetch(url, { signal: download.signal })
           .then((response) => {
             if (!response.ok) throw new Error(String(response.status))
             return response.arrayBuffer()
@@ -186,11 +221,13 @@ export function Film() {
             checkSpeed(url)
           })
           .catch(() => {
+            if (download.signal.aborted) return
             const tries = (failures.get(bundle) ?? 0) + 1
             failures.set(bundle, tries)
             if (tries < 3 && fromSet === setName) requested.delete(bundle)
           })
           .finally(() => {
+            if (inFlight.get(bundle) === download) inFlight.delete(bundle)
             active--
             fetchNext()
           })
@@ -223,6 +260,7 @@ export function Film() {
     window.addEventListener("resize", onResize)
     let frame = 0
     let lastScroll = -1
+    let stalledSince = 0
     const paint = () => {
       const scroll = progressNow()
       const p = filmAt(scroll)
@@ -230,6 +268,17 @@ export function Film() {
       shown += (frameAt(p) - shown) * 0.3
       const base = Math.floor(shown)
       const key = Math.round(shown * 8)
+      // Whatever the speed check said, a film that has really fallen behind the scroll goes lighter.
+      if (scroll >= ZOOM_TO && !blobs[base]) {
+        const now = performance.now()
+        stalledSince ||= now
+        if (now - stalledSince > STALL_LIMIT_MS) {
+          stalledSince = 0
+          lighten()
+        }
+      } else {
+        stalledSince = 0
+      }
       if (key !== drawn) {
         tidy()
         fetchNext()
@@ -288,6 +337,7 @@ export function Film() {
     paint()
     return () => {
       disposed = true
+      inFlight.forEach((download) => download.abort())
       opening?.dispose()
       gate.current = null
       window.removeEventListener("resize", onResize)
