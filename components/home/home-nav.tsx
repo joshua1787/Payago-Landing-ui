@@ -26,7 +26,7 @@ export function HomeNav({ appUrl }: { appUrl: string }) {
   useEffect(() => {
     const onScroll = () => {
       const film = document.querySelector<HTMLElement>("[data-testid=film]")
-      setOverFilm(Boolean(film) && window.scrollY < (film!.offsetHeight - window.innerHeight) * 0.985)
+      setOverFilm(Boolean(film) && window.scrollY < film!.offsetHeight - 72)
     }
     onScroll()
     window.addEventListener("scroll", onScroll, { passive: true })

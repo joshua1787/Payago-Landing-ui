@@ -320,9 +320,9 @@ test("how it works shows money in the visitor's own currency", async ({ browser 
   await uk.close()
 })
 
-test("the film's frames load and the words move with the scroll", async ({ page }) => {
-  for (const bundle of ["wide/b000", "wide/b032", "tall/b000", "tall/b032", "slow/b000", "slow/b016", "lite/b000", "lite/b016"]) {
-    expect((await page.request.get(`/film/${bundle}.bin`)).ok()).toBe(true)
+test("the film's files load and the words move with the scroll", async ({ page }) => {
+  for (const file of ["wide.mp4", "lite.mp4", "tall.mp4", "slow.mp4", "wide.jpg", "tall.jpg"]) {
+    expect((await page.request.get(`/film/${file}`)).ok()).toBe(true)
   }
   await page.goto("/")
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Plan every trip.")

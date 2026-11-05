@@ -8,19 +8,17 @@ import { between, clamp01 } from "@/lib/universe/chapters"
 
 const APP_URL = "https://app.payago.in"
 const PLAY_URL = "https://play.google.com/store/apps/details?id=com.payago.app"
-// Built by scripts/build-film.py. Frames come in bundles, so a scroll needs a few requests rather than
-// hundreds: wide for big screens, tall cut to fit a phone, and a lighter set of each for slow connections.
-const BUNDLE = 16
-type SetName = "wide" | "tall" | "lite" | "slow"
-const SETS: Record<SetName, { frames: number; ahead: number; lighter?: SetName }> = {
-  wide: { frames: 516, ahead: 18, lighter: "lite" },
-  tall: { frames: 516, ahead: 10, lighter: "slow" },
-  lite: { frames: 258, ahead: 9 },
-  slow: { frames: 258, ahead: 5 },
-}
-const AT_ONCE = 3
-const STALL_LIMIT_MS = 1000
-const BEHIND = 2
+// Built by scripts/build-film.py. Real video, because phones and laptops have chips made to play it:
+// wide for big screens, tall cut to fit a phone, and a lighter version of each for poor connections.
+type FilmName = "wide" | "lite" | "tall" | "slow"
+const LIGHTER: Partial<Record<FilmName, FilmName>> = { wide: "lite", tall: "slow" }
+const FILM_LENGTH = 1120 / 15
+const FILM_ZERO = 89 / 15
+const FILM_END = 68.7
+const STALL_LIMIT_MS = 1500
+const FADE_MS = 380
+// A scroll has to settle on a scene this long, so a fling past it or a bounce doesn't start a fade.
+const SETTLE_MS = 120
 
 const SCENES = [
   { id: "open", from: 0, to: LIVE_FROM - 0.004 },
@@ -34,6 +32,17 @@ const SCENES = [
   { id: "split", from: 0.847, to: 0.896 },
   { id: "all", from: 0.938, to: 1.0 },
 ] as const
+
+// Each scene plays through once and rests on its last frame until the scroll moves on: scene start, in
+// film progress, then where it starts and stops in the video, in seconds. One scene runs into the next.
+const STOPS = SCENES.filter(({ id }) => id !== "open" && id !== "live").map(({ from }, i, scenes) => ({
+  from,
+  start: from * FILM_LENGTH - FILM_ZERO,
+  end: scenes[i + 1] ? scenes[i + 1].from * FILM_LENGTH - FILM_ZERO : FILM_END,
+}))
+
+// The whole film as the page plays it: at rest in the sky, rolling into the flight, then each scene.
+const PLAN = [{ start: 0, end: 0 }, { start: 0, end: STOPS[0].start }, ...STOPS.map(({ start, end }) => ({ start, end }))]
 
 const headline = "font-display font-semibold tracking-[-0.035em] text-white [text-shadow:0_2px_30px_rgba(10,16,40,0.55)]"
 const body = "mt-3 max-w-[27rem] text-[17px] leading-[1.5] text-white/95 [text-shadow:0_1px_18px_rgba(10,16,40,0.7)] sm:text-[19px]"
@@ -57,11 +66,12 @@ function Coming() {
   return <p className="inline-block rounded-full border border-white/50 bg-[#0F172A]/35 px-3 py-1 text-[13px] font-medium text-white">Trips: coming</p>
 }
 
-/** The film is a stack of still frames, so scrolling can move it forward and back with no lag. */
+/** Scrolling starts each scene of the film. It always plays at normal speed, and fades to a scene it skips to. */
 export function Film() {
   const track = useRef<HTMLDivElement>(null)
-  const canvas = useRef<HTMLCanvasElement>(null)
-  const veil = useRef<HTMLDivElement>(null)
+  const stageRef = useRef<HTMLDivElement>(null)
+  const videoA = useRef<HTMLVideoElement>(null)
+  const videoB = useRef<HTMLVideoElement>(null)
   const intro = useRef<HTMLDivElement>(null)
   const gateCanvas = useRef<HTMLCanvasElement>(null)
   const gate = useRef<ReturnType<typeof createPhoneGate>>(null)
@@ -72,148 +82,121 @@ export function Film() {
 
   useEffect(() => {
     const box = track.current
-    const element = canvas.current
-    const ctx = element?.getContext("2d", { alpha: false, desynchronized: true })
-    if (!box || !element || !ctx) return
+    const stage = stageRef.current
+    const first = videoA.current
+    const second = videoB.current
+    if (!box || !stage || !first || !second) return
     setIsAndroid(/android/i.test(navigator.userAgent))
 
-    // Compressed frames stay in memory, and only those near the viewer are kept unpacked.
-    // Unpacking happens off the main thread, so drawing a frame is nearly free.
     const phone = window.innerWidth < 700 && window.innerHeight > window.innerWidth
-    let setName: SetName = phone ? "tall" : "wide"
-    if (isSlowConnection()) setName = SETS[setName].lighter ?? setName
-    const frameCount = () => SETS[setName].frames
-    const frameAt = (p: number) => ((p - FILM_START) / (1 - FILM_START)) * (frameCount() - 1)
-    let blobs: (Blob | undefined)[] = []
-    const bitmaps = new Map<number, ImageBitmap>()
-    const unpacking = new Set<number>()
-    const WINDOW = 16
-    let shown = 0
-    let drawn = -1
+    let film: FilmName = phone ? "tall" : "wide"
+    if (isSlowConnection()) film = LIGHTER[film] ?? film
+    const load = (player: HTMLVideoElement) => {
+      const url = `/film/${film}.mp4`
+      if (!player.src.endsWith(url)) player.src = url
+    }
+    first.poster = `/film/${phone ? "tall" : "wide"}.jpg`
+    load(first)
+
+    let showing = first
+    let waiting = second
+    let scene = 0
+    let wanted = 0
+    let wantedSince = 0
+    let fading = false
+    // iPhones in Low Power Mode won't play video, so each scene's last frame is shown instead.
+    let playable = true
+    let waited = 0
+    let lastCheck = performance.now()
     let disposed = false
+    const timers = new Set<ReturnType<typeof setTimeout>>()
 
-    const unpack = (i: number) => {
-      const blob = blobs[i]
-      if (!blob || bitmaps.has(i) || unpacking.has(i)) return
-      unpacking.add(i)
-      void createImageBitmap(blob).then((bitmap) => {
-        unpacking.delete(i)
-        if (disposed || Math.abs(i - shown) > WINDOW) {
-          bitmap.close()
-          return
-        }
-        bitmaps.set(i, bitmap)
-        drawn = -1
+    const play = (player: HTMLVideoElement, end: number) => {
+      player.play().catch(() => {
+        if (disposed) return
+        playable = false
+        player.currentTime = end
       })
     }
-    const tidy = () => {
-      const centre = Math.round(shown)
-      bitmaps.forEach((bitmap, i) => {
-        if (Math.abs(i - centre) > WINDOW) {
-          bitmap.close()
-          bitmaps.delete(i)
-        }
-      })
-      for (let d = 0; d <= WINDOW && unpacking.size < 4; d++) {
-        if (centre + d < frameCount()) unpack(centre + d)
-        if (centre - d >= 0) unpack(centre - d)
+    // The waiting player finds the moment out of sight, and fades in over the one showing, which keeps
+    // playing until it's covered.
+    const fadeTo = (index: number, from: number) => {
+      fading = true
+      const { end } = PLAN[index]
+      const incoming = waiting
+      load(incoming)
+      const show = () => {
+        clearTimeout(giveUp)
+        timers.delete(giveUp)
+        if (disposed) return
+        if (playable && incoming.currentTime < end - 0.04) play(incoming, end)
+        incoming.style.zIndex = "1"
+        showing.style.zIndex = "0"
+        incoming.style.opacity = "1"
+        const outgoing = showing
+        showing = incoming
+        waiting = outgoing
+        const done = setTimeout(() => {
+          timers.delete(done)
+          outgoing.pause()
+          outgoing.style.opacity = "0"
+          fading = false
+        }, FADE_MS)
+        timers.add(done)
+      }
+      // If the moment can't be found in time, the picture on screen simply stays.
+      const giveUp = setTimeout(() => {
+        timers.delete(giveUp)
+        incoming.removeEventListener("seeked", show)
+        fading = false
+      }, 2500)
+      timers.add(giveUp)
+      const seek = () => {
+        incoming.addEventListener("seeked", show, { once: true })
+        incoming.currentTime = playable ? from : end
+      }
+      if (incoming.readyState >= 1) seek()
+      else incoming.addEventListener("loadedmetadata", seek, { once: true })
+    }
+    const follow = (index: number, now: number) => {
+      if (index !== wanted) {
+        wanted = index
+        wantedSince = now
+      }
+      if (!fading && wanted !== scene && now - wantedSince >= SETTLE_MS) {
+        const next = PLAN[wanted]
+        const at = showing.currentTime
+        // Already about to reach it, so the film simply runs on into it with no fade.
+        const runsOn = wanted > scene && at >= next.start - 0.6 && at <= next.start + 0.05
+        scene = wanted
+        if (!runsOn) fadeTo(scene, next.start)
+      }
+      const { end } = PLAN[scene]
+      if (!playable) return
+      if (end - showing.currentTime <= 0.04) {
+        if (!showing.paused) showing.pause()
+      } else if (showing.paused && !fading) {
+        play(showing, end)
       }
     }
-
-    // Download from where the viewer is, ahead first, a few bundles at a time.
-    const requested = new Set<number>()
-    // Too slow for this set. The picture on screen stays until the lighter set's frames arrive.
-    const lighten = () => {
-      const { lighter } = SETS[setName]
-      if (!lighter) return
-      const share = SETS[lighter].frames / frameCount()
-      inFlight.forEach((download) => download.abort())
-      inFlight.clear()
-      setName = lighter
-      shown *= share
-      blobs = []
-      requested.clear()
-      failures.clear()
-      bitmaps.forEach((bitmap) => bitmap.close())
-      bitmaps.clear()
-      drawn = -1
-    }
-    const failures = new Map<number, number>()
-    // Downloads the viewer has already passed are dropped, so they don't hold up the ones needed now.
-    const inFlight = new Map<number, AbortController>()
-    let active = 0
-    const fetchNext = () => {
-      while (active < AT_ONCE && !disposed) {
-        const { frames, ahead } = SETS[setName]
-        const bundleCount = Math.ceil(frames / BUNDLE)
-        const here = Math.floor(shown / BUNDLE)
-        inFlight.forEach((download, bundle) => {
-          if (bundle < here - BEHIND) {
-            download.abort()
-            inFlight.delete(bundle)
-            requested.delete(bundle)
-          }
-        })
-        let next = -1
-        for (let d = 0; d <= ahead && next < 0; d++) {
-          if (here + d < bundleCount && !requested.has(here + d)) next = here + d
-        }
-        for (let d = 1; d <= BEHIND && next < 0; d++) {
-          if (here - d >= 0 && !requested.has(here - d)) next = here - d
-        }
-        if (next < 0) return
-        requested.add(next)
-        active++
-        const bundle = next
-        const fromSet = setName
-        const url = `/film/${fromSet}/b${String(bundle).padStart(3, "0")}.bin`
-        const download = new AbortController()
-        inFlight.set(bundle, download)
-        void fetch(url, { signal: download.signal })
-          .then((response) => {
-            if (!response.ok) throw new Error(String(response.status))
-            return response.arrayBuffer()
-          })
-          .then((data) => {
-            if (fromSet !== setName) return
-            const view = new DataView(data)
-            const count = view.getUint32(0, true)
-            let offset = 4 + count * 4
-            for (let i = 0; i < count; i++) {
-              const length = view.getUint32(4 + i * 4, true)
-              blobs[bundle * BUNDLE + i] = new Blob([data.slice(offset, offset + length)], { type: "image/webp" })
-              offset += length
-            }
-            drawn = -1
-          })
-          .catch(() => {
-            if (download.signal.aborted) return
-            const tries = (failures.get(bundle) ?? 0) + 1
-            failures.set(bundle, tries)
-            if (tries < 3 && fromSet === setName) requested.delete(bundle)
-          })
-          .finally(() => {
-            if (inFlight.get(bundle) === download) inFlight.delete(bundle)
-            active--
-            fetchNext()
-          })
-      }
+    // Many short waits are as bad as one long one, so waiting is added up. Past the limit, the film moves
+    // to the lighter version from the same moment.
+    const checkForStall = (now: number) => {
+      const elapsed = now - lastCheck
+      lastCheck = now
+      const lighter = LIGHTER[film]
+      if (!lighter || fading || showing.paused || showing.readyState >= 3 || document.hidden) return
+      waited += elapsed
+      if (waited < STALL_LIMIT_MS) return
+      waited = 0
+      film = lighter
+      fadeTo(scene, showing.currentTime)
     }
 
     const progressNow = () => {
       const rect = box.getBoundingClientRect()
       const span = rect.height - window.innerHeight
       return span <= 0 ? 0 : clamp01(-rect.top / span)
-    }
-    /** The nearest frame ready to draw, so a fast scroll never shows a blank. */
-    const nearest = (i: number) => {
-      for (let d = 0; d <= WINDOW; d++) {
-        const ahead = bitmaps.get(i + d)
-        if (ahead) return ahead
-        const behind = bitmaps.get(i - d)
-        if (behind) return behind
-      }
-      return null
     }
     const heading = box.querySelector("h1")
     const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -226,47 +209,15 @@ export function Film() {
     window.addEventListener("resize", onResize)
     let frame = 0
     let lastScroll = -1
-    let stalledSince = 0
     const paint = () => {
       const scroll = progressNow()
       const p = filmAt(scroll)
-      // The film catches up with the scroll over a few frames, so wheel steps read as one glide.
-      shown += (frameAt(p) - shown) * 0.3
-      const base = Math.floor(shown)
-      const key = Math.round(shown * 8)
-      // Everyone starts with the sharp frames. A film that has really fallen behind the scroll goes lighter.
-      if (scroll >= ZOOM_TO && !blobs[base]) {
-        const now = performance.now()
-        stalledSince ||= now
-        if (now - stalledSince > STALL_LIMIT_MS) {
-          stalledSince = 0
-          lighten()
-        }
-      } else {
-        stalledSince = 0
-      }
-      if (key !== drawn) {
-        tidy()
-        fetchNext()
-        const bitmap = nearest(base)
-        if (bitmap) {
-          // Drawn at its own size. The browser's graphics chip does the scaling.
-          if (element.width !== bitmap.width) {
-            element.width = bitmap.width
-            element.height = bitmap.height
-          }
-          ctx.globalAlpha = 1
-          ctx.drawImage(bitmap, 0, 0)
-          // Half a step between two frames is drawn as a blend, so a slow scroll stays fluid.
-          const blendInto = bitmaps.get(base + 1)
-          const blend = shown - base
-          if (blendInto && bitmap === bitmaps.get(base) && blend > 0.06) {
-            ctx.globalAlpha = blend
-            ctx.drawImage(blendInto, 0, 0)
-          }
-          if (bitmap === bitmaps.get(base)) drawn = key
-        }
-      }
+      const clock = performance.now()
+      // The opening rests on the first frame until the camera is nearly through the "o".
+      const rolling = scroll >= ZOOM_FROM + (ZOOM_TO - ZOOM_FROM) * 0.45
+      const stopIndex = STOPS.filter(({ from }) => from <= p).length
+      follow(stopIndex > 0 ? stopIndex + 1 : rolling ? 1 : 0, clock)
+      checkForStall(clock)
       frame = requestAnimationFrame(paint)
       const layer = intro.current
       const inOpening = scroll < ZOOM_TO
@@ -276,12 +227,12 @@ export function Film() {
         layer.style.background = "none"
         // The sky breathes slowly behind the phone, and settles as the camera flies in.
         const breath = still ? 0.04 : 0.04 + Math.sin(now / 5200) * 0.012
-        element.style.transform = `scale(${1 + breath * (1 - between(scroll, ZOOM_FROM, ZOOM_TO))})`
+        stage.style.transform = `scale(${1 + breath * (1 - between(scroll, ZOOM_FROM, ZOOM_TO))})`
       }
       if (scroll === lastScroll) return
       lastScroll = scroll
       if (layer) layer.style.visibility = inOpening ? "visible" : "hidden"
-      if (!inOpening) element.style.transform = "none"
+      if (!inOpening) stage.style.transform = "none"
       if (introShade.current) introShade.current.style.opacity = String(1 - between(scroll, ZOOM_FROM - 0.012, ZOOM_FROM + 0.004))
       SCENES.forEach(({ id, from, to }) => {
         const panel = panels.current[id]
@@ -296,19 +247,17 @@ export function Film() {
         panel.style.visibility = opacity < 0.01 ? "hidden" : "visible"
         panel.style.pointerEvents = opacity > 0.6 ? "auto" : "none"
       })
-      if (veil.current) veil.current.style.opacity = String(between(p, 0.99, 1))
     }
-    shown = frameAt(filmAt(progressNow()))
-    fetchNext()
     paint()
     return () => {
       disposed = true
-      inFlight.forEach((download) => download.abort())
+      timers.forEach(clearTimeout)
+      first.pause()
+      second.pause()
       opening?.dispose()
       gate.current = null
       window.removeEventListener("resize", onResize)
       cancelAnimationFrame(frame)
-      bitmaps.forEach((bitmap) => bitmap.close())
     }
   }, [])
 
@@ -323,9 +272,12 @@ export function Film() {
   const panelClass = "absolute inset-x-0 bottom-0 top-0 mx-auto flex max-w-7xl flex-col justify-end px-6 pb-12 will-change-transform lg:justify-center lg:pb-0"
 
   return (
-    <div ref={track} className="relative h-[1600vh]" data-testid="film">
+    <div ref={track} className="relative h-[1300vh]" data-testid="film">
       <div className="sticky top-0 h-[100svh] overflow-hidden bg-[#E8C98F]">
-        <canvas ref={canvas} aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
+        <div ref={stageRef} aria-hidden="true" className="absolute inset-0 isolate overflow-hidden">
+          <video ref={videoA} muted playsInline preload="auto" disablePictureInPicture style={{ transition: `opacity ${FADE_MS}ms ease-in-out` }} className="absolute inset-0 h-full w-full object-cover" />
+          <video ref={videoB} muted playsInline preload="auto" disablePictureInPicture style={{ opacity: 0, transition: `opacity ${FADE_MS}ms ease-in-out` }} className="absolute inset-0 h-full w-full object-cover" />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/60 via-[#0F172A]/10 to-transparent lg:bg-gradient-to-r lg:from-[#0F172A]/55 lg:via-[#0F172A]/10 lg:to-transparent" />
         <div ref={intro} aria-hidden="true" className="absolute inset-0 overflow-hidden bg-[#E8C98F]">
           <canvas ref={gateCanvas} className="absolute inset-0 h-full w-full" />
@@ -420,7 +372,6 @@ export function Film() {
             </div>
           </div>
         </div>
-        <div ref={veil} className="pointer-events-none absolute inset-0 bg-[#FFF3E2]" style={{ opacity: 0 }} />
       </div>
     </div>
   )

@@ -34,6 +34,7 @@ export function HomePage() {
       <HomeNav appUrl={APP_URL} />
       <main className="pg-flush">
         <Film />
+        <div aria-hidden="true" className="h-[45vh] bg-gradient-to-b from-[#03050d] via-[#3a3f5c] to-[#FAFAF8]" />
       <Journey />
 
         <section className="bg-[#FAFAF8] px-6 py-24 lg:py-32">
