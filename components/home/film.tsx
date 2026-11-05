@@ -8,11 +8,19 @@ import { between, clamp01 } from "@/lib/universe/chapters"
 
 const APP_URL = "https://app.payago.in"
 const PLAY_URL = "https://play.google.com/store/apps/details?id=com.payago.app"
-const FRAME_COUNT = Number(process.env.NEXT_PUBLIC_FILM_FRAMES ?? 1120)
-// Phones get a lighter set of frames: 29 MB in all, against 55 MB.
-const frameSrc = (i: number, small: boolean) => `/film/${small ? "m/" : ""}f${String(i + 1).padStart(4, "0")}.webp`
-// Only frames near the viewer are downloaded, so nobody pays for the whole film to see the start of it.
-const FETCH_AHEAD = 180
+// Built by scripts/build-film.py. Frames come in bundles, so a scroll needs a few requests rather than
+// hundreds: wide for big screens, tall cut to fit a phone, and a lighter set of each for slow connections.
+const BUNDLE = 16
+type SetName = "wide" | "tall" | "lite" | "slow"
+const SETS: Record<SetName, { frames: number; ahead: number; lighter?: SetName; needsMbps?: number }> = {
+  wide: { frames: 516, ahead: 18, lighter: "lite", needsMbps: 12 },
+  tall: { frames: 516, ahead: 10, lighter: "slow", needsMbps: 7 },
+  lite: { frames: 258, ahead: 9 },
+  slow: { frames: 258, ahead: 5 },
+}
+// How many bundles to time before deciding whether this connection can keep up.
+const SPEED_SAMPLE = 6
+const BEHIND = 2
 
 const SCENES = [
   { id: "open", from: 0, to: LIVE_FROM - 0.004 },
@@ -30,30 +38,6 @@ const SCENES = [
 const headline = "font-display font-semibold tracking-[-0.035em] text-white [text-shadow:0_2px_30px_rgba(10,16,40,0.55)]"
 const body = "mt-3 max-w-[27rem] text-[17px] leading-[1.5] text-white/95 [text-shadow:0_1px_18px_rgba(10,16,40,0.7)] sm:text-[19px]"
 
-// A tall screen only fits the middle of a wide film, so on phones the frame pans to keep the
-// subject in view: film progress, then how far across the picture to look, in percent.
-const PHONE_PAN: [number, number][] = [
-  [0, 50],
-  [0.096, 50],
-  [0.11, 72],
-  [0.2, 70],
-  [0.29, 48],
-  [0.42, 50],
-  [0.86, 50],
-  [0.885, 76],
-  [0.895, 78],
-  [0.905, 50],
-  [0.96, 60],
-  [1, 72],
-]
-function panAt(p: number) {
-  let i = 0
-  while (i < PHONE_PAN.length - 2 && p > PHONE_PAN[i + 1][0]) i++
-  const [fromP, fromX] = PHONE_PAN[i]
-  const [toP, toX] = PHONE_PAN[i + 1]
-  return fromX + (toX - fromX) * between(p, fromP, toP)
-}
-
 // The page opens in the film's golden sky, and the film drifts on through the clouds while the opening
 // plays: scroll share, then film progress.
 const FILM_START = 0.08
@@ -63,13 +47,10 @@ function filmAt(scroll: number) {
   return FILM_AT_ZOOM_END + (1 - FILM_AT_ZOOM_END) * ((scroll - ZOOM_TO) / (1 - ZOOM_TO))
 }
 
-// On a slow connection or with data saver on, every third frame is enough: a film that keeps up, for
-// about a third of the data. Browsers that can't tell get every frame.
-function frameStep() {
+function isSlowConnection() {
   const connection = (navigator as unknown as { connection?: { saveData?: boolean; effectiveType?: string; downlink?: number } }).connection
-  if (!connection) return 1
-  const slow = connection.saveData || /(^|-)[23]g$/.test(connection.effectiveType ?? "") || (connection.downlink !== undefined && connection.downlink > 0 && connection.downlink < 2)
-  return slow ? 3 : 1
+  if (!connection) return false
+  return Boolean(connection.saveData) || /(^|-)[23]g$/.test(connection.effectiveType ?? "") || (connection.downlink !== undefined && connection.downlink > 0 && connection.downlink < 2)
 }
 
 function Coming() {
@@ -98,11 +79,15 @@ export function Film() {
 
     // Compressed frames stay in memory, and only those near the viewer are kept unpacked.
     // Unpacking happens off the main thread, so drawing a frame is nearly free.
-    const small = window.innerWidth < 900 || navigator.maxTouchPoints > 0
-    const blobs: (Blob | undefined)[] = new Array(FRAME_COUNT)
+    const phone = window.innerWidth < 700 && window.innerHeight > window.innerWidth
+    let setName: SetName = phone ? "tall" : "wide"
+    if (isSlowConnection()) setName = SETS[setName].lighter ?? setName
+    const frameCount = () => SETS[setName].frames
+    const frameAt = (p: number) => ((p - FILM_START) / (1 - FILM_START)) * (frameCount() - 1)
+    let blobs: (Blob | undefined)[] = []
     const bitmaps = new Map<number, ImageBitmap>()
     const unpacking = new Set<number>()
-    const WINDOW = 36
+    const WINDOW = 16
     let shown = 0
     let drawn = -1
     let disposed = false
@@ -118,7 +103,7 @@ export function Film() {
           return
         }
         bitmaps.set(i, bitmap)
-        if (i === Math.round(shown)) drawn = -1
+        drawn = -1
       })
     }
     const tidy = () => {
@@ -130,38 +115,80 @@ export function Film() {
         }
       })
       for (let d = 0; d <= WINDOW && unpacking.size < 4; d++) {
-        if (centre + d < FRAME_COUNT) unpack(centre + d)
+        if (centre + d < frameCount()) unpack(centre + d)
         if (centre - d >= 0) unpack(centre - d)
       }
     }
 
-    // Download from where the viewer is, outward, a few at a time.
-    const step = frameStep()
+    // Download from where the viewer is, ahead first, a few bundles at a time.
+    const requested = new Set<number>()
+    const timed: PerformanceResourceTiming[] = []
+    let speedChecked = false
+    // Times the bundles themselves, leaving out the wait for the first byte. Most browsers report it;
+    // a bundle from the cache is near instant, so a repeat visit keeps the sharp set.
+    const checkSpeed = (url: string) => {
+      const { lighter, needsMbps } = SETS[setName]
+      if (speedChecked || !lighter || !needsMbps) return
+      const entry = performance.getEntriesByName(new URL(url, location.href).href).pop() as PerformanceResourceTiming | undefined
+      if (entry) timed.push(entry)
+      if (timed.length < SPEED_SAMPLE) return
+      speedChecked = true
+      const bytes = timed.reduce((sum, { encodedBodySize }) => sum + encodedBodySize, 0)
+      const seconds = (Math.max(...timed.map((t) => t.responseEnd)) - Math.min(...timed.map((t) => t.responseStart))) / 1000
+      if (bytes === 0 || seconds <= 0 || (bytes * 8) / seconds / 1e6 >= needsMbps) return
+      // Too slow for this set. The picture on screen stays until the lighter set's frames arrive.
+      const share = SETS[lighter].frames / frameCount()
+      setName = lighter
+      shown *= share
+      blobs = []
+      requested.clear()
+      failures.clear()
+      bitmaps.forEach((bitmap) => bitmap.close())
+      bitmaps.clear()
+      drawn = -1
+    }
+    const failures = new Map<number, number>()
     let active = 0
-    let idle = false
     const fetchNext = () => {
-      while (active < 6 && !disposed) {
-        const centre = Math.round(shown)
+      while (active < 3 && !disposed) {
+        const { frames, ahead } = SETS[setName]
+        const bundleCount = Math.ceil(frames / BUNDLE)
+        const here = Math.floor(shown / BUNDLE)
         let next = -1
-        for (let d = 0; d < FETCH_AHEAD && next < 0; d++) {
-          for (const i of [centre + d, centre - d]) {
-            if (i >= 0 && i < FRAME_COUNT && i % step === 0 && !blobs[i] && !requested.has(i)) {
-              next = i
-              break
-            }
-          }
+        for (let d = 0; d <= ahead && next < 0; d++) {
+          if (here + d < bundleCount && !requested.has(here + d)) next = here + d
         }
-        if (next < 0) {
-          idle = true
-          return
+        for (let d = 1; d <= BEHIND && next < 0; d++) {
+          if (here - d >= 0 && !requested.has(here - d)) next = here - d
         }
+        if (next < 0) return
         requested.add(next)
         active++
-        const index = next
-        void fetch(frameSrc(index, small))
-          .then((response) => response.blob())
-          .then((blob) => {
-            blobs[index] = blob
+        const bundle = next
+        const fromSet = setName
+        const url = `/film/${fromSet}/b${String(bundle).padStart(3, "0")}.bin`
+        void fetch(url)
+          .then((response) => {
+            if (!response.ok) throw new Error(String(response.status))
+            return response.arrayBuffer()
+          })
+          .then((data) => {
+            if (fromSet !== setName) return
+            const view = new DataView(data)
+            const count = view.getUint32(0, true)
+            let offset = 4 + count * 4
+            for (let i = 0; i < count; i++) {
+              const length = view.getUint32(4 + i * 4, true)
+              blobs[bundle * BUNDLE + i] = new Blob([data.slice(offset, offset + length)], { type: "image/webp" })
+              offset += length
+            }
+            drawn = -1
+            checkSpeed(url)
+          })
+          .catch(() => {
+            const tries = (failures.get(bundle) ?? 0) + 1
+            failures.set(bundle, tries)
+            if (tries < 3 && fromSet === setName) requested.delete(bundle)
           })
           .finally(() => {
             active--
@@ -169,7 +196,6 @@ export function Film() {
           })
       }
     }
-    const requested = new Set<number>()
 
     const progressNow = () => {
       const rect = box.getBoundingClientRect()
@@ -197,33 +223,33 @@ export function Film() {
     window.addEventListener("resize", onResize)
     let frame = 0
     let lastScroll = -1
-    let panned = -1
-    const tall = window.innerWidth < window.innerHeight
     const paint = () => {
       const scroll = progressNow()
       const p = filmAt(scroll)
       // The film catches up with the scroll over a few frames, so wheel steps read as one glide.
-      shown += (p * (FRAME_COUNT - 1) - shown) * 0.2
-      const index = Math.round(shown)
-      if (tall && index !== panned) {
-        panned = index
-        element.style.objectPosition = `${panAt(shown / (FRAME_COUNT - 1)).toFixed(1)}% 50%`
-      }
-      if (index !== drawn) {
+      shown += (frameAt(p) - shown) * 0.3
+      const base = Math.floor(shown)
+      const key = Math.round(shown * 8)
+      if (key !== drawn) {
         tidy()
-        if (idle) {
-          idle = false
-          fetchNext()
-        }
-        const bitmap = nearest(index)
+        fetchNext()
+        const bitmap = nearest(base)
         if (bitmap) {
           // Drawn at its own size. The browser's graphics chip does the scaling.
           if (element.width !== bitmap.width) {
             element.width = bitmap.width
             element.height = bitmap.height
           }
+          ctx.globalAlpha = 1
           ctx.drawImage(bitmap, 0, 0)
-          if (bitmap === bitmaps.get(index)) drawn = index
+          // Half a step between two frames is drawn as a blend, so a slow scroll stays fluid.
+          const blendInto = bitmaps.get(base + 1)
+          const blend = shown - base
+          if (blendInto && bitmap === bitmaps.get(base) && blend > 0.06) {
+            ctx.globalAlpha = blend
+            ctx.drawImage(blendInto, 0, 0)
+          }
+          if (bitmap === bitmaps.get(base)) drawn = key
         }
       }
       frame = requestAnimationFrame(paint)
@@ -257,8 +283,7 @@ export function Film() {
       })
       if (veil.current) veil.current.style.opacity = String(between(p, 0.99, 1))
     }
-    // The first frame wanted is the golden sky, so nothing before it is downloaded.
-    shown = filmAt(progressNow()) * (FRAME_COUNT - 1)
+    shown = frameAt(filmAt(progressNow()))
     fetchNext()
     paint()
     return () => {

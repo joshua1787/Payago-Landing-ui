@@ -321,9 +321,9 @@ test("how it works shows money in the visitor's own currency", async ({ browser 
 })
 
 test("the film's frames load and the words move with the scroll", async ({ page }) => {
-  const first = await page.request.get("/film/f0001.webp")
-  expect((await page.request.get("/film/m/f1120.webp")).ok()).toBe(true)
-  expect(first.ok()).toBe(true)
+  for (const bundle of ["wide/b000", "wide/b032", "tall/b000", "tall/b032", "slow/b000", "slow/b016", "lite/b000", "lite/b016"]) {
+    expect((await page.request.get(`/film/${bundle}.bin`)).ok()).toBe(true)
+  }
   await page.goto("/")
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Plan every trip.")
   await page.evaluate(() => {
