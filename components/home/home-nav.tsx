@@ -19,30 +19,40 @@ const LINKS: { name: string; href: string }[] = [
 
 export function HomeNav({ appUrl }: { appUrl: string }) {
   const [open, setOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
   const onHome = usePathname() === "/"
+  const [overFilm, setOverFilm] = useState(onHome)
 
+  // Over the film the bar is see-through, so the sky runs to the top of the screen.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
+    const onScroll = () => {
+      const film = document.querySelector<HTMLElement>("[data-testid=film]")
+      setOverFilm(Boolean(film) && window.scrollY < (film!.offsetHeight - window.innerHeight) * 0.985)
+    }
     onScroll()
     window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
+    window.addEventListener("resize", onScroll)
+    return () => {
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", onScroll)
+    }
   }, [])
+
+  const clear = overFilm && !open
 
   return (
     <nav
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-200 ${
-        "bg-white/95"
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+        clear ? "bg-gradient-to-b from-[#0F172A]/45 to-transparent" : open ? "bg-white" : "bg-white/95"
       }`}
     >
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-6">
         <a href="/" aria-label="PayaGo home" className="rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
-          <PayagoWordmark className="text-[1.5rem] text-[#0F172A]" />
+          <PayagoWordmark className={`text-[1.5rem] ${clear ? "text-white [&_*]:!text-white" : "text-[#0F172A]"}`} />
         </a>
 
         <div className="hidden items-center gap-8 lg:flex">
           {LINKS.map((link) => (
-            <a key={link.name} href={link.href} className="text-[15px] text-[#475569] transition-colors hover:text-[#0F172A] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
+            <a key={link.name} href={link.href} className={`text-[15px] transition-colors ${clear ? "text-white [text-shadow:0_1px_12px_rgba(10,16,40,0.55)] hover:text-white/75" : "text-[#475569] hover:text-[#0F172A]"} focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]`}>
               {link.name}
             </a>
           ))}
@@ -58,7 +68,7 @@ export function HomeNav({ appUrl }: { appUrl: string }) {
 
         <button
           type="button"
-          className="rounded-lg p-2 text-[#0F172A] lg:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]"
+          className={`rounded-lg p-2 lg:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF] ${clear ? "text-white" : "text-[#0F172A]"}`}
           aria-label={open ? "Close navigation menu" : "Open navigation menu"}
           aria-controls="mobile-navigation"
           aria-expanded={open}

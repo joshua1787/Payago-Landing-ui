@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react"
 
+import { LIVE_FROM, ZOOM_FROM, ZOOM_TO, createPhoneGate } from "@/components/home/phone-gate"
+import { useLocalMoney } from "@/lib/use-local-money"
 import { between, clamp01 } from "@/lib/universe/chapters"
 
 const APP_URL = "https://app.payago.in"
@@ -13,7 +15,8 @@ const frameSrc = (i: number, small: boolean) => `/film/${small ? "m/" : ""}f${St
 const FETCH_AHEAD = 180
 
 const SCENES = [
-  { id: "open", from: 0, to: 0.022 },
+  { id: "open", from: 0, to: LIVE_FROM - 0.004 },
+  { id: "live", from: LIVE_FROM, to: ZOOM_FROM },
   { id: "flight", from: 0.107, to: 0.181 },
   { id: "land", from: 0.208, to: 0.281 },
   { id: "cab", from: 0.308, to: 0.383 },
@@ -31,7 +34,7 @@ const body = "mt-3 max-w-[27rem] text-[17px] leading-[1.5] text-white/95 [text-s
 // subject in view: film progress, then how far across the picture to look, in percent.
 const PHONE_PAN: [number, number][] = [
   [0, 50],
-  [0.05, 50],
+  [0.096, 50],
   [0.11, 72],
   [0.2, 70],
   [0.29, 48],
@@ -51,8 +54,23 @@ function panAt(p: number) {
   return fromX + (toX - fromX) * between(p, fromP, toP)
 }
 
-// Where the drawn phone hands over to the film, as a share of the page: the film is in the clouds by then.
-const INTRO_END = 0.067
+// The page opens in the film's golden sky, and the film drifts on through the clouds while the opening
+// plays: scroll share, then film progress.
+const FILM_START = 0.08
+const FILM_AT_ZOOM_END = 0.0955
+function filmAt(scroll: number) {
+  if (scroll < ZOOM_TO) return FILM_START + (FILM_AT_ZOOM_END - FILM_START) * (scroll / ZOOM_TO)
+  return FILM_AT_ZOOM_END + (1 - FILM_AT_ZOOM_END) * ((scroll - ZOOM_TO) / (1 - ZOOM_TO))
+}
+
+// On a slow connection or with data saver on, every third frame is enough: a film that keeps up, for
+// about a third of the data. Browsers that can't tell get every frame.
+function frameStep() {
+  const connection = (navigator as unknown as { connection?: { saveData?: boolean; effectiveType?: string; downlink?: number } }).connection
+  if (!connection) return 1
+  const slow = connection.saveData || /(^|-)[23]g$/.test(connection.effectiveType ?? "") || (connection.downlink !== undefined && connection.downlink > 0 && connection.downlink < 2)
+  return slow ? 3 : 1
+}
 
 function Coming() {
   return <p className="inline-block rounded-full border border-white/50 bg-[#0F172A]/35 px-3 py-1 text-[13px] font-medium text-white">Trips: coming</p>
@@ -64,12 +82,12 @@ export function Film() {
   const canvas = useRef<HTMLCanvasElement>(null)
   const veil = useRef<HTMLDivElement>(null)
   const intro = useRef<HTMLDivElement>(null)
-  const phone = useRef<HTMLDivElement>(null)
-  const flash = useRef<HTMLDivElement>(null)
-  const sheen = useRef<HTMLDivElement>(null)
+  const gateCanvas = useRef<HTMLCanvasElement>(null)
+  const gate = useRef<ReturnType<typeof createPhoneGate>>(null)
   const introShade = useRef<HTMLDivElement>(null)
   const panels = useRef<Partial<Record<string, HTMLDivElement | null>>>({})
   const [isAndroid, setIsAndroid] = useState(false)
+  const money = useLocalMoney()
 
   useEffect(() => {
     const box = track.current
@@ -118,6 +136,7 @@ export function Film() {
     }
 
     // Download from where the viewer is, outward, a few at a time.
+    const step = frameStep()
     let active = 0
     let idle = false
     const fetchNext = () => {
@@ -126,7 +145,7 @@ export function Film() {
         let next = -1
         for (let d = 0; d < FETCH_AHEAD && next < 0; d++) {
           for (const i of [centre + d, centre - d]) {
-            if (i >= 0 && i < FRAME_COUNT && !blobs[i] && !requested.has(i)) {
+            if (i >= 0 && i < FRAME_COUNT && i % step === 0 && !blobs[i] && !requested.has(i)) {
               next = i
               break
             }
@@ -167,44 +186,22 @@ export function Film() {
       }
       return null
     }
-    // The opening phone is drawn by the browser, not taken from the film, so it's sharp on any
-    // screen at any zoom. Sizes are set directly rather than scaled, so the text is redrawn each time.
-    const paintIntro = (p: number) => {
-      const layer = intro.current
-      const body = phone.current
-      if (!layer || !body) return
-      const gone = between(p, INTRO_END, INTRO_END + 0.012)
-      layer.style.opacity = String(1 - gone)
-      layer.style.visibility = gone >= 1 ? "hidden" : "visible"
-      if (gone >= 1) return
-      const vw = window.innerWidth
-      const vh = window.innerHeight
-      const wide = vw >= 1024
-      const startHeight = wide ? vh * 0.74 : vh * 0.5
-      const fill = Math.max(vw / (startHeight * 0.45), vh / (startHeight * 0.92)) * 1.2
-      const t = between(p, 0.021, INTRO_END - 0.002)
-      const scale = Math.exp(Math.log(fill) * t * t)
-      const move = Math.min(1, t * 2.2)
-      const x = (wide ? 0.69 : 0.5) + ((wide ? -0.19 : 0) * move)
-      const y = (wide ? 0.53 : 0.36) + ((wide ? -0.03 : 0.14) * move)
-      body.style.fontSize = `${(startHeight * scale) / 100}px`
-      body.style.left = `${x * 100}%`
-      body.style.top = `${y * 100}%`
-      body.style.transform = `translate(-50%, -50%) rotate(${(1 - move) * 2.4}deg)`
-      if (sheen.current) sheen.current.style.transform = `translateX(${-60 + p * 2200}%) skewX(-18deg)`
-      if (introShade.current) introShade.current.style.opacity = String(1 - between(p, 0.014, 0.024))
-      if (flash.current) flash.current.style.opacity = String(between(p, INTRO_END - 0.011, INTRO_END))
-    }
+    const heading = box.querySelector("h1")
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    const opening = gateCanvas.current && heading ? createPhoneGate(gateCanvas.current, heading, still) : null
+    gate.current = opening
     const onResize = () => {
-      lastP = -1
+      lastScroll = -1
+      opening?.resize()
     }
     window.addEventListener("resize", onResize)
     let frame = 0
-    let lastP = -1
+    let lastScroll = -1
     let panned = -1
     const tall = window.innerWidth < window.innerHeight
     const paint = () => {
-      const p = progressNow()
+      const scroll = progressNow()
+      const p = filmAt(scroll)
       // The film catches up with the scroll over a few frames, so wheel steps read as one glide.
       shown += (p * (FRAME_COUNT - 1) - shown) * 0.2
       const index = Math.round(shown)
@@ -230,15 +227,28 @@ export function Film() {
         }
       }
       frame = requestAnimationFrame(paint)
-      if (p === lastP) return
-      lastP = p
-      paintIntro(p)
+      const layer = intro.current
+      const inOpening = scroll < ZOOM_TO
+      if (opening && layer && inOpening) {
+        const now = performance.now()
+        opening.draw(scroll, now)
+        layer.style.background = "none"
+        // The sky breathes slowly behind the phone, and settles as the camera flies in.
+        const breath = still ? 0.04 : 0.04 + Math.sin(now / 5200) * 0.012
+        element.style.transform = `scale(${1 + breath * (1 - between(scroll, ZOOM_FROM, ZOOM_TO))})`
+      }
+      if (scroll === lastScroll) return
+      lastScroll = scroll
+      if (layer) layer.style.visibility = inOpening ? "visible" : "hidden"
+      if (!inOpening) element.style.transform = "none"
+      if (introShade.current) introShade.current.style.opacity = String(1 - between(scroll, ZOOM_FROM - 0.012, ZOOM_FROM + 0.004))
       SCENES.forEach(({ id, from, to }) => {
         const panel = panels.current[id]
         if (!panel) return
+        const at = id === "open" || id === "live" ? scroll : p
         const fade = Math.min(0.03, (to - from) * 0.25)
-        const enter = id === "open" ? 1 : between(p, from, from + fade)
-        const leave = id === "all" ? 0 : between(p, to - fade, to)
+        const enter = id === "open" ? 1 : between(at, from, from + fade)
+        const leave = id === "all" ? 0 : between(at, to - fade, to)
         const opacity = enter * (1 - leave)
         panel.style.opacity = String(opacity)
         panel.style.transform = `translate3d(0, ${(1 - enter) * 26 - leave * 26}px, 0)`
@@ -247,15 +257,24 @@ export function Film() {
       })
       if (veil.current) veil.current.style.opacity = String(between(p, 0.99, 1))
     }
+    // The first frame wanted is the golden sky, so nothing before it is downloaded.
+    shown = filmAt(progressNow()) * (FRAME_COUNT - 1)
     fetchNext()
     paint()
     return () => {
       disposed = true
+      opening?.dispose()
+      gate.current = null
       window.removeEventListener("resize", onResize)
       cancelAnimationFrame(frame)
       bitmaps.forEach((bitmap) => bitmap.close())
     }
   }, [])
+
+  useEffect(() => {
+    const [first] = money.orbitCards
+    gate.current?.setExample({ message: money.expenseChips[0], label: first.label, amount: first.amount, share: first.detail })
+  }, [money])
 
   const setPanel = (id: string) => (element: HTMLDivElement | null) => {
     panels.current[id] = element
@@ -263,61 +282,40 @@ export function Film() {
   const panelClass = "absolute inset-x-0 bottom-0 top-0 mx-auto flex max-w-7xl flex-col justify-end px-6 pb-12 will-change-transform lg:justify-center lg:pb-0"
 
   return (
-    <div ref={track} className="relative h-[2900vh]" data-testid="film">
+    <div ref={track} className="relative h-[1600vh]" data-testid="film">
       <div className="sticky top-0 h-[100svh] overflow-hidden bg-[#E8C98F]">
         <canvas ref={canvas} aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/60 via-[#0F172A]/10 to-transparent lg:bg-gradient-to-r lg:from-[#0F172A]/55 lg:via-[#0F172A]/10 lg:to-transparent" />
-        <div ref={intro} aria-hidden="true" className="absolute inset-0 overflow-hidden bg-[radial-gradient(ellipse_at_68%_50%,#111a44_0%,#080c20_42%,#03050d_100%)]">
-          <div
-            ref={phone}
-            className="absolute"
-            style={{ left: "69%", top: "53%", width: "48.6em", height: "100em", fontSize: "0.74vh", transform: "translate(-50%, -50%) rotate(2.4deg)", contain: "layout style" }}
-          >
-            {/* The screen's light in the air around the phone, and on the floor beneath it. */}
-            <div className="absolute" style={{ inset: "-42em -62em", background: "radial-gradient(closest-side, rgba(70,110,255,.55), rgba(112,60,240,.26) 48%, transparent 100%)" }} />
-            <div className="absolute" style={{ left: "-8em", right: "-8em", top: "104em", height: "16em", background: "radial-gradient(closest-side, rgba(124,70,245,.5), transparent)" }} />
-            {[
-              { top: "19em", height: "6em", side: "-0.42em" },
-              { top: "29em", height: "11em", side: "-0.42em" },
-              { top: "42em", height: "11em", side: "-0.42em" },
-            ].map((button) => (
-              <div key={button.top} className="absolute rounded-l-[0.4em] bg-gradient-to-b from-[#59627c] to-[#2a3047]" style={{ top: button.top, height: button.height, left: button.side, width: "0.5em" }} />
-            ))}
-            <div className="absolute rounded-r-[0.4em] bg-gradient-to-b from-[#59627c] to-[#2a3047]" style={{ top: "33em", height: "16em", right: "-0.42em", width: "0.5em" }} />
-            <div
-              className="absolute inset-0"
-              style={{ borderRadius: "8.2em", background: "linear-gradient(135deg,#7f89a6 0%,#262c42 22%,#11152a 55%,#3c4560 82%,#8d97b3 100%)", boxShadow: "0 3em 9em rgba(0,0,0,.7)" }}
-            />
-            <div className="absolute" style={{ inset: "0.55em", borderRadius: "7.7em", background: "#02030a" }} />
-            <div className="absolute overflow-hidden" style={{ inset: "1.75em", borderRadius: "6.6em", background: "linear-gradient(168deg,#21c4ff 0%,#2e7bff 34%,#4b55f7 62%,#7a2be8 100%)" }}>
-              <div ref={sheen} className="absolute inset-y-[-10%] w-[34%] bg-gradient-to-r from-transparent via-white/15 to-transparent" style={{ transform: "translateX(-60%) skewX(-18deg)" }} />
-              <div className="absolute inset-x-0 top-0 h-[38%] bg-gradient-to-b from-white/10 to-transparent" />
-            </div>
-            <div className="absolute" style={{ top: "3.5em", left: "50%", width: "13.5em", height: "3.7em", marginLeft: "-6.75em", borderRadius: "2em", background: "#02030a" }} />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="font-display font-semibold text-white" style={{ fontSize: "9.6em", letterSpacing: "-0.03em", lineHeight: 1, textShadow: "0 0.02em 0.3em rgba(10,20,90,.3)" }}>
-                PayaGo
-              </span>
-            </div>
-          </div>
-          <div ref={introShade} className="absolute inset-0 bg-gradient-to-t from-[#03050d]/85 via-transparent to-transparent lg:bg-gradient-to-r lg:from-[#03050d]/70 lg:via-transparent" />
-          <div ref={flash} className="absolute inset-0 bg-white" style={{ opacity: 0 }} />
+        <div ref={intro} aria-hidden="true" className="absolute inset-0 overflow-hidden bg-[#E8C98F]">
+          <canvas ref={gateCanvas} className="absolute inset-0 h-full w-full" />
+          <div ref={introShade} className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/45 via-transparent to-transparent lg:bg-gradient-to-r lg:from-[#0F172A]/45 lg:via-transparent" />
         </div>
         <div ref={setPanel("open")} className={panelClass}>
           <div className="max-w-[38rem]">
-            <h1 className={`${headline} text-[clamp(2.9rem,6vw,5.4rem)] leading-[1.02]`}>
+            <h1 className={`${headline} text-[clamp(2.9rem,6vw,5.4rem)] leading-[1.02] [@media(max-height:700px)_and_(max-width:1023px)]:text-[2.4rem]`}>
               <span className="block">Plan every trip.</span>
               <span className="block">Split every bill.</span>
             </h1>
-            <p className={body}>Say where you want to go. AI plans the whole trip, you book it all in one app, and the cost splits across the group. Trips are coming. Splitting works today.</p>
+            <p className={`${body} [@media(max-height:700px)_and_(max-width:1023px)]:text-[15px]`}>Say where you want to go. AI plans the whole trip, you book it all in one app, and the cost splits across the group. Trips are coming. Splitting works today.</p>
             <div className="mt-7 flex flex-wrap items-center gap-3">
               <a href="/early-access/" className="rounded-full bg-white px-7 py-3.5 font-display text-[15px] font-semibold text-[#0F172A] transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2">
                 Join the trips waitlist
               </a>
-              <a href={isAndroid ? PLAY_URL : APP_URL} className="rounded-full border border-white/60 px-6 py-3.5 font-display text-[15px] font-semibold text-white hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+              <a href={isAndroid ? PLAY_URL : APP_URL} className="rounded-full border border-white/70 bg-[#0F172A]/35 px-6 py-3.5 font-display text-[15px] font-semibold text-white hover:bg-[#0F172A]/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
                 Split a bill today
               </a>
             </div>
+            <p className="mt-4 text-[14px] leading-[1.45] text-white/90 [text-shadow:0_1px_18px_rgba(10,16,40,0.7)]">Free to start, in India and the UK. Works in your browser or on Android.</p>
+          </div>
+        </div>
+        <div ref={setPanel("live")} className={panelClass} style={{ opacity: 0 }} data-testid="film-live">
+          <div className="max-w-[30rem]">
+            <p className="inline-block rounded-full border border-white/50 bg-[#0F172A]/35 px-3 py-1 text-[13px] font-medium text-white">Live today</p>
+            <h2 className={`${headline} mt-3 text-[clamp(2rem,4.4vw,3.75rem)] leading-[1.04]`}>Send a bill. Everyone sees their share.</h2>
+            <p className="mt-3 max-w-[27rem] text-[15px] leading-[1.45] text-white/95 [text-shadow:0_1px_18px_rgba(10,16,40,0.7)]">Your friends sign up free, then you add them to the group by email.</p>
+            <a href={APP_URL} className="mt-3 inline-block font-display text-[15px] font-semibold text-white underline underline-offset-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+              See an example group
+            </a>
           </div>
         </div>
         <div ref={setPanel("flight")} className={panelClass} style={{ opacity: 0 }}>

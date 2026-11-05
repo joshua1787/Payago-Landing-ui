@@ -328,8 +328,23 @@ test("the film's frames load and the words move with the scroll", async ({ page 
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Plan every trip.")
   await page.evaluate(() => {
     const film = document.querySelector("[data-testid=film]") as HTMLElement
-    window.scrollTo(0, film.offsetTop + (film.offsetHeight - innerHeight) * 0.145)
+    window.scrollTo(0, film.offsetTop + (film.offsetHeight - innerHeight) * 0.25)
   })
   await expect(page.getByRole("heading", { name: "Every trip starts with the flight." })).toBeVisible()
+})
+
+test("the first scroll shows the part that works today", async ({ browser }) => {
+  const india = await browser.newContext({ timezoneId: "Asia/Kolkata", locale: "en-IN" })
+  const page = await india.newPage()
+  await page.goto("/")
+  await expect(page.getByText("Free to start, in India and the UK.")).toBeVisible()
+  await page.evaluate(() => {
+    const film = document.querySelector("[data-testid=film]") as HTMLElement
+    window.scrollTo(0, film.offsetTop + (film.offsetHeight - innerHeight) * 0.085)
+  })
+  const live = page.getByTestId("film-live")
+  await expect(live.getByRole("heading", { name: "Send a bill. Everyone sees their share." })).toBeVisible()
+  await expect(live).toContainText("sign up free")
+  await india.close()
 })
 

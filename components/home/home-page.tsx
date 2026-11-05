@@ -67,6 +67,9 @@ export function HomePage() {
           <a href={PLAY_URL} className="ml-3 mt-10 inline-block rounded-full border border-[#0F172A]/15 px-8 py-4 font-display text-[16px] font-semibold text-[#0F172A] transition-colors hover:bg-[#EEF1F7] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
             Get it on Google Play
           </a>
+          <p className="mx-auto mt-6 max-w-[34rem] text-[15px] leading-[1.55] text-[#475569]">
+            Free to start. On iPhone, PayaGo runs in your browser, so there&apos;s nothing to install. Your friends sign up free, then you add them to the group by email.
+          </p>
         </section>
       </main>
 
