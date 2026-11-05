@@ -242,12 +242,12 @@ void main(){
   // Colour builds behind the coin and stays pale behind the words: right of them on wide
   // screens, above them on narrow ones. Money is electric violet-blue, trips a hot sunrise.
   float rich = (uAspect > 1.05 ? smoothstep(0.26, 0.82, p.x) : smoothstep(0.42, 0.92, p.y)) * (1.0 - uCalm * 0.72);
-  vec3 money = mix(vec3(0.90,0.90,1.0), vec3(0.42,0.44,1.0), rich);
-  money = mix(money, vec3(0.62,0.32,1.0), blob(p, vec2(0.98+0.04*sin(t), 0.08+0.05*cos(t*0.8)), 0.8)*0.85*rich);
-  money = mix(money, vec3(0.20,0.62,1.0), blob(p, vec2(0.92, 0.98), 0.7)*0.7*rich);
+  vec3 money = mix(vec3(1.0,0.96,0.88), vec3(0.96,0.72,0.44), rich);
+  money = mix(money, vec3(0.78,0.44,0.50), blob(p, vec2(0.98+0.04*sin(t), 0.08+0.05*cos(t*0.8)), 0.8)*0.85*rich);
+  money = mix(money, vec3(0.34,0.50,0.72), blob(p, vec2(0.92, 0.98), 0.7)*0.7*rich);
   money = mix(money, vec3(1.0,0.86,0.55), blob(p, uAspect > 1.05 ? vec2(0.63, 0.53) : vec2(0.5, 0.74), 0.34));
   vec3 morning = mix(vec3(1.0,0.95,0.88), vec3(1.0,0.56,0.38), rich);
-  morning = mix(morning, vec3(0.32,0.56,1.0), blob(p, vec2(0.98+0.04*sin(t), 0.98), 0.85)*0.9*rich);
+  morning = mix(morning, vec3(0.42,0.58,0.82), blob(p, vec2(0.98+0.04*sin(t), 0.98), 0.85)*0.9*rich);
   morning = mix(morning, vec3(1.0,0.80,0.40), blob(p, vec2(0.62, 0.12), 0.6)*0.8*rich);
   vec3 c = mix(money, morning, uDepth);
   gl_FragColor = vec4(c, 1.0);

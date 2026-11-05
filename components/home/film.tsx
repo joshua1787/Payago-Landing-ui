@@ -95,6 +95,7 @@ export function Film() {
     // Finding: the hidden player is getting to its moment, while the one showing plays on.
     let phase: "idle" | "finding" | "fading" = "idle"
     let ticket = 0
+    let prepared = -1
     // iPhones in Low Power Mode won't play video, so each scene's last frame is shown instead.
     let playable = true
     let waited = 0
@@ -115,12 +116,14 @@ export function Film() {
     const fadeTo = (index: number, from: number) => {
       const mine = ++ticket
       phase = "finding"
+      waiting.onloadedmetadata = null
       const { end } = PLAN[index]
       const incoming = waiting
       const show = () => {
         if (disposed || mine !== ticket) return
         incoming.onseeked = null
         phase = "fading"
+        prepared = -1
         if (playable && incoming.currentTime < end - 0.04) play(incoming, end)
         incoming.style.zIndex = "1"
         showing.style.zIndex = "0"
@@ -143,6 +146,11 @@ export function Film() {
         incoming.currentTime = playable ? from : end
       }
       load(incoming)
+      // Already waiting at this moment, so it can come straight in.
+      if (prepared === index && incoming.src.endsWith(`/film/${film}.mp4`) && !incoming.seeking && incoming.readyState >= 2 && Math.abs(incoming.currentTime - from) < 0.05) {
+        show()
+        return
+      }
       if (incoming.readyState >= 1) seek()
       else incoming.onloadedmetadata = seek
       // If the moment can't be found in time, the picture on screen simply stays.
@@ -154,6 +162,20 @@ export function Film() {
         phase = "idle"
       }, 10000)
       timers.add(giveUp)
+    }
+    // Once the film is rolling, the hidden player waits at the start of the next scene, so scrolling on
+    // doesn't have to wait for it to load.
+    const prepareNext = () => {
+      const next = scene + 1
+      if (scene < 1 || next >= PLAN.length || prepared === next || !playable) return
+      prepared = next
+      load(waiting)
+      const seekAhead = () => {
+        waiting.onloadedmetadata = null
+        waiting.currentTime = PLAN[next].start
+      }
+      if (waiting.readyState >= 1) seekAhead()
+      else waiting.onloadedmetadata = seekAhead
     }
     const follow = (index: number, now: number) => {
       if (index !== wanted) {
@@ -168,6 +190,7 @@ export function Film() {
         scene = wanted
         if (!runsOn) fadeTo(scene, next.start)
       }
+      if (phase === "idle") prepareNext()
       const { end } = PLAN[scene]
       if (!playable) return
       if (end - showing.currentTime <= 0.04) {
@@ -271,6 +294,8 @@ export function Film() {
   return (
     <div ref={track} className="relative h-[900vh]" data-testid="film">
       <div className="sticky top-0 h-[100svh] overflow-hidden bg-[#E8C98F]">
+        <link rel="preload" as="image" href="/film/wide.jpg" media="(min-width: 700px)" />
+        <link rel="preload" as="image" href="/film/tall.jpg" media="(max-width: 699px)" />
         <div ref={stageRef} aria-hidden="true" className="absolute inset-0 isolate overflow-hidden">
           <video ref={videoA} muted playsInline preload="auto" disablePictureInPicture style={{ transition: `opacity ${FADE_MS}ms ease-in-out` }} className="absolute inset-0 h-full w-full object-cover" />
           <video ref={videoB} muted playsInline preload="auto" disablePictureInPicture style={{ opacity: 0, transition: `opacity ${FADE_MS}ms ease-in-out` }} className="absolute inset-0 h-full w-full object-cover" />

@@ -262,14 +262,14 @@ export function Journey() {
     "absolute inset-x-0 bottom-0 h-[64%] bg-gradient-to-t from-[#FAFAF8] via-[#FAFAF8]/88 to-transparent lg:hidden"
 
   return (
-    <div ref={track} className="relative h-[520vh]" data-testid="journey">
+    <div ref={track} className="relative h-[460vh]" data-testid="journey">
       {/* Anchors to scroll to: the page's scroll is the browser's own. */}
       {(Object.keys(CHAPTERS) as ChapterName[]).map((name) => (
         <div
           key={name}
           id={`chapter-${name}`}
           className="absolute"
-          style={{ top: `${(name === "hero" ? 0 : CHAPTERS[name][0] + 0.035) * 80.8}%` }}
+          style={{ top: `${(name === "hero" ? 0 : CHAPTERS[name][0] + 0.035) * 78.3}%` }}
         />
       ))}
 
@@ -355,14 +355,6 @@ export function Journey() {
         </div>
 
         {/* The journey's map: solid is live, hollow is coming. */}
-        <div ref={setPanel("plans")} className={panelClass} style={{ opacity: 0 }}>
-          <div className="max-w-[31rem]">
-            <Status live={false}>Trips: coming</Status>
-            <h2 className={`${headline} mt-5 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>Three ways to go. Pick one.</h2>
-            <p className={body}>AI plans your trip as basic, standard and premium. Change anything until the whole group is happy.</p>
-          </div>
-        </div>
-
         <div ref={setPanel("book")} className={panelClass} style={{ opacity: 0 }}>
           <div className="max-w-[31rem]">
             <Status live={false}>Trips: coming</Status>

@@ -4,9 +4,10 @@ export const CHAPTERS = {
   // The page opens on the flight film above; this journey starts at the Earth.
   hero: [0, 0.008],
   // Trips are the main story. Split & Wallet is how the group's money works, and it's live today.
-  trips: [0.008, 0.2],
-  plans: [0.2, 0.33],
-  book: [0.33, 0.47],
+  trips: [0.008, 0.28],
+  // The three plans are shown with the trip now, so this has no words of its own.
+  plans: [0.28, 0.28],
+  book: [0.28, 0.47],
   guide: [0.47, 0.6],
   type: [0.6, 0.69],
   settle: [0.69, 0.78],
