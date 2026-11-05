@@ -51,7 +51,7 @@ def main():
         ";[abc][d]xfade=transition=fade:duration=0.6:offset=21.8[abcd];[abcd][e]xfade=transition=fade:duration=0.6:offset=29.05[abcde]"
         ";[abcde][f][g][h][i]concat=n=5:v=1[toi];[toi][j]xfade=transition=fade:duration=0.6:offset=65.8[toj]"
         f";[toj][k]concat=n=2:v=1,trim=start={START:.4f},setpts=PTS-STARTPTS,split=5[w][l][t1][t2][p]"
-        ";[w]null[wide];[l]scale=1280:720:flags=lanczos[lite]"
+        ";[w]scale=1600:900:flags=lanczos[wide];[l]scale=1280:720:flags=lanczos[lite]"
         f";[t1]{tall_crop}[tall];[t2]{tall_crop},scale=440:720:flags=lanczos[slow]"
         ";[p]select='eq(n,0)',split=2[p1][p2];[p1]scale=1600:900[pwide];[p2]crop=660:1080:630:0[ptall]"
     )
@@ -62,9 +62,9 @@ def main():
     shutil.rmtree(OUT, ignore_errors=True)
     os.makedirs(OUT)
     outputs = []
-    for name, crf, ceiling in (("wide", 22, "7M"), ("lite", 25, "3M"), ("tall", 23, "4M"), ("slow", 27, "1200k")):
+    for name, crf, ceiling in (("wide", 25, "3500k"), ("lite", 27, "1800k"), ("tall", 25, "2200k"), ("slow", 28, "800k")):
         outputs += [
-            "-map", f"[{name}]", "-c:v", "libx264", "-preset", "slow", "-crf", str(crf), "-maxrate", ceiling, "-bufsize", "8M",
+            "-map", f"[{name}]", "-c:v", "libx264", "-preset", "slow", "-crf", str(crf), "-maxrate", ceiling, "-bufsize", "6M",
             "-profile:v", "high", "-pix_fmt", "yuv420p", "-force_key_frames", cuts,
             "-an", "-movflags", "+faststart", f"{OUT}/{name}.mp4",
         ]

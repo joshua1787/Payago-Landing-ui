@@ -103,7 +103,9 @@ export function Film() {
     let scene = 0
     let wanted = 0
     let wantedSince = 0
-    let fading = false
+    // Finding: the hidden player is getting to its moment, while the one showing plays on.
+    let phase: "idle" | "finding" | "fading" = "idle"
+    let ticket = 0
     // iPhones in Low Power Mode won't play video, so each scene's last frame is shown instead.
     let playable = true
     let waited = 0
@@ -119,16 +121,17 @@ export function Film() {
       })
     }
     // The waiting player finds the moment out of sight, and fades in over the one showing, which keeps
-    // playing until it's covered.
+    // playing until it's covered. A newer scene replaces one still being found, so handlers are single
+    // properties and carry a ticket: a late answer for an old scene can't run.
     const fadeTo = (index: number, from: number) => {
-      fading = true
+      const mine = ++ticket
+      phase = "finding"
       const { end } = PLAN[index]
       const incoming = waiting
-      load(incoming)
       const show = () => {
-        clearTimeout(giveUp)
-        timers.delete(giveUp)
-        if (disposed) return
+        if (disposed || mine !== ticket) return
+        incoming.onseeked = null
+        phase = "fading"
         if (playable && incoming.currentTime < end - 0.04) play(incoming, end)
         incoming.style.zIndex = "1"
         showing.style.zIndex = "0"
@@ -139,35 +142,40 @@ export function Film() {
         const done = setTimeout(() => {
           timers.delete(done)
           outgoing.pause()
-          outgoing.style.opacity = "0"
-          fading = false
+          if (outgoing !== showing) outgoing.style.opacity = "0"
+          if (mine === ticket) phase = "idle"
         }, FADE_MS)
         timers.add(done)
       }
+      const seek = () => {
+        if (mine !== ticket) return
+        incoming.onloadedmetadata = null
+        incoming.onseeked = show
+        incoming.currentTime = playable ? from : end
+      }
+      load(incoming)
+      if (incoming.readyState >= 1) seek()
+      else incoming.onloadedmetadata = seek
       // If the moment can't be found in time, the picture on screen simply stays.
       const giveUp = setTimeout(() => {
         timers.delete(giveUp)
-        incoming.removeEventListener("seeked", show)
-        fading = false
-      }, 2500)
+        if (mine !== ticket || phase !== "finding") return
+        incoming.onseeked = null
+        incoming.onloadedmetadata = null
+        phase = "idle"
+      }, 10000)
       timers.add(giveUp)
-      const seek = () => {
-        incoming.addEventListener("seeked", show, { once: true })
-        incoming.currentTime = playable ? from : end
-      }
-      if (incoming.readyState >= 1) seek()
-      else incoming.addEventListener("loadedmetadata", seek, { once: true })
     }
     const follow = (index: number, now: number) => {
       if (index !== wanted) {
         wanted = index
         wantedSince = now
       }
-      if (!fading && wanted !== scene && now - wantedSince >= SETTLE_MS) {
+      if (phase !== "fading" && wanted !== scene && now - wantedSince >= SETTLE_MS) {
         const next = PLAN[wanted]
         const at = showing.currentTime
         // Already about to reach it, so the film simply runs on into it with no fade.
-        const runsOn = wanted > scene && at >= next.start - 0.6 && at <= next.start + 0.05
+        const runsOn = phase === "idle" && wanted > scene && at >= next.start - 0.6 && at <= next.start + 0.05
         scene = wanted
         if (!runsOn) fadeTo(scene, next.start)
       }
@@ -175,7 +183,7 @@ export function Film() {
       if (!playable) return
       if (end - showing.currentTime <= 0.04) {
         if (!showing.paused) showing.pause()
-      } else if (showing.paused && !fading) {
+      } else if (showing.paused && phase === "idle") {
         play(showing, end)
       }
     }
@@ -185,7 +193,7 @@ export function Film() {
       const elapsed = now - lastCheck
       lastCheck = now
       const lighter = LIGHTER[film]
-      if (!lighter || fading || showing.paused || showing.readyState >= 3 || document.hidden) return
+      if (!lighter || phase !== "idle" || showing.paused || showing.readyState >= 3 || document.hidden) return
       waited += elapsed
       if (waited < STALL_LIMIT_MS) return
       waited = 0
