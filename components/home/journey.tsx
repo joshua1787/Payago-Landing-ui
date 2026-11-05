@@ -262,14 +262,14 @@ export function Journey() {
     "absolute inset-x-0 bottom-0 h-[64%] bg-gradient-to-t from-[#FAFAF8] via-[#FAFAF8]/88 to-transparent lg:hidden"
 
   return (
-    <div ref={track} className="relative h-[720vh]" data-testid="journey">
+    <div ref={track} className="relative h-[520vh]" data-testid="journey">
       {/* Anchors to scroll to: the page's scroll is the browser's own. */}
       {(Object.keys(CHAPTERS) as ChapterName[]).map((name) => (
         <div
           key={name}
           id={`chapter-${name}`}
           className="absolute"
-          style={{ top: `${(name === "hero" ? 0 : CHAPTERS[name][0] + 0.035) * 86.1}%` }}
+          style={{ top: `${(name === "hero" ? 0 : CHAPTERS[name][0] + 0.035) * 80.8}%` }}
         />
       ))}
 
@@ -393,7 +393,7 @@ export function Journey() {
           <div className="max-w-[31rem]">
             <Status live>Split &amp; Wallet: live today</Status>
             <h2 className={`${headline} mt-5 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>Type it the way you&apos;d say it.</h2>
-            <p className={body}>This part works today, on any trip or any flat. A group chat keeps the accounts: send a message with an amount and it becomes a card everyone can see.</p>
+            <p className={`${body} lg:max-w-[25rem]`}>This part works today, on any trip or any flat. A group chat keeps the accounts: send a message with an amount and it becomes a card everyone can see.</p>
             <form
               className="mt-6 flex gap-2"
               onSubmit={(event) => {
