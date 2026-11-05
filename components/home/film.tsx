@@ -12,16 +12,12 @@ const PLAY_URL = "https://play.google.com/store/apps/details?id=com.payago.app"
 // hundreds: wide for big screens, tall cut to fit a phone, and a lighter set of each for slow connections.
 const BUNDLE = 16
 type SetName = "wide" | "tall" | "lite" | "slow"
-const SETS: Record<SetName, { frames: number; ahead: number; lighter?: SetName; bundleBytes?: number }> = {
-  wide: { frames: 516, ahead: 18, lighter: "lite", bundleBytes: 900_000 },
-  tall: { frames: 516, ahead: 10, lighter: "slow", bundleBytes: 545_000 },
+const SETS: Record<SetName, { frames: number; ahead: number; lighter?: SetName }> = {
+  wide: { frames: 516, ahead: 18, lighter: "lite" },
+  tall: { frames: 516, ahead: 10, lighter: "slow" },
   lite: { frames: 258, ahead: 9 },
   slow: { frames: 258, ahead: 5 },
 }
-// How many bundles to time before deciding whether this connection can keep up.
-const SPEED_SAMPLE = 6
-// A brisk scroll gets through about this many bundles a second, and the download keeps a lead on it.
-const BUNDLES_PER_SECOND = 1.6
 const AT_ONCE = 3
 const STALL_LIMIT_MS = 1000
 const BEHIND = 2
@@ -52,9 +48,9 @@ function filmAt(scroll: number) {
 }
 
 function isSlowConnection() {
-  const connection = (navigator as unknown as { connection?: { saveData?: boolean; effectiveType?: string; downlink?: number } }).connection
+  const connection = (navigator as unknown as { connection?: { saveData?: boolean; effectiveType?: string } }).connection
   if (!connection) return false
-  return Boolean(connection.saveData) || /(^|-)[23]g$/.test(connection.effectiveType ?? "") || (connection.downlink !== undefined && connection.downlink > 0 && connection.downlink < 2)
+  return Boolean(connection.saveData) || /(^|-)[23]g$/.test(connection.effectiveType ?? "")
 }
 
 function Coming() {
@@ -126,39 +122,10 @@ export function Film() {
 
     // Download from where the viewer is, ahead first, a few bundles at a time.
     const requested = new Set<number>()
-    const timed: PerformanceResourceTiming[] = []
-    let speedChecked = false
-    // Works out how many full-size bundles a second this connection can bring: the wait for each one's
-    // first byte, plus its transfer at the speed seen. A bundle from the cache is near instant, so a
-    // repeat visit keeps the sharp set.
-    const checkSpeed = (url: string) => {
-      const { lighter, bundleBytes } = SETS[setName]
-      if (speedChecked || !lighter || !bundleBytes) return
-      const entry = performance.getEntriesByName(new URL(url, location.href).href).pop() as PerformanceResourceTiming | undefined
-      if (entry) timed.push(entry)
-      if (timed.length < SPEED_SAMPLE) return
-      speedChecked = true
-      const bytes = timed.reduce((sum, { encodedBodySize }) => sum + encodedBodySize, 0)
-      const transfer = timed.reduce((sum, t) => sum + (t.responseEnd - t.responseStart), 0) / 1000
-      const wait = timed.reduce((sum, t) => sum + (t.responseStart - t.startTime), 0) / 1000 / timed.length
-      if (bytes === 0 || transfer <= 0) return
-      // Bundles that overlapped shared the line, so the line's speed counts only the time something was arriving.
-      let busy = 0
-      let until = 0
-      ;[...timed].sort((a, b) => a.responseStart - b.responseStart).forEach(({ responseStart, responseEnd }) => {
-        busy += Math.max(0, responseEnd - Math.max(responseStart, until))
-        until = Math.max(until, responseEnd)
-      })
-      const lineSpeed = bytes / (busy / 1000)
-      const canBring = Math.min(AT_ONCE / (wait + bundleBytes / (bytes / transfer)), lineSpeed / bundleBytes)
-      if (busy > 0 && canBring >= BUNDLES_PER_SECOND) return
-      lighten()
-    }
     // Too slow for this set. The picture on screen stays until the lighter set's frames arrive.
     const lighten = () => {
       const { lighter } = SETS[setName]
       if (!lighter) return
-      speedChecked = true
       const share = SETS[lighter].frames / frameCount()
       inFlight.forEach((download) => download.abort())
       inFlight.clear()
@@ -218,7 +185,6 @@ export function Film() {
               offset += length
             }
             drawn = -1
-            checkSpeed(url)
           })
           .catch(() => {
             if (download.signal.aborted) return
@@ -268,7 +234,7 @@ export function Film() {
       shown += (frameAt(p) - shown) * 0.3
       const base = Math.floor(shown)
       const key = Math.round(shown * 8)
-      // Whatever the speed check said, a film that has really fallen behind the scroll goes lighter.
+      // Everyone starts with the sharp frames. A film that has really fallen behind the scroll goes lighter.
       if (scroll >= ZOOM_TO && !blobs[base]) {
         const now = performance.now()
         stalledSince ||= now
