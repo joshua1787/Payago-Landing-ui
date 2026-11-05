@@ -10,8 +10,8 @@ import { captureEvent } from "@/lib/analytics"
 
 const LINKS: { name: string; href: string }[] = [
   { name: "How it works", href: "/how-it-works/" },
-  { name: "Split & Wallet", href: "/#chapter-type" },
   { name: "Trips", href: "/#chapter-trips" },
+  { name: "Split & Wallet", href: "/#chapter-type" },
   { name: "Pricing", href: "/pricing/" },
   { name: "About", href: "/about/" },
   { name: "Blog", href: "/blog/" },
@@ -32,7 +32,7 @@ export function HomeNav({ appUrl }: { appUrl: string }) {
   return (
     <nav
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-200 ${
-        scrolled || open || !onHome ? "bg-white/90 backdrop-blur" : "bg-transparent"
+        "bg-white/95"
       }`}
     >
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-6">

@@ -13,13 +13,13 @@ import type { MoneyUniverse } from "@/lib/universe/scene"
 
 const APP_URL = "https://app.payago.in"
 
-// The two things PayaGo is for, each with an equal share of the journey.
+// End-to-end trips are the main story. Split & Wallet is the part that's live today.
 const PILLARS: { first: ChapterName; last: ChapterName; label: string; status: string }[] = [
+  { first: "trips", last: "guide", label: "End-to-end trips", status: "Coming" },
   { first: "type", last: "cards", label: "Split & Wallet", status: "Live today, cards next" },
-  { first: "trips", last: "guide", label: "End-to-end trips", status: "Coming after" },
 ]
 
-let openingPlayed = false
+const BOOKABLE = ["Flights", "Hotels", "Trains", "Airport transfers", "Cabs", "Car hire", "eSIM", "Things to do"]
 
 const APP_SCREENS = ["The chat", "Settle up", "Spending"]
 const TRIP_CHIPS = ["7 days in Japan for 4 friends", "Weekend in Barcelona with 6 mates", "10 days in Bali for 2 people"]
@@ -50,7 +50,6 @@ export function Journey() {
   const rail = useRef<Partial<Record<ChapterName, HTMLAnchorElement | null>>>({})
   const screenTabs = useRef<(HTMLLIElement | null)[]>([])
   const money = useLocalMoney()
-  const [isAndroid, setIsAndroid] = useState(false)
   const [noScene, setNoScene] = useState(false)
 
   const [expenseDraft, setExpenseDraft] = useState("")
@@ -90,7 +89,7 @@ export function Journey() {
         const span = to - from
         const fade = Math.min(0.03, span * 0.22)
         const enter = name === "hero" ? 1 : between(p, from, from + fade)
-        const leave = name === "guide" ? 0 : between(p, to - fade, to)
+        const leave = name === "cards" ? 0 : between(p, to - fade, to)
         const opacity = enter * (1 - leave)
         panel.style.opacity = String(opacity)
         panel.style.transform = `translate3d(0, ${(1 - enter) * 28 - leave * 28}px, 0)`
@@ -124,9 +123,12 @@ export function Journey() {
       (window as unknown as { SpeechRecognition?: unknown }).SpeechRecognition ??
       (window as unknown as { webkitSpeechRecognition?: unknown }).webkitSpeechRecognition
     setCanSpeak(Boolean(speech))
-    setIsAndroid(/android/i.test(navigator.userAgent))
 
-    void (async () => {
+    // The example plans are words, so they don't wait for the 3D scene.
+    const example = readDemoTrip(TRIP_CHIPS[0], detectMoney())
+    if (example) setTrip(example)
+
+    const boot = async () => {
       const probe = document.createElement("canvas")
       if (!probe.getContext("webgl2") && !probe.getContext("webgl")) {
         setNoScene(true)
@@ -151,13 +153,11 @@ export function Journey() {
         if (first) {
           scene.flyTo(first.lat, first.lng)
           scene.setTripStory({ place: first.place, people: first.people, from: detectMoney().home.name, plans: first.plans })
-          setTrip(first)
         }
         paint()
-        // On a fresh load, not when coming back from another page of the site.
-        if (progressNow() < 0.004 && !openingPlayed) {
-          openingPlayed = true
-          scene.playIntro()
+        if (progressNow() < CHAPTERS.trips[1]) {
+          // A first route on the Earth before anyone has typed one.
+          scene.flyTo(35.68, 139.69)
         }
         const resize = new ResizeObserver(() => scene.resize())
         resize.observe(element.parentElement ?? element)
@@ -178,10 +178,21 @@ export function Journey() {
       } catch {
         setNoScene(true)
       }
-    })()
+    }
+    // The film above comes first; this scene is built when the page gets near it.
+    const nearby = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        nearby.disconnect()
+        void boot()
+      },
+      { rootMargin: "100% 0px" },
+    )
+    nearby.observe(box)
 
     return () => {
       disposed = true
+      nearby.disconnect()
       window.removeEventListener("scroll", onScroll)
       window.removeEventListener("resize", onScroll)
       cleanup()
@@ -268,30 +279,113 @@ export function Journey() {
         <div className={scrim} />
         <div className="absolute inset-y-0 left-0 hidden w-[58%] bg-gradient-to-r from-[#FAFAF8]/85 via-[#FAFAF8]/45 to-transparent lg:block" />
 
-        <div ref={setPanel("hero")} className={panelClass}>
-          <div className="max-w-[35rem]">
-            <h1 className={`${headline} text-[clamp(2.6rem,4.7vw,4.3rem)] leading-[1.05]`}>
-              <span className="block">Split every bill.</span>
-              <span className="pg-open-late block w-fit bg-gradient-to-r from-[#00B8E6] via-[#7C5CFF] to-[#2CBF8E] bg-clip-text text-transparent">Plan every trip.</span>
-            </h1>
-            <p className={`${body} pg-open-later lg:max-w-[25rem]`}>One app for the money you share and the trips you take together, from today&apos;s dinner to the holiday you keep talking about.</p>
-            <div className="pg-open-later mt-8 flex flex-wrap items-center gap-3">
-              <a href={isAndroid ? PLAY_URL : APP_URL} className="rounded-full bg-gradient-to-r from-[#2563EB] to-[#7C3AED] text-white transition-opacity hover:opacity-90 px-7 py-3.5 font-display text-[15px] font-semibold    focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
-                {isAndroid ? "Get it on Google Play" : "Open PayaGo"}
-              </a>
-              <a href="#chapter-type" className="px-3 py-3.5 font-display text-[15px] font-semibold text-[#0F172A] underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
-                Scroll the journey
-              </a>
+        <div ref={setPanel("trips")} className={panelClass} style={{ opacity: 0 }}>
+          <div className="max-w-[33rem]">
+            <Status live={false}>Trips: coming</Status>
+            <h2 className={`${headline} mt-4 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>Say where you want to go.</h2>
+            <p className="mt-3 max-w-[31rem] text-[16px] leading-[1.5] text-[#475569] sm:text-[18px]">
+              Tell PayaGo the trip, your budget and who&apos;s coming, and AI plans it three ways.
+            </p>
+            <form
+              className="mt-4 flex gap-2"
+              onSubmit={(event) => {
+                event.preventDefault()
+                sendTrip(tripDraft)
+              }}
+            >
+              <label htmlFor="trip-input" className="sr-only">
+                Describe a trip
+              </label>
+              <input
+                id="trip-input"
+                autoComplete="off"
+                value={tripDraft}
+                onChange={(event) => setTripDraft(event.target.value)}
+                placeholder="10 days in Bali"
+                className="min-w-0 flex-1 rounded-full border border-[#0F172A]/15 bg-white border border-[#0F172A]/10 px-5 py-3 text-[16px] text-[#0F172A] backdrop-blur placeholder:text-[#64748B] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]"
+              />
+              {canSpeak && (
+                <button
+                  type="button"
+                  aria-label={listening ? "Listening" : "Say your trip"}
+                  onClick={listen}
+                  className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF] ${listening ? "bg-[#FFC94F] text-[#0F172A]" : "bg-white border border-[#0F172A]/10 text-[#0F172A] hover:bg-white/20"}`}
+                >
+                  <Mic className="h-5 w-5" />
+                </button>
+              )}
+              <button type="submit" className="rounded-full bg-[#0F172A] text-white px-5 py-3 font-display text-[14px] font-semibold  focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
+                Go
+              </button>
+            </form>
+            <div className="mt-2.5 hidden flex-wrap gap-2 sm:flex">
+              {TRIP_CHIPS.map((chip) => (
+                <button key={chip} type="button" onClick={() => sendTrip(chip)} className="rounded-full bg-white border border-[#0F172A]/10 px-3 py-1.5 text-[13px] text-[#334155] transition-colors hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
+                  {chip}
+                </button>
+              ))}
             </div>
-            <ul className="pg-open-later mt-6 flex flex-wrap gap-2">
-              {PILLARS.map(({ first, label, status }) => (
-                <li key={label}>
-                  <a href={`#chapter-${first}`} className="inline-block rounded-full border border-[#0F172A]/10 bg-white/80 px-3 py-1.5 text-[13px] text-[#475569] hover:text-[#0F172A]">
-                    <span className="font-semibold text-[#0F172A]">{label}:</span> {status.toLowerCase()}
-                  </a>
+            {tripNote && <p aria-live="polite" className="mt-2 text-[14px] text-[#8A6D1F]">{tripNote}</p>}
+            {trip && (
+              <div data-testid="trip-plans" aria-live="polite" className="mt-3">
+                <p className="text-[14px] text-[#475569]">
+                  {trip.days} days in {trip.place} for {trip.people}, from {money.home.name}, per person
+                </p>
+                <div className="mt-2 grid grid-cols-3 gap-2">
+                  {trip.plans.map((plan) => (
+                    <div key={plan.name} className="rounded-2xl border border-[#0F172A]/15 bg-[#F4F6FB]/75 p-2.5 backdrop-blur sm:p-3">
+                      <p className="font-display text-[14px] font-semibold text-[#0F172A]">{plan.name}</p>
+                      <p className="mt-0.5 hidden text-[12px] leading-[1.3] text-[#64748B] sm:block">{plan.detail}</p>
+                      <p className="mt-1 font-display text-[16px] font-semibold tabular-nums text-[#8A6D1F] sm:text-[18px]">
+                        {plan.price}
+                        <span className="ml-0.5 hidden text-[11px] font-normal text-[#64748B] sm:inline"> each</span>
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            <p className="mt-2 text-[13px] leading-[1.4] text-[#64748B]">
+              A preview of what we&apos;re building. Plans and prices here are examples.{" "}
+              <a href="/early-access/" className="font-semibold text-[#6D4AE8] underline-offset-2 hover:underline">
+                Join the trips waitlist
+              </a>
+            </p>
+          </div>
+        </div>
+
+        {/* The journey's map: solid is live, hollow is coming. */}
+        <div ref={setPanel("plans")} className={panelClass} style={{ opacity: 0 }}>
+          <div className="max-w-[31rem]">
+            <Status live={false}>Trips: coming</Status>
+            <h2 className={`${headline} mt-5 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>Three ways to go. Pick one.</h2>
+            <p className={body}>AI plans your trip as basic, standard and premium. Change anything until the whole group is happy.</p>
+          </div>
+        </div>
+
+        <div ref={setPanel("book")} className={panelClass} style={{ opacity: 0 }}>
+          <div className="max-w-[31rem]">
+            <Status live={false}>Trips: coming</Status>
+            <h2 className={`${headline} mt-5 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>Book it all in one place.</h2>
+            <p className={body}>Everything the trip needs, from one app. The cost splits across the group the same way your bills do.</p>
+            <ul className="mt-5 flex flex-wrap gap-2">
+              {BOOKABLE.map((item) => (
+                <li key={item} className="rounded-full border border-[#0F172A]/10 bg-white/85 px-3.5 py-1.5 text-[14px] font-medium text-[#0F172A]">
+                  {item}
                 </li>
               ))}
             </ul>
+          </div>
+        </div>
+
+        <div ref={setPanel("guide")} className={panelClass} style={{ opacity: 0 }}>
+          <div className="max-w-[31rem]">
+            <Status live={false}>Trips: coming</Status>
+            <h2 className={`${headline} mt-5 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>Then a voice leads the way.</h2>
+            <p className={body}>A voice guide walks the whole group through the trip, from the airport to the last dinner.</p>
+            <a href="/early-access/" className="mt-6 inline-block rounded-full bg-gradient-to-r from-[#2563EB] to-[#7C3AED] px-7 py-3.5 font-display text-[15px] font-semibold text-white transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
+              Join the trips waitlist
+            </a>
           </div>
         </div>
 
@@ -299,7 +393,7 @@ export function Journey() {
           <div className="max-w-[31rem]">
             <Status live>Split &amp; Wallet: live today</Status>
             <h2 className={`${headline} mt-5 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>Type it the way you&apos;d say it.</h2>
-            <p className={body}>A group chat that keeps the accounts. Send a message with an amount and it becomes a card everyone can see.</p>
+            <p className={body}>This part works today, on any trip or any flat. A group chat keeps the accounts: send a message with an amount and it becomes a card everyone can see.</p>
             <form
               className="mt-6 flex gap-2"
               onSubmit={(event) => {
@@ -395,110 +489,7 @@ export function Journey() {
           </div>
         </div>
 
-        <div ref={setPanel("trips")} className={panelClass} style={{ opacity: 0 }}>
-          <div className="max-w-[33rem]">
-            <Status live={false}>Trips: coming after</Status>
-            <h2 className={`${headline} mt-4 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>Say where you want to go.</h2>
-            <p className="mt-3 max-w-[31rem] text-[16px] leading-[1.5] text-[#475569] sm:text-[18px]">
-              Tell PayaGo the trip, your budget and who&apos;s coming, and AI plans it three ways.
-            </p>
-            <form
-              className="mt-4 flex gap-2"
-              onSubmit={(event) => {
-                event.preventDefault()
-                sendTrip(tripDraft)
-              }}
-            >
-              <label htmlFor="trip-input" className="sr-only">
-                Describe a trip
-              </label>
-              <input
-                id="trip-input"
-                autoComplete="off"
-                value={tripDraft}
-                onChange={(event) => setTripDraft(event.target.value)}
-                placeholder="10 days in Bali"
-                className="min-w-0 flex-1 rounded-full border border-[#0F172A]/15 bg-white border border-[#0F172A]/10 px-5 py-3 text-[16px] text-[#0F172A] backdrop-blur placeholder:text-[#64748B] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]"
-              />
-              {canSpeak && (
-                <button
-                  type="button"
-                  aria-label={listening ? "Listening" : "Say your trip"}
-                  onClick={listen}
-                  className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF] ${listening ? "bg-[#FFC94F] text-[#0F172A]" : "bg-white border border-[#0F172A]/10 text-[#0F172A] hover:bg-white/20"}`}
-                >
-                  <Mic className="h-5 w-5" />
-                </button>
-              )}
-              <button type="submit" className="rounded-full bg-[#0F172A] text-white px-5 py-3 font-display text-[14px] font-semibold  focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
-                Go
-              </button>
-            </form>
-            <div className="mt-2.5 hidden flex-wrap gap-2 sm:flex">
-              {TRIP_CHIPS.map((chip) => (
-                <button key={chip} type="button" onClick={() => sendTrip(chip)} className="rounded-full bg-white border border-[#0F172A]/10 px-3 py-1.5 text-[13px] text-[#334155] transition-colors hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
-                  {chip}
-                </button>
-              ))}
-            </div>
-            {tripNote && <p aria-live="polite" className="mt-2 text-[14px] text-[#8A6D1F]">{tripNote}</p>}
-            {trip && (
-              <div data-testid="trip-plans" aria-live="polite" className="mt-3">
-                <p className="text-[14px] text-[#475569]">
-                  {trip.days} days in {trip.place} for {trip.people}, from {money.home.name}, per person
-                </p>
-                <div className="mt-2 grid grid-cols-3 gap-2">
-                  {trip.plans.map((plan) => (
-                    <div key={plan.name} className="rounded-2xl border border-[#0F172A]/15 bg-[#F4F6FB]/75 p-2.5 backdrop-blur sm:p-3">
-                      <p className="font-display text-[14px] font-semibold text-[#0F172A]">{plan.name}</p>
-                      <p className="mt-0.5 hidden text-[12px] leading-[1.3] text-[#64748B] sm:block">{plan.detail}</p>
-                      <p className="mt-1 font-display text-[16px] font-semibold tabular-nums text-[#8A6D1F] sm:text-[18px]">
-                        {plan.price}
-                        <span className="ml-0.5 hidden text-[11px] font-normal text-[#64748B] sm:inline"> each</span>
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-            <p className="mt-2 text-[13px] leading-[1.4] text-[#64748B]">
-              A preview of what we&apos;re building. Plans and prices here are examples.{" "}
-              <a href="/early-access/" className="font-semibold text-[#6D4AE8] underline-offset-2 hover:underline">
-                Join the trips waitlist
-              </a>
-            </p>
-          </div>
-        </div>
-
-        {/* The journey's map: solid is live, hollow is coming. */}
-        <div ref={setPanel("plans")} className={panelClass} style={{ opacity: 0 }}>
-          <div className="max-w-[31rem]">
-            <Status live={false}>Trips: coming after</Status>
-            <h2 className={`${headline} mt-5 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>Three ways to go. Pick one.</h2>
-            <p className={body}>AI plans your trip as basic, standard and premium. Change anything until the whole group is happy.</p>
-          </div>
-        </div>
-
-        <div ref={setPanel("book")} className={panelClass} style={{ opacity: 0 }}>
-          <div className="max-w-[31rem]">
-            <Status live={false}>Trips: coming after</Status>
-            <h2 className={`${headline} mt-5 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>Book it all. Split it as you go.</h2>
-            <p className={body}>Flights, stays and things to do, booked in one place. The cost splits across the group the same way your bills do.</p>
-          </div>
-        </div>
-
-        <div ref={setPanel("guide")} className={panelClass} style={{ opacity: 0 }}>
-          <div className="max-w-[31rem]">
-            <Status live={false}>Trips: coming after</Status>
-            <h2 className={`${headline} mt-5 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>Then a voice leads the way.</h2>
-            <p className={body}>A voice guide walks the whole group through the trip, from the airport to the last dinner.</p>
-            <a href="/early-access/" className="mt-6 inline-block rounded-full bg-gradient-to-r from-[#2563EB] to-[#7C3AED] px-7 py-3.5 font-display text-[15px] font-semibold text-white transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
-              Join the trips waitlist
-            </a>
-          </div>
-        </div>
-
-        <nav aria-label="Journey" className="absolute right-6 top-1/2 hidden -translate-y-1/2 flex-col items-end gap-4 lg:flex">
+        <nav aria-label="Journey" className="absolute right-6 top-1/2 hidden -translate-y-1/2 flex-col items-end gap-4 rounded-2xl bg-white/80 p-3 backdrop-blur-md lg:flex">
           {PILLARS.map(({ first, label, status }) => (
             <a
               key={label}

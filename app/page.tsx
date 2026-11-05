@@ -2,9 +2,9 @@ import type { Metadata } from "next"
 
 import { HomePage } from "@/components/home/home-page"
 
-const title = "PayaGo: split every bill, plan every trip"
+const title = "PayaGo: plan every trip, split every bill"
 const description =
-  "Split bills in a group chat and track your own money today. Shared cards and end-to-end AI trips are coming next."
+  "End-to-end AI trips are coming to PayaGo: plan it, book flights and hotels, and split it with the group. Splitting bills and tracking your own money work today."
 
 export const metadata: Metadata = {
   title,

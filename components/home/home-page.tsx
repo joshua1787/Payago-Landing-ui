@@ -1,6 +1,7 @@
 import Link from "next/link"
 
 import { HomeNav } from "@/components/home/home-nav"
+import { Film } from "@/components/home/film"
 import { Journey } from "@/components/home/journey"
 import { PLAY_URL } from "@/lib/local-money"
 import { SiteFooter } from "@/components/site/site-footer"
@@ -32,7 +33,8 @@ export function HomePage() {
     <div className="min-h-screen bg-[#FAFAF8]">
       <HomeNav appUrl={APP_URL} />
       <main className="pg-flush">
-        <Journey />
+        <Film />
+      <Journey />
 
         <section className="bg-[#FAFAF8] px-6 py-24 lg:py-32">
           <div className="mx-auto max-w-7xl">

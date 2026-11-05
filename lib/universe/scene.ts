@@ -7,6 +7,7 @@ import { CHAPTERS, between, clamp01, smooth } from "./chapters"
 
 // The PayaGo universe. A coin, a ring for what exists today, and a journey outward:
 // bills, debts, your own money, cards, and at the far end the Earth.
+import { HeroStage } from "./stage"
 
 const TEAL = new THREE.Color("#3B6BF0")
 const GOLD = new THREE.Color("#D9A73A")
@@ -233,15 +234,22 @@ const SKY_VERTEX = `varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(
 const SKY_FRAGMENT = `
 precision mediump float;
 varying vec2 vUv;
-uniform float uTime; uniform float uDepth; uniform float uAspect;
+uniform float uTime; uniform float uDepth; uniform float uAspect; uniform float uCalm;
 float blob(vec2 p, vec2 c, float r){ float d = length((p-c)*vec2(uAspect,1.0)); return smoothstep(r, 0.0, d); }
 void main(){
   vec2 p = vUv;
-  vec3 c = vec3(0.98,0.98,0.973);
   float t = uTime*0.05;
-  c = mix(c, vec3(0.86,0.96,1.0), blob(p, vec2(0.78+0.05*sin(t), 0.58+0.05*cos(t*0.8)), 0.9) * (0.85+0.1*uDepth));
-  c = mix(c, vec3(0.93,0.90,1.0), blob(p, vec2(0.10+0.06*cos(t*0.7), 0.14+0.04*sin(t)), 0.85) * 0.8);
-  c = mix(c, vec3(0.90,0.98,0.95), blob(p, vec2(0.45+0.1*sin(t*0.5), 1.02), 0.7) * 0.6);
+  // Colour builds behind the coin and stays pale behind the words: right of them on wide
+  // screens, above them on narrow ones. Money is electric violet-blue, trips a hot sunrise.
+  float rich = (uAspect > 1.05 ? smoothstep(0.26, 0.82, p.x) : smoothstep(0.42, 0.92, p.y)) * (1.0 - uCalm * 0.72);
+  vec3 money = mix(vec3(0.90,0.90,1.0), vec3(0.42,0.44,1.0), rich);
+  money = mix(money, vec3(0.62,0.32,1.0), blob(p, vec2(0.98+0.04*sin(t), 0.08+0.05*cos(t*0.8)), 0.8)*0.85*rich);
+  money = mix(money, vec3(0.20,0.62,1.0), blob(p, vec2(0.92, 0.98), 0.7)*0.7*rich);
+  money = mix(money, vec3(1.0,0.86,0.55), blob(p, uAspect > 1.05 ? vec2(0.63, 0.53) : vec2(0.5, 0.74), 0.34));
+  vec3 morning = mix(vec3(1.0,0.95,0.88), vec3(1.0,0.56,0.38), rich);
+  morning = mix(morning, vec3(0.32,0.56,1.0), blob(p, vec2(0.98+0.04*sin(t), 0.98), 0.85)*0.9*rich);
+  morning = mix(morning, vec3(1.0,0.80,0.40), blob(p, vec2(0.62, 0.12), 0.6)*0.8*rich);
+  vec3 c = mix(money, morning, uDepth);
   gl_FragColor = vec4(c, 1.0);
 }`
 
@@ -285,7 +293,7 @@ type Key = { at: number; pos: [number, number, number]; look: [number, number, n
 // The camera's route. On wide screens the subject sits right of centre, so the
 // words have the left; on phones it sits above them.
 const WIDE_ROUTE = ([
-  { at: 0, pos: [-2.85, 0.5, 8.3], look: [-2.85, 0.05, 0] },
+  { at: 0, pos: [-3.05, 0.3, 8.7], look: [-3.05, 0, 0] },
   { at: CHAPTERS.app[0] + 0.035, pos: [-3.05, 0, 8.6], look: [-3.05, 0, 0] },
   { at: CHAPTERS.app[1] - 0.015, pos: [-3.05, 0, 8.2], look: [-3.05, 0, 0] },
   { at: CHAPTERS.type[0] + 0.03, pos: [-3.05, 1.3, 8.4], look: [-3.05, 0, 0] },
@@ -297,10 +305,11 @@ const WIDE_ROUTE = ([
   { at: CHAPTERS.cards[0] + 0.03, pos: [-2.85, 0.2, 7], look: [-2.85, 0, 0] },
   { at: CHAPTERS.cards[1] - 0.01, pos: [-2.8, 0, 6.6], look: [-2.8, 0, 0] },
   { at: CHAPTERS.trips[0] + 0.07, pos: [-3.05, 0.3, 8.7], look: [-3.05, 0, 0] },
-  { at: 1, pos: [-3.05, 0.15, 8.2], look: [-3.05, 0, 0] },
+  { at: CHAPTERS.guide[1] - 0.01, pos: [-3.05, 0.15, 8.2], look: [-3.05, 0, 0] },
+  { at: 1, pos: [-2.8, 0, 6.6], look: [-2.8, 0, 0] },
 ] as Key[]).sort((a, b) => a.at - b.at)
 const NARROW_ROUTE = ([
-  { at: 0, pos: [0, 1.2, 15], look: [0, -3.2, 0] },
+  { at: 0, pos: [0, 0.2, 19], look: [0, -3.9, 0] },
   { at: CHAPTERS.app[0] + 0.035, pos: [0, 0, 16], look: [0, -2.45, 0] },
   { at: CHAPTERS.app[1] - 0.015, pos: [0, 0, 16], look: [0, -2.45, 0] },
   { at: CHAPTERS.type[0] + 0.03, pos: [0, 1.4, 15.5], look: [0, -3.4, 0] },
@@ -312,7 +321,8 @@ const NARROW_ROUTE = ([
   { at: CHAPTERS.cards[0] + 0.03, pos: [0, 0.2, 14.5], look: [0, -2.9, 0] },
   { at: CHAPTERS.cards[1] - 0.01, pos: [0, 0, 14], look: [0, -2.8, 0] },
   { at: CHAPTERS.trips[0] + 0.07, pos: [0, 0.2, 19], look: [0, -3.9, 0] },
-  { at: 1, pos: [0, 0, 18.5], look: [0, -3.8, 0] },
+  { at: CHAPTERS.guide[1] - 0.01, pos: [0, 0, 18.5], look: [0, -3.8, 0] },
+  { at: 1, pos: [0, 0, 14], look: [0, -2.8, 0] },
 ] as Key[]).sort((a, b) => a.at - b.at)
 
 export class MoneyUniverse {
@@ -334,6 +344,7 @@ export class MoneyUniverse {
   private readonly money: LocalMoney
   private glow = glowTexture()
 
+  private stage: HeroStage
   private coin = new THREE.Group()
   private coinMaterials: THREE.MeshStandardMaterial[] = []
   private system = new THREE.Group()
@@ -374,7 +385,8 @@ export class MoneyUniverse {
     this.pointer.set((event.clientX / window.innerWidth) * 2 - 1, (event.clientY / window.innerHeight) * 2 - 1)
   }
   private introStart = -1
-  private intro = 0
+  // 0 is the coin the page opens on, 1 is the Earth it turns into.
+  private opening = 1
 
   constructor(canvas: HTMLCanvasElement, options: Options) {
     this.mobile = options.mobile
@@ -395,18 +407,20 @@ export class MoneyUniverse {
       fragmentShader: SKY_FRAGMENT,
       depthTest: false,
       depthWrite: false,
-      uniforms: { uTime: { value: 0 }, uDepth: { value: 0 }, uAspect: { value: 1 } },
+      uniforms: { uTime: { value: 0 }, uDepth: { value: 0 }, uAspect: { value: 1 }, uCalm: { value: 0 } },
     })
     this.skyScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), this.sky))
 
     const key = new THREE.DirectionalLight(0xfff1cf, 2.6)
     key.position.set(4, 6, 6)
-    const rim = new THREE.DirectionalLight(0x19e4cc, 2.2)
+    const rim = new THREE.DirectionalLight(0xc4a8ff, 2.2)
     rim.position.set(-6, -2, -3)
-    this.scene.add(key, rim, new THREE.AmbientLight(0x224d48, 0.7))
+    this.scene.add(key, rim, new THREE.AmbientLight(0x4a4478, 0.7))
 
     this.buildStars()
     this.buildCoin()
+    this.stage = new HeroStage({ mobile: options.mobile, still: options.still, money: options.money, coinFace: coinFace(false, options.money.symbol), glow: this.glow })
+    this.scene.add(this.stage.group)
     this.buildSystem()
     this.buildSettle()
     const gaugePath = new THREE.CatmullRomCurve3(
@@ -444,6 +458,10 @@ export class MoneyUniverse {
     })
     this.halo = new THREE.Mesh(new THREE.SphereGeometry(GLOBE_RADIUS * 1.07, 48, 48), this.haloMaterial)
     this.scene.add(this.morph, this.halo, this.flight)
+
+    // The Earth starts with the visitor's home facing them.
+    const home = latLng(options.money.home.lat, options.money.home.lng, 1)
+    this.globeSpin = this.globeSpinTarget = Math.atan2(home.x, home.z)
 
     this.resize()
   }
@@ -826,6 +844,7 @@ export class MoneyUniverse {
   /** The opening: the coin comes apart into the Earth, then gathers back. */
   playIntro() {
     if (this.still) return
+    this.opening = 0
     this.introStart = this.clock.getElapsedTime()
   }
 
@@ -942,33 +961,34 @@ export class MoneyUniverse {
 
     // Where the system sits. On wide screens it moves right of the words.
     const anchor = wide ? new THREE.Vector3(offset + 3.6 - 3.6, 0, 0) : new THREE.Vector3(0, 0, 0)
-    const inTrips = between(p, CHAPTERS.trips[0] - 0.02, CHAPTERS.trips[0] + 0.08)
+    const inTrips = 1 - between(p, CHAPTERS.guide[1] - 0.02, CHAPTERS.guide[1] + 0.03)
     const settleIn = between(p, CHAPTERS.settle[0] - 0.015, CHAPTERS.settle[0] + 0.035) * (1 - between(p, CHAPTERS.settle[1] - 0.025, CHAPTERS.settle[1] + 0.005))
     const untangle = between(p, CHAPTERS.settle[0] + 0.05, CHAPTERS.settle[1] - 0.05)
     const ownIn = between(p, CHAPTERS.own[0] - 0.01, CHAPTERS.own[0] + 0.03) * (1 - between(p, CHAPTERS.own[1] - 0.02, CHAPTERS.own[1] + 0.005))
-    const cardIn = between(p, CHAPTERS.cards[0] - 0.005, CHAPTERS.cards[0] + 0.05) * (1 - between(p, CHAPTERS.cards[1] - 0.015, CHAPTERS.cards[1] + 0.01))
+    const cardIn = between(p, CHAPTERS.cards[0] - 0.005, CHAPTERS.cards[0] + 0.03)
     const typeIn = between(p, CHAPTERS.type[0] - 0.02, CHAPTERS.type[0] + 0.03) * (1 - between(p, CHAPTERS.type[1] - 0.025, CHAPTERS.type[1] + 0.005))
 
     const appIn = between(p, CHAPTERS.app[0] - 0.012, CHAPTERS.app[0] + 0.02) * (1 - between(p, CHAPTERS.app[1] + 0.012, CHAPTERS.app[1] + 0.02))
 
-    // The opening plays once, and gives way at once if the visitor starts scrolling.
-    let introWant = 0
+    // The page opens on the coin, which comes apart into the Earth and lands with a hit.
     if (this.introStart >= 0) {
       const t = time - this.introStart
-      introWant = between(t, 0.9, 2.3) * (1 - between(t, 3.4, 4.8))
-      if (t > 4.8 || p > 0.004) this.introStart = -1
+      this.opening = between(t, 0.8, 2.1)
+      if (t > 2.15 || p > 0.004) {
+        this.opening = 1
+        this.introStart = -1
+      }
     }
-    this.intro += (introWant - this.intro) * (this.introStart >= 0 ? 1 : 0.12)
-    if (this.intro < 0.001) this.intro = 0
-    const intro = this.intro
+    if (this.introStart < 0 && p < CHAPTERS.guide[1]) this.stage.fire("trips", time)
+    if (p >= CHAPTERS.guide[1] - 0.01) this.stage.fire("money", time)
 
     // Coin: at home until the journey reaches the Earth, when it gives way to its dots.
-    const coinGone = Math.max(between(p, CHAPTERS.trips[0] - 0.015, CHAPTERS.trips[0] + 0.015), between(intro, 0, 0.26))
+    const coinGone = (1 - between(p, CHAPTERS.guide[1] - 0.015, CHAPTERS.guide[1] + 0.015)) * between(this.opening, 0, 0.26)
     const coinWithPhone = between(p, CHAPTERS.app[0] - 0.012, CHAPTERS.app[0] + 0.02) * (1 - between(p, CHAPTERS.app[1], CHAPTERS.app[1] + 0.015))
     const coinHide = Math.min(1, settleIn * 1.2 + cardIn * 1.2 + coinWithPhone * 1.3)
     const coinScale = (1 - coinGone * 0.3) * (1 - coinHide * 0.6)
     this.coin.position.copy(anchor).setX(anchor.x)
-    this.coin.scale.setScalar(coinScale * (this.still ? 1 : 1 + 0.008 * Math.sin(time * 0.9)))
+    this.coin.scale.setScalar(1.1 * coinScale * (this.still ? 1 : 1 + 0.008 * Math.sin(time * 0.9)))
     this.coin.rotation.set(0.08 + Math.sin(time * 0.3) * 0.04, -0.28 + Math.sin(time * 0.24) * 0.26, 0)
     this.coin.visible = coinGone < 0.995 && coinHide < 0.99
     const coinOpacity = (1 - coinGone) * (1 - coinHide)
@@ -976,9 +996,30 @@ export class MoneyUniverse {
     const haloSprite = this.coin.getObjectByName("coin-halo") as THREE.Sprite
     ;(haloSprite.material as THREE.SpriteMaterial).opacity = 0.22 * coinOpacity
 
+    // The showroom: money objects with the coin, travel objects with the Earth.
+    const coinAway = Math.max(settleIn, cardIn, coinWithPhone, ownIn * 0.5)
+    const moneyIn = (1 - inTrips) * (1 - coinAway)
+    this.stage.update({
+      time,
+      wide,
+      moneyIn,
+      tripsIn: inTrips * this.opening,
+      standIn: moneyIn * (1 - between(p, CHAPTERS.type[1] - 0.03, CHAPTERS.type[1])),
+      tripSpread: between(p, 0, CHAPTERS.guide[1]),
+      moneySpread: between(p, CHAPTERS.guide[1], CHAPTERS.type[1]),
+      explode: between(p, CHAPTERS.guide[1] - 0.05, CHAPTERS.guide[1] + 0.01),
+      anchor,
+    })
+    // The landing: the subject punches big, and the whole frame takes the hit.
+    const hit = this.stage.impact
+    this.coin.scale.multiplyScalar(1 + hit * 0.16)
+    this.morph.scale.setScalar(1 + hit * 0.09)
+    this.camera.position.x += Math.sin(time * 71) * hit * 0.1
+    this.camera.position.y += Math.sin(time * 93) * hit * 0.14
+
     // Rings fade to quiet when another subject is on stage.
     this.system.position.copy(anchor)
-    const quiet = (1 - Math.max(settleIn, cardIn * 0.85, inTrips, ownIn * 0.55, coinWithPhone)) * (1 - Math.min(1, intro * 2))
+    const quiet = 1 - Math.max(settleIn, cardIn * 0.85, inTrips, ownIn * 0.55, coinWithPhone)
     this.rings.forEach((ring, i) => {
       const base = i === 0 ? 0.95 : 0.5
       ring.material.opacity = base * quiet
@@ -999,7 +1040,7 @@ export class MoneyUniverse {
     })
 
     // Expense cards orbit, always facing you, from the first screen to the end of their chapter.
-    const cardsIn = (1 - between(p, CHAPTERS.type[1] - 0.025, CHAPTERS.type[1] + 0.005)) * (1 - Math.min(1, intro * 3)) * (1 - coinWithPhone)
+    const cardsIn = typeIn
     this.cardsGroup.position.copy(anchor)
     this.cardsGroup.visible = cardsIn > 0.01
     this.expenses.forEach((item, i) => {
@@ -1061,17 +1102,14 @@ export class MoneyUniverse {
     })
 
     // The coin comes apart, and its dots become the Earth.
-    const morph = Math.max(between(p, CHAPTERS.trips[0] - 0.015, CHAPTERS.trips[0] + 0.1), intro)
+    const morph = (1 - between(p, CHAPTERS.guide[1] - 0.015, CHAPTERS.guide[1] + 0.05)) * this.opening
     this.morph.visible = morph > 0.001
     this.morph.position.copy(anchor)
     this.morphMaterial.uniforms.uMorph.value = morph
     this.morphMaterial.uniforms.uOpacity.value = clamp01(morph * 6)
     this.morphMaterial.uniforms.uTime.value = time
     this.globeSpin += (this.globeSpinTarget - this.globeSpin) * (immediate ? 1 : 0.04)
-    // In the opening the Earth turns until the visitor's home faces them.
-    const homeNow = latLng(this.money.home.lat, this.money.home.lng, 1)
-    const introTurn = this.introStart >= 0 ? (time - this.introStart - 3.6) * 0.32 : 0
-    const spin = intro > 0 ? this.globeSpin * (1 - intro) + (Math.atan2(homeNow.x, homeNow.z) + introTurn) * intro : this.globeSpin
+    const spin = this.globeSpin
     this.morphMaterial.uniforms.uSpin.value = spin
     this.halo.position.copy(anchor)
     this.haloMaterial.uniforms.uOpacity.value = smooth((morph - 0.7) / 0.3) * 0.7
@@ -1091,7 +1129,7 @@ export class MoneyUniverse {
 
     this.tripCards.forEach((card) => {
       const [from, to] = CHAPTERS[card.chapter]
-      const open = between(p, from - 0.005, from + 0.03) * (card.chapter === "guide" ? 1 : 1 - between(p, to - 0.025, to - 0.002))
+      const open = between(p, from - 0.005, from + 0.03) * (1 - between(p, to - 0.025, to - 0.005))
       card.mesh.visible = open > 0.01
       if (!card.mesh.visible) return
       const float = this.still ? 0 : Math.sin(time * 0.8 + card.seed) * 0.05
@@ -1107,7 +1145,9 @@ export class MoneyUniverse {
     })
 
     this.sky.uniforms.uTime.value = time
-    this.sky.uniforms.uDepth.value = Math.max(inTrips, intro)
+    this.sky.uniforms.uDepth.value = inTrips
+    // The debt lines need a pale room to be read in.
+    this.sky.uniforms.uCalm.value = settleIn
 
     // The phone rises as the coin goes in, then steps through the real screens.
     this.phone.visible = appIn > 0.005

@@ -30,7 +30,7 @@ const TRIPS = [
   { title: "Say the trip", body: "Tell PayaGo where, your budget and who's going, by typing or out loud." },
   { title: "Three plans to choose from", body: "AI plans it three ways: basic, standard and premium." },
   { title: "Change anything", body: "Edit the plan together until it suits the whole group." },
-  { title: "Book in one place", body: "Flights, stays and things to do, booked in the app instead of a dozen tabs." },
+  { title: "Book in one place", body: "Flights, hotels, trains, airport transfers, cabs, car hire, eSIM and things to do, booked in the app instead of a dozen tabs." },
   { title: "Split as you go", body: "The cost divides across the group, the same way your everyday bills do." },
   { title: "Pay from the wallet", body: "Use your shared wallet and cards for the trip, once they're open." },
   { title: "A voice guide", body: "A guide that leads the group through the whole trip." },
@@ -41,14 +41,14 @@ export default function FeaturesPage() {
   return (
     <main className="min-h-screen">
       <SiteNav />
-      <PageHero title="Your money. Your trips.">
+      <PageHero title="Your trips. Your money.">
         <p>Two things, one app. Here&apos;s what each one does, and what&apos;s live today.</p>
       </PageHero>
+      <Section title="End-to-end trips." status={{ live: false, text: "Coming" }} intro="None of this is open yet. We'll say clearly when it is.">
+        <ItemGrid items={TRIPS} coming cols={2} />
+      </Section>
       <Section title="Split &amp; Wallet." status={{ live: true, text: "Live today, cards coming next" }}>
         <ItemGrid items={MONEY} cols={2} />
-      </Section>
-      <Section title="End-to-end trips." status={{ live: false, text: "Coming after" }} tone="deep" intro="None of this is open yet. We'll say clearly when it is.">
-        <ItemGrid items={TRIPS} coming cols={2} />
       </Section>
       <Closing title="Start with your next shared bill.">
         <a href={APP_URL} className={primaryLink}>Open PayaGo</a>

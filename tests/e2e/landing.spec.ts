@@ -177,7 +177,7 @@ test("pages about trips say they are not live yet", async ({ page }) => {
 
   await page.goto("/features/")
   await expect(page.getByRole("heading", { name: "End-to-end trips.", exact: true })).toBeVisible()
-  await expect(page.getByText("Coming after").first()).toBeVisible()
+  await expect(page.getByText("Coming", { exact: true }).first()).toBeVisible()
 })
 
 test("the nav's Open PayaGo button stays navy on every kind of page", async ({ page }) => {
@@ -214,9 +214,13 @@ test("the delete account page says how, and what is kept", async ({ page }) => {
   await expect(page.getByRole("link", { name: "privacy@payago.in" })).toHaveAttribute("href", /^mailto:privacy@payago\.in/)
 })
 
-test("split and wallet get the same share of the journey as trips", async () => {
-  const { CHAPTERS } = await import("../../lib/universe/chapters")
-  expect(CHAPTERS.cards[1] - CHAPTERS.type[0]).toBeCloseTo(CHAPTERS.guide[1] - CHAPTERS.trips[0])
+test("trips come first and get the biggest share of the journey, with split and wallet still in it", async ({ page }) => {
+  await page.goto("/")
+  const top = (name: string) => page.evaluate((id) => document.getElementById(id)?.getBoundingClientRect().top ?? -1, `chapter-${name}`)
+  const [trips, guide, type, cards] = [await top("trips"), await top("guide"), await top("type"), await top("cards")]
+  expect(trips).toBeLessThan(type)
+  expect(guide - trips).toBeGreaterThan(cards - type)
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Plan every trip.")
 })
 
 test("a trip for 3 stays a trip for 3, with or without the word people", async ({ page }) => {
@@ -299,5 +303,33 @@ test("the waitlist admin signs in with an emailed code, not a password", async (
   await expect.poll(() => sent.length).toBe(2)
   expect(sent[0]).toContain("joshuacto@payago.in")
   expect(sent[1]).toContain('"code":"123456"')
+})
+
+test("how it works shows money in the visitor's own currency", async ({ browser }) => {
+  const india = await browser.newContext({ timezoneId: "Asia/Kolkata", locale: "en-IN" })
+  const page = await india.newPage()
+  await page.goto("/how-it-works/")
+  await expect(page.getByText("₹640 left for today")).toBeVisible()
+  await expect(page.getByText("£24 left for today")).toHaveCount(0)
+  await india.close()
+
+  const uk = await browser.newContext({ timezoneId: "Europe/London", locale: "en-GB" })
+  const ukPage = await uk.newPage()
+  await ukPage.goto("/how-it-works/")
+  await expect(ukPage.getByText("£24 left for today")).toBeVisible()
+  await uk.close()
+})
+
+test("the film's frames load and the words move with the scroll", async ({ page }) => {
+  const first = await page.request.get("/film/f0001.webp")
+  expect((await page.request.get("/film/m/f1120.webp")).ok()).toBe(true)
+  expect(first.ok()).toBe(true)
+  await page.goto("/")
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Plan every trip.")
+  await page.evaluate(() => {
+    const film = document.querySelector("[data-testid=film]") as HTMLElement
+    window.scrollTo(0, film.offsetTop + (film.offsetHeight - innerHeight) * 0.145)
+  })
+  await expect(page.getByRole("heading", { name: "Every trip starts with the flight." })).toBeVisible()
 })
 
