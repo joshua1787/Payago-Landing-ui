@@ -22,7 +22,7 @@ const PILLARS: { first: ChapterName; last: ChapterName; label: string; status: s
 const BOOKABLE = ["Flights", "Hotels", "Trains", "Airport transfers", "Cabs", "Car hire", "eSIM", "Things to do"]
 
 const APP_SCREENS = ["The chat", "Settle up", "Spending"]
-const TRIP_CHIPS = ["7 days in Japan for 4 friends", "Weekend in Barcelona with 6 mates", "10 days in Bali for 2 people"]
+const TRIP_CHIPS = ["Weekend in Barcelona with 6 mates", "7 days in Japan for 4 friends", "10 days in Bali for 2 people"]
 
 const pill = {
   live: "border-[#7C5CFF]/50 text-[#6D4AE8]",
@@ -294,7 +294,7 @@ export function Journey() {
                 Split a bill today
               </a>
             </div>
-            <p className="pg-open-later mt-5 text-[14px] leading-[1.45] text-[#475569]">Free to start, in India and the UK. Works in your browser or on Android.</p>
+            <p className="pg-open-later mt-5 text-[14px] leading-[1.45] text-[#475569]">Free to start, in the UK and India. Works in your browser or on Android.</p>
           </div>
         </div>
 

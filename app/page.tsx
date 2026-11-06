@@ -4,7 +4,7 @@ import { HomePage } from "@/components/home/home-page"
 
 const title = "PayaGo: plan every trip, split every bill"
 const description =
-  "End-to-end AI trips are coming to PayaGo: plan it, book flights and hotels, and split it with the group. Splitting bills and tracking your own money work today."
+  "End-to-end AI trips are coming to PayaGo: plan it, book flights and hotels, and split it with the group. Splitting bills and tracking your own money work today, in the UK and India."
 
 export const metadata: Metadata = {
   title,

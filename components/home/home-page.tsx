@@ -10,6 +10,11 @@ const APP_URL = "https://app.payago.in"
 
 const TRUST: { title: string; body: string; link?: { href: string; text: string } }[] = [
   {
+    title: "A UK company.",
+    body: "PayaGo Ltd is registered in England and Wales, company number 16971574. Your data is protected under UK GDPR, and you can complain to the ICO if we get it wrong.",
+    link: { href: "https://find-and-update.company-information.service.gov.uk/company/16971574", text: "See us on Companies House" },
+  },
+  {
     title: "AI reads. PayaGo counts.",
     body: "AI helps understand what you typed. Totals and who owes what are worked out by the app, and an amount read from a chat message has to be written in that message.",
   },
