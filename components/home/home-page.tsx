@@ -2,7 +2,8 @@ import Link from "next/link"
 
 import { HomeNav } from "@/components/home/home-nav"
 import { Film } from "@/components/home/film"
-import { Journey } from "@/components/home/journey"
+import { SceneClip } from "@/components/home/scene-clip"
+import { RealApp, SplitToday, TripPlanner } from "@/components/home/sections"
 import { PLAY_URL } from "@/lib/local-money"
 import { SiteFooter } from "@/components/site/site-footer"
 
@@ -28,14 +29,51 @@ const TRUST: { title: string; body: string; link?: { href: string; text: string 
   },
 ]
 
+const clipHeadline = "font-display text-[clamp(2.4rem,5vw,4.5rem)] font-semibold leading-[1.03] tracking-[-0.035em] text-white [text-shadow:0_2px_30px_rgba(10,16,40,0.55)]"
+const clipBody = "mt-3 max-w-[27rem] text-[17px] leading-[1.5] text-white/95 [text-shadow:0_1px_18px_rgba(10,16,40,0.7)] sm:text-[19px]"
+
+function Pill({ children }: { children: React.ReactNode }) {
+  return <p className="inline-block rounded-full border border-white/50 bg-[#0F172A]/35 px-3 py-1 text-[13px] font-medium text-white">{children}</p>
+}
+
 export function HomePage() {
   return (
     <div className="min-h-screen bg-[#FAFAF8]">
       <HomeNav appUrl={APP_URL} />
       <main className="pg-flush">
         <Film />
-        <div aria-hidden="true" className="h-[45vh] bg-gradient-to-b from-[#03050d] via-[#6b4a52] to-[#FAFAF8]" />
-      <Journey />
+        <SceneClip name="hotel">
+          <div className="max-w-[30rem]">
+            <Pill>Trips: coming</Pill>
+            <h2 className={`${clipHeadline} mt-4`}>Walk straight into your hotel.</h2>
+            <p className={clipBody}>Pick basic, standard or premium. The rooms sit in the same plan as the flights.</p>
+          </div>
+        </SceneClip>
+        <TripPlanner />
+        <SceneClip name="table">
+          <div className="max-w-[30rem]">
+            <Pill>Live today</Pill>
+            <h2 className={`${clipHeadline} mt-4`}>The bill splits itself.</h2>
+            <p className={clipBody}>This part works today. Everyone sees who paid and who owes, with the fewest payments to settle up.</p>
+          </div>
+        </SceneClip>
+        <SplitToday />
+        <RealApp />
+        <SceneClip name="earth">
+          <div className="max-w-[32rem]">
+            <Pill>Trips: coming</Pill>
+            <h2 className={`${clipHeadline} mt-4`}>One trip. One app. One plan.</h2>
+            <p className={clipBody}>Whole trips, planned by AI and booked in one place, are coming. Splitting the bill works today.</p>
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <a href="/early-access/" className="rounded-full bg-white px-7 py-3.5 font-display text-[15px] font-semibold text-[#0F172A] transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+                Join the trips waitlist
+              </a>
+              <a href={APP_URL} className="rounded-full border border-white/70 bg-[#0F172A]/35 px-6 py-3.5 font-display text-[15px] font-semibold text-white hover:bg-[#0F172A]/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+                Split a bill today
+              </a>
+            </div>
+          </div>
+        </SceneClip>
 
         <section className="bg-[#FAFAF8] px-6 py-24 lg:py-32">
           <div className="mx-auto max-w-7xl">

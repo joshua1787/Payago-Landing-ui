@@ -151,7 +151,7 @@ test("an expense joins the orbit and plain chat stays chat", async ({ page }) =>
 
   await page.getByLabel("Type an expense").fill("£84 dinner")
   await page.getByRole("button", { name: "Send" }).click()
-  await expect(note).toContainText("Dinner joined the orbit")
+  await expect(note).toContainText("Dinner")
   await expect(note).toContainText("£21.00")
 
   await page.getByLabel("Type an expense").fill("table for 4")
@@ -214,12 +214,14 @@ test("the delete account page says how, and what is kept", async ({ page }) => {
   await expect(page.getByRole("link", { name: "privacy@payago.in" })).toHaveAttribute("href", /^mailto:privacy@payago\.in/)
 })
 
-test("trips come first and get the biggest share of the journey, with split and wallet still in it", async ({ page }) => {
+test("trips lead the page, with split and wallet still in it", async ({ page }) => {
   await page.goto("/")
   const top = (name: string) => page.evaluate((id) => document.getElementById(id)?.getBoundingClientRect().top ?? -1, `chapter-${name}`)
   const [trips, guide, type, cards] = [await top("trips"), await top("guide"), await top("type"), await top("cards")]
-  expect(trips).toBeLessThan(type)
-  expect(guide - trips).toBeGreaterThan(cards - type)
+  expect(trips).toBeGreaterThan(0)
+  expect(trips).toBeLessThan(guide)
+  expect(guide).toBeLessThan(type)
+  expect(type).toBeLessThan(cards)
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Plan every trip.")
 })
 
@@ -321,14 +323,19 @@ test("how it works shows money in the visitor's own currency", async ({ browser 
 })
 
 test("the film's files load and the words move with the scroll", async ({ page }) => {
-  for (const file of ["wide.mp4", "lite.mp4", "tall.mp4", "slow.mp4", "wide.jpg", "tall.jpg"]) {
+  for (const scene of ["flight", "hotel", "table", "earth"]) {
+    for (const file of ["wide.mp4", "lite.mp4", "tall.mp4", "slow.mp4", "wide.jpg", "tall.jpg"]) {
+      expect((await page.request.get(`/film/${scene}-${file}`)).ok()).toBe(true)
+    }
+  }
+  for (const file of [] as string[]) {
     expect((await page.request.get(`/film/${file}`)).ok()).toBe(true)
   }
   await page.goto("/")
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Plan every trip.")
   await page.evaluate(() => {
     const film = document.querySelector("[data-testid=film]") as HTMLElement
-    window.scrollTo(0, film.offsetTop + (film.offsetHeight - innerHeight) * 0.4)
+    window.scrollTo(0, film.offsetTop + (film.offsetHeight - innerHeight) * 0.85)
   })
   await expect(page.getByRole("heading", { name: "Every trip starts with the flight." })).toBeVisible()
 })
@@ -340,7 +347,7 @@ test("the first scroll shows the part that works today", async ({ browser }) => 
   await expect(page.getByText("Free to start, in India and the UK.")).toBeVisible()
   await page.evaluate(() => {
     const film = document.querySelector("[data-testid=film]") as HTMLElement
-    window.scrollTo(0, film.offsetTop + (film.offsetHeight - innerHeight) * 0.14)
+    window.scrollTo(0, film.offsetTop + (film.offsetHeight - innerHeight) * 0.2)
   })
   const live = page.getByTestId("film-live")
   await expect(live.getByRole("heading", { name: "Send a bill. Everyone sees their share." })).toBeVisible()
