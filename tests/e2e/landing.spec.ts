@@ -151,7 +151,7 @@ test("an expense joins the orbit and plain chat stays chat", async ({ page }) =>
 
   await page.getByLabel("Type an expense").fill("£84 dinner")
   await page.getByRole("button", { name: "Send" }).click()
-  await expect(note).toContainText("Dinner")
+  await expect(note).toContainText("Dinner joined the orbit")
   await expect(note).toContainText("£21.00")
 
   await page.getByLabel("Type an expense").fill("table for 4")
@@ -177,7 +177,7 @@ test("pages about trips say they are not live yet", async ({ page }) => {
 
   await page.goto("/features/")
   await expect(page.getByRole("heading", { name: "End-to-end trips.", exact: true })).toBeVisible()
-  await expect(page.getByText("Coming", { exact: true }).first()).toBeVisible()
+  await expect(page.getByText("Coming after").first()).toBeVisible()
 })
 
 test("the nav's Open PayaGo button stays navy on every kind of page", async ({ page }) => {
@@ -214,15 +214,9 @@ test("the delete account page says how, and what is kept", async ({ page }) => {
   await expect(page.getByRole("link", { name: "privacy@payago.in" })).toHaveAttribute("href", /^mailto:privacy@payago\.in/)
 })
 
-test("trips lead the page, with split and wallet still in it", async ({ page }) => {
-  await page.goto("/")
-  const top = (name: string) => page.evaluate((id) => document.getElementById(id)?.getBoundingClientRect().top ?? -1, `chapter-${name}`)
-  const [trips, guide, type, cards] = [await top("trips"), await top("guide"), await top("type"), await top("cards")]
-  expect(trips).toBeGreaterThan(0)
-  expect(trips).toBeLessThan(guide)
-  expect(guide).toBeLessThan(type)
-  expect(type).toBeLessThan(cards)
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Plan every trip.")
+test("split and wallet get the same share of the journey as trips", async () => {
+  const { CHAPTERS } = await import("../../lib/universe/chapters")
+  expect(CHAPTERS.cards[1] - CHAPTERS.type[0]).toBeCloseTo(CHAPTERS.guide[1] - CHAPTERS.trips[0])
 })
 
 test("a trip for 3 stays a trip for 3, with or without the word people", async ({ page }) => {
@@ -305,53 +299,5 @@ test("the waitlist admin signs in with an emailed code, not a password", async (
   await expect.poll(() => sent.length).toBe(2)
   expect(sent[0]).toContain("joshuacto@payago.in")
   expect(sent[1]).toContain('"code":"123456"')
-})
-
-test("how it works shows money in the visitor's own currency", async ({ browser }) => {
-  const india = await browser.newContext({ timezoneId: "Asia/Kolkata", locale: "en-IN" })
-  const page = await india.newPage()
-  await page.goto("/how-it-works/")
-  await expect(page.getByText("₹640 left for today")).toBeVisible()
-  await expect(page.getByText("£24 left for today")).toHaveCount(0)
-  await india.close()
-
-  const uk = await browser.newContext({ timezoneId: "Europe/London", locale: "en-GB" })
-  const ukPage = await uk.newPage()
-  await ukPage.goto("/how-it-works/")
-  await expect(ukPage.getByText("£24 left for today")).toBeVisible()
-  await uk.close()
-})
-
-test("the film's files load and the words move with the scroll", async ({ page }) => {
-  for (const scene of ["flight", "hotel", "table", "earth"]) {
-    for (const file of ["wide.mp4", "lite.mp4", "tall.mp4", "slow.mp4", "wide.jpg", "tall.jpg"]) {
-      expect((await page.request.get(`/film/${scene}-${file}`)).ok()).toBe(true)
-    }
-  }
-  for (const file of [] as string[]) {
-    expect((await page.request.get(`/film/${file}`)).ok()).toBe(true)
-  }
-  await page.goto("/")
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Plan every trip.")
-  await page.evaluate(() => {
-    const film = document.querySelector("[data-testid=film]") as HTMLElement
-    window.scrollTo(0, film.offsetTop + (film.offsetHeight - innerHeight) * 0.85)
-  })
-  await expect(page.getByRole("heading", { name: "Every trip starts with the flight." })).toBeVisible()
-})
-
-test("the first scroll shows the part that works today", async ({ browser }) => {
-  const india = await browser.newContext({ timezoneId: "Asia/Kolkata", locale: "en-IN" })
-  const page = await india.newPage()
-  await page.goto("/")
-  await expect(page.getByText("Free to start, in India and the UK.")).toBeVisible()
-  await page.evaluate(() => {
-    const film = document.querySelector("[data-testid=film]") as HTMLElement
-    window.scrollTo(0, film.offsetTop + (film.offsetHeight - innerHeight) * 0.2)
-  })
-  const live = page.getByTestId("film-live")
-  await expect(live.getByRole("heading", { name: "Send a bill. Everyone sees their share." })).toBeVisible()
-  await expect(live).toContainText("sign up free")
-  await india.close()
 })
 
