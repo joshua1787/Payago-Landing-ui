@@ -177,7 +177,7 @@ test("pages about trips say they are not live yet", async ({ page }) => {
 
   await page.goto("/features/")
   await expect(page.getByRole("heading", { name: "End-to-end trips.", exact: true })).toBeVisible()
-  await expect(page.getByText("Coming after").first()).toBeVisible()
+  await expect(page.getByText("Coming", { exact: true }).first()).toBeVisible()
 })
 
 test("the nav's Open PayaGo button stays navy on every kind of page", async ({ page }) => {
@@ -301,3 +301,17 @@ test("the waitlist admin signs in with an emailed code, not a password", async (
   expect(sent[1]).toContain('"code":"123456"')
 })
 
+test("how it works shows money in the visitor's own currency", async ({ browser }) => {
+  const india = await browser.newContext({ timezoneId: "Asia/Kolkata", locale: "en-IN" })
+  const page = await india.newPage()
+  await page.goto("/how-it-works/")
+  await expect(page.getByText("₹640 left for today")).toBeVisible()
+  await expect(page.getByText("£24 left for today")).toHaveCount(0)
+  await india.close()
+
+  const uk = await browser.newContext({ timezoneId: "Europe/London", locale: "en-GB" })
+  const ukPage = await uk.newPage()
+  await ukPage.goto("/how-it-works/")
+  await expect(ukPage.getByText("£24 left for today")).toBeVisible()
+  await uk.close()
+})
