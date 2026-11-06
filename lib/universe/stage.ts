@@ -415,7 +415,9 @@ export class HeroStage {
   private buildTrips() {
     const { mobile } = this.options
     this.add(this.paper(boardingPassTexture("LHR", "HND", "14A"), 1.7, 0.74), [1.95, -2.15, 2.4], 0.72, 1.2, "trips")
-    if (!mobile) this.add(this.paper(boardingPassTexture("DEL", "GOI", "6C"), 1.7, 0.74), [1.6, 2.65, -1], 0.72, 2.4, "trips")
+    // A short hop from the visitor's own country: a weekend away from London, or Delhi to Goa.
+    const [hopFrom, hopTo] = this.options.money.symbol === "₹" ? ["DEL", "GOI"] : ["LHR", "BCN"]
+    if (!mobile) this.add(this.paper(boardingPassTexture(hopFrom, hopTo, "6C"), 1.7, 0.74), [1.6, 2.65, -1], 0.72, 2.4, "trips")
     this.add(this.paper(hotelKeyTexture("Hotel Kyoto", "Room 412"), 1.15, 0.71), [2.85, 1.1, -0.6], 0.8, 8.4, "trips")
     this.add(this.suitcase(), [-1.95, -1.6, 0.9], 0.62, 7.7, "trips")
     const pin = (colour: number) => {

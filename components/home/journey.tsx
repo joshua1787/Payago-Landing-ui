@@ -155,10 +155,6 @@ export function Journey() {
           scene.setTripStory({ place: first.place, people: first.people, from: detectMoney().home.name, plans: first.plans })
         }
         paint()
-        if (progressNow() < CHAPTERS.trips[1]) {
-          // A first route on the Earth before anyone has typed one.
-          scene.flyTo(35.68, 139.69)
-        }
         const resize = new ResizeObserver(() => scene.resize())
         resize.observe(element.parentElement ?? element)
         // Nothing runs while it's off the screen.
