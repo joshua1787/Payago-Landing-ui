@@ -13,13 +13,13 @@ import type { MoneyUniverse } from "@/lib/universe/scene"
 
 const APP_URL = "https://app.payago.in"
 
-// The two things PayaGo is for, each with an equal share of the journey.
+// End-to-end trips are the main story. Split & Wallet is the part that's live today.
 const PILLARS: { first: ChapterName; last: ChapterName; label: string; status: string }[] = [
+  { first: "trips", last: "guide", label: "End-to-end trips", status: "Coming" },
   { first: "type", last: "cards", label: "Split & Wallet", status: "Live today, cards next" },
-  { first: "trips", last: "guide", label: "End-to-end trips", status: "Coming after" },
 ]
 
-let openingPlayed = false
+const BOOKABLE = ["Flights", "Hotels", "Trains", "Airport transfers", "Cabs", "Car hire", "eSIM", "Things to do"]
 
 const APP_SCREENS = ["The chat", "Settle up", "Spending"]
 const TRIP_CHIPS = ["7 days in Japan for 4 friends", "Weekend in Barcelona with 6 mates", "10 days in Bali for 2 people"]
@@ -39,7 +39,7 @@ function Status({ live, children }: { live: boolean; children: React.ReactNode }
 }
 
 const headline = "font-display font-semibold tracking-[-0.035em] text-[#0F172A]"
-const body = "mt-5 max-w-[30rem] text-[17px] leading-[1.55] text-[#475569] sm:text-[19px]"
+const body = "mt-5 max-w-[30rem] text-[18px] leading-[1.55] text-[#475569] sm:text-[20px]"
 
 export function Journey() {
   const track = useRef<HTMLDivElement>(null)
@@ -50,7 +50,6 @@ export function Journey() {
   const rail = useRef<Partial<Record<ChapterName, HTMLAnchorElement | null>>>({})
   const screenTabs = useRef<(HTMLLIElement | null)[]>([])
   const money = useLocalMoney()
-  const [isAndroid, setIsAndroid] = useState(false)
   const [noScene, setNoScene] = useState(false)
 
   const [expenseDraft, setExpenseDraft] = useState("")
@@ -90,7 +89,7 @@ export function Journey() {
         const span = to - from
         const fade = Math.min(0.03, span * 0.22)
         const enter = name === "hero" ? 1 : between(p, from, from + fade)
-        const leave = name === "guide" ? 0 : between(p, to - fade, to)
+        const leave = name === "cards" ? 0 : between(p, to - fade, to)
         const opacity = enter * (1 - leave)
         panel.style.opacity = String(opacity)
         panel.style.transform = `translate3d(0, ${(1 - enter) * 28 - leave * 28}px, 0)`
@@ -124,9 +123,12 @@ export function Journey() {
       (window as unknown as { SpeechRecognition?: unknown }).SpeechRecognition ??
       (window as unknown as { webkitSpeechRecognition?: unknown }).webkitSpeechRecognition
     setCanSpeak(Boolean(speech))
-    setIsAndroid(/android/i.test(navigator.userAgent))
 
-    void (async () => {
+    // The example plans are words, so they don't wait for the 3D scene.
+    const example = readDemoTrip(TRIP_CHIPS[0], detectMoney())
+    if (example) setTrip(example)
+
+    const boot = async () => {
       const probe = document.createElement("canvas")
       if (!probe.getContext("webgl2") && !probe.getContext("webgl")) {
         setNoScene(true)
@@ -151,13 +153,11 @@ export function Journey() {
         if (first) {
           scene.flyTo(first.lat, first.lng)
           scene.setTripStory({ place: first.place, people: first.people, from: detectMoney().home.name, plans: first.plans })
-          setTrip(first)
         }
         paint()
-        // On a fresh load, not when coming back from another page of the site.
-        if (progressNow() < 0.004 && !openingPlayed) {
-          openingPlayed = true
-          scene.playIntro()
+        if (progressNow() < CHAPTERS.trips[1]) {
+          // A first route on the Earth before anyone has typed one.
+          scene.flyTo(35.68, 139.69)
         }
         const resize = new ResizeObserver(() => scene.resize())
         resize.observe(element.parentElement ?? element)
@@ -178,10 +178,21 @@ export function Journey() {
       } catch {
         setNoScene(true)
       }
-    })()
+    }
+    // The film above comes first; this scene is built when the page gets near it.
+    const nearby = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        nearby.disconnect()
+        void boot()
+      },
+      { rootMargin: "100% 0px" },
+    )
+    nearby.observe(box)
 
     return () => {
       disposed = true
+      nearby.disconnect()
       window.removeEventListener("scroll", onScroll)
       window.removeEventListener("resize", onScroll)
       cleanup()
@@ -251,14 +262,14 @@ export function Journey() {
     "absolute inset-x-0 bottom-0 h-[64%] bg-gradient-to-t from-[#FAFAF8] via-[#FAFAF8]/88 to-transparent lg:hidden"
 
   return (
-    <div ref={track} className="relative h-[720vh]" data-testid="journey">
+    <div ref={track} className="relative h-[540vh]" data-testid="journey">
       {/* Anchors to scroll to: the page's scroll is the browser's own. */}
       {(Object.keys(CHAPTERS) as ChapterName[]).map((name) => (
         <div
           key={name}
           id={`chapter-${name}`}
           className="absolute"
-          style={{ top: `${(name === "hero" ? 0 : CHAPTERS[name][0] + 0.035) * 86.1}%` }}
+          style={{ top: `${(name === "hero" ? 0 : CHAPTERS[name][0] + 0.035) * 81.5}%` }}
         />
       ))}
 
@@ -269,136 +280,28 @@ export function Journey() {
         <div className="absolute inset-y-0 left-0 hidden w-[58%] bg-gradient-to-r from-[#FAFAF8]/85 via-[#FAFAF8]/45 to-transparent lg:block" />
 
         <div ref={setPanel("hero")} className={panelClass}>
-          <div className="max-w-[35rem]">
-            <h1 className={`${headline} text-[clamp(2.6rem,4.7vw,4.3rem)] leading-[1.05]`}>
-              <span className="block">Split every bill.</span>
-              <span className="pg-open-late block w-fit bg-gradient-to-r from-[#00B8E6] via-[#7C5CFF] to-[#2CBF8E] bg-clip-text text-transparent">Plan every trip.</span>
+          <div className="max-w-[34rem]">
+            <h1 className={`${headline} text-[clamp(2.9rem,5vw,4.6rem)] leading-[1.02]`}>
+              <span className="block">Plan every trip.</span>
+              <span className="pg-open-late block w-fit bg-gradient-to-r from-[#1b2150] via-[#5B34C4] to-[#C47C12] bg-clip-text text-transparent">Split every bill.</span>
             </h1>
-            <p className={`${body} pg-open-later lg:max-w-[25rem]`}>One app for the money you share and the trips you take together, from today&apos;s dinner to the holiday you keep talking about.</p>
+            <p className={`${body} pg-open-later lg:max-w-[27rem]`}>Say where you want to go. AI plans the whole trip, you book it all in one app, and the cost splits across the group. Trips are coming. Splitting works today.</p>
             <div className="pg-open-later mt-8 flex flex-wrap items-center gap-3">
-              <a href={isAndroid ? PLAY_URL : APP_URL} className="rounded-full bg-gradient-to-r from-[#2563EB] to-[#7C3AED] text-white transition-opacity hover:opacity-90 px-7 py-3.5 font-display text-[15px] font-semibold    focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
-                {isAndroid ? "Get it on Google Play" : "Open PayaGo"}
+              <a href="/early-access/" className="rounded-full bg-[#1b2150] px-7 py-3.5 font-display text-[15px] font-semibold text-white transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
+                Join the trips waitlist
               </a>
-              <a href="#chapter-type" className="px-3 py-3.5 font-display text-[15px] font-semibold text-[#0F172A] underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
-                Scroll the journey
-              </a>
-            </div>
-            <ul className="pg-open-later mt-6 flex flex-wrap gap-2">
-              {PILLARS.map(({ first, label, status }) => (
-                <li key={label}>
-                  <a href={`#chapter-${first}`} className="inline-block rounded-full border border-[#0F172A]/10 bg-white/80 px-3 py-1.5 text-[13px] text-[#475569] hover:text-[#0F172A]">
-                    <span className="font-semibold text-[#0F172A]">{label}:</span> {status.toLowerCase()}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div ref={setPanel("type")} className={panelClass} style={{ opacity: 0 }}>
-          <div className="max-w-[31rem]">
-            <Status live>Split &amp; Wallet: live today</Status>
-            <h2 className={`${headline} mt-5 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>Type it the way you&apos;d say it.</h2>
-            <p className={body}>A group chat that keeps the accounts. Send a message with an amount and it becomes a card everyone can see.</p>
-            <form
-              className="mt-6 flex gap-2"
-              onSubmit={(event) => {
-                event.preventDefault()
-                sendExpense(expenseDraft)
-              }}
-            >
-              <label htmlFor="expense-input" className="sr-only">
-                Type an expense
-              </label>
-              <input
-                id="expense-input"
-                autoComplete="off"
-                value={expenseDraft}
-                onChange={(event) => setExpenseDraft(event.target.value)}
-                placeholder="Type an expense"
-                className="min-w-0 flex-1 rounded-full border border-[#0F172A]/15 bg-white border border-[#0F172A]/10 px-5 py-3 text-[16px] text-[#0F172A] backdrop-blur placeholder:text-[#64748B] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]"
-              />
-              <button type="submit" className="rounded-full bg-[#0F172A] text-white px-5 py-3 font-display text-[14px] font-semibold  focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
-                Send
-              </button>
-            </form>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {money.expenseChips.map((chip) => (
-                <button key={chip} type="button" onClick={() => sendExpense(chip)} className="rounded-full bg-white border border-[#0F172A]/10 px-3 py-1.5 text-[13px] text-[#334155] transition-colors hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
-                  {chip}
-                </button>
-              ))}
-            </div>
-            <p aria-live="polite" data-testid="expense-note" className="mt-3 min-h-[2.8em] text-[14px] leading-[1.4] text-[#475569]">
-              {expenseNote}
-            </p>
-          </div>
-        </div>
-
-        <div ref={setPanel("settle")} className={panelClass} style={{ opacity: 0 }}>
-          <div className="max-w-[31rem]">
-            <Status live>Split &amp; Wallet: live today</Status>
-            <h2 className={`${headline} mt-5 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>Six debts. Two payments.</h2>
-            <p className={body}>PayaGo untangles who owes whom into the fewest payments. If someone&apos;s slow, tap Ask for me and the reminder comes from PayaGo, not from you.</p>
-          </div>
-        </div>
-
-        <div ref={setPanel("own")} className={panelClass} style={{ opacity: 0 }}>
-          <div className="max-w-[31rem]">
-            <Status live>Split &amp; Wallet: live today</Status>
-            <h2 className={`${headline} mt-5 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>Your own money, a few seconds a day.</h2>
-            <p className={body}>Paste a bank message, say what it was, and close your day. Ask Can I buy this? and get a straight answer. If PayaGo doesn&apos;t know yet, it says so.</p>
-            <p className="mt-6 font-display text-[clamp(2rem,3.4vw,2.75rem)] font-semibold tabular-nums tracking-[-0.03em] text-[#6D4AE8]">
-              {money.leftToday} <span className="text-[0.55em] font-medium text-[#334155]">left for today</span>
-            </p>
-          </div>
-        </div>
-
-        <div ref={setPanel("app")} className={panelClass} style={{ opacity: 0 }}>
-          <div className="max-w-[31rem]">
-            <Status live>Live today</Status>
-            <h2 className={`${headline} mt-5 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>This is the real app.</h2>
-            <p className={body}>These are real screens from Flat 3B, the example group inside PayaGo. Look around it yourself, with no sign-up.</p>
-            <ul className="mt-5 flex flex-wrap gap-2">
-              {APP_SCREENS.map((name, i) => (
-                <li
-                  key={name}
-                  ref={(el) => {
-                    screenTabs.current[i] = el
-                  }}
-                  data-active={i === 0 ? "true" : "false"}
-                  className="rounded-full border border-[#0F172A]/15 px-3 py-1.5 text-[13px] text-[#475569] data-[active=true]:border-[#7C5CFF] data-[active=true]:text-[#6D4AE8]"
-                >
-                  {name}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
-              <a href={APP_URL} className="rounded-full bg-gradient-to-r from-[#2563EB] to-[#7C3AED] text-white transition-opacity hover:opacity-90 px-7 py-3.5 font-display text-[15px] font-semibold    focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
-                See an example group
-              </a>
-              <a href={PLAY_URL} className="font-display text-[15px] font-semibold text-[#0F172A] underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
-                Get it on Google Play
+              <a href={APP_URL} className="rounded-full border border-[#0F172A]/15 bg-white/70 px-6 py-3.5 font-display text-[15px] font-semibold text-[#0F172A] transition-colors hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
+                Split a bill today
               </a>
             </div>
-          </div>
-        </div>
-
-        <div ref={setPanel("cards")} className={panelClass} style={{ opacity: 0 }}>
-          <div className="max-w-[31rem]">
-            <Status live={false}>Split &amp; Wallet: cards coming next</Status>
-            <h2 className={`${headline} mt-5 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>One wallet. A card each.</h2>
-            <p className={body}>Add money to a shared wallet, pay with your own PayaGo card, and every payment splits itself. PayaGo Business gives each person on your team an allowance you can see live.</p>
-            <a href="/contact/" className="mt-5 inline-block font-display text-[15px] font-semibold text-[#6D4AE8] underline-offset-4 hover:underline">
-              Tell us you&apos;re interested
-            </a>
+            <p className="pg-open-later mt-5 text-[14px] leading-[1.45] text-[#475569]">Free to start, in India and the UK. Works in your browser or on Android.</p>
           </div>
         </div>
 
         <div ref={setPanel("trips")} className={panelClass} style={{ opacity: 0 }}>
           <div className="max-w-[33rem]">
-            <Status live={false}>Trips: coming after</Status>
-            <h2 className={`${headline} mt-4 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>Say where you want to go.</h2>
+            <Status live={false}>Trips: coming</Status>
+            <h2 className={`${headline} mt-4 text-[clamp(2.5rem,5.4vw,4.75rem)] leading-[1.01]`}>Say where you want to go.</h2>
             <p className="mt-3 max-w-[31rem] text-[16px] leading-[1.5] text-[#475569] sm:text-[18px]">
               Tell PayaGo the trip, your budget and who&apos;s coming, and AI plans it three ways.
             </p>
@@ -471,26 +374,25 @@ export function Journey() {
         </div>
 
         {/* The journey's map: solid is live, hollow is coming. */}
-        <div ref={setPanel("plans")} className={panelClass} style={{ opacity: 0 }}>
-          <div className="max-w-[31rem]">
-            <Status live={false}>Trips: coming after</Status>
-            <h2 className={`${headline} mt-5 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>Three ways to go. Pick one.</h2>
-            <p className={body}>AI plans your trip as basic, standard and premium. Change anything until the whole group is happy.</p>
-          </div>
-        </div>
-
         <div ref={setPanel("book")} className={panelClass} style={{ opacity: 0 }}>
           <div className="max-w-[31rem]">
-            <Status live={false}>Trips: coming after</Status>
-            <h2 className={`${headline} mt-5 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>Book it all. Split it as you go.</h2>
-            <p className={body}>Flights, stays and things to do, booked in one place. The cost splits across the group the same way your bills do.</p>
+            <Status live={false}>Trips: coming</Status>
+            <h2 className={`${headline} mt-5 text-[clamp(2.5rem,5.4vw,4.75rem)] leading-[1.01]`}>Book it all in one place.</h2>
+            <p className={body}>Everything the trip needs, from one app. The cost splits across the group the same way your bills do.</p>
+            <ul className="mt-5 flex flex-wrap gap-2">
+              {BOOKABLE.map((item) => (
+                <li key={item} className="rounded-full border border-[#0F172A]/10 bg-white/85 px-3.5 py-1.5 text-[14px] font-medium text-[#0F172A]">
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
         <div ref={setPanel("guide")} className={panelClass} style={{ opacity: 0 }}>
           <div className="max-w-[31rem]">
-            <Status live={false}>Trips: coming after</Status>
-            <h2 className={`${headline} mt-5 text-[clamp(2.2rem,5vw,4.25rem)] leading-[1.02]`}>Then a voice leads the way.</h2>
+            <Status live={false}>Trips: coming</Status>
+            <h2 className={`${headline} mt-5 text-[clamp(2.5rem,5.4vw,4.75rem)] leading-[1.01]`}>Then a voice leads the way.</h2>
             <p className={body}>A voice guide walks the whole group through the trip, from the airport to the last dinner.</p>
             <a href="/early-access/" className="mt-6 inline-block rounded-full bg-gradient-to-r from-[#2563EB] to-[#7C3AED] px-7 py-3.5 font-display text-[15px] font-semibold text-white transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
               Join the trips waitlist
@@ -498,7 +400,107 @@ export function Journey() {
           </div>
         </div>
 
-        <nav aria-label="Journey" className="absolute right-6 top-1/2 hidden -translate-y-1/2 flex-col items-end gap-4 lg:flex">
+        <div ref={setPanel("type")} className={panelClass} style={{ opacity: 0 }}>
+          <div className="max-w-[31rem]">
+            <Status live>Split &amp; Wallet: live today</Status>
+            <h2 className={`${headline} mt-5 text-[clamp(2.5rem,5.4vw,4.75rem)] leading-[1.01]`}>Type it the way you&apos;d say it.</h2>
+            <p className={`${body} lg:max-w-[25rem]`}>This part works today, on any trip or any flat. A group chat keeps the accounts: send a message with an amount and it becomes a card everyone can see.</p>
+            <form
+              className="mt-6 flex gap-2"
+              onSubmit={(event) => {
+                event.preventDefault()
+                sendExpense(expenseDraft)
+              }}
+            >
+              <label htmlFor="expense-input" className="sr-only">
+                Type an expense
+              </label>
+              <input
+                id="expense-input"
+                autoComplete="off"
+                value={expenseDraft}
+                onChange={(event) => setExpenseDraft(event.target.value)}
+                placeholder="Type an expense"
+                className="min-w-0 flex-1 rounded-full border border-[#0F172A]/15 bg-white border border-[#0F172A]/10 px-5 py-3 text-[16px] text-[#0F172A] backdrop-blur placeholder:text-[#64748B] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]"
+              />
+              <button type="submit" className="rounded-full bg-[#0F172A] text-white px-5 py-3 font-display text-[14px] font-semibold  focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
+                Send
+              </button>
+            </form>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {money.expenseChips.map((chip) => (
+                <button key={chip} type="button" onClick={() => sendExpense(chip)} className="rounded-full bg-white border border-[#0F172A]/10 px-3 py-1.5 text-[13px] text-[#334155] transition-colors hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
+                  {chip}
+                </button>
+              ))}
+            </div>
+            <p aria-live="polite" data-testid="expense-note" className="mt-3 min-h-[2.8em] text-[14px] leading-[1.4] text-[#475569]">
+              {expenseNote}
+            </p>
+          </div>
+        </div>
+
+        <div ref={setPanel("settle")} className={panelClass} style={{ opacity: 0 }}>
+          <div className="max-w-[31rem]">
+            <Status live>Split &amp; Wallet: live today</Status>
+            <h2 className={`${headline} mt-5 text-[clamp(2.5rem,5.4vw,4.75rem)] leading-[1.01]`}>Six debts. Two payments.</h2>
+            <p className={body}>PayaGo untangles who owes whom into the fewest payments. If someone&apos;s slow, tap Ask for me and the reminder comes from PayaGo, not from you.</p>
+          </div>
+        </div>
+
+        <div ref={setPanel("own")} className={panelClass} style={{ opacity: 0 }}>
+          <div className="max-w-[31rem]">
+            <Status live>Split &amp; Wallet: live today</Status>
+            <h2 className={`${headline} mt-5 text-[clamp(2.5rem,5.4vw,4.75rem)] leading-[1.01]`}>Your own money, a few seconds a day.</h2>
+            <p className={body}>Paste a bank message, say what it was, and close your day. Ask Can I buy this? and get a straight answer. If PayaGo doesn&apos;t know yet, it says so.</p>
+            <p className="mt-6 font-display text-[clamp(2rem,3.4vw,2.75rem)] font-semibold tabular-nums tracking-[-0.03em] text-[#6D4AE8]">
+              {money.leftToday} <span className="text-[0.55em] font-medium text-[#334155]">left for today</span>
+            </p>
+          </div>
+        </div>
+
+        <div ref={setPanel("app")} className={panelClass} style={{ opacity: 0 }}>
+          <div className="max-w-[31rem]">
+            <Status live>Live today</Status>
+            <h2 className={`${headline} mt-5 text-[clamp(2.5rem,5.4vw,4.75rem)] leading-[1.01]`}>This is the real app.</h2>
+            <p className={body}>These are real screens from Flat 3B, the example group inside PayaGo. Look around it yourself, with no sign-up.</p>
+            <ul className="mt-5 flex flex-wrap gap-2">
+              {APP_SCREENS.map((name, i) => (
+                <li
+                  key={name}
+                  ref={(el) => {
+                    screenTabs.current[i] = el
+                  }}
+                  data-active={i === 0 ? "true" : "false"}
+                  className="rounded-full border border-[#0F172A]/15 px-3 py-1.5 text-[13px] text-[#475569] data-[active=true]:border-[#7C5CFF] data-[active=true]:text-[#6D4AE8]"
+                >
+                  {name}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <a href={APP_URL} className="rounded-full bg-gradient-to-r from-[#2563EB] to-[#7C3AED] text-white transition-opacity hover:opacity-90 px-7 py-3.5 font-display text-[15px] font-semibold    focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
+                See an example group
+              </a>
+              <a href={PLAY_URL} className="font-display text-[15px] font-semibold text-[#0F172A] underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7C5CFF]">
+                Get it on Google Play
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div ref={setPanel("cards")} className={panelClass} style={{ opacity: 0 }}>
+          <div className="max-w-[31rem]">
+            <Status live={false}>Split &amp; Wallet: cards coming next</Status>
+            <h2 className={`${headline} mt-5 text-[clamp(2.5rem,5.4vw,4.75rem)] leading-[1.01]`}>One wallet. A card each.</h2>
+            <p className={body}>Add money to a shared wallet, pay with your own PayaGo card, and every payment splits itself. PayaGo Business gives each person on your team an allowance you can see live.</p>
+            <a href="/contact/" className="mt-5 inline-block font-display text-[15px] font-semibold text-[#6D4AE8] underline-offset-4 hover:underline">
+              Tell us you&apos;re interested
+            </a>
+          </div>
+        </div>
+
+        <nav aria-label="Journey" className="absolute right-6 top-1/2 hidden -translate-y-1/2 flex-col items-end gap-4 rounded-2xl bg-white/80 p-3 backdrop-blur-md lg:flex">
           {PILLARS.map(({ first, label, status }) => (
             <a
               key={label}

@@ -2,6 +2,7 @@ import Link from "next/link"
 
 import { HomeNav } from "@/components/home/home-nav"
 import { Journey } from "@/components/home/journey"
+import { AppShowcase } from "@/components/home/app-showcase"
 import { PLAY_URL } from "@/lib/local-money"
 import { SiteFooter } from "@/components/site/site-footer"
 
@@ -33,6 +34,7 @@ export function HomePage() {
       <HomeNav appUrl={APP_URL} />
       <main className="pg-flush">
         <Journey />
+        <AppShowcase />
 
         <section className="bg-[#FAFAF8] px-6 py-24 lg:py-32">
           <div className="mx-auto max-w-7xl">

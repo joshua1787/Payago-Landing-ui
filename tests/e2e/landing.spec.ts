@@ -214,9 +214,13 @@ test("the delete account page says how, and what is kept", async ({ page }) => {
   await expect(page.getByRole("link", { name: "privacy@payago.in" })).toHaveAttribute("href", /^mailto:privacy@payago\.in/)
 })
 
-test("split and wallet get the same share of the journey as trips", async () => {
-  const { CHAPTERS } = await import("../../lib/universe/chapters")
-  expect(CHAPTERS.cards[1] - CHAPTERS.type[0]).toBeCloseTo(CHAPTERS.guide[1] - CHAPTERS.trips[0])
+test("trips come first and get the biggest share of the journey, with split and wallet still in it", async ({ page }) => {
+  await page.goto("/")
+  const top = (name: string) => page.evaluate((id) => document.getElementById(id)?.getBoundingClientRect().top ?? -1, `chapter-${name}`)
+  const [trips, guide, type, cards] = [await top("trips"), await top("guide"), await top("type"), await top("cards")]
+  expect(trips).toBeLessThan(type)
+  expect(guide - trips).toBeGreaterThan(cards - type)
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Plan every trip.")
 })
 
 test("a trip for 3 stays a trip for 3, with or without the word people", async ({ page }) => {
