@@ -319,3 +319,68 @@ test("how it works shows money in the visitor's own currency", async ({ browser 
   await expect(ukPage.getByText("£24 left for today")).toBeVisible()
   await uk.close()
 })
+
+test("the command centre leads with real people and moves a deal through the pipeline", async ({ page }) => {
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "*",
+    "Access-Control-Allow-Methods": "*",
+  }
+  const stages = {
+    investor: ["target", "contacted", "meeting", "diligence", "committed", "closed", "passed"],
+    business: ["target", "contacted", "demo", "loi_signed", "pilot", "paying", "lost"],
+  }
+  const deal = {
+    id: 3, kind: "investor", name: "SFC Capital", contact: "", stage: "target", amount_minor: 15000000, currency: "GBP",
+    owner: "Kishore", next_step: "", next_step_on: null, notes: "", updated_at: "2026-11-07T10:00:00Z",
+  }
+  const moves: string[] = []
+  await page.route("**/api/v1/**", async (route) => {
+    const request = route.request()
+    const url = request.url()
+    if (request.method() === "OPTIONS") return route.fulfill({ status: 204, headers })
+    if (url.endsWith("/auth/email-otp/verify")) return route.fulfill({ json: { access_token: "t" }, headers })
+    if (url.endsWith("/admin/ops/pipeline/3") && request.method() === "PUT") {
+      const body = request.postDataJSON()
+      moves.push(body.stage)
+      deal.stage = body.stage
+      return route.fulfill({ json: deal, headers })
+    }
+    if (url.endsWith("/admin/ops/pipeline")) return route.fulfill({ json: { deals: [deal] }, headers })
+    if (url.endsWith("/admin/ops/overview")) {
+      return route.fulfill({
+        headers,
+        json: {
+          generated_at: "2026-11-07T10:00:00Z",
+          real_user_rule_excluded_domains: ["example.com"],
+          users: { real: 93, all_accounts: 153, new_today: 0, new_7d: 13, new_30d: 29, new_prev_30d: 55, weekly_active: 3, monthly_active: 13, prev_weekly_active: 2, ever_active: 35, suspended: 0 },
+          funnel: { signed_up: 93, joined_group: 37, sent_message: 35, added_expense: 28 },
+          daily: [{ day: "2026-11-06", sign_ups: 1, active: 1 }, { day: "2026-11-07", sign_ups: 0, active: 0 }],
+          cohorts: [{ week: "2026-11-02", size: 13, activated: 2, returned: 0 }],
+          groups: { total: 52, active_30d: 8, by_currency: [{ currency: "INR", groups: 49, active_30d: 7 }] },
+          money: { expenses_30d: 104, expenses_ever: 104, by_currency_30d: [{ currency: "INR", expenses: 104, total_minor: 110449800 }] },
+          waitlist: { total: 88, new_30d: 2 },
+          health: { database_bytes: 18086935, migration_version: 58, migration_dirty: false, open_reports: 0, oldest_open_report_at: null, server_time: "2026-11-07T10:00:00Z" },
+          cash: [],
+          pipeline: { investor: stages.investor.map((stage) => ({ stage, count: 0, amount_minor: 0 })), business: stages.business.map((stage) => ({ stage, count: 0, amount_minor: 0 })) },
+          stages,
+        },
+      })
+    }
+    return route.fulfill({ json: {}, headers })
+  })
+
+  await page.goto("/admin/command/")
+  await page.getByRole("button", { name: "Email me a code" }).click()
+  await page.getByLabel("Code from your email").fill("123456")
+  await page.getByRole("button", { name: "Sign in" }).click()
+
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "93 real people have signed up. 3 of them posted in a group this week, up from 2 the week before.",
+  )
+  await expect(page.getByText("Deck says 500+ users")).toBeVisible()
+
+  await page.getByRole("tab", { name: "Pipeline" }).click()
+  await page.getByRole("button", { name: "Move to Contacted" }).click()
+  await expect.poll(() => moves).toEqual(["contacted"])
+})

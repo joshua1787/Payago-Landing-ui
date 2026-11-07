@@ -19,9 +19,14 @@ function isScanFlowPath(pathname: string | null) {
     return normalized === "/qr" || normalized === "/early-access"
 }
 
+// Staff-only pages carry no analytics, so there's nothing to consent to.
+function isAdminPath(pathname: string | null) {
+    return normalizePathname(pathname)?.startsWith("/admin") ?? false
+}
+
 export function CookieBanner() {
     const pathname = usePathname()
-    const isScanFlow = isScanFlowPath(pathname)
+    const isScanFlow = isScanFlowPath(pathname) || isAdminPath(pathname)
     const [show, setShow] = useState(false)
 
     useEffect(() => {
