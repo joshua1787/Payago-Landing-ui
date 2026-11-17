@@ -57,6 +57,7 @@ export type Overview = {
   users: {
     real: number
     all_accounts: number
+    demo_cohort_accounts?: number
     new_today: number
     new_7d: number
     new_30d: number
