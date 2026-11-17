@@ -48,9 +48,6 @@ function Headline({ o }: { o: Overview }) {
       <p className="mt-4 text-[16px] leading-relaxed text-[#475569]">
         {count(u.new_7d)} joined in the last 7 days and {count(u.new_30d)} in the last 30 ({change(u.new_30d, u.new_prev_30d, "the 30 days before")}).
         There are {count(u.all_accounts)} accounts in total; the other {count(u.all_accounts - u.real)} are test and team accounts.
-        {(u.demo_cohort_accounts ?? 0) > 0 && (
-          <> A further {count(u.demo_cohort_accounts ?? 0)} private demo accounts exist for demonstrations; they are not customers and are not in any figure on this page.</>
-        )}
       </p>
     </div>
   )
@@ -137,12 +134,11 @@ function UsersTab({ o }: { o: Overview }) {
           </table>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <Tile label="Waitlist" value={count(o.waitlist.total)} note={`${count(o.waitlist.new_30d)} in the last 30 days`} />
         <Tile label="Ever posted" value={count(o.users.ever_active)} note={`${pct(o.users.ever_active, o.users.real)}% of real people`} />
         <Tile label="Suspended" value={count(o.users.suspended)} />
         <Tile label="All accounts" value={count(o.users.all_accounts)} note="including test and team" />
-        <Tile label="Demo accounts" value={count(o.users.demo_cohort_accounts ?? 0)} note="private demo cohort, not customers" />
       </div>
       <p className="text-[13px] text-[#64748B]">Real people are every account except these email domains: {o.real_user_rule_excluded_domains.join(", ")}.</p>
     </div>
